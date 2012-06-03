@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+
+<database name="persistence" defaultIdMethod="native">
+       
+    <table name="report" description="a report">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="responder" type="varchar" size="100" description=""/>
+        <column name="call_date" type="timestamp" description=""/>
+        <column name="call_from" type="varchar" size="100" description=""/>
+        <column name="caller_name" type="varchar" size="100" description=""/>
+        <column name="caller_phone_number" type="varchar" size="100" description=""/>
+        <column name="call_location" type="varchar" size="100" description=""/>
+        <column name="call_species" type="varchar" size="100" description=""/>
+        <column name="when_first_seen" type="varchar" size="100" description=""/>
+        <column name="call_comments" type="LONGVARCHAR" description=""/>
+        <column name="call_referred_to" type="varchar" size="100" description=""/>
+        <column name="call_condition" type="varchar" size="100" description=""/>
+        <column name="investigator_support" type="varchar" size="100" description=""/>
+        <column name="investigation_date" type="timestamp" description=""/>
+        <column name="investigation_lat_lon_location" type="varchar" size="100" description=""/>
+        <column name="investigation_physical_location" type="varchar" size="100" description=""/>
+        <column name="investigation_species" type="varchar" size="100" description=""/>
+        <column name="animal_not_found" type="boolean" description=""/> 
+        <column name="investigation_condition" type="varchar" size="100" description=""/>
+        <column name="tags" type="varchar" size="100" description=""/>
+        <column name="disposition" type="varchar" size="100" description=""/>
+        <column name="seal_pickup" type="varchar" size="100" description=""/>
+        <column name="sex" type="varchar" size="100" description=""/>
+        <column name="weight" type="DOUBLE" description=""/>
+        <column name="straight_length" type="DOUBLE" description=""/>
+        <column name="contour_length" type="DOUBLE" description=""/>
+        <column name="girth" type="DOUBLE" description=""/>
+        <column name="investigation_comments" type="LONGVARCHAR" description=""/>
+        <column name="is_photo_taken" type="boolean" description=""/> 
+        <column name="volunteer_id" type="integer" required="true" description=""/> 
+        <foreign-key foreignTable="volunteer">
+            <reference local="volunteer_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    
+    <table name="report_comments" description="comments on a report">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="index" type="integer" required="true" description="order"/>
+        <column name="comments" type="LONGVARCHAR" description=""/>
+        <column name="report_id" type="integer" required="true" description=""/> 
+        <foreign-key foreignTable="report">
+            <reference local="report_id" foreign="id"/>
+        </foreign-key>
+        <column name="volunteer_id" type="integer" required="true" description=""/> 
+        <foreign-key foreignTable="volunteer">
+            <reference local="volunteer_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    
+    <table name="blog_entry" description="attachments to a report">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="title" type="varchar" size="100" description="title of the blog entry"/>
+        <column name="message" type="LONGVARCHAR" description=""/>
+        <column name="date" type="timestamp" required="true" description="date"/>
+    </table>
+    
+    <table name="blog_entry_comments" description="comments on a blog entry">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="index" type="integer" required="true" description="order"/>
+        <column name="comments" type="LONGVARCHAR" description=""/>
+        
+        <column name="blog_entry_id" type="integer" required="true" description=""/> 
+        <foreign-key foreignTable="blog_entry">
+            <reference local="blog_entry_id" foreign="id"/>
+        </foreign-key>
+        
+        <column name="volunteer_id" type="integer" required="true" description=""/> 
+        <foreign-key foreignTable="volunteer">
+            <reference local="volunteer_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    
+    <table name="attachment" description="attachments to a report">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="file_name" type="varchar" size="100" description="the name of the file"/>
+        <column name="comments" type="LONGVARCHAR" description=""/>
+        <column name="report_id" type="integer" required="true" description=""/> 
+        <foreign-key foreignTable="report">
+            <reference local="report_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    
+    <table name="volunteer" description="a volunteer">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="first_name" type="varchar" size="100" description=""/>
+        <column name="last_name" type="varchar" size="100" description=""/>
+        <column name="city" type="varchar" size="100" description=""/>
+        <column name="state" type="varchar" size="100" description=""/>
+        <column name="zip" type="varchar" size="100" description=""/>
+        <column name="streetAddress" type="varchar" size="100" description=""/>
+        <column name="vehicle" type="varchar" size="100" description=""/>
+        <column name="island" type="varchar" size="100" description=""/>
+        <column name="email" type="varchar" size="100" description=""/>
+        <column name="training" type="varchar" size="100" description=""/>
+        <column name="comments" type="LONGVARCHAR" description=""/>
+        <column name="phoneNumber" type="varchar" size="100" description=""/>
+        <column name="sunday_from_hour" type="integer" description=""/>
+        <column name="monday_from_hour" type="integer" description=""/>
+        <column name="tuesday_from_hour" type="integer" description=""/>
+        <column name="wednesday_from_hour" type="integer" description=""/>
+        <column name="thursday_from_hour" type="integer" description=""/>
+        <column name="friday_from_hour" type="integer" description=""/>
+        <column name="saturday_from_hour" type="integer" description=""/>
+        <column name="sunday_to_hour" type="integer" description=""/>
+        <column name="monday_to_hour" type="integer" description=""/>
+        <column name="tuesday_to_hour" type="integer" description=""/>
+        <column name="wednesday_to_hour" type="integer" description=""/>
+        <column name="thursday_to_hour" type="integer" description=""/>
+        <column name="friday_to_hour" type="integer" description=""/>
+        <column name="saturday_to_hour" type="integer" description=""/>
+        <column name="sunday_any_time" type="boolean" description=""/>
+        <column name="monday_any_time" type="boolean" description=""/> 
+        <column name="tuesday_any_time" type="boolean" description=""/> 
+        <column name="wednesday_any_time" type="boolean" description=""/> 
+        <column name="thursday_any_time" type="boolean" description=""/> 
+        <column name="friday_any_time" type="boolean" description=""/> 
+        <column name="saturday_any_time" type="boolean" description=""/> 
+        <column name="sunday_no_time" type="boolean" description=""/> 
+        <column name="monday_no_time" type="boolean" description=""/> 
+        <column name="tuesday_no_time" type="boolean" description=""/> 
+        <column name="wednesday_no_time" type="boolean" description=""/> 
+        <column name="thursday_no_time" type="boolean" description=""/> 
+        <column name="friday_no_time" type="boolean" description=""/> 
+        <column name="saturday_no_time" type="boolean" description=""/> 
+    </table>
+    
+    <table name="volunteer_hours" description="a volunteer">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="total_hours" type="DOUBLE" description=""/>
+        <column name="mileage" type="integer" description=""/>
+        <column name="comments" type="LONGVARCHAR" description=""/>
+        <column name="day_of_month" type="integer" description=""/>
+        <column name="month" type="integer" description=""/>
+        <column name="year" type="integer" description=""/>
+        <column name="volunteer_id" type="integer" required="true" description=""/> 
+        <foreign-key foreignTable="volunteer">
+            <reference local="volunteer_id" foreign="id"/>
+        </foreign-key>
+    </table>
+</database>
