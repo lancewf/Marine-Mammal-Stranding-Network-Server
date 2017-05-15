@@ -9,9 +9,9 @@ $conf = array (
       'adapter' => 'mysql',
       'connection' => 
       array (
-        'dsn' => 'mysql:host=localhost;dbname=mmsn',
-        'user' => 'phpuser',
-        'password' => 'uJvQadbYwcBc3W3J',
+        'dsn' => 'mysql:host=;dbname=sjcmmsn',
+        'user' => 'sjcmmsn',
+        'password' => 'yDjfS8Ku8SxRf43Y',
       ),
     ),
     'default' => 'persistence',

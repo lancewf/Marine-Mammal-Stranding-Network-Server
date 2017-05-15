@@ -24,12 +24,23 @@ class Services extends Controller
 		$this->load->model('attachment_model');
 		$this->load->model('blog_model');
 
-		$this->load->helper(array('form', 'url'));
+		$this->load->helper(array('form', 'url', 'dompdf', 'file'));
 	}
 	
 	// -------------------------------------------------------------------------
 	// Public Members
 	// -------------------------------------------------------------------------
+
+	public function getPdfOfReport()
+	{
+		$reports = $this->report_model->getReports();
+		$report = $reports[20];
+
+		$data = array('report' =>$report);
+		$html = $this->load->view('pdf', $data, true);
+		
+		pdf_create($html, 'report');
+	}
 
 	public function photoUpload()
 	{
@@ -246,7 +257,7 @@ class Services extends Controller
 	// -------------------------------------------------------------------------
 	// Public Report Members
 	// -------------------------------------------------------------------------
-
+	
 	public function updateReport()
 	{
 		$json = $this->input->get_post('json');
@@ -274,9 +285,8 @@ class Services extends Controller
 
 	public function getReports()
 	{
-		
 		$reports = $this->report_model->getReports();
-		
+
 		$collection = array ();
 
 		foreach($reports as $report)

@@ -72,9 +72,9 @@ class Volunteer_model extends Model
 	{		
 		$this->load->library('email');
 		
-		$this->email->from('mmsn@sanjuancountymmsn.com', 'San Juan County MMSN');
+		$this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
 		
-		$this->email->to('amy@whalemuseum.org'); 
+		$this->email->to('jennifer@whalemuseum.org'); 
 		//$this->email->to('coasterq@gmail.com'); 
 
 		$this->email->bcc($this->getListOfEmailAddresses());

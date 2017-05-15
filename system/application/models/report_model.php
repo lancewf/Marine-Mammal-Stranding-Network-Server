@@ -10,8 +10,8 @@ class Report_model extends Model
 		parent::Model();
 
 		require_once('persistence/Report.php');
-	    	require_once('persistence/ReportQuery.php');
-		$this->load->helper('dompdf');
+	        require_once('persistence/ReportQuery.php');
+                $this->load->helper(array('dompdf', 'file'));
 	}
 	
 	// -------------------------------------------------------------------------
@@ -37,28 +37,46 @@ class Report_model extends Model
 	
 	public function updateReport($reportData)
 	{
-		$id = $reportData['id'];
-		
-		$report = ReportQuery::create()->findPk($id);
-		
-		$this->fillReport($report, $reportData);
-		
-		$report->save();
 
-		$this->sendUpdatedReportAlert($report, $reportData);
+		if($this->goodReportData($reportData)) 
+		{
+			$id = $reportData['id'];
+		
+			$report = ReportQuery::create()->findPk($id);
+		
+			$this->fillReport($report, $reportData);
+		
+			$report->save();
+
+			$this->sendUpdatedReportAlert($report, $reportData);
+			
+			echo "Success";
+		}
+		else
+		{ 
+                        $id = $reportData['id'];
+			$this->sendErrorAlert("Error in updating a report. id: " . $id);
+			echo "Failure";
+		}
 	}
 	
 	public function addReport($reportData)
 	{	
-		$report = new Report();
-		
-		$this->fillReport($report, $reportData);
-		
-		$report->save();
+		if($this->goodReportData($reportData)) {
 
-		echo $report->getId();
+			$report = new Report();
+			$this->fillReport($report, $reportData);
 		
-		$this->sendNewReportAlert($report, $reportData);
+			$report->save();
+
+			echo $report->getId();
+		
+			$this->sendNewReportAlert($report, $reportData);
+		}
+		else{
+			$this->sendErrorAlert("Error in adding a report");
+			echo -1;
+		}
 	}
 	
 	// -------------------------------------------------------------------------
@@ -79,19 +97,46 @@ class Report_model extends Model
 		
 		$this->load->library('email');
 
-		$this->email->from('mmsn@sanjuancountymmsn.com', 'San Juan County MMSN');
+		$this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
 		  
-		//$this->email->to('amy@whalemuseum.org'); 
-		$this->email->to('lancewf@gmail.com'); 
+		$this->email->to('jennifer@whalemuseum.org'); 
+		//$this->email->to('lancewf@gmail.com'); 
 		$this->email->bcc('lancewf@gmail.com');
 		
 		$this->email->subject('Notice of Update to MMSN Report');
-		$this->email->message($message);	
+		$this->email->message($message);
 
-		$filePath = $this->createAttachment($report);
+                $filePath = $this->createAttachment($report);
+                $this->email->attach($filePath);
 
 		$this->email->send();
-	}	
+	}
+
+	private function sendErrorAlert($message)
+	{
+		$this->load->library('email');
+
+		$this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
+		  
+		$this->email->to('lancewf@gmail.com'); 
+		
+		$this->email->subject('Notice of Error to MMSN Report');
+		$this->email->message($message);
+
+		$this->email->send();
+	}
+
+        private function createAttachment($report)
+        {
+  		$data = array('report' =>$report);
+		$html = $this->load->view('pdf', $data, true);
+		
+		$data = pdf_create($html, '', false);
+		$name = uniqid();
+		write_file("pdf/" . $name . ".pdf", $data);
+
+                return "pdf/" . $name . ".pdf";
+        }
 
 	private function sendNewReportAlert($report, $reportData)
 	{
@@ -107,29 +152,19 @@ class Report_model extends Model
 		
 		$this->load->library('email');
 
-		$this->email->from('mmsn@sanjuancountymmsn.com', 'San Juan County MMSN');
+		$this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
 		
-		//$this->email->to('amy@whalemuseum.org'); 
-		$this->email->to('lancewf@gmail.com'); 
+		$this->email->to('jennifer@whalemuseum.org'); 
+		//$this->email->to('lancewf@gmail.com'); 
 		$this->email->bcc('lancewf@gmail.com');
-		
+	
 		$this->email->subject('New MMSN Report created');
-		$this->email->message($message);	
+		$this->email->message($message);
 
-		$filePath = $this->createAttachment($report);
-		
-		$this->email->attach($filePath);
+                $filePath = $this->createAttachment($report);
+                $this->email->attach($filePath);
 
 		$this->email->send();
-	}
-
-	private function createAttachment($report)
-	{
-                $data = pdf_create("Hello World", '', false);
-                $name = uniqid();
-                write_file("pdf/" . $name . ".pdf", $data);
-		 
-                return "pdf/" . $name . ".pdf";
 	}
 	
 	private function getWrittenBy($report)
@@ -149,6 +184,57 @@ class Report_model extends Model
 		return $writtenBy;
 	}
 	
+        private function goodReportData($reportData)
+	{
+
+		if(array_key_exists('volunteer_id', $reportData) and 
+                   array_key_exists('responder', $reportData) and			
+                   array_key_exists('call_date_hour', $reportData) and			
+                   array_key_exists('call_date_minute', $reportData) and			
+                   array_key_exists('call_date_month', $reportData) and			
+                   array_key_exists('call_date_dayofmonth', $reportData) and			
+                   array_key_exists('call_date_year', $reportData) and			
+                   array_key_exists('call_from', $reportData) and			
+                   array_key_exists('caller_name', $reportData) and			
+                   array_key_exists('caller_phone_number', $reportData) and			
+                   array_key_exists('call_location', $reportData) and			
+                   array_key_exists('call_species', $reportData) and			
+                   array_key_exists('when_first_seen', $reportData) and			
+                   array_key_exists('call_comments', $reportData) and			
+                   array_key_exists('call_referred_to', $reportData) and			
+                   array_key_exists('call_condition', $reportData) and			
+                   array_key_exists('investigation_date_hour', $reportData) and			
+                   array_key_exists('investigation_date_minute', $reportData) and			
+                   array_key_exists('investigation_date_month', $reportData) and			
+                   array_key_exists('investigation_date_dayofmonth', $reportData) and			
+                   array_key_exists('investigation_date_year', $reportData) and			
+                   array_key_exists('investigator_support', $reportData) and			
+                   array_key_exists('investigation_lat_lon_location', $reportData) and			
+                   array_key_exists('investigation_physical_location', $reportData) and			
+                   array_key_exists('investigation_species', $reportData) and			
+                   array_key_exists('animal_not_found', $reportData) and			
+                   array_key_exists('investigation_condition', $reportData) and			
+                   array_key_exists('tags', $reportData) and			
+                   array_key_exists('disposition', $reportData) and			
+                   array_key_exists('seal_pickup', $reportData) and			
+                   array_key_exists('sex', $reportData) and			
+                   array_key_exists('weight', $reportData) and			
+                   array_key_exists('straight_length', $reportData) and			
+                   array_key_exists('contour_length', $reportData) and			
+                   array_key_exists('girth', $reportData) and			
+                   array_key_exists('investigation_comments', $reportData) and			
+                   array_key_exists('is_photo_taken', $reportData))	
+		{
+
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
 	private function fillReport($report, $reportData)
 	{
 		$report->setVolunteerId($reportData['volunteer_id']);
