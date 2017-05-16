@@ -199,6 +199,12 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	protected $is_photo_taken;
 
 	/**
+	 * The value for the is_con_sick field.
+	 * @var        boolean
+	 */
+	protected $is_con_sick;
+
+	/**
 	 * The value for the volunteer_id field.
 	 * @var        int
 	 */
@@ -577,6 +583,16 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	public function getIsPhotoTaken()
 	{
 		return $this->is_photo_taken;
+	}
+
+	/**
+	 * Get the [is_con_sick] column value.
+	 * 
+	 * @return     boolean
+	 */
+	public function getIsConSick()
+	{
+		return $this->is_con_sick;
 	}
 
 	/**
@@ -1227,6 +1243,27 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		return $this;
 	} // setIsPhotoTaken()
 
+
+	/**
+	 * Set the value of [is_con_sick] column.
+	 * 
+	 * @param      boolean $v new value
+	 * @return     Report The current object (for fluent API support)
+	 */
+	public function setIsConSick($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_sick !== $v) {
+			$this->is_con_sick = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_SICK;
+		}
+
+		return $this;
+	} // setIsConSick()
+
 	/**
 	 * Set the value of [volunteer_id] column.
 	 * 
@@ -1313,6 +1350,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 			$this->investigation_comments = ($row[$startcol + 27] !== null) ? (string) $row[$startcol + 27] : null;
 			$this->is_photo_taken = ($row[$startcol + 28] !== null) ? (boolean) $row[$startcol + 28] : null;
 			$this->volunteer_id = ($row[$startcol + 29] !== null) ? (int) $row[$startcol + 29] : null;
+			$this->is_con_sick = ($row[$startcol + 30] !== null) ? (boolean) $row[$startcol + 30] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -2049,6 +2087,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if ($this->isColumnModified(ReportPeer::INVESTIGATION_COMMENTS)) $criteria->add(ReportPeer::INVESTIGATION_COMMENTS, $this->investigation_comments);
 		if ($this->isColumnModified(ReportPeer::IS_PHOTO_TAKEN)) $criteria->add(ReportPeer::IS_PHOTO_TAKEN, $this->is_photo_taken);
 		if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) $criteria->add(ReportPeer::VOLUNTEER_ID, $this->volunteer_id);
+		if ($this->isColumnModified(ReportPeer::IS_CON_SICK)) $criteria->add(ReportPeer::IS_CON_SICK, $this->is_con_sick);
 
 		return $criteria;
 	}
@@ -2139,6 +2178,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		$copyObj->setInvestigationComments($this->investigation_comments);
 		$copyObj->setIsPhotoTaken($this->is_photo_taken);
 		$copyObj->setVolunteerId($this->volunteer_id);
+		$copyObj->setIsConSick($this->is_con_sick);
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -2528,6 +2568,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		$this->girth = null;
 		$this->investigation_comments = null;
 		$this->is_photo_taken = null;
+		$this->is_con_sick = null;
 		$this->volunteer_id = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;

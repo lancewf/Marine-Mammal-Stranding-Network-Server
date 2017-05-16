@@ -67,6 +67,7 @@ class ReportTableMap extends TableMap {
 		$this->addColumn('INVESTIGATION_COMMENTS', 'InvestigationComments', 'LONGVARCHAR', false, null, null);
 		$this->addColumn('IS_PHOTO_TAKEN', 'IsPhotoTaken', 'BOOLEAN', false, null, null);
 		$this->addForeignKey('VOLUNTEER_ID', 'VolunteerId', 'INTEGER', 'volunteer', 'ID', true, null, null);
+		$this->addColumn('IS_CON_SICK', 'IsConSick', 'BOOLEAN', false, null, null);
 		// validators
 	} // initialize()
 

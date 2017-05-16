@@ -60,6 +60,7 @@ class Report extends BaseReport {
         $array_store["girth"] = (double)$this->getGirth();
         $array_store["is_photo_taken"] = (boolean)$this->getIsPhotoTaken();
         $array_store["investigation_comments"] = $this->getInvestigationComments();
+        $array_store["is_con_sick"] = (boolean)$this->getIsConSick();
         
         $attachments = $this->getAttachments();
         
@@ -79,20 +80,20 @@ class Report extends BaseReport {
 	// Private Members
 	// -------------------------------------------------------------------------
 		
-    private function getHour($dateObject)
-    {
+        private function getHour($dateObject)
+        {
 		return date("H", $dateObject);
-    }
+        }
 	
-    private function getMinute($dateObject)
-    {
+        private function getMinute($dateObject)
+        {
 		return date("i", $dateObject);
-    }
+        }
     
-    private function getYear($dateObject)
-    {
+        private function getYear($dateObject)
+        {
 		return date("Y", $dateObject);
-    }
+        }
     
 	private function getDayOfMonth($dateObject)
 	{		
