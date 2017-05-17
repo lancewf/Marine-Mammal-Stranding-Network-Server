@@ -68,6 +68,26 @@ class ReportTableMap extends TableMap {
 		$this->addColumn('IS_PHOTO_TAKEN', 'IsPhotoTaken', 'BOOLEAN', false, null, null);
 		$this->addForeignKey('VOLUNTEER_ID', 'VolunteerId', 'INTEGER', 'volunteer', 'ID', true, null, null);
 		$this->addColumn('IS_CON_SICK', 'IsConSick', 'BOOLEAN', false, null, null);
+
+
+		$this->addColumn('IS_CON_INJURED', 'IsConInjured', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_OUT_OF_HABITAT', 'IsConOutOfHabitat', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_DEEMED_RELEASABLE', 'IsConDeemedReleasable', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_ABANDONED', 'IsConAbandoned', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_INACCESSIBLE', 'IsConInaccessible', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_LOCATION_HAZARD_TO_ANIMAL', 'IsConLocationHazardToAnimal', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_LOCATION_HAZARD_TO_HUMANS', 'IsConLocationHazardToHumans', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_UNKNOWN', 'IsConUnknown', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_CON_OTHER', 'IsConOther', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_LEFT_AT_SITE', 'IsActionLeftAtSite', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_IMMEDIATE_RELEASE_AT_SITE', 'IsActionImmediateReleaseAtSite', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_RELOCATED', 'IsActionRelocated', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_DIED_AT_SITE', 'IsActionDiedAtSite', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_DIED_DURING_TRANSPORT', 'IsActionDiedDuringTransport', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_EUTHANIZED_AT_SITE', 'IsActionEuthanizedAtSite', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_EUTHANIZED_DURING_TRANSPORT', 'IsActionEuthanizedDuringTransport', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_TRANSFERRED_TO_REHAB', 'IsActionTransferredToRehab', 'BOOLEAN', false, null, null);
+		$this->addColumn('IS_ACTION_OTHER', 'IsActionOther', 'BOOLEAN', false, null, null);
 		// validators
 	} // initialize()
 

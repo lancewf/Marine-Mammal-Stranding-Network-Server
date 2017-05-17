@@ -204,6 +204,110 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	 */
 	protected $is_con_sick;
 
+    /**
+	 * The value for the is_con_injured field.
+	 * @var        boolean
+	 */
+	protected $is_con_injured;
+	
+    /**
+	 * The value for the is_con_out_of_habitat field.
+	 * @var        boolean
+	 */
+	protected $is_con_out_of_habitat;
+
+    /**
+	 * The value for the is_con_deemed_releasable field.
+	 * @var        boolean
+	 */
+	protected $is_con_deemed_releasable;
+
+    /**
+	 * The value for the is_con_abandoned field.
+	 * @var        boolean
+	 */
+	protected $is_con_abandoned;
+
+    /**
+	 * The value for the is_con_inaccessible field.
+	 * @var        boolean
+	 */
+	protected $is_con_inaccessible;
+
+    /**
+	 * The value for the is_con_location_hazard_to_animal field.
+	 * @var        boolean
+	 */
+	protected $is_con_location_hazard_to_animal;
+
+    /**
+	 * The value for the is_con_location_hazard_to_humans field.
+	 * @var        boolean
+	 */
+	protected $is_con_location_hazard_to_humans;
+
+    /**
+	 * The value for the is_con_unknown field.
+	 * @var        boolean
+	 */
+	protected $is_con_unknown;
+
+    /**
+	 * The value for the is_con_other field.
+	 * @var        boolean
+	 */
+	protected $is_con_other;
+
+    /**
+	 * The value for the is_action_left_at_site field.
+	 * @var        boolean
+	 */
+	protected $is_action_left_at_site;
+
+    /**
+	 * The value for the is_action_immediate_release_at_site field.
+	 * @var        boolean
+	 */
+	protected $is_action_immediate_release_at_site;
+
+    /**
+	 * The value for the is_action_relocated field.
+	 * @var        boolean
+	 */
+	protected $is_action_relocated;
+
+    /**
+	 * The value for the is_action_died_at_site field.
+	 * @var        boolean
+	 */
+	protected $is_action_died_at_site;
+
+    /**
+	 * The value for the is_action_died_during_transport field.
+	 * @var        boolean
+	 */
+	protected $is_action_died_during_transport;
+
+    /**
+	 * The value for the is_action_euthanized_at_site field.
+	 * @var        boolean
+	 */
+	protected $is_action_euthanized_at_site;
+
+    /**
+	 * The value for the is_action_euthanized_during_transport field.
+	 * @var        boolean
+	 */
+	protected $is_action_euthanized_during_transport;
+
+    /**
+	 * The value for the is_action_transferred_to_rehab field.
+	 * @var        boolean
+	 */
+	protected $is_action_transferred_to_rehab;
+
+	protected $is_action_other;
+
 	/**
 	 * The value for the volunteer_id field.
 	 * @var        int
@@ -585,14 +689,99 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		return $this->is_photo_taken;
 	}
 
-	/**
-	 * Get the [is_con_sick] column value.
-	 * 
-	 * @return     boolean
-	 */
 	public function getIsConSick()
 	{
 		return $this->is_con_sick;
+	}
+
+	public function getIsConInjured()
+	{
+		return $this->is_con_injured;
+	}
+
+	public function getIsConOutOfHabitat()
+	{
+		return $this->is_con_out_of_habitat;
+	}
+
+	public function getIsConDeemedReleasable()
+	{
+		return $this->is_con_deemed_releasable;
+	}
+
+	public function getIsConAbandoned()
+	{
+		return $this->is_con_abandoned;
+	}
+
+	public function getIsConInaccessible()
+	{
+		return $this->is_con_inaccessible;
+	}
+
+	public function getIsConLocationHazardToAnimal()
+	{
+		return $this->is_con_location_hazard_to_animal;
+	}
+
+	public function getIsConLocationHazardToHumans()
+	{
+		return $this->is_con_location_hazard_to_humans;
+	}
+
+	public function getIsConUnknown()
+	{
+		return $this->is_con_unknown;
+	}
+
+	public function getIsConOther()
+	{
+		return $this->is_con_other;
+	}
+
+	public function getIsActionLeftAtSite()
+	{
+		return $this->is_action_left_at_site;
+	}
+
+	public function getIsActionImmediateReleaseAtSite()
+	{
+		return $this->is_action_immediate_release_at_site;
+	}
+
+	public function getIsActionRelocated()
+	{
+		return $this->is_action_relocated;
+	}
+
+	public function getIsActionDiedAtSite()
+	{
+		return $this->is_action_died_at_site;
+	}
+
+	public function getIsActionDiedDuringTransport()
+	{
+		return $this->is_action_died_during_transport;
+	}
+
+	public function getIsActionEuthanizedAtSite()
+	{
+		return $this->is_action_euthanized_at_site;
+	}
+
+	public function getIsActionEuthanizedDuringTransport()
+	{
+		return $this->is_action_euthanized_during_transport;
+	}
+
+	public function getIsActionTransferredToRehab()
+	{
+		return $this->is_action_transferred_to_rehab;
+	}
+
+	public function getIsActionOther()
+	{
+		return $this->is_action_other;
 	}
 
 	/**
@@ -1244,12 +1433,6 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	} // setIsPhotoTaken()
 
 
-	/**
-	 * Set the value of [is_con_sick] column.
-	 * 
-	 * @param      boolean $v new value
-	 * @return     Report The current object (for fluent API support)
-	 */
 	public function setIsConSick($v)
 	{
 		if ($v !== null) {
@@ -1262,7 +1445,259 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	} // setIsConSick()
+	}
+
+	public function setIsConInjured($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_injured !== $v) {
+			$this->is_con_injured = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_INJURED;
+		}
+
+		return $this;
+	}
+
+	public function setIsConOutOfHabitat($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_out_of_habitat !== $v) {
+			$this->is_con_out_of_habitat = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_OUT_OF_HABITAT;
+		}
+
+		return $this;
+	}
+
+	public function setIsConDeemedReleasable($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_deemed_releasable !== $v) {
+			$this->is_con_deemed_releasable = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_DEEMED_RELEASABLE;
+		}
+
+		return $this;
+	}
+
+	public function setIsConAbandoned($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_abandoned !== $v) {
+			$this->is_con_abandoned = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_ABANDONED;
+		}
+
+		return $this;
+	}
+
+	public function setIsConInaccessible($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_inaccessible !== $v) {
+			$this->is_con_inaccessible = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_INACCESSIBLE;
+		}
+
+		return $this;
+	}
+
+	public function setIsConLocationHazardToAnimal($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_location_hazard_to_animal !== $v) {
+			$this->is_con_location_hazard_to_animal = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_LOCATION_HAZARD_TO_ANIMAL;
+		}
+
+		return $this;
+	}
+
+	public function setIsConLocationHazardToHumans($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_location_hazard_to_humans !== $v) {
+			$this->is_con_location_hazard_to_humans = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_LOCATION_HAZARD_TO_HUMANS;
+		}
+
+		return $this;
+	}
+
+	public function setIsConUnknown($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_unknown !== $v) {
+			$this->is_con_unknown = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_UNKNOWN;
+		}
+
+		return $this;
+	}
+
+	public function setIsConOther($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_con_other !== $v) {
+			$this->is_con_other = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_CON_OTHER;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionLeftAtSite($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_left_at_site !== $v) {
+			$this->is_action_left_at_site = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_LEFT_AT_SITE;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionImmediateReleaseAtSite($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_immediate_release_at_site !== $v) {
+			$this->is_action_immediate_release_at_site = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_IMMEDIATE_RELEASE_AT_SITE;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionRelocated($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_relocated !== $v) {
+			$this->is_action_relocated = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_RELOCATED;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionDiedAtSite($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_died_at_site !== $v) {
+			$this->is_action_died_at_site = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_DIED_AT_SITE;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionDiedDuringTransport($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_died_during_transport !== $v) {
+			$this->is_action_died_during_transport = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_DIED_DURING_TRANSPORT;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionEuthanizedAtSite($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_euthanized_at_site !== $v) {
+			$this->is_action_euthanized_at_site = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_EUTHANIZED_AT_SITE;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionEuthanizedDuringTransport($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_euthanized_during_transport !== $v) {
+			$this->is_action_euthanized_during_transport = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionTransferredToRehab($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_transferred_to_rehab !== $v) {
+			$this->is_action_transferred_to_rehab = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB;
+		}
+
+		return $this;
+	}
+
+	public function setIsActionOther($v)
+	{
+		if ($v !== null) {
+			$v = (boolean) $v;
+		}
+
+		if ($this->is_action_other !== $v) {
+			$this->is_action_other = $v;
+			$this->modifiedColumns[] = ReportPeer::IS_ACTION_OTHER;
+		}
+
+		return $this;
+	}
 
 	/**
 	 * Set the value of [volunteer_id] column.
@@ -1351,6 +1786,25 @@ abstract class BaseReport extends BaseObject  implements Persistent
 			$this->is_photo_taken = ($row[$startcol + 28] !== null) ? (boolean) $row[$startcol + 28] : null;
 			$this->volunteer_id = ($row[$startcol + 29] !== null) ? (int) $row[$startcol + 29] : null;
 			$this->is_con_sick = ($row[$startcol + 30] !== null) ? (boolean) $row[$startcol + 30] : null;
+
+			$this->is_con_injured = ($row[$startcol + 31] !== null) ? (boolean) $row[$startcol + 31] : null;
+			$this->is_con_out_of_habitat = ($row[$startcol + 32] !== null) ? (boolean) $row[$startcol + 32] : null;
+			$this->is_con_deemed_releasable = ($row[$startcol + 33] !== null) ? (boolean) $row[$startcol + 33] : null;
+			$this->is_con_abandoned = ($row[$startcol + 34] !== null) ? (boolean) $row[$startcol + 34] : null;
+			$this->is_con_inaccessible = ($row[$startcol + 35] !== null) ? (boolean) $row[$startcol + 35] : null;
+			$this->is_con_location_hazard_to_animal = ($row[$startcol + 36] !== null) ? (boolean) $row[$startcol + 36] : null;
+			$this->is_con_location_hazard_to_humans = ($row[$startcol + 37] !== null) ? (boolean) $row[$startcol + 37] : null;
+			$this->is_con_unknown = ($row[$startcol + 38] !== null) ? (boolean) $row[$startcol + 38] : null;
+			$this->is_con_other = ($row[$startcol + 39] !== null) ? (boolean) $row[$startcol + 39] : null;
+			$this->is_action_left_at_site = ($row[$startcol + 40] !== null) ? (boolean) $row[$startcol + 40] : null;
+			$this->is_action_immediate_release_at_site = ($row[$startcol + 41] !== null) ? (boolean) $row[$startcol + 41] : null;
+			$this->is_action_relocated = ($row[$startcol + 42] !== null) ? (boolean) $row[$startcol + 42] : null;
+			$this->is_action_died_at_site = ($row[$startcol + 43] !== null) ? (boolean) $row[$startcol + 43] : null;
+			$this->is_action_died_during_transport = ($row[$startcol + 44] !== null) ? (boolean) $row[$startcol + 44] : null;
+			$this->is_action_euthanized_at_site = ($row[$startcol + 45] !== null) ? (boolean) $row[$startcol + 45] : null;
+			$this->is_action_euthanized_during_transport = ($row[$startcol + 46] !== null) ? (boolean) $row[$startcol + 46] : null;
+			$this->is_action_transferred_to_rehab = ($row[$startcol + 47] !== null) ? (boolean) $row[$startcol + 47] : null;
+			$this->is_action_other = ($row[$startcol + 48] !== null) ? (boolean) $row[$startcol + 48] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -2088,7 +2542,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if ($this->isColumnModified(ReportPeer::IS_PHOTO_TAKEN)) $criteria->add(ReportPeer::IS_PHOTO_TAKEN, $this->is_photo_taken);
 		if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) $criteria->add(ReportPeer::VOLUNTEER_ID, $this->volunteer_id);
 		if ($this->isColumnModified(ReportPeer::IS_CON_SICK)) $criteria->add(ReportPeer::IS_CON_SICK, $this->is_con_sick);
+		if ($this->isColumnModified(ReportPeer::IS_CON_INJURED)) $criteria->add(ReportPeer::IS_CON_INJURED, $this->is_con_injured);
 
+		if ($this->isColumnModified(ReportPeer::IS_CON_OUT_OF_HABITAT)) $criteria->add(ReportPeer::IS_CON_OUT_OF_HABITAT, $this->is_con_out_of_habitat);
+		if ($this->isColumnModified(ReportPeer::IS_CON_DEEMED_RELEASABLE)) $criteria->add(ReportPeer::IS_CON_DEEMED_RELEASABLE, $this->is_con_deemed_releasable);
+		if ($this->isColumnModified(ReportPeer::IS_CON_ABANDONED)) $criteria->add(ReportPeer::IS_CON_ABANDONED, $this->is_con_abandoned);
+		if ($this->isColumnModified(ReportPeer::IS_CON_INACCESSIBLE)) $criteria->add(ReportPeer::IS_CON_INACCESSIBLE, $this->is_con_inaccessible);
+		if ($this->isColumnModified(ReportPeer::IS_CON_LOCATION_HAZARD_TO_ANIMAL)) $criteria->add(ReportPeer::IS_CON_LOCATION_HAZARD_TO_ANIMAL, $this->is_con_location_hazard_to_animal);
+		if ($this->isColumnModified(ReportPeer::IS_CON_LOCATION_HAZARD_TO_HUMANS)) $criteria->add(ReportPeer::IS_CON_LOCATION_HAZARD_TO_HUMANS, $this->is_con_location_hazard_to_humans);
+		if ($this->isColumnModified(ReportPeer::IS_CON_UNKNOWN)) $criteria->add(ReportPeer::IS_CON_UNKNOWN, $this->is_con_unknown);
+		if ($this->isColumnModified(ReportPeer::IS_CON_OTHER)) $criteria->add(ReportPeer::IS_CON_OTHER, $this->is_con_other);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_LEFT_AT_SITE)) $criteria->add(ReportPeer::IS_ACTION_LEFT_AT_SITE, $this->is_action_left_at_site);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_IMMEDIATE_RELEASE_AT_SITE)) $criteria->add(ReportPeer::IS_ACTION_IMMEDIATE_RELEASE_AT_SITE, $this->is_action_immediate_release_at_site);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_RELOCATED)) $criteria->add(ReportPeer::IS_ACTION_RELOCATED, $this->is_action_relocated);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_DIED_AT_SITE)) $criteria->add(ReportPeer::IS_ACTION_DIED_AT_SITE, $this->is_action_died_at_site);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_DIED_DURING_TRANSPORT)) $criteria->add(ReportPeer::IS_ACTION_DIED_DURING_TRANSPORT, $this->is_action_died_during_transport);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_EUTHANIZED_AT_SITE)) $criteria->add(ReportPeer::IS_ACTION_EUTHANIZED_AT_SITE, $this->is_action_euthanized_at_site);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT)) $criteria->add(ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT, $this->is_action_euthanized_during_transport);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB)) $criteria->add(ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB, $this->is_action_transferred_to_rehab);
+		if ($this->isColumnModified(ReportPeer::IS_ACTION_OTHER)) $criteria->add(ReportPeer::IS_ACTION_OTHER, $this->is_action_other);
+		
 		return $criteria;
 	}
 
