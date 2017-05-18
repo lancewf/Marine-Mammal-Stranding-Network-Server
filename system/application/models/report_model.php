@@ -222,7 +222,26 @@ class Report_model extends Model
                    array_key_exists('straight_length', $reportData) and			
                    array_key_exists('girth', $reportData) and			
                    array_key_exists('investigation_comments', $reportData) and			
-                   array_key_exists('is_photo_taken', $reportData))	
+                   array_key_exists('is_photo_taken', $reportData) and
+				   array_key_exists('is_con_sick', $reportData) and
+				   array_key_exists('is_con_injured', $reportData) and
+				   array_key_exists('is_con_out_of_habitat', $reportData) and
+				   array_key_exists('is_con_deemed_releasable', $reportData) and
+				   array_key_exists('is_con_abandoned', $reportData) and
+				   array_key_exists('is_con_inaccessible', $reportData) and
+				   array_key_exists('is_con_location_hazard_to_animal', $reportData) and
+				   array_key_exists('is_con_location_hazard_to_humans', $reportData) and
+				   array_key_exists('is_con_unknown', $reportData) and
+				   array_key_exists('is_con_other', $reportData) and
+				   array_key_exists('is_action_left_at_site', $reportData) and
+				   array_key_exists('is_action_immediate_release_at_site', $reportData) and
+				   array_key_exists('is_action_relocated', $reportData) and
+				   array_key_exists('is_action_died_at_site', $reportData) and
+				   array_key_exists('is_action_died_during_transport', $reportData) and
+				   array_key_exists('is_action_euthanized_at_site', $reportData) and
+				   array_key_exists('is_action_euthanized_during_transport', $reportData) and
+				   array_key_exists('is_action_transferred_to_rehab', $reportData) and
+				   array_key_exists('is_action_other', $reportData))	
 		{
 
 			return true;
