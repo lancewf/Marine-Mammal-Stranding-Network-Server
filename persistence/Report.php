@@ -60,8 +60,8 @@ class Report extends BaseReport {
         $array_store["girth"] = (double)$this->getGirth();
         $array_store["is_photo_taken"] = (boolean)$this->getIsPhotoTaken();
         $array_store["investigation_comments"] = $this->getInvestigationComments();
-        $array_store["is_con_sick"] = (boolean)$this->getIsConSick();
 
+        $array_store["is_con_sick"] = (boolean)$this->getIsConSick();
         $array_store["is_con_injured"] = (boolean)$this->getIsConInjured();
         $array_store["is_con_out_of_habitat"] = (boolean)$this->getIsConOutOfHabitat();
         $array_store["is_con_deemed_releasable"] = (boolean)$this->getIsConDeemedReleasable();

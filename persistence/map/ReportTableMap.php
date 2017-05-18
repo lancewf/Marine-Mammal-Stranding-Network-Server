@@ -68,8 +68,6 @@ class ReportTableMap extends TableMap {
 		$this->addColumn('IS_PHOTO_TAKEN', 'IsPhotoTaken', 'BOOLEAN', false, null, null);
 		$this->addForeignKey('VOLUNTEER_ID', 'VolunteerId', 'INTEGER', 'volunteer', 'ID', true, null, null);
 		$this->addColumn('IS_CON_SICK', 'IsConSick', 'BOOLEAN', false, null, null);
-
-
 		$this->addColumn('IS_CON_INJURED', 'IsConInjured', 'BOOLEAN', false, null, null);
 		$this->addColumn('IS_CON_OUT_OF_HABITAT', 'IsConOutOfHabitat', 'BOOLEAN', false, null, null);
 		$this->addColumn('IS_CON_DEEMED_RELEASABLE', 'IsConDeemedReleasable', 'BOOLEAN', false, null, null);
