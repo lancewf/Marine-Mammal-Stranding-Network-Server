@@ -21,7 +21,7 @@
  *   <column name="username" type="VARCHAR" size="25" required="true" />
  *
  *   <validator column="username">
- *     <rule name="maxLength" message="Passwort must be at least ${value} characters !" />
+ *     <rule name="maxLength" message="Password must be at least ${value} characters !" />
  *   </validator>
  * </code>
  *
@@ -31,10 +31,16 @@
  */
 class MaxLengthValidator implements BasicValidator
 {
+    /**
+     * @param ValidatorMap $map
+     * @param string       $str
+     *
+     * @return boolean
+     */
+    public function isValid(ValidatorMap $map, $str)
+    {
+        $len = function_exists('mb_strlen') ? mb_strlen($str) : strlen($str);
 
-	public function isValid (ValidatorMap $map, $str)
-	{
-		$len = function_exists('mb_strlen') ? mb_strlen($str) : strlen($str);
-		return $len <= intval($map->getValue());
-	}
+        return $len <= intval($map->getValue());
+    }
 }

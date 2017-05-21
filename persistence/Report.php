@@ -14,20 +14,21 @@
  * @package    propel.generator.persistence
  */
 class Report extends BaseReport {
-	// -------------------------------------------------------------------------
-	// Public Members
-	// -------------------------------------------------------------------------
-		
-	public function toArray()
-	{
-		$array_store = array ();
+// -------------------------------------------------------------------------
+// Public Members
+// -------------------------------------------------------------------------
 
-		$array_store["id"] = (int)$this->getId();
-		$array_store["volunteer_id"] = (int)$this->getVolunteerId();
-		$array_store["responder"] = $this->getResponder();
-    	$array_store["call_date_minute"] = (int)$this->getMinute(strtotime($this->getCallDate()));
+    // TODO update to use the BaseReports toArray
+    public function toArray()
+    {
+        $array_store = array ();
+
+        $array_store["id"] = (int)$this->getId();
+        $array_store["volunteer_id"] = (int)$this->getVolunteerId();
+        $array_store["responder"] = $this->getResponder();
+        $array_store["call_date_minute"] = (int)$this->getMinute(strtotime($this->getCallDate()));
         $array_store["call_date_hour"] = (int)$this->getHour(strtotime($this->getCallDate()));
-		$array_store["call_date_dayofmonth"] = (int)$this->getDayOfMonth(strtotime($this->getCallDate()));
+        $array_store["call_date_dayofmonth"] = (int)$this->getDayOfMonth(strtotime($this->getCallDate()));
         $array_store["call_date_month"] = (int)$this->getMonth(strtotime($this->getCallDate()));
         $array_store["call_date_year"] = (int)$this->getYear(strtotime($this->getCallDate()));
         $array_store["call_from"] = $this->getCallFrom();
@@ -39,10 +40,11 @@ class Report extends BaseReport {
         $array_store["call_comments"] = $this->getCallComments();
         $array_store["call_referred_to"] = $this->getCallReferredTo();
         $array_store["call_condition"] = $this->getCallCondition();
+
         $array_store["investigator_support"] = $this->getInvestigatorSupport();
-    	$array_store["investigation_date_minute"] = (int)$this->getMinute(strtotime($this->getInvestigationDate()));
+        $array_store["investigation_date_minute"] = (int)$this->getMinute(strtotime($this->getInvestigationDate()));
         $array_store["investigation_date_hour"] = (int)$this->getHour(strtotime($this->getInvestigationDate()));
-		$array_store["investigation_date_dayofmonth"] = (int)$this->getDayOfMonth(strtotime($this->getInvestigationDate()));
+        $array_store["investigation_date_dayofmonth"] = (int)$this->getDayOfMonth(strtotime($this->getInvestigationDate()));
         $array_store["investigation_date_month"] = (int)$this->getMonth(strtotime($this->getInvestigationDate()));
         $array_store["investigation_date_year"] = (int)$this->getYear(strtotime($this->getInvestigationDate()));
         $array_store["investigation_lat_lon_location"] = $this->getInvestigationLatLonLocation();
@@ -83,46 +85,46 @@ class Report extends BaseReport {
 
 
         $attachments = $this->getAttachments();
-        
-        $attachemtnsOutput = array ();
-        
-		foreach($attachments as $attachment)
-		{
-			$attachemtnsOutput[] = $attachment->toArray();
-		}
 
-		$array_store["attachments"] = $attachemtnsOutput;
-		
-		return $array_store;
-	}
-	
-	// -------------------------------------------------------------------------
-	// Private Members
-	// -------------------------------------------------------------------------
-		
+        $attachemtnsOutput = array ();
+
+        foreach($attachments as $attachment)
+        {
+           $attachemtnsOutput[] = $attachment->toArray();
+        }
+
+        $array_store["attachments"] = $attachemtnsOutput;
+
+        return $array_store;
+       }
+
+// -------------------------------------------------------------------------
+// Private Members
+// -------------------------------------------------------------------------
+
         private function getHour($dateObject)
         {
-		return date("H", $dateObject);
+          return date("H", $dateObject);
         }
-	
+
         private function getMinute($dateObject)
         {
-		return date("i", $dateObject);
+           return date("i", $dateObject);
         }
     
         private function getYear($dateObject)
         {
-		return date("Y", $dateObject);
+           return date("Y", $dateObject);
         }
-    
-	private function getDayOfMonth($dateObject)
-	{		
-		return date("j", $dateObject);
-	}
 
-	private function getMonth($dateObject)
-	{
-		return date("n", $dateObject);
-	}
-	
-} // Report
+        private function getDayOfMonth($dateObject)
+        {
+           return date("j", $dateObject);
+        }
+
+        private function getMonth($dateObject)
+        {
+           return date("n", $dateObject);
+        }
+
+}
