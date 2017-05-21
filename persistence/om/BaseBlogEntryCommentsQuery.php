@@ -22,13 +22,13 @@
  * @method     BlogEntryCommentsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     BlogEntryCommentsQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     BlogEntryCommentsQuery leftJoinBlogEntry($relationAlias = '') Adds a LEFT JOIN clause to the query using the BlogEntry relation
- * @method     BlogEntryCommentsQuery rightJoinBlogEntry($relationAlias = '') Adds a RIGHT JOIN clause to the query using the BlogEntry relation
- * @method     BlogEntryCommentsQuery innerJoinBlogEntry($relationAlias = '') Adds a INNER JOIN clause to the query using the BlogEntry relation
+ * @method     BlogEntryCommentsQuery leftJoinBlogEntry($relationAlias = null) Adds a LEFT JOIN clause to the query using the BlogEntry relation
+ * @method     BlogEntryCommentsQuery rightJoinBlogEntry($relationAlias = null) Adds a RIGHT JOIN clause to the query using the BlogEntry relation
+ * @method     BlogEntryCommentsQuery innerJoinBlogEntry($relationAlias = null) Adds a INNER JOIN clause to the query using the BlogEntry relation
  *
- * @method     BlogEntryCommentsQuery leftJoinVolunteer($relationAlias = '') Adds a LEFT JOIN clause to the query using the Volunteer relation
- * @method     BlogEntryCommentsQuery rightJoinVolunteer($relationAlias = '') Adds a RIGHT JOIN clause to the query using the Volunteer relation
- * @method     BlogEntryCommentsQuery innerJoinVolunteer($relationAlias = '') Adds a INNER JOIN clause to the query using the Volunteer relation
+ * @method     BlogEntryCommentsQuery leftJoinVolunteer($relationAlias = null) Adds a LEFT JOIN clause to the query using the Volunteer relation
+ * @method     BlogEntryCommentsQuery rightJoinVolunteer($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Volunteer relation
+ * @method     BlogEntryCommentsQuery innerJoinVolunteer($relationAlias = null) Adds a INNER JOIN clause to the query using the Volunteer relation
  *
  * @method     BlogEntryComments findOne(PropelPDO $con = null) Return the first BlogEntryComments matching the query
  * @method     BlogEntryComments findOneOrCreate(PropelPDO $con = null) Return the first BlogEntryComments matching the query, or a new BlogEntryComments object populated from the query conditions when no match is found
@@ -122,7 +122,7 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	 * @return    PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
 	 */
 	public function findPks($keys, $con = null)
-	{	
+	{
 		$criteria = $this->isKeepQuery() ? clone $this : $this;
 		return $this
 			->filterByPrimaryKeys($keys)
@@ -156,8 +156,17 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
@@ -173,8 +182,17 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the index column
 	 * 
-	 * @param     int|array $index The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByIndex(1234); // WHERE index = 1234
+	 * $query->filterByIndex(array(12, 34)); // WHERE index IN (12, 34)
+	 * $query->filterByIndex(array('min' => 12)); // WHERE index > 12
+	 * </code>
+	 *
+	 * @param     mixed $index The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
@@ -204,8 +222,14 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the comments column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByComments('fooValue');   // WHERE comments = 'fooValue'
+	 * $query->filterByComments('%fooValue%'); // WHERE comments LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $comments The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
@@ -226,8 +250,19 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the blog_entry_id column
 	 * 
-	 * @param     int|array $blogEntryId The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByBlogEntryId(1234); // WHERE blog_entry_id = 1234
+	 * $query->filterByBlogEntryId(array(12, 34)); // WHERE blog_entry_id IN (12, 34)
+	 * $query->filterByBlogEntryId(array('min' => 12)); // WHERE blog_entry_id > 12
+	 * </code>
+	 *
+	 * @see       filterByBlogEntry()
+	 *
+	 * @param     mixed $blogEntryId The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
@@ -257,8 +292,19 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the volunteer_id column
 	 * 
-	 * @param     int|array $volunteerId The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByVolunteerId(1234); // WHERE volunteer_id = 1234
+	 * $query->filterByVolunteerId(array(12, 34)); // WHERE volunteer_id IN (12, 34)
+	 * $query->filterByVolunteerId(array('min' => 12)); // WHERE volunteer_id > 12
+	 * </code>
+	 *
+	 * @see       filterByVolunteer()
+	 *
+	 * @param     mixed $volunteerId The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
@@ -288,15 +334,25 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query by a related BlogEntry object
 	 *
-	 * @param     BlogEntry $blogEntry  the related object to use as filter
+	 * @param     BlogEntry|PropelCollection $blogEntry The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
 	 */
 	public function filterByBlogEntry($blogEntry, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(BlogEntryCommentsPeer::BLOG_ENTRY_ID, $blogEntry->getId(), $comparison);
+		if ($blogEntry instanceof BlogEntry) {
+			return $this
+				->addUsingAlias(BlogEntryCommentsPeer::BLOG_ENTRY_ID, $blogEntry->getId(), $comparison);
+		} elseif ($blogEntry instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(BlogEntryCommentsPeer::BLOG_ENTRY_ID, $blogEntry->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByBlogEntry() only accepts arguments of type BlogEntry or PropelCollection');
+		}
 	}
 
 	/**
@@ -307,7 +363,7 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
 	 */
-	public function joinBlogEntry($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinBlogEntry($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('BlogEntry');
@@ -342,7 +398,7 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	 *
 	 * @return    BlogEntryQuery A secondary query class using the current class as primary query
 	 */
-	public function useBlogEntryQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useBlogEntryQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinBlogEntry($relationAlias, $joinType)
@@ -352,15 +408,25 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query by a related Volunteer object
 	 *
-	 * @param     Volunteer $volunteer  the related object to use as filter
+	 * @param     Volunteer|PropelCollection $volunteer The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
 	 */
 	public function filterByVolunteer($volunteer, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(BlogEntryCommentsPeer::VOLUNTEER_ID, $volunteer->getId(), $comparison);
+		if ($volunteer instanceof Volunteer) {
+			return $this
+				->addUsingAlias(BlogEntryCommentsPeer::VOLUNTEER_ID, $volunteer->getId(), $comparison);
+		} elseif ($volunteer instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(BlogEntryCommentsPeer::VOLUNTEER_ID, $volunteer->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByVolunteer() only accepts arguments of type Volunteer or PropelCollection');
+		}
 	}
 
 	/**
@@ -371,7 +437,7 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	 *
 	 * @return    BlogEntryCommentsQuery The current query, for fluid interface
 	 */
-	public function joinVolunteer($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinVolunteer($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('Volunteer');
@@ -406,7 +472,7 @@ abstract class BaseBlogEntryCommentsQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerQuery A secondary query class using the current class as primary query
 	 */
-	public function useVolunteerQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useVolunteerQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinVolunteer($relationAlias, $joinType)

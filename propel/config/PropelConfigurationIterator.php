@@ -13,7 +13,7 @@
  * build a flat array from nesting configuration arrays.
  *
  * @author     Veikko Mäkinen <veikko@veikko.fi>
- * @version    $Revision: 1612 $
+ * @version    $Revision$
  * @package    propel.runtime.config
  */
 class PropelConfigurationIterator extends RecursiveIteratorIterator
@@ -99,5 +99,3 @@ class PropelConfigurationIterator extends RecursiveIteratorIterator
 	}
 
 }
-
-?>

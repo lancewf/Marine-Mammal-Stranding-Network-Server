@@ -14,7 +14,7 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	/**
 	 * Peer class name
 	 */
-  const PEER = 'VolunteerPeer';
+	const PEER = 'VolunteerPeer';
 
 	/**
 	 * The Peer class.
@@ -1255,15 +1255,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setSaturdayToHour()
 
 	/**
-	 * Set the value of [sunday_any_time] column.
+	 * Sets the value of the [sunday_any_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setSundayAnyTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->sunday_any_time !== $v) {
@@ -1275,15 +1283,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setSundayAnyTime()
 
 	/**
-	 * Set the value of [monday_any_time] column.
+	 * Sets the value of the [monday_any_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setMondayAnyTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->monday_any_time !== $v) {
@@ -1295,15 +1311,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setMondayAnyTime()
 
 	/**
-	 * Set the value of [tuesday_any_time] column.
+	 * Sets the value of the [tuesday_any_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setTuesdayAnyTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->tuesday_any_time !== $v) {
@@ -1315,15 +1339,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setTuesdayAnyTime()
 
 	/**
-	 * Set the value of [wednesday_any_time] column.
+	 * Sets the value of the [wednesday_any_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setWednesdayAnyTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->wednesday_any_time !== $v) {
@@ -1335,15 +1367,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setWednesdayAnyTime()
 
 	/**
-	 * Set the value of [thursday_any_time] column.
+	 * Sets the value of the [thursday_any_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setThursdayAnyTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->thursday_any_time !== $v) {
@@ -1355,15 +1395,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setThursdayAnyTime()
 
 	/**
-	 * Set the value of [friday_any_time] column.
+	 * Sets the value of the [friday_any_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setFridayAnyTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->friday_any_time !== $v) {
@@ -1375,15 +1423,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setFridayAnyTime()
 
 	/**
-	 * Set the value of [saturday_any_time] column.
+	 * Sets the value of the [saturday_any_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setSaturdayAnyTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->saturday_any_time !== $v) {
@@ -1395,15 +1451,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setSaturdayAnyTime()
 
 	/**
-	 * Set the value of [sunday_no_time] column.
+	 * Sets the value of the [sunday_no_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setSundayNoTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->sunday_no_time !== $v) {
@@ -1415,15 +1479,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setSundayNoTime()
 
 	/**
-	 * Set the value of [monday_no_time] column.
+	 * Sets the value of the [monday_no_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setMondayNoTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->monday_no_time !== $v) {
@@ -1435,15 +1507,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setMondayNoTime()
 
 	/**
-	 * Set the value of [tuesday_no_time] column.
+	 * Sets the value of the [tuesday_no_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setTuesdayNoTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->tuesday_no_time !== $v) {
@@ -1455,15 +1535,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setTuesdayNoTime()
 
 	/**
-	 * Set the value of [wednesday_no_time] column.
+	 * Sets the value of the [wednesday_no_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setWednesdayNoTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->wednesday_no_time !== $v) {
@@ -1475,15 +1563,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setWednesdayNoTime()
 
 	/**
-	 * Set the value of [thursday_no_time] column.
+	 * Sets the value of the [thursday_no_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setThursdayNoTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->thursday_no_time !== $v) {
@@ -1495,15 +1591,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setThursdayNoTime()
 
 	/**
-	 * Set the value of [friday_no_time] column.
+	 * Sets the value of the [friday_no_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setFridayNoTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->friday_no_time !== $v) {
@@ -1515,15 +1619,23 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	} // setFridayNoTime()
 
 	/**
-	 * Set the value of [saturday_no_time] column.
+	 * Sets the value of the [saturday_no_time] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Volunteer The current object (for fluent API support)
 	 */
 	public function setSaturdayNoTime($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->saturday_no_time !== $v) {
@@ -1615,7 +1727,7 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 41; // 41 = VolunteerPeer::NUM_COLUMNS - VolunteerPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 41; // 41 = VolunteerPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Volunteer object", $e);
@@ -1706,7 +1818,7 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 		if ($con === null) {
 			$con = Propel::getConnection(VolunteerPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
-		
+
 		$con->beginTransaction();
 		try {
 			$ret = $this->preDelete($con);
@@ -1748,7 +1860,7 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 		if ($con === null) {
 			$con = Propel::getConnection(VolunteerPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
-		
+
 		$con->beginTransaction();
 		$isInsert = $this->isNew();
 		try {
@@ -2122,14 +2234,20 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	 * type constants.
 	 *
 	 * @param     string  $keyType (optional) One of the class type constants BasePeer::TYPE_PHPNAME, BasePeer::TYPE_STUDLYPHPNAME,
-	 *                    BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM. 
+	 *                    BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM.
 	 *                    Defaults to BasePeer::TYPE_PHPNAME.
 	 * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
+	 * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
+	 * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
 	 *
 	 * @return    array an associative array containing the field names (as keys) and field values
 	 */
-	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true)
+	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
 	{
+		if (isset($alreadyDumpedObjects['Volunteer'][$this->getPrimaryKey()])) {
+			return '*RECURSION*';
+		}
+		$alreadyDumpedObjects['Volunteer'][$this->getPrimaryKey()] = true;
 		$keys = VolunteerPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
@@ -2174,6 +2292,20 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 			$keys[39] => $this->getFridayNoTime(),
 			$keys[40] => $this->getSaturdayNoTime(),
 		);
+		if ($includeForeignObjects) {
+			if (null !== $this->collReports) {
+				$result['Reports'] = $this->collReports->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+			if (null !== $this->collReportCommentss) {
+				$result['ReportCommentss'] = $this->collReportCommentss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+			if (null !== $this->collBlogEntryCommentss) {
+				$result['BlogEntryCommentss'] = $this->collBlogEntryCommentss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+			if (null !== $this->collVolunteerHourss) {
+				$result['VolunteerHourss'] = $this->collVolunteerHourss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+		}
 		return $result;
 	}
 
@@ -2501,50 +2633,51 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	 *
 	 * @param      object $copyObj An object of Volunteer (or compatible) type.
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
+	 * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
 	 * @throws     PropelException
 	 */
-	public function copyInto($copyObj, $deepCopy = false)
+	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setFirstName($this->first_name);
-		$copyObj->setLastName($this->last_name);
-		$copyObj->setCity($this->city);
-		$copyObj->setState($this->state);
-		$copyObj->setZip($this->zip);
-		$copyObj->setStreetaddress($this->streetaddress);
-		$copyObj->setVehicle($this->vehicle);
-		$copyObj->setIsland($this->island);
-		$copyObj->setEmail($this->email);
-		$copyObj->setTraining($this->training);
-		$copyObj->setComments($this->comments);
-		$copyObj->setPhonenumber($this->phonenumber);
-		$copyObj->setSundayFromHour($this->sunday_from_hour);
-		$copyObj->setMondayFromHour($this->monday_from_hour);
-		$copyObj->setTuesdayFromHour($this->tuesday_from_hour);
-		$copyObj->setWednesdayFromHour($this->wednesday_from_hour);
-		$copyObj->setThursdayFromHour($this->thursday_from_hour);
-		$copyObj->setFridayFromHour($this->friday_from_hour);
-		$copyObj->setSaturdayFromHour($this->saturday_from_hour);
-		$copyObj->setSundayToHour($this->sunday_to_hour);
-		$copyObj->setMondayToHour($this->monday_to_hour);
-		$copyObj->setTuesdayToHour($this->tuesday_to_hour);
-		$copyObj->setWednesdayToHour($this->wednesday_to_hour);
-		$copyObj->setThursdayToHour($this->thursday_to_hour);
-		$copyObj->setFridayToHour($this->friday_to_hour);
-		$copyObj->setSaturdayToHour($this->saturday_to_hour);
-		$copyObj->setSundayAnyTime($this->sunday_any_time);
-		$copyObj->setMondayAnyTime($this->monday_any_time);
-		$copyObj->setTuesdayAnyTime($this->tuesday_any_time);
-		$copyObj->setWednesdayAnyTime($this->wednesday_any_time);
-		$copyObj->setThursdayAnyTime($this->thursday_any_time);
-		$copyObj->setFridayAnyTime($this->friday_any_time);
-		$copyObj->setSaturdayAnyTime($this->saturday_any_time);
-		$copyObj->setSundayNoTime($this->sunday_no_time);
-		$copyObj->setMondayNoTime($this->monday_no_time);
-		$copyObj->setTuesdayNoTime($this->tuesday_no_time);
-		$copyObj->setWednesdayNoTime($this->wednesday_no_time);
-		$copyObj->setThursdayNoTime($this->thursday_no_time);
-		$copyObj->setFridayNoTime($this->friday_no_time);
-		$copyObj->setSaturdayNoTime($this->saturday_no_time);
+		$copyObj->setFirstName($this->getFirstName());
+		$copyObj->setLastName($this->getLastName());
+		$copyObj->setCity($this->getCity());
+		$copyObj->setState($this->getState());
+		$copyObj->setZip($this->getZip());
+		$copyObj->setStreetaddress($this->getStreetaddress());
+		$copyObj->setVehicle($this->getVehicle());
+		$copyObj->setIsland($this->getIsland());
+		$copyObj->setEmail($this->getEmail());
+		$copyObj->setTraining($this->getTraining());
+		$copyObj->setComments($this->getComments());
+		$copyObj->setPhonenumber($this->getPhonenumber());
+		$copyObj->setSundayFromHour($this->getSundayFromHour());
+		$copyObj->setMondayFromHour($this->getMondayFromHour());
+		$copyObj->setTuesdayFromHour($this->getTuesdayFromHour());
+		$copyObj->setWednesdayFromHour($this->getWednesdayFromHour());
+		$copyObj->setThursdayFromHour($this->getThursdayFromHour());
+		$copyObj->setFridayFromHour($this->getFridayFromHour());
+		$copyObj->setSaturdayFromHour($this->getSaturdayFromHour());
+		$copyObj->setSundayToHour($this->getSundayToHour());
+		$copyObj->setMondayToHour($this->getMondayToHour());
+		$copyObj->setTuesdayToHour($this->getTuesdayToHour());
+		$copyObj->setWednesdayToHour($this->getWednesdayToHour());
+		$copyObj->setThursdayToHour($this->getThursdayToHour());
+		$copyObj->setFridayToHour($this->getFridayToHour());
+		$copyObj->setSaturdayToHour($this->getSaturdayToHour());
+		$copyObj->setSundayAnyTime($this->getSundayAnyTime());
+		$copyObj->setMondayAnyTime($this->getMondayAnyTime());
+		$copyObj->setTuesdayAnyTime($this->getTuesdayAnyTime());
+		$copyObj->setWednesdayAnyTime($this->getWednesdayAnyTime());
+		$copyObj->setThursdayAnyTime($this->getThursdayAnyTime());
+		$copyObj->setFridayAnyTime($this->getFridayAnyTime());
+		$copyObj->setSaturdayAnyTime($this->getSaturdayAnyTime());
+		$copyObj->setSundayNoTime($this->getSundayNoTime());
+		$copyObj->setMondayNoTime($this->getMondayNoTime());
+		$copyObj->setTuesdayNoTime($this->getTuesdayNoTime());
+		$copyObj->setWednesdayNoTime($this->getWednesdayNoTime());
+		$copyObj->setThursdayNoTime($this->getThursdayNoTime());
+		$copyObj->setFridayNoTime($this->getFridayNoTime());
+		$copyObj->setSaturdayNoTime($this->getSaturdayNoTime());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -2577,9 +2710,10 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 
 		} // if ($deepCopy)
 
-
-		$copyObj->setNew(true);
-		$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+		if ($makeNew) {
+			$copyObj->setNew(true);
+			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+		}
 	}
 
 	/**
@@ -2641,10 +2775,16 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
 	 * @return     void
 	 */
-	public function initReports()
+	public function initReports($overrideExisting = true)
 	{
+		if (null !== $this->collReports && !$overrideExisting) {
+			return;
+		}
 		$this->collReports = new PropelObjectCollection();
 		$this->collReports->setModel('Report');
 	}
@@ -2750,10 +2890,16 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
 	 * @return     void
 	 */
-	public function initReportCommentss()
+	public function initReportCommentss($overrideExisting = true)
 	{
+		if (null !== $this->collReportCommentss && !$overrideExisting) {
+			return;
+		}
 		$this->collReportCommentss = new PropelObjectCollection();
 		$this->collReportCommentss->setModel('ReportComments');
 	}
@@ -2884,10 +3030,16 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
 	 * @return     void
 	 */
-	public function initBlogEntryCommentss()
+	public function initBlogEntryCommentss($overrideExisting = true)
 	{
+		if (null !== $this->collBlogEntryCommentss && !$overrideExisting) {
+			return;
+		}
 		$this->collBlogEntryCommentss = new PropelObjectCollection();
 		$this->collBlogEntryCommentss->setModel('BlogEntryComments');
 	}
@@ -3018,10 +3170,16 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
 	 * @return     void
 	 */
-	public function initVolunteerHourss()
+	public function initVolunteerHourss($overrideExisting = true)
 	{
+		if (null !== $this->collVolunteerHourss && !$overrideExisting) {
+			return;
+		}
 		$this->collVolunteerHourss = new PropelObjectCollection();
 		$this->collVolunteerHourss->setModel('VolunteerHours');
 	}
@@ -3161,43 +3319,65 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Resets all collections of referencing foreign keys.
+	 * Resets all references to other model objects or collections of model objects.
 	 *
-	 * This method is a user-space workaround for PHP's inability to garbage collect objects
-	 * with circular references.  This is currently necessary when using Propel in certain
-	 * daemon or large-volumne/high-memory operations.
+	 * This method is a user-space workaround for PHP's inability to garbage collect
+	 * objects with circular references (even in PHP 5.3). This is currently necessary
+	 * when using Propel in certain daemon or large-volumne/high-memory operations.
 	 *
-	 * @param      boolean $deep Whether to also clear the references on all associated objects.
+	 * @param      boolean $deep Whether to also clear the references on all referrer objects.
 	 */
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
 			if ($this->collReports) {
-				foreach ((array) $this->collReports as $o) {
+				foreach ($this->collReports as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 			if ($this->collReportCommentss) {
-				foreach ((array) $this->collReportCommentss as $o) {
+				foreach ($this->collReportCommentss as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 			if ($this->collBlogEntryCommentss) {
-				foreach ((array) $this->collBlogEntryCommentss as $o) {
+				foreach ($this->collBlogEntryCommentss as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 			if ($this->collVolunteerHourss) {
-				foreach ((array) $this->collVolunteerHourss as $o) {
+				foreach ($this->collVolunteerHourss as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 		} // if ($deep)
 
+		if ($this->collReports instanceof PropelCollection) {
+			$this->collReports->clearIterator();
+		}
 		$this->collReports = null;
+		if ($this->collReportCommentss instanceof PropelCollection) {
+			$this->collReportCommentss->clearIterator();
+		}
 		$this->collReportCommentss = null;
+		if ($this->collBlogEntryCommentss instanceof PropelCollection) {
+			$this->collBlogEntryCommentss->clearIterator();
+		}
 		$this->collBlogEntryCommentss = null;
+		if ($this->collVolunteerHourss instanceof PropelCollection) {
+			$this->collVolunteerHourss->clearIterator();
+		}
 		$this->collVolunteerHourss = null;
+	}
+
+	/**
+	 * Return the string representation of this object
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return (string) $this->exportTo(VolunteerPeer::DEFAULT_STRING_FORMAT);
 	}
 
 	/**
@@ -3216,7 +3396,7 @@ abstract class BaseVolunteer extends BaseObject  implements Persistent
 				return $this->getVirtualColumn($virtualColumn);
 			}
 		}
-		throw new PropelException('Call to undefined method: ' . $name);
+		return parent::__call($name, $params);
 	}
 
 } // BaseVolunteer

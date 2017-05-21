@@ -26,10 +26,13 @@ abstract class BaseReportPeer {
 	const TM_CLASS = 'ReportTableMap';
 	
 	/** The total number of columns. */
-	const NUM_COLUMNS = 30;
+	const NUM_COLUMNS = 49;
 
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
+
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 49;
 
 	/** the column name for the ID field */
 	const ID = 'report.ID';
@@ -118,28 +121,68 @@ abstract class BaseReportPeer {
 	/** the column name for the IS_PHOTO_TAKEN field */
 	const IS_PHOTO_TAKEN = 'report.IS_PHOTO_TAKEN';
 
+	/** the column name for the IS_CON_SICK field */
+	const IS_CON_SICK = 'report.IS_CON_SICK';
+
+	/** the column name for the IS_CON_INJURED field */
+	const IS_CON_INJURED = 'report.IS_CON_INJURED';
+
+	/** the column name for the IS_CON_OUT_OF_HABITAT field */
+	const IS_CON_OUT_OF_HABITAT = 'report.IS_CON_OUT_OF_HABITAT';
+
+	/** the column name for the IS_CON_DEEMED_RELEASABLE field */
+	const IS_CON_DEEMED_RELEASABLE = 'report.IS_CON_DEEMED_RELEASABLE';
+
+	/** the column name for the IS_CON_ABANDONED field */
+	const IS_CON_ABANDONED = 'report.IS_CON_ABANDONED';
+
+	/** the column name for the IS_CON_INACCESSIBLE field */
+	const IS_CON_INACCESSIBLE = 'report.IS_CON_INACCESSIBLE';
+
+	/** the column name for the IS_CON_LOCATION_HAZARD_TO_ANIMAL field */
+	const IS_CON_LOCATION_HAZARD_TO_ANIMAL = 'report.IS_CON_LOCATION_HAZARD_TO_ANIMAL';
+
+	/** the column name for the IS_CON_LOCATION_HAZARD_TO_HUMANS field */
+	const IS_CON_LOCATION_HAZARD_TO_HUMANS = 'report.IS_CON_LOCATION_HAZARD_TO_HUMANS';
+
+	/** the column name for the IS_CON_UNKNOWN field */
+	const IS_CON_UNKNOWN = 'report.IS_CON_UNKNOWN';
+
+	/** the column name for the IS_CON_OTHER field */
+	const IS_CON_OTHER = 'report.IS_CON_OTHER';
+
+	/** the column name for the IS_ACTION_LEFT_AT_SITE field */
+	const IS_ACTION_LEFT_AT_SITE = 'report.IS_ACTION_LEFT_AT_SITE';
+
+	/** the column name for the IS_ACTION_IMMEDIATE_RELEASE_AT_SITE field */
+	const IS_ACTION_IMMEDIATE_RELEASE_AT_SITE = 'report.IS_ACTION_IMMEDIATE_RELEASE_AT_SITE';
+
+	/** the column name for the IS_ACTION_RELOCATED field */
+	const IS_ACTION_RELOCATED = 'report.IS_ACTION_RELOCATED';
+
+	/** the column name for the IS_ACTION_DIED_AT_SITE field */
+	const IS_ACTION_DIED_AT_SITE = 'report.IS_ACTION_DIED_AT_SITE';
+
+	/** the column name for the IS_ACTION_DIED_DURING_TRANSPORT field */
+	const IS_ACTION_DIED_DURING_TRANSPORT = 'report.IS_ACTION_DIED_DURING_TRANSPORT';
+
+	/** the column name for the IS_ACTION_EUTHANIZED_AT_SITE field */
+	const IS_ACTION_EUTHANIZED_AT_SITE = 'report.IS_ACTION_EUTHANIZED_AT_SITE';
+
+	/** the column name for the IS_ACTION_EUTHANIZED_DURING_TRANSPORT field */
+	const IS_ACTION_EUTHANIZED_DURING_TRANSPORT = 'report.IS_ACTION_EUTHANIZED_DURING_TRANSPORT';
+
+	/** the column name for the IS_ACTION_TRANSFERRED_TO_REHAB field */
+	const IS_ACTION_TRANSFERRED_TO_REHAB = 'report.IS_ACTION_TRANSFERRED_TO_REHAB';
+
+	/** the column name for the IS_ACTION_OTHER field */
+	const IS_ACTION_OTHER = 'report.IS_ACTION_OTHER';
+
 	/** the column name for the VOLUNTEER_ID field */
 	const VOLUNTEER_ID = 'report.VOLUNTEER_ID';
 
-	const IS_CON_SICK = 'report.IS_CON_SICK';
-	const IS_CON_INJURED = 'report.IS_CON_INJURED';
-	const IS_CON_OUT_OF_HABITAT = 'report.IS_CON_OUT_OF_HABITAT';
-	const IS_CON_DEEMED_RELEASABLE = 'report.IS_CON_DEEMED_RELEASABLE';
-	const IS_CON_ABANDONED = 'report.IS_CON_ABANDONED';
-	const IS_CON_INACCESSIBLE = 'report.IS_CON_INACCESSIBLE';
-	const IS_CON_LOCATION_HAZARD_TO_ANIMAL = 'report.IS_CON_LOCATION_HAZARD_TO_ANIMAL';
-	const IS_CON_LOCATION_HAZARD_TO_HUMANS = 'report.IS_CON_LOCATION_HAZARD_TO_HUMANS';
-	const IS_CON_UNKNOWN = 'report.IS_CON_UNKNOWN';
-	const IS_CON_OTHER = 'report.IS_CON_OTHER';
-	const IS_ACTION_LEFT_AT_SITE = 'report.IS_ACTION_LEFT_AT_SITE';
-	const IS_ACTION_IMMEDIATE_RELEASE_AT_SITE = 'report.IS_ACTION_IMMEDIATE_RELEASE_AT_SITE';
-	const IS_ACTION_RELOCATED = 'report.IS_ACTION_RELOCATED';
-	const IS_ACTION_DIED_AT_SITE = 'report.IS_ACTION_DIED_AT_SITE';
-	const IS_ACTION_DIED_DURING_TRANSPORT = 'report.IS_ACTION_DIED_DURING_TRANSPORT';
-	const IS_ACTION_EUTHANIZED_AT_SITE = 'report.IS_ACTION_EUTHANIZED_AT_SITE';
-	const IS_ACTION_EUTHANIZED_DURING_TRANSPORT = 'report.IS_ACTION_EUTHANIZED_DURING_TRANSPORT';
-	const IS_ACTION_TRANSFERRED_TO_REHAB = 'report.IS_ACTION_TRANSFERRED_TO_REHAB';
-	const IS_ACTION_OTHER = 'report.IS_ACTION_OTHER';
+	/** The default string format for model objects of the related table **/
+	const DEFAULT_STRING_FORMAT = 'YAML';
 	
 	/**
 	 * An identiy map to hold any loaded instances of Report objects.
@@ -156,13 +199,13 @@ abstract class BaseReportPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
-	private static $fieldNames = array (
-		BasePeer::TYPE_PHPNAME => array ('Id', 'Responder', 'CallDate', 'CallFrom', 'CallerName', 'CallerPhoneNumber', 'CallLocation', 'CallSpecies', 'WhenFirstSeen', 'CallComments', 'CallReferredTo', 'CallCondition', 'InvestigatorSupport', 'InvestigationDate', 'InvestigationLatLonLocation', 'InvestigationPhysicalLocation', 'InvestigationSpecies', 'AnimalNotFound', 'InvestigationCondition', 'Tags', 'Disposition', 'SealPickup', 'Sex', 'Weight', 'StraightLength', 'ContourLength', 'Girth', 'InvestigationComments', 'IsPhotoTaken', 'VolunteerId', 'IsConSick', 'IsConInjured', 'IsConOutOfHabitat', 'IsConDeemedReleasable', 'IsConAbandoned', 'IsConInaccessible', 'IsConLocationHazardToAnimal', 'IsConLocationHazardToHumans', 'IsConUnknown', 'IsConOther', 'IsActionLeftAtSite', 'IsActionImmediateReleaseAtSite', 'IsActionRelocated', 'IsActionDiedAtSite', 'IsActionDiedDuringTransport', 'IsActionEuthanizedAtSite', 'IsActionEuthanizedDuringTransport', 'IsActionTransferredToRehab', 'IsActionOther'),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'responder', 'callDate', 'callFrom', 'callerName', 'callerPhoneNumber', 'callLocation', 'callSpecies', 'whenFirstSeen', 'callComments', 'callReferredTo', 'callCondition', 'investigatorSupport', 'investigationDate', 'investigationLatLonLocation', 'investigationPhysicalLocation', 'investigationSpecies', 'animalNotFound', 'investigationCondition', 'tags', 'disposition', 'sealPickup', 'sex', 'weight', 'straightLength', 'contourLength', 'girth', 'investigationComments', 'isPhotoTaken', 'volunteerId', 'isConSick', 'isConInjured', 'isConOutOfHabitat', 'isConDeemedReleasable', 'isConAbandoned', 'isConInaccessible', 'isConLocationHazardToAnimal', 'isConLocationHazardToHumans', 'isConUnknown', 'isConOther', 'isActionLeftAtSite', 'isActionImmediateReleaseAtSite', 'isActionRelocated', 'isActionDiedAtSite', 'isActionDiedDuringTransport', 'isActionEuthanizedAtSite', 'isActionEuthanizedDuringTransport', 'isActionTransferredToRehab', 'isActionOther'),
-		BasePeer::TYPE_COLNAME => array (self::ID, self::RESPONDER, self::CALL_DATE, self::CALL_FROM, self::CALLER_NAME, self::CALLER_PHONE_NUMBER, self::CALL_LOCATION, self::CALL_SPECIES, self::WHEN_FIRST_SEEN, self::CALL_COMMENTS, self::CALL_REFERRED_TO, self::CALL_CONDITION, self::INVESTIGATOR_SUPPORT, self::INVESTIGATION_DATE, self::INVESTIGATION_LAT_LON_LOCATION, self::INVESTIGATION_PHYSICAL_LOCATION, self::INVESTIGATION_SPECIES, self::ANIMAL_NOT_FOUND, self::INVESTIGATION_CONDITION, self::TAGS, self::DISPOSITION, self::SEAL_PICKUP, self::SEX, self::WEIGHT, self::STRAIGHT_LENGTH, self::CONTOUR_LENGTH, self::GIRTH, self::INVESTIGATION_COMMENTS, self::IS_PHOTO_TAKEN, self::VOLUNTEER_ID, self::IS_CON_SICK, self::IS_CON_INJURED, self::IS_CON_OUT_OF_HABITAT, self::IS_CON_DEEMED_RELEASABLE, self::IS_CON_ABANDONED, self::IS_CON_INACCESSIBLE, self::IS_CON_LOCATION_HAZARD_TO_ANIMAL, self::IS_CON_LOCATION_HAZARD_TO_HUMANS, self::IS_CON_UNKNOWN, self::IS_CON_OTHER, self::IS_ACTION_LEFT_AT_SITE, self::IS_ACTION_IMMEDIATE_RELEASE_AT_SITE, self::IS_ACTION_RELOCATED, self::IS_ACTION_DIED_AT_SITE, self::IS_ACTION_DIED_DURING_TRANSPORT, self::IS_ACTION_EUTHANIZED_AT_SITE, self::IS_ACTION_EUTHANIZED_DURING_TRANSPORT, self::IS_ACTION_TRANSFERRED_TO_REHAB, self::IS_ACTION_OTHER),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'RESPONDER', 'CALL_DATE', 'CALL_FROM', 'CALLER_NAME', 'CALLER_PHONE_NUMBER', 'CALL_LOCATION', 'CALL_SPECIES', 'WHEN_FIRST_SEEN', 'CALL_COMMENTS', 'CALL_REFERRED_TO', 'CALL_CONDITION', 'INVESTIGATOR_SUPPORT', 'INVESTIGATION_DATE', 'INVESTIGATION_LAT_LON_LOCATION', 'INVESTIGATION_PHYSICAL_LOCATION', 'INVESTIGATION_SPECIES', 'ANIMAL_NOT_FOUND', 'INVESTIGATION_CONDITION', 'TAGS', 'DISPOSITION', 'SEAL_PICKUP', 'SEX', 'WEIGHT', 'STRAIGHT_LENGTH', 'CONTOUR_LENGTH', 'GIRTH', 'INVESTIGATION_COMMENTS', 'IS_PHOTO_TAKEN', 'VOLUNTEER_ID', 'IS_CON_SICK', 'IS_CON_INJURED', 'IS_CON_OUT_OF_HABITAT', 'IS_CON_DEEMED_RELEASABLE', 'IS_CON_ABANDONED', 'IS_CON_INACCESSIBLE', 'IS_CON_LOCATION_HAZARD_TO_ANIMAL', 'IS_CON_LOCATION_HAZARD_TO_HUMANS', 'IS_CON_UNKNOWN', 'IS_CON_OTHER', 'IS_ACTION_LEFT_AT_SITE', 'IS_ACTION_IMMEDIATE_RELEASE_AT_SITE', 'IS_ACTION_RELOCATED', 'IS_ACTION_DIED_AT_SITE', 'IS_ACTION_DIED_DURING_TRANSPORT', 'IS_ACTION_EUTHANIZED_AT_SITE', 'IS_ACTION_EUTHANIZED_DURING_TRANSPORT', 'IS_ACTION_TRANSFERRED_TO_REHAB', 'IS_ACTION_OTHER'),
-		BasePeer::TYPE_FIELDNAME => array ('id', 'responder', 'call_date', 'call_from', 'caller_name', 'caller_phone_number', 'call_location', 'call_species', 'when_first_seen', 'call_comments', 'call_referred_to', 'call_condition', 'investigator_support', 'investigation_date', 'investigation_lat_lon_location', 'investigation_physical_location', 'investigation_species', 'animal_not_found', 'investigation_condition', 'tags', 'disposition', 'seal_pickup', 'sex', 'weight', 'straight_length', 'contour_length', 'girth', 'investigation_comments', 'is_photo_taken', 'volunteer_id', 'is_con_sick', 'is_con_injured', 'is_con_out_of_habitat', 'is_con_deemed_releasable', 'is_con_abandoned', 'is_con_inaccessible', 'is_con_location_hazard_to_animal', 'is_con_location_hazard_to_humans', 'is_con_unknown', 'is_con_other', 'is_action_left_at_site', 'is_action_immediate_release_at_site', 'is_action_relocated', 'is_action_died_at_site', 'is_action_died_during_transport', 'is_action_euthanized_at_site', 'is_action_euthanized_during_transport', 'is_action_transferred_to_rehab', 'is_action_other'),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48)
+	protected static $fieldNames = array (
+		BasePeer::TYPE_PHPNAME => array ('Id', 'Responder', 'CallDate', 'CallFrom', 'CallerName', 'CallerPhoneNumber', 'CallLocation', 'CallSpecies', 'WhenFirstSeen', 'CallComments', 'CallReferredTo', 'CallCondition', 'InvestigatorSupport', 'InvestigationDate', 'InvestigationLatLonLocation', 'InvestigationPhysicalLocation', 'InvestigationSpecies', 'AnimalNotFound', 'InvestigationCondition', 'Tags', 'Disposition', 'SealPickup', 'Sex', 'Weight', 'StraightLength', 'ContourLength', 'Girth', 'InvestigationComments', 'IsPhotoTaken', 'IsConSick', 'IsConInjured', 'IsConOutOfHabitat', 'IsConDeemedReleasable', 'IsConAbandoned', 'IsConInaccessible', 'IsConLocationHazardToAnimal', 'IsConLocationHazardToHumans', 'IsConUnknown', 'IsConOther', 'IsActionLeftAtSite', 'IsActionImmediateReleaseAtSite', 'IsActionRelocated', 'IsActionDiedAtSite', 'IsActionDiedDuringTransport', 'IsActionEuthanizedAtSite', 'IsActionEuthanizedDuringTransport', 'IsActionTransferredToRehab', 'IsActionOther', 'VolunteerId', ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'responder', 'callDate', 'callFrom', 'callerName', 'callerPhoneNumber', 'callLocation', 'callSpecies', 'whenFirstSeen', 'callComments', 'callReferredTo', 'callCondition', 'investigatorSupport', 'investigationDate', 'investigationLatLonLocation', 'investigationPhysicalLocation', 'investigationSpecies', 'animalNotFound', 'investigationCondition', 'tags', 'disposition', 'sealPickup', 'sex', 'weight', 'straightLength', 'contourLength', 'girth', 'investigationComments', 'isPhotoTaken', 'isConSick', 'isConInjured', 'isConOutOfHabitat', 'isConDeemedReleasable', 'isConAbandoned', 'isConInaccessible', 'isConLocationHazardToAnimal', 'isConLocationHazardToHumans', 'isConUnknown', 'isConOther', 'isActionLeftAtSite', 'isActionImmediateReleaseAtSite', 'isActionRelocated', 'isActionDiedAtSite', 'isActionDiedDuringTransport', 'isActionEuthanizedAtSite', 'isActionEuthanizedDuringTransport', 'isActionTransferredToRehab', 'isActionOther', 'volunteerId', ),
+		BasePeer::TYPE_COLNAME => array (self::ID, self::RESPONDER, self::CALL_DATE, self::CALL_FROM, self::CALLER_NAME, self::CALLER_PHONE_NUMBER, self::CALL_LOCATION, self::CALL_SPECIES, self::WHEN_FIRST_SEEN, self::CALL_COMMENTS, self::CALL_REFERRED_TO, self::CALL_CONDITION, self::INVESTIGATOR_SUPPORT, self::INVESTIGATION_DATE, self::INVESTIGATION_LAT_LON_LOCATION, self::INVESTIGATION_PHYSICAL_LOCATION, self::INVESTIGATION_SPECIES, self::ANIMAL_NOT_FOUND, self::INVESTIGATION_CONDITION, self::TAGS, self::DISPOSITION, self::SEAL_PICKUP, self::SEX, self::WEIGHT, self::STRAIGHT_LENGTH, self::CONTOUR_LENGTH, self::GIRTH, self::INVESTIGATION_COMMENTS, self::IS_PHOTO_TAKEN, self::IS_CON_SICK, self::IS_CON_INJURED, self::IS_CON_OUT_OF_HABITAT, self::IS_CON_DEEMED_RELEASABLE, self::IS_CON_ABANDONED, self::IS_CON_INACCESSIBLE, self::IS_CON_LOCATION_HAZARD_TO_ANIMAL, self::IS_CON_LOCATION_HAZARD_TO_HUMANS, self::IS_CON_UNKNOWN, self::IS_CON_OTHER, self::IS_ACTION_LEFT_AT_SITE, self::IS_ACTION_IMMEDIATE_RELEASE_AT_SITE, self::IS_ACTION_RELOCATED, self::IS_ACTION_DIED_AT_SITE, self::IS_ACTION_DIED_DURING_TRANSPORT, self::IS_ACTION_EUTHANIZED_AT_SITE, self::IS_ACTION_EUTHANIZED_DURING_TRANSPORT, self::IS_ACTION_TRANSFERRED_TO_REHAB, self::IS_ACTION_OTHER, self::VOLUNTEER_ID, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID', 'RESPONDER', 'CALL_DATE', 'CALL_FROM', 'CALLER_NAME', 'CALLER_PHONE_NUMBER', 'CALL_LOCATION', 'CALL_SPECIES', 'WHEN_FIRST_SEEN', 'CALL_COMMENTS', 'CALL_REFERRED_TO', 'CALL_CONDITION', 'INVESTIGATOR_SUPPORT', 'INVESTIGATION_DATE', 'INVESTIGATION_LAT_LON_LOCATION', 'INVESTIGATION_PHYSICAL_LOCATION', 'INVESTIGATION_SPECIES', 'ANIMAL_NOT_FOUND', 'INVESTIGATION_CONDITION', 'TAGS', 'DISPOSITION', 'SEAL_PICKUP', 'SEX', 'WEIGHT', 'STRAIGHT_LENGTH', 'CONTOUR_LENGTH', 'GIRTH', 'INVESTIGATION_COMMENTS', 'IS_PHOTO_TAKEN', 'IS_CON_SICK', 'IS_CON_INJURED', 'IS_CON_OUT_OF_HABITAT', 'IS_CON_DEEMED_RELEASABLE', 'IS_CON_ABANDONED', 'IS_CON_INACCESSIBLE', 'IS_CON_LOCATION_HAZARD_TO_ANIMAL', 'IS_CON_LOCATION_HAZARD_TO_HUMANS', 'IS_CON_UNKNOWN', 'IS_CON_OTHER', 'IS_ACTION_LEFT_AT_SITE', 'IS_ACTION_IMMEDIATE_RELEASE_AT_SITE', 'IS_ACTION_RELOCATED', 'IS_ACTION_DIED_AT_SITE', 'IS_ACTION_DIED_DURING_TRANSPORT', 'IS_ACTION_EUTHANIZED_AT_SITE', 'IS_ACTION_EUTHANIZED_DURING_TRANSPORT', 'IS_ACTION_TRANSFERRED_TO_REHAB', 'IS_ACTION_OTHER', 'VOLUNTEER_ID', ),
+		BasePeer::TYPE_FIELDNAME => array ('id', 'responder', 'call_date', 'call_from', 'caller_name', 'caller_phone_number', 'call_location', 'call_species', 'when_first_seen', 'call_comments', 'call_referred_to', 'call_condition', 'investigator_support', 'investigation_date', 'investigation_lat_lon_location', 'investigation_physical_location', 'investigation_species', 'animal_not_found', 'investigation_condition', 'tags', 'disposition', 'seal_pickup', 'sex', 'weight', 'straight_length', 'contour_length', 'girth', 'investigation_comments', 'is_photo_taken', 'is_con_sick', 'is_con_injured', 'is_con_out_of_habitat', 'is_con_deemed_releasable', 'is_con_abandoned', 'is_con_inaccessible', 'is_con_location_hazard_to_animal', 'is_con_location_hazard_to_humans', 'is_con_unknown', 'is_con_other', 'is_action_left_at_site', 'is_action_immediate_release_at_site', 'is_action_relocated', 'is_action_died_at_site', 'is_action_died_during_transport', 'is_action_euthanized_at_site', 'is_action_euthanized_during_transport', 'is_action_transferred_to_rehab', 'is_action_other', 'volunteer_id', ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, )
 	);
 
 	/**
@@ -171,13 +214,13 @@ abstract class BaseReportPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
-	private static $fieldKeys = array (
-		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Responder' => 1, 'CallDate' => 2, 'CallFrom' => 3, 'CallerName' => 4, 'CallerPhoneNumber' => 5, 'CallLocation' => 6, 'CallSpecies' => 7, 'WhenFirstSeen' => 8, 'CallComments' => 9, 'CallReferredTo' => 10, 'CallCondition' => 11, 'InvestigatorSupport' => 12, 'InvestigationDate' => 13, 'InvestigationLatLonLocation' => 14, 'InvestigationPhysicalLocation' => 15, 'InvestigationSpecies' => 16, 'AnimalNotFound' => 17, 'InvestigationCondition' => 18, 'Tags' => 19, 'Disposition' => 20, 'SealPickup' => 21, 'Sex' => 22, 'Weight' => 23, 'StraightLength' => 24, 'ContourLength' => 25, 'Girth' => 26, 'InvestigationComments' => 27, 'IsPhotoTaken' => 28, 'VolunteerId' => 29, 'IsConSick' => 30, 'IsConInjured' => 31, 'IsConOutOfHabitat' => 32, 'IsConDeemedReleasable' => 33, 'IsConAbandoned' => 34, 'IsConInaccessible' => 35, 'IsConLocationHazardToAnimal' => 36, 'IsConLocationHazardToHumans' => 37, 'IsConUnknown' => 38, 'IsConOther' => 39, 'IsActionLeftAtSite' => 40, 'IsActionImmediateReleaseAtSite' => 41, 'IsActionRelocated' => 42, 'IsActionDiedAtSite' => 43, 'IsActionDiedDuringTransport' => 44, 'IsActionEuthanizedAtSite' => 45, 'IsActionEuthanizedDuringTransport' => 46, 'IsActionTransferredToRehab' => 47, 'IsActionOther' => 48 ),
-		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'responder' => 1, 'callDate' => 2, 'callFrom' => 3, 'callerName' => 4, 'callerPhoneNumber' => 5, 'callLocation' => 6, 'callSpecies' => 7, 'whenFirstSeen' => 8, 'callComments' => 9, 'callReferredTo' => 10, 'callCondition' => 11, 'investigatorSupport' => 12, 'investigationDate' => 13, 'investigationLatLonLocation' => 14, 'investigationPhysicalLocation' => 15, 'investigationSpecies' => 16, 'animalNotFound' => 17, 'investigationCondition' => 18, 'tags' => 19, 'disposition' => 20, 'sealPickup' => 21, 'sex' => 22, 'weight' => 23, 'straightLength' => 24, 'contourLength' => 25, 'girth' => 26, 'investigationComments' => 27, 'isPhotoTaken' => 28, 'volunteerId' => 29,'isConSick' => 30, 'isConInjured' => 31, 'isConOutOfHabitat' => 32, 'isConDeemedReleasable' => 33, 'isConAbandoned' => 34, 'isConInaccessible' => 35, 'isConLocationHazardToAnimal' => 36, 'isConLocationHazardToHumans' => 37, 'isConUnknown' => 38, 'isConOther' => 39, 'isActionLeftAtSite' => 40, 'isActionImmediateReleaseAtSite' => 41, 'isActionRelocated' => 42, 'isActionDiedAtSite' => 43, 'isActionDiedDuringTransport' => 44, 'isActionEuthanizedAtSite' => 45, 'isActionEuthanizedDuringTransport' => 46, 'isActionTransferredToRehab' => 47, 'isActionOther' => 48 ),
-		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::RESPONDER => 1, self::CALL_DATE => 2, self::CALL_FROM => 3, self::CALLER_NAME => 4, self::CALLER_PHONE_NUMBER => 5, self::CALL_LOCATION => 6, self::CALL_SPECIES => 7, self::WHEN_FIRST_SEEN => 8, self::CALL_COMMENTS => 9, self::CALL_REFERRED_TO => 10, self::CALL_CONDITION => 11, self::INVESTIGATOR_SUPPORT => 12, self::INVESTIGATION_DATE => 13, self::INVESTIGATION_LAT_LON_LOCATION => 14, self::INVESTIGATION_PHYSICAL_LOCATION => 15, self::INVESTIGATION_SPECIES => 16, self::ANIMAL_NOT_FOUND => 17, self::INVESTIGATION_CONDITION => 18, self::TAGS => 19, self::DISPOSITION => 20, self::SEAL_PICKUP => 21, self::SEX => 22, self::WEIGHT => 23, self::STRAIGHT_LENGTH => 24, self::CONTOUR_LENGTH => 25, self::GIRTH => 26, self::INVESTIGATION_COMMENTS => 27, self::IS_PHOTO_TAKEN => 28, self::VOLUNTEER_ID => 29, self::IS_CON_SICK => 30, self::IS_CON_INJURED => 31, self::IS_CON_OUT_OF_HABITAT => 32, self::IS_CON_DEEMED_RELEASABLE => 33, self::IS_CON_ABANDONED => 34, self::IS_CON_INACCESSIBLE => 35, self::IS_CON_LOCATION_HAZARD_TO_ANIMAL => 36, self::IS_CON_LOCATION_HAZARD_TO_HUMANS => 37, self::IS_CON_UNKNOWN => 38, self::IS_CON_OTHER => 39, self::IS_ACTION_LEFT_AT_SITE => 40, self::IS_ACTION_IMMEDIATE_RELEASE_AT_SITE => 41, self::IS_ACTION_RELOCATED => 42, self::IS_ACTION_DIED_AT_SITE => 43, self::IS_ACTION_DIED_DURING_TRANSPORT => 44, self::IS_ACTION_EUTHANIZED_AT_SITE => 45, self::IS_ACTION_EUTHANIZED_DURING_TRANSPORT => 46, self::IS_ACTION_TRANSFERRED_TO_REHAB => 47, self::IS_ACTION_OTHER => 48 ),
-		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'RESPONDER' => 1, 'CALL_DATE' => 2, 'CALL_FROM' => 3, 'CALLER_NAME' => 4, 'CALLER_PHONE_NUMBER' => 5, 'CALL_LOCATION' => 6, 'CALL_SPECIES' => 7, 'WHEN_FIRST_SEEN' => 8, 'CALL_COMMENTS' => 9, 'CALL_REFERRED_TO' => 10, 'CALL_CONDITION' => 11, 'INVESTIGATOR_SUPPORT' => 12, 'INVESTIGATION_DATE' => 13, 'INVESTIGATION_LAT_LON_LOCATION' => 14, 'INVESTIGATION_PHYSICAL_LOCATION' => 15, 'INVESTIGATION_SPECIES' => 16, 'ANIMAL_NOT_FOUND' => 17, 'INVESTIGATION_CONDITION' => 18, 'TAGS' => 19, 'DISPOSITION' => 20, 'SEAL_PICKUP' => 21, 'SEX' => 22, 'WEIGHT' => 23, 'STRAIGHT_LENGTH' => 24, 'CONTOUR_LENGTH' => 25, 'GIRTH' => 26, 'INVESTIGATION_COMMENTS' => 27, 'IS_PHOTO_TAKEN' => 28, 'VOLUNTEER_ID' => 29, 'IS_CON_SICK' => 30, 'IS_CON_INJURED' => 31, 'IS_CON_OUT_OF_HABITAT' => 32, 'IS_CON_DEEMED_RELEASABLE' => 33, 'IS_CON_ABANDONED' => 34, 'IS_CON_INACCESSIBLE' => 35, 'IS_CON_LOCATION_HAZARD_TO_ANIMAL' => 36, 'IS_CON_LOCATION_HAZARD_TO_HUMANS' => 37, 'IS_CON_UNKNOWN' => 38, 'IS_CON_OTHER' => 39, 'IS_ACTION_LEFT_AT_SITE' => 40, 'IS_ACTION_IMMEDIATE_RELEASE_AT_SITE' => 41, 'IS_ACTION_RELOCATED' => 42, 'IS_ACTION_DIED_AT_SITE' => 43, 'IS_ACTION_DIED_DURING_TRANSPORT' => 44, 'IS_ACTION_EUTHANIZED_AT_SITE' => 45, 'IS_ACTION_EUTHANIZED_DURING_TRANSPORT' => 46, 'IS_ACTION_TRANSFERRED_TO_REHAB' => 47, 'IS_ACTION_OTHER' => 48 ),
-		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'responder' => 1, 'call_date' => 2, 'call_from' => 3, 'caller_name' => 4, 'caller_phone_number' => 5, 'call_location' => 6, 'call_species' => 7, 'when_first_seen' => 8, 'call_comments' => 9, 'call_referred_to' => 10, 'call_condition' => 11, 'investigator_support' => 12, 'investigation_date' => 13, 'investigation_lat_lon_location' => 14, 'investigation_physical_location' => 15, 'investigation_species' => 16, 'animal_not_found' => 17, 'investigation_condition' => 18, 'tags' => 19, 'disposition' => 20, 'seal_pickup' => 21, 'sex' => 22, 'weight' => 23, 'straight_length' => 24, 'contour_length' => 25, 'girth' => 26, 'investigation_comments' => 27, 'is_photo_taken' => 28, 'volunteer_id' => 29, 'is_con_sick' => 30, 'is_con_injured' => 31, 'is_con_out_of_habitat' => 32, 'is_con_deemed_releasable' => 33, 'is_con_abandoned' => 34, 'is_con_inaccessible' => 35, 'is_con_location_hazard_to_animal' => 36, 'is_con_location_hazard_to_humans' => 37, 'is_con_unknown' => 38, 'is_con_other' => 39, 'is_action_left_at_site' => 40, 'is_action_immediate_release_at_site' => 41, 'is_action_relocated' => 42, 'is_action_died_at_site' => 43, 'is_action_died_during_transport' => 44, 'is_action_euthanized_at_site' => 45, 'is_action_euthanized_during_transport' => 46, 'is_action_transferred_to_rehab' => 47, 'is_action_other' => 48 ),
-		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48)
+	protected static $fieldKeys = array (
+		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Responder' => 1, 'CallDate' => 2, 'CallFrom' => 3, 'CallerName' => 4, 'CallerPhoneNumber' => 5, 'CallLocation' => 6, 'CallSpecies' => 7, 'WhenFirstSeen' => 8, 'CallComments' => 9, 'CallReferredTo' => 10, 'CallCondition' => 11, 'InvestigatorSupport' => 12, 'InvestigationDate' => 13, 'InvestigationLatLonLocation' => 14, 'InvestigationPhysicalLocation' => 15, 'InvestigationSpecies' => 16, 'AnimalNotFound' => 17, 'InvestigationCondition' => 18, 'Tags' => 19, 'Disposition' => 20, 'SealPickup' => 21, 'Sex' => 22, 'Weight' => 23, 'StraightLength' => 24, 'ContourLength' => 25, 'Girth' => 26, 'InvestigationComments' => 27, 'IsPhotoTaken' => 28, 'IsConSick' => 29, 'IsConInjured' => 30, 'IsConOutOfHabitat' => 31, 'IsConDeemedReleasable' => 32, 'IsConAbandoned' => 33, 'IsConInaccessible' => 34, 'IsConLocationHazardToAnimal' => 35, 'IsConLocationHazardToHumans' => 36, 'IsConUnknown' => 37, 'IsConOther' => 38, 'IsActionLeftAtSite' => 39, 'IsActionImmediateReleaseAtSite' => 40, 'IsActionRelocated' => 41, 'IsActionDiedAtSite' => 42, 'IsActionDiedDuringTransport' => 43, 'IsActionEuthanizedAtSite' => 44, 'IsActionEuthanizedDuringTransport' => 45, 'IsActionTransferredToRehab' => 46, 'IsActionOther' => 47, 'VolunteerId' => 48, ),
+		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'responder' => 1, 'callDate' => 2, 'callFrom' => 3, 'callerName' => 4, 'callerPhoneNumber' => 5, 'callLocation' => 6, 'callSpecies' => 7, 'whenFirstSeen' => 8, 'callComments' => 9, 'callReferredTo' => 10, 'callCondition' => 11, 'investigatorSupport' => 12, 'investigationDate' => 13, 'investigationLatLonLocation' => 14, 'investigationPhysicalLocation' => 15, 'investigationSpecies' => 16, 'animalNotFound' => 17, 'investigationCondition' => 18, 'tags' => 19, 'disposition' => 20, 'sealPickup' => 21, 'sex' => 22, 'weight' => 23, 'straightLength' => 24, 'contourLength' => 25, 'girth' => 26, 'investigationComments' => 27, 'isPhotoTaken' => 28, 'isConSick' => 29, 'isConInjured' => 30, 'isConOutOfHabitat' => 31, 'isConDeemedReleasable' => 32, 'isConAbandoned' => 33, 'isConInaccessible' => 34, 'isConLocationHazardToAnimal' => 35, 'isConLocationHazardToHumans' => 36, 'isConUnknown' => 37, 'isConOther' => 38, 'isActionLeftAtSite' => 39, 'isActionImmediateReleaseAtSite' => 40, 'isActionRelocated' => 41, 'isActionDiedAtSite' => 42, 'isActionDiedDuringTransport' => 43, 'isActionEuthanizedAtSite' => 44, 'isActionEuthanizedDuringTransport' => 45, 'isActionTransferredToRehab' => 46, 'isActionOther' => 47, 'volunteerId' => 48, ),
+		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::RESPONDER => 1, self::CALL_DATE => 2, self::CALL_FROM => 3, self::CALLER_NAME => 4, self::CALLER_PHONE_NUMBER => 5, self::CALL_LOCATION => 6, self::CALL_SPECIES => 7, self::WHEN_FIRST_SEEN => 8, self::CALL_COMMENTS => 9, self::CALL_REFERRED_TO => 10, self::CALL_CONDITION => 11, self::INVESTIGATOR_SUPPORT => 12, self::INVESTIGATION_DATE => 13, self::INVESTIGATION_LAT_LON_LOCATION => 14, self::INVESTIGATION_PHYSICAL_LOCATION => 15, self::INVESTIGATION_SPECIES => 16, self::ANIMAL_NOT_FOUND => 17, self::INVESTIGATION_CONDITION => 18, self::TAGS => 19, self::DISPOSITION => 20, self::SEAL_PICKUP => 21, self::SEX => 22, self::WEIGHT => 23, self::STRAIGHT_LENGTH => 24, self::CONTOUR_LENGTH => 25, self::GIRTH => 26, self::INVESTIGATION_COMMENTS => 27, self::IS_PHOTO_TAKEN => 28, self::IS_CON_SICK => 29, self::IS_CON_INJURED => 30, self::IS_CON_OUT_OF_HABITAT => 31, self::IS_CON_DEEMED_RELEASABLE => 32, self::IS_CON_ABANDONED => 33, self::IS_CON_INACCESSIBLE => 34, self::IS_CON_LOCATION_HAZARD_TO_ANIMAL => 35, self::IS_CON_LOCATION_HAZARD_TO_HUMANS => 36, self::IS_CON_UNKNOWN => 37, self::IS_CON_OTHER => 38, self::IS_ACTION_LEFT_AT_SITE => 39, self::IS_ACTION_IMMEDIATE_RELEASE_AT_SITE => 40, self::IS_ACTION_RELOCATED => 41, self::IS_ACTION_DIED_AT_SITE => 42, self::IS_ACTION_DIED_DURING_TRANSPORT => 43, self::IS_ACTION_EUTHANIZED_AT_SITE => 44, self::IS_ACTION_EUTHANIZED_DURING_TRANSPORT => 45, self::IS_ACTION_TRANSFERRED_TO_REHAB => 46, self::IS_ACTION_OTHER => 47, self::VOLUNTEER_ID => 48, ),
+		BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'RESPONDER' => 1, 'CALL_DATE' => 2, 'CALL_FROM' => 3, 'CALLER_NAME' => 4, 'CALLER_PHONE_NUMBER' => 5, 'CALL_LOCATION' => 6, 'CALL_SPECIES' => 7, 'WHEN_FIRST_SEEN' => 8, 'CALL_COMMENTS' => 9, 'CALL_REFERRED_TO' => 10, 'CALL_CONDITION' => 11, 'INVESTIGATOR_SUPPORT' => 12, 'INVESTIGATION_DATE' => 13, 'INVESTIGATION_LAT_LON_LOCATION' => 14, 'INVESTIGATION_PHYSICAL_LOCATION' => 15, 'INVESTIGATION_SPECIES' => 16, 'ANIMAL_NOT_FOUND' => 17, 'INVESTIGATION_CONDITION' => 18, 'TAGS' => 19, 'DISPOSITION' => 20, 'SEAL_PICKUP' => 21, 'SEX' => 22, 'WEIGHT' => 23, 'STRAIGHT_LENGTH' => 24, 'CONTOUR_LENGTH' => 25, 'GIRTH' => 26, 'INVESTIGATION_COMMENTS' => 27, 'IS_PHOTO_TAKEN' => 28, 'IS_CON_SICK' => 29, 'IS_CON_INJURED' => 30, 'IS_CON_OUT_OF_HABITAT' => 31, 'IS_CON_DEEMED_RELEASABLE' => 32, 'IS_CON_ABANDONED' => 33, 'IS_CON_INACCESSIBLE' => 34, 'IS_CON_LOCATION_HAZARD_TO_ANIMAL' => 35, 'IS_CON_LOCATION_HAZARD_TO_HUMANS' => 36, 'IS_CON_UNKNOWN' => 37, 'IS_CON_OTHER' => 38, 'IS_ACTION_LEFT_AT_SITE' => 39, 'IS_ACTION_IMMEDIATE_RELEASE_AT_SITE' => 40, 'IS_ACTION_RELOCATED' => 41, 'IS_ACTION_DIED_AT_SITE' => 42, 'IS_ACTION_DIED_DURING_TRANSPORT' => 43, 'IS_ACTION_EUTHANIZED_AT_SITE' => 44, 'IS_ACTION_EUTHANIZED_DURING_TRANSPORT' => 45, 'IS_ACTION_TRANSFERRED_TO_REHAB' => 46, 'IS_ACTION_OTHER' => 47, 'VOLUNTEER_ID' => 48, ),
+		BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'responder' => 1, 'call_date' => 2, 'call_from' => 3, 'caller_name' => 4, 'caller_phone_number' => 5, 'call_location' => 6, 'call_species' => 7, 'when_first_seen' => 8, 'call_comments' => 9, 'call_referred_to' => 10, 'call_condition' => 11, 'investigator_support' => 12, 'investigation_date' => 13, 'investigation_lat_lon_location' => 14, 'investigation_physical_location' => 15, 'investigation_species' => 16, 'animal_not_found' => 17, 'investigation_condition' => 18, 'tags' => 19, 'disposition' => 20, 'seal_pickup' => 21, 'sex' => 22, 'weight' => 23, 'straight_length' => 24, 'contour_length' => 25, 'girth' => 26, 'investigation_comments' => 27, 'is_photo_taken' => 28, 'is_con_sick' => 29, 'is_con_injured' => 30, 'is_con_out_of_habitat' => 31, 'is_con_deemed_releasable' => 32, 'is_con_abandoned' => 33, 'is_con_inaccessible' => 34, 'is_con_location_hazard_to_animal' => 35, 'is_con_location_hazard_to_humans' => 36, 'is_con_unknown' => 37, 'is_con_other' => 38, 'is_action_left_at_site' => 39, 'is_action_immediate_release_at_site' => 40, 'is_action_relocated' => 41, 'is_action_died_at_site' => 42, 'is_action_died_during_transport' => 43, 'is_action_euthanized_at_site' => 44, 'is_action_euthanized_during_transport' => 45, 'is_action_transferred_to_rehab' => 46, 'is_action_other' => 47, 'volunteer_id' => 48, ),
+		BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, )
 	);
 
 	/**
@@ -278,8 +321,6 @@ abstract class BaseReportPeer {
 			$criteria->addSelectColumn(ReportPeer::GIRTH);
 			$criteria->addSelectColumn(ReportPeer::INVESTIGATION_COMMENTS);
 			$criteria->addSelectColumn(ReportPeer::IS_PHOTO_TAKEN);
-			$criteria->addSelectColumn(ReportPeer::VOLUNTEER_ID);
-
 			$criteria->addSelectColumn(ReportPeer::IS_CON_SICK);
 			$criteria->addSelectColumn(ReportPeer::IS_CON_INJURED);
 			$criteria->addSelectColumn(ReportPeer::IS_CON_OUT_OF_HABITAT);
@@ -299,6 +340,7 @@ abstract class BaseReportPeer {
 			$criteria->addSelectColumn(ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT);
 			$criteria->addSelectColumn(ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB);
 			$criteria->addSelectColumn(ReportPeer::IS_ACTION_OTHER);
+			$criteria->addSelectColumn(ReportPeer::VOLUNTEER_ID);
 		} else {
 			$criteria->addSelectColumn($alias . '.ID');
 			$criteria->addSelectColumn($alias . '.RESPONDER');
@@ -329,8 +371,6 @@ abstract class BaseReportPeer {
 			$criteria->addSelectColumn($alias . '.GIRTH');
 			$criteria->addSelectColumn($alias . '.INVESTIGATION_COMMENTS');
 			$criteria->addSelectColumn($alias . '.IS_PHOTO_TAKEN');
-			$criteria->addSelectColumn($alias . '.VOLUNTEER_ID');
-
 			$criteria->addSelectColumn($alias . '.IS_CON_SICK');
 			$criteria->addSelectColumn($alias . '.IS_CON_INJURED');
 			$criteria->addSelectColumn($alias . '.IS_CON_OUT_OF_HABITAT');
@@ -350,6 +390,7 @@ abstract class BaseReportPeer {
 			$criteria->addSelectColumn($alias . '.IS_ACTION_EUTHANIZED_DURING_TRANSPORT');
 			$criteria->addSelectColumn($alias . '.IS_ACTION_TRANSFERRED_TO_REHAB');
 			$criteria->addSelectColumn($alias . '.IS_ACTION_OTHER');
+			$criteria->addSelectColumn($alias . '.VOLUNTEER_ID');
 		}
 	}
 
@@ -470,7 +511,7 @@ abstract class BaseReportPeer {
 	 * @param      Report $value A Report object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(Report $obj, $key = null)
+	public static function addInstanceToPool($obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -625,7 +666,7 @@ abstract class BaseReportPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ReportPeer::NUM_COLUMNS;
+			$col = $startcol + ReportPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ReportPeer::OM_CLASS;
 			$obj = new $cls();
@@ -704,7 +745,7 @@ abstract class BaseReportPeer {
 		}
 
 		ReportPeer::addSelectColumns($criteria);
-		$startcol = (ReportPeer::NUM_COLUMNS - ReportPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ReportPeer::NUM_HYDRATE_COLUMNS;
 		VolunteerPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ReportPeer::VOLUNTEER_ID, VolunteerPeer::ID, $join_behavior);
@@ -820,10 +861,10 @@ abstract class BaseReportPeer {
 		}
 
 		ReportPeer::addSelectColumns($criteria);
-		$startcol2 = (ReportPeer::NUM_COLUMNS - ReportPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ReportPeer::NUM_HYDRATE_COLUMNS;
 
 		VolunteerPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (VolunteerPeer::NUM_COLUMNS - VolunteerPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + VolunteerPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ReportPeer::VOLUNTEER_ID, VolunteerPeer::ID, $join_behavior);
 
@@ -1089,7 +1130,7 @@ abstract class BaseReportPeer {
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(Report $obj, $cols = null)
+	public static function doValidate($obj, $cols = null)
 	{
 		$columns = array();
 

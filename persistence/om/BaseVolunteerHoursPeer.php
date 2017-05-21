@@ -31,6 +31,9 @@ abstract class BaseVolunteerHoursPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 8;
+
 	/** the column name for the ID field */
 	const ID = 'volunteer_hours.ID';
 
@@ -55,6 +58,9 @@ abstract class BaseVolunteerHoursPeer {
 	/** the column name for the VOLUNTEER_ID field */
 	const VOLUNTEER_ID = 'volunteer_hours.VOLUNTEER_ID';
 
+	/** The default string format for model objects of the related table **/
+	const DEFAULT_STRING_FORMAT = 'YAML';
+	
 	/**
 	 * An identiy map to hold any loaded instances of VolunteerHours objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
@@ -70,7 +76,7 @@ abstract class BaseVolunteerHoursPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
-	private static $fieldNames = array (
+	protected static $fieldNames = array (
 		BasePeer::TYPE_PHPNAME => array ('Id', 'TotalHours', 'Mileage', 'Comments', 'DayOfMonth', 'Month', 'Year', 'VolunteerId', ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'totalHours', 'mileage', 'comments', 'dayOfMonth', 'month', 'year', 'volunteerId', ),
 		BasePeer::TYPE_COLNAME => array (self::ID, self::TOTAL_HOURS, self::MILEAGE, self::COMMENTS, self::DAY_OF_MONTH, self::MONTH, self::YEAR, self::VOLUNTEER_ID, ),
@@ -85,7 +91,7 @@ abstract class BaseVolunteerHoursPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
-	private static $fieldKeys = array (
+	protected static $fieldKeys = array (
 		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'TotalHours' => 1, 'Mileage' => 2, 'Comments' => 3, 'DayOfMonth' => 4, 'Month' => 5, 'Year' => 6, 'VolunteerId' => 7, ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'totalHours' => 1, 'mileage' => 2, 'comments' => 3, 'dayOfMonth' => 4, 'month' => 5, 'year' => 6, 'volunteerId' => 7, ),
 		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::TOTAL_HOURS => 1, self::MILEAGE => 2, self::COMMENTS => 3, self::DAY_OF_MONTH => 4, self::MONTH => 5, self::YEAR => 6, self::VOLUNTEER_ID => 7, ),
@@ -300,7 +306,7 @@ abstract class BaseVolunteerHoursPeer {
 	 * @param      VolunteerHours $value A VolunteerHours object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(VolunteerHours $obj, $key = null)
+	public static function addInstanceToPool($obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -455,7 +461,7 @@ abstract class BaseVolunteerHoursPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + VolunteerHoursPeer::NUM_COLUMNS;
+			$col = $startcol + VolunteerHoursPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = VolunteerHoursPeer::OM_CLASS;
 			$obj = new $cls();
@@ -534,7 +540,7 @@ abstract class BaseVolunteerHoursPeer {
 		}
 
 		VolunteerHoursPeer::addSelectColumns($criteria);
-		$startcol = (VolunteerHoursPeer::NUM_COLUMNS - VolunteerHoursPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = VolunteerHoursPeer::NUM_HYDRATE_COLUMNS;
 		VolunteerPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(VolunteerHoursPeer::VOLUNTEER_ID, VolunteerPeer::ID, $join_behavior);
@@ -650,10 +656,10 @@ abstract class BaseVolunteerHoursPeer {
 		}
 
 		VolunteerHoursPeer::addSelectColumns($criteria);
-		$startcol2 = (VolunteerHoursPeer::NUM_COLUMNS - VolunteerHoursPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = VolunteerHoursPeer::NUM_HYDRATE_COLUMNS;
 
 		VolunteerPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (VolunteerPeer::NUM_COLUMNS - VolunteerPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + VolunteerPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(VolunteerHoursPeer::VOLUNTEER_ID, VolunteerPeer::ID, $join_behavior);
 
@@ -919,7 +925,7 @@ abstract class BaseVolunteerHoursPeer {
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(VolunteerHours $obj, $cols = null)
+	public static function doValidate($obj, $cols = null)
 	{
 		$columns = array();
 
