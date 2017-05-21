@@ -99,9 +99,9 @@ class Report_model extends Model
 
 		$this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
 		  
-		$this->email->to('jennifer@whalemuseum.org'); 
-		//$this->email->to('lancewf@gmail.com'); 
-		$this->email->bcc('lancewf@gmail.com');
+		//$this->email->to('jennifer@whalemuseum.org'); 
+		$this->email->to('lancewf@gmail.com'); 
+		//$this->email->bcc('lancewf@gmail.com');
 		
 		$this->email->subject('Notice of Update to MMSN Report');
 		$this->email->message($message);
@@ -154,9 +154,9 @@ class Report_model extends Model
 
 		$this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
 		
-		$this->email->to('jennifer@whalemuseum.org'); 
-		//$this->email->to('lancewf@gmail.com'); 
-		$this->email->bcc('lancewf@gmail.com');
+		//$this->email->to('jennifer@whalemuseum.org'); 
+		$this->email->to('lancewf@gmail.com'); 
+		//$this->email->bcc('lancewf@gmail.com');
 	
 		$this->email->subject('New MMSN Report created');
 		$this->email->message($message);
@@ -220,10 +220,28 @@ class Report_model extends Model
                    array_key_exists('sex', $reportData) and			
                    array_key_exists('weight', $reportData) and			
                    array_key_exists('straight_length', $reportData) and			
-                   array_key_exists('contour_length', $reportData) and			
                    array_key_exists('girth', $reportData) and			
                    array_key_exists('investigation_comments', $reportData) and			
-                   array_key_exists('is_photo_taken', $reportData))	
+                   array_key_exists('is_photo_taken', $reportData) and
+				   array_key_exists('is_con_sick', $reportData) and
+				   array_key_exists('is_con_injured', $reportData) and
+				   array_key_exists('is_con_out_of_habitat', $reportData) and
+				   array_key_exists('is_con_deemed_releasable', $reportData) and
+				   array_key_exists('is_con_abandoned', $reportData) and
+				   array_key_exists('is_con_inaccessible', $reportData) and
+				   array_key_exists('is_con_location_hazard_to_animal', $reportData) and
+				   array_key_exists('is_con_location_hazard_to_humans', $reportData) and
+				   array_key_exists('is_con_unknown', $reportData) and
+				   array_key_exists('is_con_other', $reportData) and
+				   array_key_exists('is_action_left_at_site', $reportData) and
+				   array_key_exists('is_action_immediate_release_at_site', $reportData) and
+				   array_key_exists('is_action_relocated', $reportData) and
+				   array_key_exists('is_action_died_at_site', $reportData) and
+				   array_key_exists('is_action_died_during_transport', $reportData) and
+				   array_key_exists('is_action_euthanized_at_site', $reportData) and
+				   array_key_exists('is_action_euthanized_during_transport', $reportData) and
+				   array_key_exists('is_action_transferred_to_rehab', $reportData) and
+				   array_key_exists('is_action_other', $reportData))	
 		{
 
 			return true;
@@ -285,10 +303,29 @@ class Report_model extends Model
 		$report->setSex($reportData['sex']);
 		$report->setWeight($reportData['weight']);
 		$report->setStraightLength($reportData['straight_length']);
-		$report->setContourLength($reportData['contour_length']);
 		$report->setGirth($reportData['girth']);
 		$report->setInvestigationComments($reportData['investigation_comments']);
 		$report->setIsPhotoTaken($reportData['is_photo_taken']);
+
+		$report->setIsConSick($reportData['is_con_sick']);
+		$report->setIsConInjured($reportData['is_con_injured']);
+		$report->setIsConOutOfHabitat($reportData['is_con_out_of_habitat']);
+		$report->setIsConDeemedReleasable($reportData['is_con_deemed_releasable']);
+		$report->setIsConAbandoned($reportData['is_con_abandoned']);
+		$report->setIsConInaccessible($reportData['is_con_inaccessible']);
+		$report->setIsConLocationHazardToAnimal($reportData['is_con_location_hazard_to_animal']);
+		$report->setIsConLocationHazardToHumans($reportData['is_con_location_hazard_to_humans']);
+		$report->setIsConUnknown($reportData['is_con_unknown']);
+		$report->setIsConOther($reportData['is_con_other']);
+		$report->setIsActionLeftAtSite($reportData['is_action_left_at_site']);
+		$report->setIsActionImmediateReleaseAtSite($reportData['is_action_immediate_release_at_site']);
+		$report->setIsActionRelocated($reportData['is_action_relocated']);
+		$report->setIsActionDiedAtSite($reportData['is_action_died_at_site']);
+		$report->setIsActionDiedDuringTransport($reportData['is_action_died_during_transport']);
+		$report->setIsActionEuthanizedAtSite($reportData['is_action_euthanized_at_site']);
+		$report->setIsActionEuthanizedDuringTransport($reportData['is_action_euthanized_during_transport']);
+		$report->setIsActionTransferredToRehab($reportData['is_action_transferred_to_rehab']);
+		$report->setIsActionOther($reportData['is_action_other']);
 	}
 	
 	private function getBoolean($textBoolean)

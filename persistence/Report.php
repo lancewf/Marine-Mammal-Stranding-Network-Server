@@ -60,7 +60,28 @@ class Report extends BaseReport {
         $array_store["girth"] = (double)$this->getGirth();
         $array_store["is_photo_taken"] = (boolean)$this->getIsPhotoTaken();
         $array_store["investigation_comments"] = $this->getInvestigationComments();
-        
+
+        $array_store["is_con_sick"] = (boolean)$this->getIsConSick();
+        $array_store["is_con_injured"] = (boolean)$this->getIsConInjured();
+        $array_store["is_con_out_of_habitat"] = (boolean)$this->getIsConOutOfHabitat();
+        $array_store["is_con_deemed_releasable"] = (boolean)$this->getIsConDeemedReleasable();
+        $array_store["is_con_abandoned"] = (boolean)$this->getIsConAbandoned();
+        $array_store["is_con_inaccessible"] = (boolean)$this->getIsConInaccessible();
+        $array_store["is_con_location_hazard_to_animal"] = (boolean)$this->getIsConLocationHazardToAnimal();
+        $array_store["is_con_location_hazard_to_humans"] = (boolean)$this->getIsConLocationHazardToHumans();
+        $array_store["is_con_unknown"] = (boolean)$this->getIsConUnknown();
+        $array_store["is_con_other"] = (boolean)$this->getIsConOther();
+        $array_store["is_action_left_at_site"] = (boolean)$this->getIsActionLeftAtSite();
+        $array_store["is_action_immediate_release_at_site"] = (boolean)$this->getIsActionImmediateReleaseAtSite();
+        $array_store["is_action_relocated"] = (boolean)$this->getIsActionRelocated();
+        $array_store["is_action_died_at_site"] = (boolean)$this->getIsActionDiedAtSite();
+        $array_store["is_action_died_during_transport"] = (boolean)$this->getIsActionDiedDuringTransport();
+        $array_store["is_action_euthanized_at_site"] = (boolean)$this->getIsActionEuthanizedAtSite();
+        $array_store["is_action_euthanized_during_transport"] = (boolean)$this->getIsActionEuthanizedDuringTransport();
+        $array_store["is_action_transferred_to_rehab"] = (boolean)$this->getIsActionTransferredToRehab();
+        $array_store["is_action_other"] = (boolean)$this->getIsActionOther();
+
+
         $attachments = $this->getAttachments();
         
         $attachemtnsOutput = array ();
@@ -79,20 +100,20 @@ class Report extends BaseReport {
 	// Private Members
 	// -------------------------------------------------------------------------
 		
-    private function getHour($dateObject)
-    {
+        private function getHour($dateObject)
+        {
 		return date("H", $dateObject);
-    }
+        }
 	
-    private function getMinute($dateObject)
-    {
+        private function getMinute($dateObject)
+        {
 		return date("i", $dateObject);
-    }
+        }
     
-    private function getYear($dateObject)
-    {
+        private function getYear($dateObject)
+        {
 		return date("Y", $dateObject);
-    }
+        }
     
 	private function getDayOfMonth($dateObject)
 	{		
