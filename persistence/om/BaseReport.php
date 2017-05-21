@@ -14,7 +14,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	/**
 	 * Peer class name
 	 */
-  const PEER = 'ReportPeer';
+	const PEER = 'ReportPeer';
 
 	/**
 	 * The Peer class.
@@ -204,108 +204,112 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	 */
 	protected $is_con_sick;
 
-    /**
+	/**
 	 * The value for the is_con_injured field.
 	 * @var        boolean
 	 */
 	protected $is_con_injured;
-	
-    /**
+
+	/**
 	 * The value for the is_con_out_of_habitat field.
 	 * @var        boolean
 	 */
 	protected $is_con_out_of_habitat;
 
-    /**
+	/**
 	 * The value for the is_con_deemed_releasable field.
 	 * @var        boolean
 	 */
 	protected $is_con_deemed_releasable;
 
-    /**
+	/**
 	 * The value for the is_con_abandoned field.
 	 * @var        boolean
 	 */
 	protected $is_con_abandoned;
 
-    /**
+	/**
 	 * The value for the is_con_inaccessible field.
 	 * @var        boolean
 	 */
 	protected $is_con_inaccessible;
 
-    /**
+	/**
 	 * The value for the is_con_location_hazard_to_animal field.
 	 * @var        boolean
 	 */
 	protected $is_con_location_hazard_to_animal;
 
-    /**
+	/**
 	 * The value for the is_con_location_hazard_to_humans field.
 	 * @var        boolean
 	 */
 	protected $is_con_location_hazard_to_humans;
 
-    /**
+	/**
 	 * The value for the is_con_unknown field.
 	 * @var        boolean
 	 */
 	protected $is_con_unknown;
 
-    /**
+	/**
 	 * The value for the is_con_other field.
 	 * @var        boolean
 	 */
 	protected $is_con_other;
 
-    /**
+	/**
 	 * The value for the is_action_left_at_site field.
 	 * @var        boolean
 	 */
 	protected $is_action_left_at_site;
 
-    /**
+	/**
 	 * The value for the is_action_immediate_release_at_site field.
 	 * @var        boolean
 	 */
 	protected $is_action_immediate_release_at_site;
 
-    /**
+	/**
 	 * The value for the is_action_relocated field.
 	 * @var        boolean
 	 */
 	protected $is_action_relocated;
 
-    /**
+	/**
 	 * The value for the is_action_died_at_site field.
 	 * @var        boolean
 	 */
 	protected $is_action_died_at_site;
 
-    /**
+	/**
 	 * The value for the is_action_died_during_transport field.
 	 * @var        boolean
 	 */
 	protected $is_action_died_during_transport;
 
-    /**
+	/**
 	 * The value for the is_action_euthanized_at_site field.
 	 * @var        boolean
 	 */
 	protected $is_action_euthanized_at_site;
 
-    /**
+	/**
 	 * The value for the is_action_euthanized_during_transport field.
 	 * @var        boolean
 	 */
 	protected $is_action_euthanized_during_transport;
 
-    /**
+	/**
 	 * The value for the is_action_transferred_to_rehab field.
 	 * @var        boolean
 	 */
 	protected $is_action_transferred_to_rehab;
 
+	/**
+	 * The value for the is_action_other field.
+	 * @var        boolean
+	 */
 	protected $is_action_other;
 
 	/**
@@ -689,96 +693,191 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		return $this->is_photo_taken;
 	}
 
+	/**
+	 * Get the [is_con_sick] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConSick()
 	{
 		return $this->is_con_sick;
 	}
 
+	/**
+	 * Get the [is_con_injured] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConInjured()
 	{
 		return $this->is_con_injured;
 	}
 
+	/**
+	 * Get the [is_con_out_of_habitat] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConOutOfHabitat()
 	{
 		return $this->is_con_out_of_habitat;
 	}
 
+	/**
+	 * Get the [is_con_deemed_releasable] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConDeemedReleasable()
 	{
 		return $this->is_con_deemed_releasable;
 	}
 
+	/**
+	 * Get the [is_con_abandoned] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConAbandoned()
 	{
 		return $this->is_con_abandoned;
 	}
 
+	/**
+	 * Get the [is_con_inaccessible] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConInaccessible()
 	{
 		return $this->is_con_inaccessible;
 	}
 
+	/**
+	 * Get the [is_con_location_hazard_to_animal] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConLocationHazardToAnimal()
 	{
 		return $this->is_con_location_hazard_to_animal;
 	}
 
+	/**
+	 * Get the [is_con_location_hazard_to_humans] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConLocationHazardToHumans()
 	{
 		return $this->is_con_location_hazard_to_humans;
 	}
 
+	/**
+	 * Get the [is_con_unknown] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConUnknown()
 	{
 		return $this->is_con_unknown;
 	}
 
+	/**
+	 * Get the [is_con_other] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsConOther()
 	{
 		return $this->is_con_other;
 	}
 
+	/**
+	 * Get the [is_action_left_at_site] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionLeftAtSite()
 	{
 		return $this->is_action_left_at_site;
 	}
 
+	/**
+	 * Get the [is_action_immediate_release_at_site] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionImmediateReleaseAtSite()
 	{
 		return $this->is_action_immediate_release_at_site;
 	}
 
+	/**
+	 * Get the [is_action_relocated] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionRelocated()
 	{
 		return $this->is_action_relocated;
 	}
 
+	/**
+	 * Get the [is_action_died_at_site] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionDiedAtSite()
 	{
 		return $this->is_action_died_at_site;
 	}
 
+	/**
+	 * Get the [is_action_died_during_transport] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionDiedDuringTransport()
 	{
 		return $this->is_action_died_during_transport;
 	}
 
+	/**
+	 * Get the [is_action_euthanized_at_site] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionEuthanizedAtSite()
 	{
 		return $this->is_action_euthanized_at_site;
 	}
 
+	/**
+	 * Get the [is_action_euthanized_during_transport] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionEuthanizedDuringTransport()
 	{
 		return $this->is_action_euthanized_during_transport;
 	}
 
+	/**
+	 * Get the [is_action_transferred_to_rehab] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionTransferredToRehab()
 	{
 		return $this->is_action_transferred_to_rehab;
 	}
 
+	/**
+	 * Get the [is_action_other] column value.
+	 * 
+	 * @return     boolean
+	 */
 	public function getIsActionOther()
 	{
 		return $this->is_action_other;
@@ -837,45 +936,18 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	/**
 	 * Sets the value of [call_date] column to a normalized version of the date/time value specified.
 	 * 
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
 	 * @return     Report The current object (for fluent API support)
 	 */
 	public function setCallDate($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->call_date !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->call_date !== null && $tmpDt = new DateTime($this->call_date)) ? $tmpDt->format('Y-m-d H:i:s') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d H:i:s') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->call_date = ($dt ? $dt->format('Y-m-d H:i:s') : null);
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->call_date !== null || $dt !== null) {
+			$currentDateAsString = ($this->call_date !== null && $tmpDt = new DateTime($this->call_date)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->call_date = $newDateAsString;
 				$this->modifiedColumns[] = ReportPeer::CALL_DATE;
 			}
 		} // if either are not null
@@ -1086,45 +1158,18 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	/**
 	 * Sets the value of [investigation_date] column to a normalized version of the date/time value specified.
 	 * 
-	 * @param      mixed $v string, integer (timestamp), or DateTime value.  Empty string will
-	 *						be treated as NULL for temporal objects.
+	 * @param      mixed $v string, integer (timestamp), or DateTime value.
+	 *               Empty strings are treated as NULL.
 	 * @return     Report The current object (for fluent API support)
 	 */
 	public function setInvestigationDate($v)
 	{
-		// we treat '' as NULL for temporal objects because DateTime('') == DateTime('now')
-		// -- which is unexpected, to say the least.
-		if ($v === null || $v === '') {
-			$dt = null;
-		} elseif ($v instanceof DateTime) {
-			$dt = $v;
-		} else {
-			// some string/numeric value passed; we normalize that so that we can
-			// validate it.
-			try {
-				if (is_numeric($v)) { // if it's a unix timestamp
-					$dt = new DateTime('@'.$v, new DateTimeZone('UTC'));
-					// We have to explicitly specify and then change the time zone because of a
-					// DateTime bug: http://bugs.php.net/bug.php?id=43003
-					$dt->setTimeZone(new DateTimeZone(date_default_timezone_get()));
-				} else {
-					$dt = new DateTime($v);
-				}
-			} catch (Exception $x) {
-				throw new PropelException('Error parsing date/time value: ' . var_export($v, true), $x);
-			}
-		}
-
-		if ( $this->investigation_date !== null || $dt !== null ) {
-			// (nested ifs are a little easier to read in this case)
-
-			$currNorm = ($this->investigation_date !== null && $tmpDt = new DateTime($this->investigation_date)) ? $tmpDt->format('Y-m-d H:i:s') : null;
-			$newNorm = ($dt !== null) ? $dt->format('Y-m-d H:i:s') : null;
-
-			if ( ($currNorm !== $newNorm) // normalized values don't match 
-					)
-			{
-				$this->investigation_date = ($dt ? $dt->format('Y-m-d H:i:s') : null);
+		$dt = PropelDateTime::newInstance($v, null, 'DateTime');
+		if ($this->investigation_date !== null || $dt !== null) {
+			$currentDateAsString = ($this->investigation_date !== null && $tmpDt = new DateTime($this->investigation_date)) ? $tmpDt->format('Y-m-d H:i:s') : null;
+			$newDateAsString = $dt ? $dt->format('Y-m-d H:i:s') : null;
+			if ($currentDateAsString !== $newDateAsString) {
+				$this->investigation_date = $newDateAsString;
 				$this->modifiedColumns[] = ReportPeer::INVESTIGATION_DATE;
 			}
 		} // if either are not null
@@ -1193,15 +1238,23 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	} // setInvestigationSpecies()
 
 	/**
-	 * Set the value of [animal_not_found] column.
+	 * Sets the value of the [animal_not_found] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Report The current object (for fluent API support)
 	 */
 	public function setAnimalNotFound($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->animal_not_found !== $v) {
@@ -1413,15 +1466,23 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	} // setInvestigationComments()
 
 	/**
-	 * Set the value of [is_photo_taken] column.
+	 * Sets the value of the [is_photo_taken] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * 
-	 * @param      boolean $v new value
+	 * @param      boolean|integer|string $v The new value
 	 * @return     Report The current object (for fluent API support)
 	 */
 	public function setIsPhotoTaken($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_photo_taken !== $v) {
@@ -1432,11 +1493,24 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		return $this;
 	} // setIsPhotoTaken()
 
-
+	/**
+	 * Sets the value of the [is_con_sick] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConSick($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_sick !== $v) {
@@ -1445,12 +1519,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConSick()
 
+	/**
+	 * Sets the value of the [is_con_injured] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConInjured($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_injured !== $v) {
@@ -1459,12 +1547,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConInjured()
 
+	/**
+	 * Sets the value of the [is_con_out_of_habitat] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConOutOfHabitat($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_out_of_habitat !== $v) {
@@ -1473,12 +1575,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConOutOfHabitat()
 
+	/**
+	 * Sets the value of the [is_con_deemed_releasable] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConDeemedReleasable($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_deemed_releasable !== $v) {
@@ -1487,12 +1603,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConDeemedReleasable()
 
+	/**
+	 * Sets the value of the [is_con_abandoned] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConAbandoned($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_abandoned !== $v) {
@@ -1501,12 +1631,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConAbandoned()
 
+	/**
+	 * Sets the value of the [is_con_inaccessible] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConInaccessible($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_inaccessible !== $v) {
@@ -1515,12 +1659,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConInaccessible()
 
+	/**
+	 * Sets the value of the [is_con_location_hazard_to_animal] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConLocationHazardToAnimal($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_location_hazard_to_animal !== $v) {
@@ -1529,12 +1687,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConLocationHazardToAnimal()
 
+	/**
+	 * Sets the value of the [is_con_location_hazard_to_humans] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConLocationHazardToHumans($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_location_hazard_to_humans !== $v) {
@@ -1543,12 +1715,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConLocationHazardToHumans()
 
+	/**
+	 * Sets the value of the [is_con_unknown] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConUnknown($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_unknown !== $v) {
@@ -1557,12 +1743,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConUnknown()
 
+	/**
+	 * Sets the value of the [is_con_other] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsConOther($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_con_other !== $v) {
@@ -1571,12 +1771,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsConOther()
 
+	/**
+	 * Sets the value of the [is_action_left_at_site] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionLeftAtSite($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_left_at_site !== $v) {
@@ -1585,12 +1799,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionLeftAtSite()
 
+	/**
+	 * Sets the value of the [is_action_immediate_release_at_site] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionImmediateReleaseAtSite($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_immediate_release_at_site !== $v) {
@@ -1599,12 +1827,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionImmediateReleaseAtSite()
 
+	/**
+	 * Sets the value of the [is_action_relocated] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionRelocated($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_relocated !== $v) {
@@ -1613,12 +1855,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionRelocated()
 
+	/**
+	 * Sets the value of the [is_action_died_at_site] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionDiedAtSite($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_died_at_site !== $v) {
@@ -1627,12 +1883,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionDiedAtSite()
 
+	/**
+	 * Sets the value of the [is_action_died_during_transport] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionDiedDuringTransport($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_died_during_transport !== $v) {
@@ -1641,12 +1911,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionDiedDuringTransport()
 
+	/**
+	 * Sets the value of the [is_action_euthanized_at_site] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionEuthanizedAtSite($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_euthanized_at_site !== $v) {
@@ -1655,12 +1939,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionEuthanizedAtSite()
 
+	/**
+	 * Sets the value of the [is_action_euthanized_during_transport] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionEuthanizedDuringTransport($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_euthanized_during_transport !== $v) {
@@ -1669,12 +1967,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionEuthanizedDuringTransport()
 
+	/**
+	 * Sets the value of the [is_action_transferred_to_rehab] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionTransferredToRehab($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_transferred_to_rehab !== $v) {
@@ -1683,12 +1995,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionTransferredToRehab()
 
+	/**
+	 * Sets the value of the [is_action_other] column. 
+	 * Non-boolean arguments are converted using the following rules:
+	 *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+	 * 
+	 * @param      boolean|integer|string $v The new value
+	 * @return     Report The current object (for fluent API support)
+	 */
 	public function setIsActionOther($v)
 	{
 		if ($v !== null) {
-			$v = (boolean) $v;
+			if (is_string($v)) {
+				$v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0')) ? false : true;
+			} else {
+				$v = (boolean) $v;
+			}
 		}
 
 		if ($this->is_action_other !== $v) {
@@ -1697,7 +2023,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		}
 
 		return $this;
-	}
+	} // setIsActionOther()
 
 	/**
 	 * Set the value of [volunteer_id] column.
@@ -1784,27 +2110,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 			$this->girth = ($row[$startcol + 26] !== null) ? (double) $row[$startcol + 26] : null;
 			$this->investigation_comments = ($row[$startcol + 27] !== null) ? (string) $row[$startcol + 27] : null;
 			$this->is_photo_taken = ($row[$startcol + 28] !== null) ? (boolean) $row[$startcol + 28] : null;
-			$this->volunteer_id = ($row[$startcol + 29] !== null) ? (int) $row[$startcol + 29] : null;
-			$this->is_con_sick = ($row[$startcol + 30] !== null) ? (boolean) $row[$startcol + 30] : null;
-
-			$this->is_con_injured = ($row[$startcol + 31] !== null) ? (boolean) $row[$startcol + 31] : null;
-			$this->is_con_out_of_habitat = ($row[$startcol + 32] !== null) ? (boolean) $row[$startcol + 32] : null;
-			$this->is_con_deemed_releasable = ($row[$startcol + 33] !== null) ? (boolean) $row[$startcol + 33] : null;
-			$this->is_con_abandoned = ($row[$startcol + 34] !== null) ? (boolean) $row[$startcol + 34] : null;
-			$this->is_con_inaccessible = ($row[$startcol + 35] !== null) ? (boolean) $row[$startcol + 35] : null;
-			$this->is_con_location_hazard_to_animal = ($row[$startcol + 36] !== null) ? (boolean) $row[$startcol + 36] : null;
-			$this->is_con_location_hazard_to_humans = ($row[$startcol + 37] !== null) ? (boolean) $row[$startcol + 37] : null;
-			$this->is_con_unknown = ($row[$startcol + 38] !== null) ? (boolean) $row[$startcol + 38] : null;
-			$this->is_con_other = ($row[$startcol + 39] !== null) ? (boolean) $row[$startcol + 39] : null;
-			$this->is_action_left_at_site = ($row[$startcol + 40] !== null) ? (boolean) $row[$startcol + 40] : null;
-			$this->is_action_immediate_release_at_site = ($row[$startcol + 41] !== null) ? (boolean) $row[$startcol + 41] : null;
-			$this->is_action_relocated = ($row[$startcol + 42] !== null) ? (boolean) $row[$startcol + 42] : null;
-			$this->is_action_died_at_site = ($row[$startcol + 43] !== null) ? (boolean) $row[$startcol + 43] : null;
-			$this->is_action_died_during_transport = ($row[$startcol + 44] !== null) ? (boolean) $row[$startcol + 44] : null;
-			$this->is_action_euthanized_at_site = ($row[$startcol + 45] !== null) ? (boolean) $row[$startcol + 45] : null;
-			$this->is_action_euthanized_during_transport = ($row[$startcol + 46] !== null) ? (boolean) $row[$startcol + 46] : null;
-			$this->is_action_transferred_to_rehab = ($row[$startcol + 47] !== null) ? (boolean) $row[$startcol + 47] : null;
-			$this->is_action_other = ($row[$startcol + 48] !== null) ? (boolean) $row[$startcol + 48] : null;
+			$this->is_con_sick = ($row[$startcol + 29] !== null) ? (boolean) $row[$startcol + 29] : null;
+			$this->is_con_injured = ($row[$startcol + 30] !== null) ? (boolean) $row[$startcol + 30] : null;
+			$this->is_con_out_of_habitat = ($row[$startcol + 31] !== null) ? (boolean) $row[$startcol + 31] : null;
+			$this->is_con_deemed_releasable = ($row[$startcol + 32] !== null) ? (boolean) $row[$startcol + 32] : null;
+			$this->is_con_abandoned = ($row[$startcol + 33] !== null) ? (boolean) $row[$startcol + 33] : null;
+			$this->is_con_inaccessible = ($row[$startcol + 34] !== null) ? (boolean) $row[$startcol + 34] : null;
+			$this->is_con_location_hazard_to_animal = ($row[$startcol + 35] !== null) ? (boolean) $row[$startcol + 35] : null;
+			$this->is_con_location_hazard_to_humans = ($row[$startcol + 36] !== null) ? (boolean) $row[$startcol + 36] : null;
+			$this->is_con_unknown = ($row[$startcol + 37] !== null) ? (boolean) $row[$startcol + 37] : null;
+			$this->is_con_other = ($row[$startcol + 38] !== null) ? (boolean) $row[$startcol + 38] : null;
+			$this->is_action_left_at_site = ($row[$startcol + 39] !== null) ? (boolean) $row[$startcol + 39] : null;
+			$this->is_action_immediate_release_at_site = ($row[$startcol + 40] !== null) ? (boolean) $row[$startcol + 40] : null;
+			$this->is_action_relocated = ($row[$startcol + 41] !== null) ? (boolean) $row[$startcol + 41] : null;
+			$this->is_action_died_at_site = ($row[$startcol + 42] !== null) ? (boolean) $row[$startcol + 42] : null;
+			$this->is_action_died_during_transport = ($row[$startcol + 43] !== null) ? (boolean) $row[$startcol + 43] : null;
+			$this->is_action_euthanized_at_site = ($row[$startcol + 44] !== null) ? (boolean) $row[$startcol + 44] : null;
+			$this->is_action_euthanized_during_transport = ($row[$startcol + 45] !== null) ? (boolean) $row[$startcol + 45] : null;
+			$this->is_action_transferred_to_rehab = ($row[$startcol + 46] !== null) ? (boolean) $row[$startcol + 46] : null;
+			$this->is_action_other = ($row[$startcol + 47] !== null) ? (boolean) $row[$startcol + 47] : null;
+			$this->volunteer_id = ($row[$startcol + 48] !== null) ? (int) $row[$startcol + 48] : null;
 			$this->resetModified();
 
 			$this->setNew(false);
@@ -1813,7 +2138,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 				$this->ensureConsistency();
 			}
 
-			return $startcol + 30; // 30 = ReportPeer::NUM_COLUMNS - ReportPeer::NUM_LAZY_LOAD_COLUMNS).
+			return $startcol + 49; // 49 = ReportPeer::NUM_HYDRATE_COLUMNS.
 
 		} catch (Exception $e) {
 			throw new PropelException("Error populating Report object", $e);
@@ -1904,7 +2229,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if ($con === null) {
 			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
-		
+
 		$con->beginTransaction();
 		try {
 			$ret = $this->preDelete($con);
@@ -1946,7 +2271,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if ($con === null) {
 			$con = Propel::getConnection(ReportPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
 		}
-		
+
 		$con->beginTransaction();
 		$isInsert = $this->isNew();
 		try {
@@ -2264,6 +2589,63 @@ abstract class BaseReport extends BaseObject  implements Persistent
 				return $this->getIsPhotoTaken();
 				break;
 			case 29:
+				return $this->getIsConSick();
+				break;
+			case 30:
+				return $this->getIsConInjured();
+				break;
+			case 31:
+				return $this->getIsConOutOfHabitat();
+				break;
+			case 32:
+				return $this->getIsConDeemedReleasable();
+				break;
+			case 33:
+				return $this->getIsConAbandoned();
+				break;
+			case 34:
+				return $this->getIsConInaccessible();
+				break;
+			case 35:
+				return $this->getIsConLocationHazardToAnimal();
+				break;
+			case 36:
+				return $this->getIsConLocationHazardToHumans();
+				break;
+			case 37:
+				return $this->getIsConUnknown();
+				break;
+			case 38:
+				return $this->getIsConOther();
+				break;
+			case 39:
+				return $this->getIsActionLeftAtSite();
+				break;
+			case 40:
+				return $this->getIsActionImmediateReleaseAtSite();
+				break;
+			case 41:
+				return $this->getIsActionRelocated();
+				break;
+			case 42:
+				return $this->getIsActionDiedAtSite();
+				break;
+			case 43:
+				return $this->getIsActionDiedDuringTransport();
+				break;
+			case 44:
+				return $this->getIsActionEuthanizedAtSite();
+				break;
+			case 45:
+				return $this->getIsActionEuthanizedDuringTransport();
+				break;
+			case 46:
+				return $this->getIsActionTransferredToRehab();
+				break;
+			case 47:
+				return $this->getIsActionOther();
+				break;
+			case 48:
 				return $this->getVolunteerId();
 				break;
 			default:
@@ -2279,15 +2661,20 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	 * type constants.
 	 *
 	 * @param     string  $keyType (optional) One of the class type constants BasePeer::TYPE_PHPNAME, BasePeer::TYPE_STUDLYPHPNAME,
-	 *                    BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM. 
+	 *                    BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM.
 	 *                    Defaults to BasePeer::TYPE_PHPNAME.
 	 * @param     boolean $includeLazyLoadColumns (optional) Whether to include lazy loaded columns. Defaults to TRUE.
+	 * @param     array $alreadyDumpedObjects List of objects to skip to avoid recursion
 	 * @param     boolean $includeForeignObjects (optional) Whether to include hydrated related objects. Default to FALSE.
 	 *
 	 * @return    array an associative array containing the field names (as keys) and field values
 	 */
-	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $includeForeignObjects = false)
+	public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
 	{
+		if (isset($alreadyDumpedObjects['Report'][$this->getPrimaryKey()])) {
+			return '*RECURSION*';
+		}
+		$alreadyDumpedObjects['Report'][$this->getPrimaryKey()] = true;
 		$keys = ReportPeer::getFieldNames($keyType);
 		$result = array(
 			$keys[0] => $this->getId(),
@@ -2319,11 +2706,36 @@ abstract class BaseReport extends BaseObject  implements Persistent
 			$keys[26] => $this->getGirth(),
 			$keys[27] => $this->getInvestigationComments(),
 			$keys[28] => $this->getIsPhotoTaken(),
-			$keys[29] => $this->getVolunteerId(),
+			$keys[29] => $this->getIsConSick(),
+			$keys[30] => $this->getIsConInjured(),
+			$keys[31] => $this->getIsConOutOfHabitat(),
+			$keys[32] => $this->getIsConDeemedReleasable(),
+			$keys[33] => $this->getIsConAbandoned(),
+			$keys[34] => $this->getIsConInaccessible(),
+			$keys[35] => $this->getIsConLocationHazardToAnimal(),
+			$keys[36] => $this->getIsConLocationHazardToHumans(),
+			$keys[37] => $this->getIsConUnknown(),
+			$keys[38] => $this->getIsConOther(),
+			$keys[39] => $this->getIsActionLeftAtSite(),
+			$keys[40] => $this->getIsActionImmediateReleaseAtSite(),
+			$keys[41] => $this->getIsActionRelocated(),
+			$keys[42] => $this->getIsActionDiedAtSite(),
+			$keys[43] => $this->getIsActionDiedDuringTransport(),
+			$keys[44] => $this->getIsActionEuthanizedAtSite(),
+			$keys[45] => $this->getIsActionEuthanizedDuringTransport(),
+			$keys[46] => $this->getIsActionTransferredToRehab(),
+			$keys[47] => $this->getIsActionOther(),
+			$keys[48] => $this->getVolunteerId(),
 		);
 		if ($includeForeignObjects) {
 			if (null !== $this->aVolunteer) {
-				$result['Volunteer'] = $this->aVolunteer->toArray($keyType, $includeLazyLoadColumns, true);
+				$result['Volunteer'] = $this->aVolunteer->toArray($keyType, $includeLazyLoadColumns,  $alreadyDumpedObjects, true);
+			}
+			if (null !== $this->collReportCommentss) {
+				$result['ReportCommentss'] = $this->collReportCommentss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+			}
+			if (null !== $this->collAttachments) {
+				$result['Attachments'] = $this->collAttachments->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
 			}
 		}
 		return $result;
@@ -2444,6 +2856,63 @@ abstract class BaseReport extends BaseObject  implements Persistent
 				$this->setIsPhotoTaken($value);
 				break;
 			case 29:
+				$this->setIsConSick($value);
+				break;
+			case 30:
+				$this->setIsConInjured($value);
+				break;
+			case 31:
+				$this->setIsConOutOfHabitat($value);
+				break;
+			case 32:
+				$this->setIsConDeemedReleasable($value);
+				break;
+			case 33:
+				$this->setIsConAbandoned($value);
+				break;
+			case 34:
+				$this->setIsConInaccessible($value);
+				break;
+			case 35:
+				$this->setIsConLocationHazardToAnimal($value);
+				break;
+			case 36:
+				$this->setIsConLocationHazardToHumans($value);
+				break;
+			case 37:
+				$this->setIsConUnknown($value);
+				break;
+			case 38:
+				$this->setIsConOther($value);
+				break;
+			case 39:
+				$this->setIsActionLeftAtSite($value);
+				break;
+			case 40:
+				$this->setIsActionImmediateReleaseAtSite($value);
+				break;
+			case 41:
+				$this->setIsActionRelocated($value);
+				break;
+			case 42:
+				$this->setIsActionDiedAtSite($value);
+				break;
+			case 43:
+				$this->setIsActionDiedDuringTransport($value);
+				break;
+			case 44:
+				$this->setIsActionEuthanizedAtSite($value);
+				break;
+			case 45:
+				$this->setIsActionEuthanizedDuringTransport($value);
+				break;
+			case 46:
+				$this->setIsActionTransferredToRehab($value);
+				break;
+			case 47:
+				$this->setIsActionOther($value);
+				break;
+			case 48:
 				$this->setVolunteerId($value);
 				break;
 		} // switch()
@@ -2499,7 +2968,26 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if (array_key_exists($keys[26], $arr)) $this->setGirth($arr[$keys[26]]);
 		if (array_key_exists($keys[27], $arr)) $this->setInvestigationComments($arr[$keys[27]]);
 		if (array_key_exists($keys[28], $arr)) $this->setIsPhotoTaken($arr[$keys[28]]);
-		if (array_key_exists($keys[29], $arr)) $this->setVolunteerId($arr[$keys[29]]);
+		if (array_key_exists($keys[29], $arr)) $this->setIsConSick($arr[$keys[29]]);
+		if (array_key_exists($keys[30], $arr)) $this->setIsConInjured($arr[$keys[30]]);
+		if (array_key_exists($keys[31], $arr)) $this->setIsConOutOfHabitat($arr[$keys[31]]);
+		if (array_key_exists($keys[32], $arr)) $this->setIsConDeemedReleasable($arr[$keys[32]]);
+		if (array_key_exists($keys[33], $arr)) $this->setIsConAbandoned($arr[$keys[33]]);
+		if (array_key_exists($keys[34], $arr)) $this->setIsConInaccessible($arr[$keys[34]]);
+		if (array_key_exists($keys[35], $arr)) $this->setIsConLocationHazardToAnimal($arr[$keys[35]]);
+		if (array_key_exists($keys[36], $arr)) $this->setIsConLocationHazardToHumans($arr[$keys[36]]);
+		if (array_key_exists($keys[37], $arr)) $this->setIsConUnknown($arr[$keys[37]]);
+		if (array_key_exists($keys[38], $arr)) $this->setIsConOther($arr[$keys[38]]);
+		if (array_key_exists($keys[39], $arr)) $this->setIsActionLeftAtSite($arr[$keys[39]]);
+		if (array_key_exists($keys[40], $arr)) $this->setIsActionImmediateReleaseAtSite($arr[$keys[40]]);
+		if (array_key_exists($keys[41], $arr)) $this->setIsActionRelocated($arr[$keys[41]]);
+		if (array_key_exists($keys[42], $arr)) $this->setIsActionDiedAtSite($arr[$keys[42]]);
+		if (array_key_exists($keys[43], $arr)) $this->setIsActionDiedDuringTransport($arr[$keys[43]]);
+		if (array_key_exists($keys[44], $arr)) $this->setIsActionEuthanizedAtSite($arr[$keys[44]]);
+		if (array_key_exists($keys[45], $arr)) $this->setIsActionEuthanizedDuringTransport($arr[$keys[45]]);
+		if (array_key_exists($keys[46], $arr)) $this->setIsActionTransferredToRehab($arr[$keys[46]]);
+		if (array_key_exists($keys[47], $arr)) $this->setIsActionOther($arr[$keys[47]]);
+		if (array_key_exists($keys[48], $arr)) $this->setVolunteerId($arr[$keys[48]]);
 	}
 
 	/**
@@ -2540,10 +3028,8 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if ($this->isColumnModified(ReportPeer::GIRTH)) $criteria->add(ReportPeer::GIRTH, $this->girth);
 		if ($this->isColumnModified(ReportPeer::INVESTIGATION_COMMENTS)) $criteria->add(ReportPeer::INVESTIGATION_COMMENTS, $this->investigation_comments);
 		if ($this->isColumnModified(ReportPeer::IS_PHOTO_TAKEN)) $criteria->add(ReportPeer::IS_PHOTO_TAKEN, $this->is_photo_taken);
-		if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) $criteria->add(ReportPeer::VOLUNTEER_ID, $this->volunteer_id);
 		if ($this->isColumnModified(ReportPeer::IS_CON_SICK)) $criteria->add(ReportPeer::IS_CON_SICK, $this->is_con_sick);
 		if ($this->isColumnModified(ReportPeer::IS_CON_INJURED)) $criteria->add(ReportPeer::IS_CON_INJURED, $this->is_con_injured);
-
 		if ($this->isColumnModified(ReportPeer::IS_CON_OUT_OF_HABITAT)) $criteria->add(ReportPeer::IS_CON_OUT_OF_HABITAT, $this->is_con_out_of_habitat);
 		if ($this->isColumnModified(ReportPeer::IS_CON_DEEMED_RELEASABLE)) $criteria->add(ReportPeer::IS_CON_DEEMED_RELEASABLE, $this->is_con_deemed_releasable);
 		if ($this->isColumnModified(ReportPeer::IS_CON_ABANDONED)) $criteria->add(ReportPeer::IS_CON_ABANDONED, $this->is_con_abandoned);
@@ -2561,7 +3047,8 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if ($this->isColumnModified(ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT)) $criteria->add(ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT, $this->is_action_euthanized_during_transport);
 		if ($this->isColumnModified(ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB)) $criteria->add(ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB, $this->is_action_transferred_to_rehab);
 		if ($this->isColumnModified(ReportPeer::IS_ACTION_OTHER)) $criteria->add(ReportPeer::IS_ACTION_OTHER, $this->is_action_other);
-		
+		if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) $criteria->add(ReportPeer::VOLUNTEER_ID, $this->volunteer_id);
+
 		return $criteria;
 	}
 
@@ -2618,40 +3105,59 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	 *
 	 * @param      object $copyObj An object of Report (or compatible) type.
 	 * @param      boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
+	 * @param      boolean $makeNew Whether to reset autoincrement PKs and make the object new.
 	 * @throws     PropelException
 	 */
-	public function copyInto($copyObj, $deepCopy = false)
+	public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
 	{
-		$copyObj->setResponder($this->responder);
-		$copyObj->setCallDate($this->call_date);
-		$copyObj->setCallFrom($this->call_from);
-		$copyObj->setCallerName($this->caller_name);
-		$copyObj->setCallerPhoneNumber($this->caller_phone_number);
-		$copyObj->setCallLocation($this->call_location);
-		$copyObj->setCallSpecies($this->call_species);
-		$copyObj->setWhenFirstSeen($this->when_first_seen);
-		$copyObj->setCallComments($this->call_comments);
-		$copyObj->setCallReferredTo($this->call_referred_to);
-		$copyObj->setCallCondition($this->call_condition);
-		$copyObj->setInvestigatorSupport($this->investigator_support);
-		$copyObj->setInvestigationDate($this->investigation_date);
-		$copyObj->setInvestigationLatLonLocation($this->investigation_lat_lon_location);
-		$copyObj->setInvestigationPhysicalLocation($this->investigation_physical_location);
-		$copyObj->setInvestigationSpecies($this->investigation_species);
-		$copyObj->setAnimalNotFound($this->animal_not_found);
-		$copyObj->setInvestigationCondition($this->investigation_condition);
-		$copyObj->setTags($this->tags);
-		$copyObj->setDisposition($this->disposition);
-		$copyObj->setSealPickup($this->seal_pickup);
-		$copyObj->setSex($this->sex);
-		$copyObj->setWeight($this->weight);
-		$copyObj->setStraightLength($this->straight_length);
-		$copyObj->setContourLength($this->contour_length);
-		$copyObj->setGirth($this->girth);
-		$copyObj->setInvestigationComments($this->investigation_comments);
-		$copyObj->setIsPhotoTaken($this->is_photo_taken);
-		$copyObj->setVolunteerId($this->volunteer_id);
-		$copyObj->setIsConSick($this->is_con_sick);
+		$copyObj->setResponder($this->getResponder());
+		$copyObj->setCallDate($this->getCallDate());
+		$copyObj->setCallFrom($this->getCallFrom());
+		$copyObj->setCallerName($this->getCallerName());
+		$copyObj->setCallerPhoneNumber($this->getCallerPhoneNumber());
+		$copyObj->setCallLocation($this->getCallLocation());
+		$copyObj->setCallSpecies($this->getCallSpecies());
+		$copyObj->setWhenFirstSeen($this->getWhenFirstSeen());
+		$copyObj->setCallComments($this->getCallComments());
+		$copyObj->setCallReferredTo($this->getCallReferredTo());
+		$copyObj->setCallCondition($this->getCallCondition());
+		$copyObj->setInvestigatorSupport($this->getInvestigatorSupport());
+		$copyObj->setInvestigationDate($this->getInvestigationDate());
+		$copyObj->setInvestigationLatLonLocation($this->getInvestigationLatLonLocation());
+		$copyObj->setInvestigationPhysicalLocation($this->getInvestigationPhysicalLocation());
+		$copyObj->setInvestigationSpecies($this->getInvestigationSpecies());
+		$copyObj->setAnimalNotFound($this->getAnimalNotFound());
+		$copyObj->setInvestigationCondition($this->getInvestigationCondition());
+		$copyObj->setTags($this->getTags());
+		$copyObj->setDisposition($this->getDisposition());
+		$copyObj->setSealPickup($this->getSealPickup());
+		$copyObj->setSex($this->getSex());
+		$copyObj->setWeight($this->getWeight());
+		$copyObj->setStraightLength($this->getStraightLength());
+		$copyObj->setContourLength($this->getContourLength());
+		$copyObj->setGirth($this->getGirth());
+		$copyObj->setInvestigationComments($this->getInvestigationComments());
+		$copyObj->setIsPhotoTaken($this->getIsPhotoTaken());
+		$copyObj->setIsConSick($this->getIsConSick());
+		$copyObj->setIsConInjured($this->getIsConInjured());
+		$copyObj->setIsConOutOfHabitat($this->getIsConOutOfHabitat());
+		$copyObj->setIsConDeemedReleasable($this->getIsConDeemedReleasable());
+		$copyObj->setIsConAbandoned($this->getIsConAbandoned());
+		$copyObj->setIsConInaccessible($this->getIsConInaccessible());
+		$copyObj->setIsConLocationHazardToAnimal($this->getIsConLocationHazardToAnimal());
+		$copyObj->setIsConLocationHazardToHumans($this->getIsConLocationHazardToHumans());
+		$copyObj->setIsConUnknown($this->getIsConUnknown());
+		$copyObj->setIsConOther($this->getIsConOther());
+		$copyObj->setIsActionLeftAtSite($this->getIsActionLeftAtSite());
+		$copyObj->setIsActionImmediateReleaseAtSite($this->getIsActionImmediateReleaseAtSite());
+		$copyObj->setIsActionRelocated($this->getIsActionRelocated());
+		$copyObj->setIsActionDiedAtSite($this->getIsActionDiedAtSite());
+		$copyObj->setIsActionDiedDuringTransport($this->getIsActionDiedDuringTransport());
+		$copyObj->setIsActionEuthanizedAtSite($this->getIsActionEuthanizedAtSite());
+		$copyObj->setIsActionEuthanizedDuringTransport($this->getIsActionEuthanizedDuringTransport());
+		$copyObj->setIsActionTransferredToRehab($this->getIsActionTransferredToRehab());
+		$copyObj->setIsActionOther($this->getIsActionOther());
+		$copyObj->setVolunteerId($this->getVolunteerId());
 
 		if ($deepCopy) {
 			// important: temporarily setNew(false) because this affects the behavior of
@@ -2672,9 +3178,10 @@ abstract class BaseReport extends BaseObject  implements Persistent
 
 		} // if ($deepCopy)
 
-
-		$copyObj->setNew(true);
-		$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+		if ($makeNew) {
+			$copyObj->setNew(true);
+			$copyObj->setId(NULL); // this is a auto-increment column, so set to default value
+		}
 	}
 
 	/**
@@ -2754,11 +3261,11 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		if ($this->aVolunteer === null && ($this->volunteer_id !== null)) {
 			$this->aVolunteer = VolunteerQuery::create()->findPk($this->volunteer_id, $con);
 			/* The following can be used additionally to
-			   guarantee the related object contains a reference
-			   to this object.  This level of coupling may, however, be
-			   undesirable since it could result in an only partially populated collection
-			   in the referenced object.
-			   $this->aVolunteer->addReports($this);
+				guarantee the related object contains a reference
+				to this object.  This level of coupling may, however, be
+				undesirable since it could result in an only partially populated collection
+				in the referenced object.
+				$this->aVolunteer->addReports($this);
 			 */
 		}
 		return $this->aVolunteer;
@@ -2785,10 +3292,16 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
 	 * @return     void
 	 */
-	public function initReportCommentss()
+	public function initReportCommentss($overrideExisting = true)
 	{
+		if (null !== $this->collReportCommentss && !$overrideExisting) {
+			return;
+		}
 		$this->collReportCommentss = new PropelObjectCollection();
 		$this->collReportCommentss->setModel('ReportComments');
 	}
@@ -2919,10 +3432,16 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	 * however, you may wish to override this method in your stub class to provide setting appropriate
 	 * to your application -- for example, setting the initial array to the values stored in database.
 	 *
+	 * @param      boolean $overrideExisting If set to true, the method call initializes
+	 *                                        the collection even if it is not empty
+	 *
 	 * @return     void
 	 */
-	public function initAttachments()
+	public function initAttachments($overrideExisting = true)
 	{
+		if (null !== $this->collAttachments && !$overrideExisting) {
+			return;
+		}
 		$this->collAttachments = new PropelObjectCollection();
 		$this->collAttachments->setModel('Attachment');
 	}
@@ -3042,6 +3561,24 @@ abstract class BaseReport extends BaseObject  implements Persistent
 		$this->investigation_comments = null;
 		$this->is_photo_taken = null;
 		$this->is_con_sick = null;
+		$this->is_con_injured = null;
+		$this->is_con_out_of_habitat = null;
+		$this->is_con_deemed_releasable = null;
+		$this->is_con_abandoned = null;
+		$this->is_con_inaccessible = null;
+		$this->is_con_location_hazard_to_animal = null;
+		$this->is_con_location_hazard_to_humans = null;
+		$this->is_con_unknown = null;
+		$this->is_con_other = null;
+		$this->is_action_left_at_site = null;
+		$this->is_action_immediate_release_at_site = null;
+		$this->is_action_relocated = null;
+		$this->is_action_died_at_site = null;
+		$this->is_action_died_during_transport = null;
+		$this->is_action_euthanized_at_site = null;
+		$this->is_action_euthanized_during_transport = null;
+		$this->is_action_transferred_to_rehab = null;
+		$this->is_action_other = null;
 		$this->volunteer_id = null;
 		$this->alreadyInSave = false;
 		$this->alreadyInValidation = false;
@@ -3052,32 +3589,48 @@ abstract class BaseReport extends BaseObject  implements Persistent
 	}
 
 	/**
-	 * Resets all collections of referencing foreign keys.
+	 * Resets all references to other model objects or collections of model objects.
 	 *
-	 * This method is a user-space workaround for PHP's inability to garbage collect objects
-	 * with circular references.  This is currently necessary when using Propel in certain
-	 * daemon or large-volumne/high-memory operations.
+	 * This method is a user-space workaround for PHP's inability to garbage collect
+	 * objects with circular references (even in PHP 5.3). This is currently necessary
+	 * when using Propel in certain daemon or large-volumne/high-memory operations.
 	 *
-	 * @param      boolean $deep Whether to also clear the references on all associated objects.
+	 * @param      boolean $deep Whether to also clear the references on all referrer objects.
 	 */
 	public function clearAllReferences($deep = false)
 	{
 		if ($deep) {
 			if ($this->collReportCommentss) {
-				foreach ((array) $this->collReportCommentss as $o) {
+				foreach ($this->collReportCommentss as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 			if ($this->collAttachments) {
-				foreach ((array) $this->collAttachments as $o) {
+				foreach ($this->collAttachments as $o) {
 					$o->clearAllReferences($deep);
 				}
 			}
 		} // if ($deep)
 
+		if ($this->collReportCommentss instanceof PropelCollection) {
+			$this->collReportCommentss->clearIterator();
+		}
 		$this->collReportCommentss = null;
+		if ($this->collAttachments instanceof PropelCollection) {
+			$this->collAttachments->clearIterator();
+		}
 		$this->collAttachments = null;
 		$this->aVolunteer = null;
+	}
+
+	/**
+	 * Return the string representation of this object
+	 *
+	 * @return string
+	 */
+	public function __toString()
+	{
+		return (string) $this->exportTo(ReportPeer::DEFAULT_STRING_FORMAT);
 	}
 
 	/**
@@ -3096,7 +3649,7 @@ abstract class BaseReport extends BaseObject  implements Persistent
 				return $this->getVirtualColumn($virtualColumn);
 			}
 		}
-		throw new PropelException('Call to undefined method: ' . $name);
+		return parent::__call($name, $params);
 	}
 
 } // BaseReport

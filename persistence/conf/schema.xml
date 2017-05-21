@@ -32,6 +32,27 @@
         <column name="girth" type="DOUBLE" description=""/>
         <column name="investigation_comments" type="LONGVARCHAR" description=""/>
         <column name="is_photo_taken" type="boolean" description=""/> 
+        <column name="is_con_sick" type="boolean" description=""/>
+        <column name="is_con_injured" type="boolean" description=""/>
+        <column name="is_con_out_of_habitat" type="boolean" description=""/>
+        <column name="is_con_deemed_releasable" type="boolean" description=""/>
+        <column name="is_con_abandoned" type="boolean" description=""/>
+        <column name="is_con_inaccessible" type="boolean" description=""/>
+        <column name="is_con_location_hazard_to_animal" type="boolean" description=""/>
+        <column name="is_con_location_hazard_to_humans" type="boolean" description=""/>
+        <column name="is_con_unknown" type="boolean" description=""/>
+        <column name="is_con_other" type="boolean" description=""/>
+        <column name="is_action_left_at_site" type="boolean" description=""/>
+        <column name="is_action_immediate_release_at_site" type="boolean" description=""/>
+        <column name="is_action_relocated" type="boolean" description=""/>
+        <column name="is_action_died_at_site" type="boolean" description=""/>
+        <column name="is_action_died_during_transport" type="boolean" description=""/>
+        <column name="is_action_euthanized_at_site" type="boolean" description=""/>
+        <column name="is_action_euthanized_during_transport" type="boolean" description=""/>
+        <column name="is_action_transferred_to_rehab" type="boolean" description=""/>
+        <column name="is_action_other" type="boolean" description=""/>
+
+
         <column name="volunteer_id" type="integer" required="true" description=""/> 
         <foreign-key foreignTable="volunteer">
             <reference local="volunteer_id" foreign="id"/>

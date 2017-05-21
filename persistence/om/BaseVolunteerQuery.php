@@ -94,21 +94,21 @@
  * @method     VolunteerQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     VolunteerQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     VolunteerQuery leftJoinReport($relationAlias = '') Adds a LEFT JOIN clause to the query using the Report relation
- * @method     VolunteerQuery rightJoinReport($relationAlias = '') Adds a RIGHT JOIN clause to the query using the Report relation
- * @method     VolunteerQuery innerJoinReport($relationAlias = '') Adds a INNER JOIN clause to the query using the Report relation
+ * @method     VolunteerQuery leftJoinReport($relationAlias = null) Adds a LEFT JOIN clause to the query using the Report relation
+ * @method     VolunteerQuery rightJoinReport($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Report relation
+ * @method     VolunteerQuery innerJoinReport($relationAlias = null) Adds a INNER JOIN clause to the query using the Report relation
  *
- * @method     VolunteerQuery leftJoinReportComments($relationAlias = '') Adds a LEFT JOIN clause to the query using the ReportComments relation
- * @method     VolunteerQuery rightJoinReportComments($relationAlias = '') Adds a RIGHT JOIN clause to the query using the ReportComments relation
- * @method     VolunteerQuery innerJoinReportComments($relationAlias = '') Adds a INNER JOIN clause to the query using the ReportComments relation
+ * @method     VolunteerQuery leftJoinReportComments($relationAlias = null) Adds a LEFT JOIN clause to the query using the ReportComments relation
+ * @method     VolunteerQuery rightJoinReportComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ReportComments relation
+ * @method     VolunteerQuery innerJoinReportComments($relationAlias = null) Adds a INNER JOIN clause to the query using the ReportComments relation
  *
- * @method     VolunteerQuery leftJoinBlogEntryComments($relationAlias = '') Adds a LEFT JOIN clause to the query using the BlogEntryComments relation
- * @method     VolunteerQuery rightJoinBlogEntryComments($relationAlias = '') Adds a RIGHT JOIN clause to the query using the BlogEntryComments relation
- * @method     VolunteerQuery innerJoinBlogEntryComments($relationAlias = '') Adds a INNER JOIN clause to the query using the BlogEntryComments relation
+ * @method     VolunteerQuery leftJoinBlogEntryComments($relationAlias = null) Adds a LEFT JOIN clause to the query using the BlogEntryComments relation
+ * @method     VolunteerQuery rightJoinBlogEntryComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the BlogEntryComments relation
+ * @method     VolunteerQuery innerJoinBlogEntryComments($relationAlias = null) Adds a INNER JOIN clause to the query using the BlogEntryComments relation
  *
- * @method     VolunteerQuery leftJoinVolunteerHours($relationAlias = '') Adds a LEFT JOIN clause to the query using the VolunteerHours relation
- * @method     VolunteerQuery rightJoinVolunteerHours($relationAlias = '') Adds a RIGHT JOIN clause to the query using the VolunteerHours relation
- * @method     VolunteerQuery innerJoinVolunteerHours($relationAlias = '') Adds a INNER JOIN clause to the query using the VolunteerHours relation
+ * @method     VolunteerQuery leftJoinVolunteerHours($relationAlias = null) Adds a LEFT JOIN clause to the query using the VolunteerHours relation
+ * @method     VolunteerQuery rightJoinVolunteerHours($relationAlias = null) Adds a RIGHT JOIN clause to the query using the VolunteerHours relation
+ * @method     VolunteerQuery innerJoinVolunteerHours($relationAlias = null) Adds a INNER JOIN clause to the query using the VolunteerHours relation
  *
  * @method     Volunteer findOne(PropelPDO $con = null) Return the first Volunteer matching the query
  * @method     Volunteer findOneOrCreate(PropelPDO $con = null) Return the first Volunteer matching the query, or a new Volunteer object populated from the query conditions when no match is found
@@ -274,7 +274,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 * @return    PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
 	 */
 	public function findPks($keys, $con = null)
-	{	
+	{
 		$criteria = $this->isKeepQuery() ? clone $this : $this;
 		return $this
 			->filterByPrimaryKeys($keys)
@@ -308,8 +308,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -325,8 +334,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the first_name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFirstName('fooValue');   // WHERE first_name = 'fooValue'
+	 * $query->filterByFirstName('%fooValue%'); // WHERE first_name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $firstName The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -347,8 +362,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the last_name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByLastName('fooValue');   // WHERE last_name = 'fooValue'
+	 * $query->filterByLastName('%fooValue%'); // WHERE last_name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $lastName The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -369,8 +390,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the city column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByCity('fooValue');   // WHERE city = 'fooValue'
+	 * $query->filterByCity('%fooValue%'); // WHERE city LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $city The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -391,8 +418,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the state column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByState('fooValue');   // WHERE state = 'fooValue'
+	 * $query->filterByState('%fooValue%'); // WHERE state LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $state The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -413,8 +446,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the zip column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByZip('fooValue');   // WHERE zip = 'fooValue'
+	 * $query->filterByZip('%fooValue%'); // WHERE zip LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $zip The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -435,8 +474,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the streetAddress column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByStreetaddress('fooValue');   // WHERE streetAddress = 'fooValue'
+	 * $query->filterByStreetaddress('%fooValue%'); // WHERE streetAddress LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $streetaddress The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -457,8 +502,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the vehicle column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByVehicle('fooValue');   // WHERE vehicle = 'fooValue'
+	 * $query->filterByVehicle('%fooValue%'); // WHERE vehicle LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $vehicle The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -479,8 +530,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the island column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByIsland('fooValue');   // WHERE island = 'fooValue'
+	 * $query->filterByIsland('%fooValue%'); // WHERE island LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $island The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -501,8 +558,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the email column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByEmail('fooValue');   // WHERE email = 'fooValue'
+	 * $query->filterByEmail('%fooValue%'); // WHERE email LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $email The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -523,8 +586,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the training column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTraining('fooValue');   // WHERE training = 'fooValue'
+	 * $query->filterByTraining('%fooValue%'); // WHERE training LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $training The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -545,8 +614,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the comments column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByComments('fooValue');   // WHERE comments = 'fooValue'
+	 * $query->filterByComments('%fooValue%'); // WHERE comments LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $comments The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -567,8 +642,14 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the phoneNumber column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByPhonenumber('fooValue');   // WHERE phoneNumber = 'fooValue'
+	 * $query->filterByPhonenumber('%fooValue%'); // WHERE phoneNumber LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $phonenumber The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -589,8 +670,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the sunday_from_hour column
 	 * 
-	 * @param     int|array $sundayFromHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySundayFromHour(1234); // WHERE sunday_from_hour = 1234
+	 * $query->filterBySundayFromHour(array(12, 34)); // WHERE sunday_from_hour IN (12, 34)
+	 * $query->filterBySundayFromHour(array('min' => 12)); // WHERE sunday_from_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $sundayFromHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -620,8 +710,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the monday_from_hour column
 	 * 
-	 * @param     int|array $mondayFromHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMondayFromHour(1234); // WHERE monday_from_hour = 1234
+	 * $query->filterByMondayFromHour(array(12, 34)); // WHERE monday_from_hour IN (12, 34)
+	 * $query->filterByMondayFromHour(array('min' => 12)); // WHERE monday_from_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $mondayFromHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -651,8 +750,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the tuesday_from_hour column
 	 * 
-	 * @param     int|array $tuesdayFromHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTuesdayFromHour(1234); // WHERE tuesday_from_hour = 1234
+	 * $query->filterByTuesdayFromHour(array(12, 34)); // WHERE tuesday_from_hour IN (12, 34)
+	 * $query->filterByTuesdayFromHour(array('min' => 12)); // WHERE tuesday_from_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $tuesdayFromHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -682,8 +790,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the wednesday_from_hour column
 	 * 
-	 * @param     int|array $wednesdayFromHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByWednesdayFromHour(1234); // WHERE wednesday_from_hour = 1234
+	 * $query->filterByWednesdayFromHour(array(12, 34)); // WHERE wednesday_from_hour IN (12, 34)
+	 * $query->filterByWednesdayFromHour(array('min' => 12)); // WHERE wednesday_from_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $wednesdayFromHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -713,8 +830,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the thursday_from_hour column
 	 * 
-	 * @param     int|array $thursdayFromHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByThursdayFromHour(1234); // WHERE thursday_from_hour = 1234
+	 * $query->filterByThursdayFromHour(array(12, 34)); // WHERE thursday_from_hour IN (12, 34)
+	 * $query->filterByThursdayFromHour(array('min' => 12)); // WHERE thursday_from_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $thursdayFromHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -744,8 +870,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the friday_from_hour column
 	 * 
-	 * @param     int|array $fridayFromHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFridayFromHour(1234); // WHERE friday_from_hour = 1234
+	 * $query->filterByFridayFromHour(array(12, 34)); // WHERE friday_from_hour IN (12, 34)
+	 * $query->filterByFridayFromHour(array('min' => 12)); // WHERE friday_from_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $fridayFromHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -775,8 +910,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the saturday_from_hour column
 	 * 
-	 * @param     int|array $saturdayFromHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySaturdayFromHour(1234); // WHERE saturday_from_hour = 1234
+	 * $query->filterBySaturdayFromHour(array(12, 34)); // WHERE saturday_from_hour IN (12, 34)
+	 * $query->filterBySaturdayFromHour(array('min' => 12)); // WHERE saturday_from_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $saturdayFromHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -806,8 +950,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the sunday_to_hour column
 	 * 
-	 * @param     int|array $sundayToHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySundayToHour(1234); // WHERE sunday_to_hour = 1234
+	 * $query->filterBySundayToHour(array(12, 34)); // WHERE sunday_to_hour IN (12, 34)
+	 * $query->filterBySundayToHour(array('min' => 12)); // WHERE sunday_to_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $sundayToHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -837,8 +990,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the monday_to_hour column
 	 * 
-	 * @param     int|array $mondayToHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMondayToHour(1234); // WHERE monday_to_hour = 1234
+	 * $query->filterByMondayToHour(array(12, 34)); // WHERE monday_to_hour IN (12, 34)
+	 * $query->filterByMondayToHour(array('min' => 12)); // WHERE monday_to_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $mondayToHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -868,8 +1030,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the tuesday_to_hour column
 	 * 
-	 * @param     int|array $tuesdayToHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTuesdayToHour(1234); // WHERE tuesday_to_hour = 1234
+	 * $query->filterByTuesdayToHour(array(12, 34)); // WHERE tuesday_to_hour IN (12, 34)
+	 * $query->filterByTuesdayToHour(array('min' => 12)); // WHERE tuesday_to_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $tuesdayToHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -899,8 +1070,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the wednesday_to_hour column
 	 * 
-	 * @param     int|array $wednesdayToHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByWednesdayToHour(1234); // WHERE wednesday_to_hour = 1234
+	 * $query->filterByWednesdayToHour(array(12, 34)); // WHERE wednesday_to_hour IN (12, 34)
+	 * $query->filterByWednesdayToHour(array('min' => 12)); // WHERE wednesday_to_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $wednesdayToHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -930,8 +1110,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the thursday_to_hour column
 	 * 
-	 * @param     int|array $thursdayToHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByThursdayToHour(1234); // WHERE thursday_to_hour = 1234
+	 * $query->filterByThursdayToHour(array(12, 34)); // WHERE thursday_to_hour IN (12, 34)
+	 * $query->filterByThursdayToHour(array('min' => 12)); // WHERE thursday_to_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $thursdayToHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -961,8 +1150,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the friday_to_hour column
 	 * 
-	 * @param     int|array $fridayToHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFridayToHour(1234); // WHERE friday_to_hour = 1234
+	 * $query->filterByFridayToHour(array(12, 34)); // WHERE friday_to_hour IN (12, 34)
+	 * $query->filterByFridayToHour(array('min' => 12)); // WHERE friday_to_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $fridayToHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -992,8 +1190,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the saturday_to_hour column
 	 * 
-	 * @param     int|array $saturdayToHour The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySaturdayToHour(1234); // WHERE saturday_to_hour = 1234
+	 * $query->filterBySaturdayToHour(array(12, 34)); // WHERE saturday_to_hour IN (12, 34)
+	 * $query->filterBySaturdayToHour(array('min' => 12)); // WHERE saturday_to_hour > 12
+	 * </code>
+	 *
+	 * @param     mixed $saturdayToHour The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1023,8 +1230,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the sunday_any_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySundayAnyTime(true); // WHERE sunday_any_time = true
+	 * $query->filterBySundayAnyTime('yes'); // WHERE sunday_any_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $sundayAnyTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1040,8 +1256,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the monday_any_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMondayAnyTime(true); // WHERE monday_any_time = true
+	 * $query->filterByMondayAnyTime('yes'); // WHERE monday_any_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $mondayAnyTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1057,8 +1282,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the tuesday_any_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTuesdayAnyTime(true); // WHERE tuesday_any_time = true
+	 * $query->filterByTuesdayAnyTime('yes'); // WHERE tuesday_any_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $tuesdayAnyTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1074,8 +1308,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the wednesday_any_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByWednesdayAnyTime(true); // WHERE wednesday_any_time = true
+	 * $query->filterByWednesdayAnyTime('yes'); // WHERE wednesday_any_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $wednesdayAnyTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1091,8 +1334,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the thursday_any_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByThursdayAnyTime(true); // WHERE thursday_any_time = true
+	 * $query->filterByThursdayAnyTime('yes'); // WHERE thursday_any_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $thursdayAnyTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1108,8 +1360,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the friday_any_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFridayAnyTime(true); // WHERE friday_any_time = true
+	 * $query->filterByFridayAnyTime('yes'); // WHERE friday_any_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $fridayAnyTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1125,8 +1386,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the saturday_any_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySaturdayAnyTime(true); // WHERE saturday_any_time = true
+	 * $query->filterBySaturdayAnyTime('yes'); // WHERE saturday_any_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $saturdayAnyTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1142,8 +1412,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the sunday_no_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySundayNoTime(true); // WHERE sunday_no_time = true
+	 * $query->filterBySundayNoTime('yes'); // WHERE sunday_no_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $sundayNoTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1159,8 +1438,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the monday_no_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMondayNoTime(true); // WHERE monday_no_time = true
+	 * $query->filterByMondayNoTime('yes'); // WHERE monday_no_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $mondayNoTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1176,8 +1464,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the tuesday_no_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTuesdayNoTime(true); // WHERE tuesday_no_time = true
+	 * $query->filterByTuesdayNoTime('yes'); // WHERE tuesday_no_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $tuesdayNoTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1193,8 +1490,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the wednesday_no_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByWednesdayNoTime(true); // WHERE wednesday_no_time = true
+	 * $query->filterByWednesdayNoTime('yes'); // WHERE wednesday_no_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $wednesdayNoTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1210,8 +1516,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the thursday_no_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByThursdayNoTime(true); // WHERE thursday_no_time = true
+	 * $query->filterByThursdayNoTime('yes'); // WHERE thursday_no_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $thursdayNoTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1227,8 +1542,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the friday_no_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFridayNoTime(true); // WHERE friday_no_time = true
+	 * $query->filterByFridayNoTime('yes'); // WHERE friday_no_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $fridayNoTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1244,8 +1568,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	/**
 	 * Filter the query on the saturday_no_time column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterBySaturdayNoTime(true); // WHERE saturday_no_time = true
+	 * $query->filterBySaturdayNoTime('yes'); // WHERE saturday_no_time = true
+	 * </code>
+	 *
 	 * @param     boolean|string $saturdayNoTime The value to use as filter.
-	 *            Accepts strings ('false', 'off', '-', 'no', 'n', and '0' are false, the rest is true)
+	 *              Non-boolean arguments are converted using the following rules:
+	 *                * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+	 *                * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+	 *              Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
@@ -1268,8 +1601,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 */
 	public function filterByReport($report, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(VolunteerPeer::ID, $report->getVolunteerId(), $comparison);
+		if ($report instanceof Report) {
+			return $this
+				->addUsingAlias(VolunteerPeer::ID, $report->getVolunteerId(), $comparison);
+		} elseif ($report instanceof PropelCollection) {
+			return $this
+				->useReportQuery()
+					->filterByPrimaryKeys($report->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByReport() only accepts arguments of type Report or PropelCollection');
+		}
 	}
 
 	/**
@@ -1280,7 +1622,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
 	 */
-	public function joinReport($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinReport($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('Report');
@@ -1315,7 +1657,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    ReportQuery A secondary query class using the current class as primary query
 	 */
-	public function useReportQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useReportQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinReport($relationAlias, $joinType)
@@ -1332,8 +1674,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 */
 	public function filterByReportComments($reportComments, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(VolunteerPeer::ID, $reportComments->getVolunteerId(), $comparison);
+		if ($reportComments instanceof ReportComments) {
+			return $this
+				->addUsingAlias(VolunteerPeer::ID, $reportComments->getVolunteerId(), $comparison);
+		} elseif ($reportComments instanceof PropelCollection) {
+			return $this
+				->useReportCommentsQuery()
+					->filterByPrimaryKeys($reportComments->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByReportComments() only accepts arguments of type ReportComments or PropelCollection');
+		}
 	}
 
 	/**
@@ -1344,7 +1695,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
 	 */
-	public function joinReportComments($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinReportComments($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('ReportComments');
@@ -1379,7 +1730,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    ReportCommentsQuery A secondary query class using the current class as primary query
 	 */
-	public function useReportCommentsQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useReportCommentsQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinReportComments($relationAlias, $joinType)
@@ -1396,8 +1747,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 */
 	public function filterByBlogEntryComments($blogEntryComments, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(VolunteerPeer::ID, $blogEntryComments->getVolunteerId(), $comparison);
+		if ($blogEntryComments instanceof BlogEntryComments) {
+			return $this
+				->addUsingAlias(VolunteerPeer::ID, $blogEntryComments->getVolunteerId(), $comparison);
+		} elseif ($blogEntryComments instanceof PropelCollection) {
+			return $this
+				->useBlogEntryCommentsQuery()
+					->filterByPrimaryKeys($blogEntryComments->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByBlogEntryComments() only accepts arguments of type BlogEntryComments or PropelCollection');
+		}
 	}
 
 	/**
@@ -1408,7 +1768,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
 	 */
-	public function joinBlogEntryComments($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinBlogEntryComments($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('BlogEntryComments');
@@ -1443,7 +1803,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    BlogEntryCommentsQuery A secondary query class using the current class as primary query
 	 */
-	public function useBlogEntryCommentsQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useBlogEntryCommentsQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinBlogEntryComments($relationAlias, $joinType)
@@ -1460,8 +1820,17 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 */
 	public function filterByVolunteerHours($volunteerHours, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(VolunteerPeer::ID, $volunteerHours->getVolunteerId(), $comparison);
+		if ($volunteerHours instanceof VolunteerHours) {
+			return $this
+				->addUsingAlias(VolunteerPeer::ID, $volunteerHours->getVolunteerId(), $comparison);
+		} elseif ($volunteerHours instanceof PropelCollection) {
+			return $this
+				->useVolunteerHoursQuery()
+					->filterByPrimaryKeys($volunteerHours->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByVolunteerHours() only accepts arguments of type VolunteerHours or PropelCollection');
+		}
 	}
 
 	/**
@@ -1472,7 +1841,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerQuery The current query, for fluid interface
 	 */
-	public function joinVolunteerHours($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinVolunteerHours($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('VolunteerHours');
@@ -1507,7 +1876,7 @@ abstract class BaseVolunteerQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerHoursQuery A secondary query class using the current class as primary query
 	 */
-	public function useVolunteerHoursQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useVolunteerHoursQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinVolunteerHours($relationAlias, $joinType)

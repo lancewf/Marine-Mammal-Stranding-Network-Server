@@ -22,13 +22,13 @@
  * @method     ReportCommentsQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     ReportCommentsQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     ReportCommentsQuery leftJoinReport($relationAlias = '') Adds a LEFT JOIN clause to the query using the Report relation
- * @method     ReportCommentsQuery rightJoinReport($relationAlias = '') Adds a RIGHT JOIN clause to the query using the Report relation
- * @method     ReportCommentsQuery innerJoinReport($relationAlias = '') Adds a INNER JOIN clause to the query using the Report relation
+ * @method     ReportCommentsQuery leftJoinReport($relationAlias = null) Adds a LEFT JOIN clause to the query using the Report relation
+ * @method     ReportCommentsQuery rightJoinReport($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Report relation
+ * @method     ReportCommentsQuery innerJoinReport($relationAlias = null) Adds a INNER JOIN clause to the query using the Report relation
  *
- * @method     ReportCommentsQuery leftJoinVolunteer($relationAlias = '') Adds a LEFT JOIN clause to the query using the Volunteer relation
- * @method     ReportCommentsQuery rightJoinVolunteer($relationAlias = '') Adds a RIGHT JOIN clause to the query using the Volunteer relation
- * @method     ReportCommentsQuery innerJoinVolunteer($relationAlias = '') Adds a INNER JOIN clause to the query using the Volunteer relation
+ * @method     ReportCommentsQuery leftJoinVolunteer($relationAlias = null) Adds a LEFT JOIN clause to the query using the Volunteer relation
+ * @method     ReportCommentsQuery rightJoinVolunteer($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Volunteer relation
+ * @method     ReportCommentsQuery innerJoinVolunteer($relationAlias = null) Adds a INNER JOIN clause to the query using the Volunteer relation
  *
  * @method     ReportComments findOne(PropelPDO $con = null) Return the first ReportComments matching the query
  * @method     ReportComments findOneOrCreate(PropelPDO $con = null) Return the first ReportComments matching the query, or a new ReportComments object populated from the query conditions when no match is found
@@ -122,7 +122,7 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	 * @return    PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
 	 */
 	public function findPks($keys, $con = null)
-	{	
+	{
 		$criteria = $this->isKeepQuery() ? clone $this : $this;
 		return $this
 			->filterByPrimaryKeys($keys)
@@ -156,8 +156,17 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
@@ -173,8 +182,17 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the index column
 	 * 
-	 * @param     int|array $index The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByIndex(1234); // WHERE index = 1234
+	 * $query->filterByIndex(array(12, 34)); // WHERE index IN (12, 34)
+	 * $query->filterByIndex(array('min' => 12)); // WHERE index > 12
+	 * </code>
+	 *
+	 * @param     mixed $index The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
@@ -204,8 +222,14 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the comments column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByComments('fooValue');   // WHERE comments = 'fooValue'
+	 * $query->filterByComments('%fooValue%'); // WHERE comments LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $comments The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
@@ -226,8 +250,19 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the report_id column
 	 * 
-	 * @param     int|array $reportId The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByReportId(1234); // WHERE report_id = 1234
+	 * $query->filterByReportId(array(12, 34)); // WHERE report_id IN (12, 34)
+	 * $query->filterByReportId(array('min' => 12)); // WHERE report_id > 12
+	 * </code>
+	 *
+	 * @see       filterByReport()
+	 *
+	 * @param     mixed $reportId The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
@@ -257,8 +292,19 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query on the volunteer_id column
 	 * 
-	 * @param     int|array $volunteerId The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByVolunteerId(1234); // WHERE volunteer_id = 1234
+	 * $query->filterByVolunteerId(array(12, 34)); // WHERE volunteer_id IN (12, 34)
+	 * $query->filterByVolunteerId(array('min' => 12)); // WHERE volunteer_id > 12
+	 * </code>
+	 *
+	 * @see       filterByVolunteer()
+	 *
+	 * @param     mixed $volunteerId The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
@@ -288,15 +334,25 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query by a related Report object
 	 *
-	 * @param     Report $report  the related object to use as filter
+	 * @param     Report|PropelCollection $report The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
 	 */
 	public function filterByReport($report, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(ReportCommentsPeer::REPORT_ID, $report->getId(), $comparison);
+		if ($report instanceof Report) {
+			return $this
+				->addUsingAlias(ReportCommentsPeer::REPORT_ID, $report->getId(), $comparison);
+		} elseif ($report instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(ReportCommentsPeer::REPORT_ID, $report->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByReport() only accepts arguments of type Report or PropelCollection');
+		}
 	}
 
 	/**
@@ -307,7 +363,7 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
 	 */
-	public function joinReport($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinReport($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('Report');
@@ -342,7 +398,7 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	 *
 	 * @return    ReportQuery A secondary query class using the current class as primary query
 	 */
-	public function useReportQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useReportQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinReport($relationAlias, $joinType)
@@ -352,15 +408,25 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	/**
 	 * Filter the query by a related Volunteer object
 	 *
-	 * @param     Volunteer $volunteer  the related object to use as filter
+	 * @param     Volunteer|PropelCollection $volunteer The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
 	 */
 	public function filterByVolunteer($volunteer, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(ReportCommentsPeer::VOLUNTEER_ID, $volunteer->getId(), $comparison);
+		if ($volunteer instanceof Volunteer) {
+			return $this
+				->addUsingAlias(ReportCommentsPeer::VOLUNTEER_ID, $volunteer->getId(), $comparison);
+		} elseif ($volunteer instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(ReportCommentsPeer::VOLUNTEER_ID, $volunteer->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByVolunteer() only accepts arguments of type Volunteer or PropelCollection');
+		}
 	}
 
 	/**
@@ -371,7 +437,7 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	 *
 	 * @return    ReportCommentsQuery The current query, for fluid interface
 	 */
-	public function joinVolunteer($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinVolunteer($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('Volunteer');
@@ -406,7 +472,7 @@ abstract class BaseReportCommentsQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerQuery A secondary query class using the current class as primary query
 	 */
-	public function useVolunteerQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useVolunteerQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinVolunteer($relationAlias, $joinType)

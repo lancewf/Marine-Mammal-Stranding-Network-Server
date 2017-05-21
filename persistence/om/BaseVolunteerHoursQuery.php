@@ -28,9 +28,9 @@
  * @method     VolunteerHoursQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     VolunteerHoursQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     VolunteerHoursQuery leftJoinVolunteer($relationAlias = '') Adds a LEFT JOIN clause to the query using the Volunteer relation
- * @method     VolunteerHoursQuery rightJoinVolunteer($relationAlias = '') Adds a RIGHT JOIN clause to the query using the Volunteer relation
- * @method     VolunteerHoursQuery innerJoinVolunteer($relationAlias = '') Adds a INNER JOIN clause to the query using the Volunteer relation
+ * @method     VolunteerHoursQuery leftJoinVolunteer($relationAlias = null) Adds a LEFT JOIN clause to the query using the Volunteer relation
+ * @method     VolunteerHoursQuery rightJoinVolunteer($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Volunteer relation
+ * @method     VolunteerHoursQuery innerJoinVolunteer($relationAlias = null) Adds a INNER JOIN clause to the query using the Volunteer relation
  *
  * @method     VolunteerHours findOne(PropelPDO $con = null) Return the first VolunteerHours matching the query
  * @method     VolunteerHours findOneOrCreate(PropelPDO $con = null) Return the first VolunteerHours matching the query, or a new VolunteerHours object populated from the query conditions when no match is found
@@ -130,7 +130,7 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	 * @return    PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
 	 */
 	public function findPks($keys, $con = null)
-	{	
+	{
 		$criteria = $this->isKeepQuery() ? clone $this : $this;
 		return $this
 			->filterByPrimaryKeys($keys)
@@ -164,8 +164,17 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -181,8 +190,17 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the total_hours column
 	 * 
-	 * @param     double|array $totalHours The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTotalHours(1234); // WHERE total_hours = 1234
+	 * $query->filterByTotalHours(array(12, 34)); // WHERE total_hours IN (12, 34)
+	 * $query->filterByTotalHours(array('min' => 12)); // WHERE total_hours > 12
+	 * </code>
+	 *
+	 * @param     mixed $totalHours The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -212,8 +230,17 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the mileage column
 	 * 
-	 * @param     int|array $mileage The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMileage(1234); // WHERE mileage = 1234
+	 * $query->filterByMileage(array(12, 34)); // WHERE mileage IN (12, 34)
+	 * $query->filterByMileage(array('min' => 12)); // WHERE mileage > 12
+	 * </code>
+	 *
+	 * @param     mixed $mileage The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -243,8 +270,14 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the comments column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByComments('fooValue');   // WHERE comments = 'fooValue'
+	 * $query->filterByComments('%fooValue%'); // WHERE comments LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $comments The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -265,8 +298,17 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the day_of_month column
 	 * 
-	 * @param     int|array $dayOfMonth The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDayOfMonth(1234); // WHERE day_of_month = 1234
+	 * $query->filterByDayOfMonth(array(12, 34)); // WHERE day_of_month IN (12, 34)
+	 * $query->filterByDayOfMonth(array('min' => 12)); // WHERE day_of_month > 12
+	 * </code>
+	 *
+	 * @param     mixed $dayOfMonth The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -296,8 +338,17 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the month column
 	 * 
-	 * @param     int|array $month The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMonth(1234); // WHERE month = 1234
+	 * $query->filterByMonth(array(12, 34)); // WHERE month IN (12, 34)
+	 * $query->filterByMonth(array('min' => 12)); // WHERE month > 12
+	 * </code>
+	 *
+	 * @param     mixed $month The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -327,8 +378,17 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the year column
 	 * 
-	 * @param     int|array $year The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByYear(1234); // WHERE year = 1234
+	 * $query->filterByYear(array(12, 34)); // WHERE year IN (12, 34)
+	 * $query->filterByYear(array('min' => 12)); // WHERE year > 12
+	 * </code>
+	 *
+	 * @param     mixed $year The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -358,8 +418,19 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query on the volunteer_id column
 	 * 
-	 * @param     int|array $volunteerId The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByVolunteerId(1234); // WHERE volunteer_id = 1234
+	 * $query->filterByVolunteerId(array(12, 34)); // WHERE volunteer_id IN (12, 34)
+	 * $query->filterByVolunteerId(array('min' => 12)); // WHERE volunteer_id > 12
+	 * </code>
+	 *
+	 * @see       filterByVolunteer()
+	 *
+	 * @param     mixed $volunteerId The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
@@ -389,15 +460,25 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	/**
 	 * Filter the query by a related Volunteer object
 	 *
-	 * @param     Volunteer $volunteer  the related object to use as filter
+	 * @param     Volunteer|PropelCollection $volunteer The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
 	 */
 	public function filterByVolunteer($volunteer, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(VolunteerHoursPeer::VOLUNTEER_ID, $volunteer->getId(), $comparison);
+		if ($volunteer instanceof Volunteer) {
+			return $this
+				->addUsingAlias(VolunteerHoursPeer::VOLUNTEER_ID, $volunteer->getId(), $comparison);
+		} elseif ($volunteer instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(VolunteerHoursPeer::VOLUNTEER_ID, $volunteer->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByVolunteer() only accepts arguments of type Volunteer or PropelCollection');
+		}
 	}
 
 	/**
@@ -408,7 +489,7 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerHoursQuery The current query, for fluid interface
 	 */
-	public function joinVolunteer($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinVolunteer($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('Volunteer');
@@ -443,7 +524,7 @@ abstract class BaseVolunteerHoursQuery extends ModelCriteria
 	 *
 	 * @return    VolunteerQuery A secondary query class using the current class as primary query
 	 */
-	public function useVolunteerQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useVolunteerQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinVolunteer($relationAlias, $joinType)

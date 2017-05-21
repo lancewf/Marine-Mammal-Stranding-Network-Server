@@ -20,9 +20,9 @@
  * @method     BlogEntryQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     BlogEntryQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     BlogEntryQuery leftJoinBlogEntryComments($relationAlias = '') Adds a LEFT JOIN clause to the query using the BlogEntryComments relation
- * @method     BlogEntryQuery rightJoinBlogEntryComments($relationAlias = '') Adds a RIGHT JOIN clause to the query using the BlogEntryComments relation
- * @method     BlogEntryQuery innerJoinBlogEntryComments($relationAlias = '') Adds a INNER JOIN clause to the query using the BlogEntryComments relation
+ * @method     BlogEntryQuery leftJoinBlogEntryComments($relationAlias = null) Adds a LEFT JOIN clause to the query using the BlogEntryComments relation
+ * @method     BlogEntryQuery rightJoinBlogEntryComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the BlogEntryComments relation
+ * @method     BlogEntryQuery innerJoinBlogEntryComments($relationAlias = null) Adds a INNER JOIN clause to the query using the BlogEntryComments relation
  *
  * @method     BlogEntry findOne(PropelPDO $con = null) Return the first BlogEntry matching the query
  * @method     BlogEntry findOneOrCreate(PropelPDO $con = null) Return the first BlogEntry matching the query, or a new BlogEntry object populated from the query conditions when no match is found
@@ -114,7 +114,7 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	 * @return    PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
 	 */
 	public function findPks($keys, $con = null)
-	{	
+	{
 		$criteria = $this->isKeepQuery() ? clone $this : $this;
 		return $this
 			->filterByPrimaryKeys($keys)
@@ -148,8 +148,17 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryQuery The current query, for fluid interface
@@ -165,8 +174,14 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	/**
 	 * Filter the query on the title column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByTitle('fooValue');   // WHERE title = 'fooValue'
+	 * $query->filterByTitle('%fooValue%'); // WHERE title LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $title The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryQuery The current query, for fluid interface
@@ -187,8 +202,14 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	/**
 	 * Filter the query on the message column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByMessage('fooValue');   // WHERE message = 'fooValue'
+	 * $query->filterByMessage('%fooValue%'); // WHERE message LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $message The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryQuery The current query, for fluid interface
@@ -209,8 +230,19 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	/**
 	 * Filter the query on the date column
 	 * 
-	 * @param     string|array $date The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByDate('2011-03-14'); // WHERE date = '2011-03-14'
+	 * $query->filterByDate('now'); // WHERE date = '2011-03-14'
+	 * $query->filterByDate(array('max' => 'yesterday')); // WHERE date > '2011-03-13'
+	 * </code>
+	 *
+	 * @param     mixed $date The value to use as filter.
+	 *              Values can be integers (unix timestamps), DateTime objects, or strings.
+	 *              Empty strings are treated as NULL.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    BlogEntryQuery The current query, for fluid interface
@@ -247,8 +279,17 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	 */
 	public function filterByBlogEntryComments($blogEntryComments, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(BlogEntryPeer::ID, $blogEntryComments->getBlogEntryId(), $comparison);
+		if ($blogEntryComments instanceof BlogEntryComments) {
+			return $this
+				->addUsingAlias(BlogEntryPeer::ID, $blogEntryComments->getBlogEntryId(), $comparison);
+		} elseif ($blogEntryComments instanceof PropelCollection) {
+			return $this
+				->useBlogEntryCommentsQuery()
+					->filterByPrimaryKeys($blogEntryComments->getPrimaryKeys())
+				->endUse();
+		} else {
+			throw new PropelException('filterByBlogEntryComments() only accepts arguments of type BlogEntryComments or PropelCollection');
+		}
 	}
 
 	/**
@@ -259,7 +300,7 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	 *
 	 * @return    BlogEntryQuery The current query, for fluid interface
 	 */
-	public function joinBlogEntryComments($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinBlogEntryComments($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('BlogEntryComments');
@@ -294,7 +335,7 @@ abstract class BaseBlogEntryQuery extends ModelCriteria
 	 *
 	 * @return    BlogEntryCommentsQuery A secondary query class using the current class as primary query
 	 */
-	public function useBlogEntryCommentsQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useBlogEntryCommentsQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinBlogEntryComments($relationAlias, $joinType)

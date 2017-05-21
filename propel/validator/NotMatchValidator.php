@@ -32,7 +32,7 @@
  *
  * @author     Michael Aichler <aichler@mediacluster.de>
  * @author     Hans Lellelid <hans@xmpl.org>
- * @version    $Revision: 1612 $
+ * @version    $Revision$
  * @package    propel.runtime.validator
  */
 class NotMatchValidator implements BasicValidator

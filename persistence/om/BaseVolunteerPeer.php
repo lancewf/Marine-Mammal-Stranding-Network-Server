@@ -31,6 +31,9 @@ abstract class BaseVolunteerPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 41;
+
 	/** the column name for the ID field */
 	const ID = 'volunteer.ID';
 
@@ -154,6 +157,9 @@ abstract class BaseVolunteerPeer {
 	/** the column name for the SATURDAY_NO_TIME field */
 	const SATURDAY_NO_TIME = 'volunteer.SATURDAY_NO_TIME';
 
+	/** The default string format for model objects of the related table **/
+	const DEFAULT_STRING_FORMAT = 'YAML';
+	
 	/**
 	 * An identiy map to hold any loaded instances of Volunteer objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
@@ -169,7 +175,7 @@ abstract class BaseVolunteerPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
-	private static $fieldNames = array (
+	protected static $fieldNames = array (
 		BasePeer::TYPE_PHPNAME => array ('Id', 'FirstName', 'LastName', 'City', 'State', 'Zip', 'Streetaddress', 'Vehicle', 'Island', 'Email', 'Training', 'Comments', 'Phonenumber', 'SundayFromHour', 'MondayFromHour', 'TuesdayFromHour', 'WednesdayFromHour', 'ThursdayFromHour', 'FridayFromHour', 'SaturdayFromHour', 'SundayToHour', 'MondayToHour', 'TuesdayToHour', 'WednesdayToHour', 'ThursdayToHour', 'FridayToHour', 'SaturdayToHour', 'SundayAnyTime', 'MondayAnyTime', 'TuesdayAnyTime', 'WednesdayAnyTime', 'ThursdayAnyTime', 'FridayAnyTime', 'SaturdayAnyTime', 'SundayNoTime', 'MondayNoTime', 'TuesdayNoTime', 'WednesdayNoTime', 'ThursdayNoTime', 'FridayNoTime', 'SaturdayNoTime', ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'firstName', 'lastName', 'city', 'state', 'zip', 'streetaddress', 'vehicle', 'island', 'email', 'training', 'comments', 'phonenumber', 'sundayFromHour', 'mondayFromHour', 'tuesdayFromHour', 'wednesdayFromHour', 'thursdayFromHour', 'fridayFromHour', 'saturdayFromHour', 'sundayToHour', 'mondayToHour', 'tuesdayToHour', 'wednesdayToHour', 'thursdayToHour', 'fridayToHour', 'saturdayToHour', 'sundayAnyTime', 'mondayAnyTime', 'tuesdayAnyTime', 'wednesdayAnyTime', 'thursdayAnyTime', 'fridayAnyTime', 'saturdayAnyTime', 'sundayNoTime', 'mondayNoTime', 'tuesdayNoTime', 'wednesdayNoTime', 'thursdayNoTime', 'fridayNoTime', 'saturdayNoTime', ),
 		BasePeer::TYPE_COLNAME => array (self::ID, self::FIRST_NAME, self::LAST_NAME, self::CITY, self::STATE, self::ZIP, self::STREETADDRESS, self::VEHICLE, self::ISLAND, self::EMAIL, self::TRAINING, self::COMMENTS, self::PHONENUMBER, self::SUNDAY_FROM_HOUR, self::MONDAY_FROM_HOUR, self::TUESDAY_FROM_HOUR, self::WEDNESDAY_FROM_HOUR, self::THURSDAY_FROM_HOUR, self::FRIDAY_FROM_HOUR, self::SATURDAY_FROM_HOUR, self::SUNDAY_TO_HOUR, self::MONDAY_TO_HOUR, self::TUESDAY_TO_HOUR, self::WEDNESDAY_TO_HOUR, self::THURSDAY_TO_HOUR, self::FRIDAY_TO_HOUR, self::SATURDAY_TO_HOUR, self::SUNDAY_ANY_TIME, self::MONDAY_ANY_TIME, self::TUESDAY_ANY_TIME, self::WEDNESDAY_ANY_TIME, self::THURSDAY_ANY_TIME, self::FRIDAY_ANY_TIME, self::SATURDAY_ANY_TIME, self::SUNDAY_NO_TIME, self::MONDAY_NO_TIME, self::TUESDAY_NO_TIME, self::WEDNESDAY_NO_TIME, self::THURSDAY_NO_TIME, self::FRIDAY_NO_TIME, self::SATURDAY_NO_TIME, ),
@@ -184,7 +190,7 @@ abstract class BaseVolunteerPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
-	private static $fieldKeys = array (
+	protected static $fieldKeys = array (
 		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'FirstName' => 1, 'LastName' => 2, 'City' => 3, 'State' => 4, 'Zip' => 5, 'Streetaddress' => 6, 'Vehicle' => 7, 'Island' => 8, 'Email' => 9, 'Training' => 10, 'Comments' => 11, 'Phonenumber' => 12, 'SundayFromHour' => 13, 'MondayFromHour' => 14, 'TuesdayFromHour' => 15, 'WednesdayFromHour' => 16, 'ThursdayFromHour' => 17, 'FridayFromHour' => 18, 'SaturdayFromHour' => 19, 'SundayToHour' => 20, 'MondayToHour' => 21, 'TuesdayToHour' => 22, 'WednesdayToHour' => 23, 'ThursdayToHour' => 24, 'FridayToHour' => 25, 'SaturdayToHour' => 26, 'SundayAnyTime' => 27, 'MondayAnyTime' => 28, 'TuesdayAnyTime' => 29, 'WednesdayAnyTime' => 30, 'ThursdayAnyTime' => 31, 'FridayAnyTime' => 32, 'SaturdayAnyTime' => 33, 'SundayNoTime' => 34, 'MondayNoTime' => 35, 'TuesdayNoTime' => 36, 'WednesdayNoTime' => 37, 'ThursdayNoTime' => 38, 'FridayNoTime' => 39, 'SaturdayNoTime' => 40, ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'firstName' => 1, 'lastName' => 2, 'city' => 3, 'state' => 4, 'zip' => 5, 'streetaddress' => 6, 'vehicle' => 7, 'island' => 8, 'email' => 9, 'training' => 10, 'comments' => 11, 'phonenumber' => 12, 'sundayFromHour' => 13, 'mondayFromHour' => 14, 'tuesdayFromHour' => 15, 'wednesdayFromHour' => 16, 'thursdayFromHour' => 17, 'fridayFromHour' => 18, 'saturdayFromHour' => 19, 'sundayToHour' => 20, 'mondayToHour' => 21, 'tuesdayToHour' => 22, 'wednesdayToHour' => 23, 'thursdayToHour' => 24, 'fridayToHour' => 25, 'saturdayToHour' => 26, 'sundayAnyTime' => 27, 'mondayAnyTime' => 28, 'tuesdayAnyTime' => 29, 'wednesdayAnyTime' => 30, 'thursdayAnyTime' => 31, 'fridayAnyTime' => 32, 'saturdayAnyTime' => 33, 'sundayNoTime' => 34, 'mondayNoTime' => 35, 'tuesdayNoTime' => 36, 'wednesdayNoTime' => 37, 'thursdayNoTime' => 38, 'fridayNoTime' => 39, 'saturdayNoTime' => 40, ),
 		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::FIRST_NAME => 1, self::LAST_NAME => 2, self::CITY => 3, self::STATE => 4, self::ZIP => 5, self::STREETADDRESS => 6, self::VEHICLE => 7, self::ISLAND => 8, self::EMAIL => 9, self::TRAINING => 10, self::COMMENTS => 11, self::PHONENUMBER => 12, self::SUNDAY_FROM_HOUR => 13, self::MONDAY_FROM_HOUR => 14, self::TUESDAY_FROM_HOUR => 15, self::WEDNESDAY_FROM_HOUR => 16, self::THURSDAY_FROM_HOUR => 17, self::FRIDAY_FROM_HOUR => 18, self::SATURDAY_FROM_HOUR => 19, self::SUNDAY_TO_HOUR => 20, self::MONDAY_TO_HOUR => 21, self::TUESDAY_TO_HOUR => 22, self::WEDNESDAY_TO_HOUR => 23, self::THURSDAY_TO_HOUR => 24, self::FRIDAY_TO_HOUR => 25, self::SATURDAY_TO_HOUR => 26, self::SUNDAY_ANY_TIME => 27, self::MONDAY_ANY_TIME => 28, self::TUESDAY_ANY_TIME => 29, self::WEDNESDAY_ANY_TIME => 30, self::THURSDAY_ANY_TIME => 31, self::FRIDAY_ANY_TIME => 32, self::SATURDAY_ANY_TIME => 33, self::SUNDAY_NO_TIME => 34, self::MONDAY_NO_TIME => 35, self::TUESDAY_NO_TIME => 36, self::WEDNESDAY_NO_TIME => 37, self::THURSDAY_NO_TIME => 38, self::FRIDAY_NO_TIME => 39, self::SATURDAY_NO_TIME => 40, ),
@@ -465,7 +471,7 @@ abstract class BaseVolunteerPeer {
 	 * @param      Volunteer $value A Volunteer object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(Volunteer $obj, $key = null)
+	public static function addInstanceToPool($obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -620,7 +626,7 @@ abstract class BaseVolunteerPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + VolunteerPeer::NUM_COLUMNS;
+			$col = $startcol + VolunteerPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = VolunteerPeer::OM_CLASS;
 			$obj = new $cls();
@@ -850,7 +856,7 @@ abstract class BaseVolunteerPeer {
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(Volunteer $obj, $cols = null)
+	public static function doValidate($obj, $cols = null)
 	{
 		$columns = array();
 

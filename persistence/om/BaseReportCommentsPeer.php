@@ -31,6 +31,9 @@ abstract class BaseReportCommentsPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 5;
+
 	/** the column name for the ID field */
 	const ID = 'report_comments.ID';
 
@@ -46,6 +49,9 @@ abstract class BaseReportCommentsPeer {
 	/** the column name for the VOLUNTEER_ID field */
 	const VOLUNTEER_ID = 'report_comments.VOLUNTEER_ID';
 
+	/** The default string format for model objects of the related table **/
+	const DEFAULT_STRING_FORMAT = 'YAML';
+	
 	/**
 	 * An identiy map to hold any loaded instances of ReportComments objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
@@ -61,7 +67,7 @@ abstract class BaseReportCommentsPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
-	private static $fieldNames = array (
+	protected static $fieldNames = array (
 		BasePeer::TYPE_PHPNAME => array ('Id', 'Index', 'Comments', 'ReportId', 'VolunteerId', ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'index', 'comments', 'reportId', 'volunteerId', ),
 		BasePeer::TYPE_COLNAME => array (self::ID, self::INDEX, self::COMMENTS, self::REPORT_ID, self::VOLUNTEER_ID, ),
@@ -76,7 +82,7 @@ abstract class BaseReportCommentsPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
-	private static $fieldKeys = array (
+	protected static $fieldKeys = array (
 		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Index' => 1, 'Comments' => 2, 'ReportId' => 3, 'VolunteerId' => 4, ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'index' => 1, 'comments' => 2, 'reportId' => 3, 'volunteerId' => 4, ),
 		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::INDEX => 1, self::COMMENTS => 2, self::REPORT_ID => 3, self::VOLUNTEER_ID => 4, ),
@@ -285,7 +291,7 @@ abstract class BaseReportCommentsPeer {
 	 * @param      ReportComments $value A ReportComments object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(ReportComments $obj, $key = null)
+	public static function addInstanceToPool($obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -440,7 +446,7 @@ abstract class BaseReportCommentsPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + ReportCommentsPeer::NUM_COLUMNS;
+			$col = $startcol + ReportCommentsPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = ReportCommentsPeer::OM_CLASS;
 			$obj = new $cls();
@@ -569,7 +575,7 @@ abstract class BaseReportCommentsPeer {
 		}
 
 		ReportCommentsPeer::addSelectColumns($criteria);
-		$startcol = (ReportCommentsPeer::NUM_COLUMNS - ReportCommentsPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ReportCommentsPeer::NUM_HYDRATE_COLUMNS;
 		ReportPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ReportCommentsPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
@@ -635,7 +641,7 @@ abstract class BaseReportCommentsPeer {
 		}
 
 		ReportCommentsPeer::addSelectColumns($criteria);
-		$startcol = (ReportCommentsPeer::NUM_COLUMNS - ReportCommentsPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol = ReportCommentsPeer::NUM_HYDRATE_COLUMNS;
 		VolunteerPeer::addSelectColumns($criteria);
 
 		$criteria->addJoin(ReportCommentsPeer::VOLUNTEER_ID, VolunteerPeer::ID, $join_behavior);
@@ -753,13 +759,13 @@ abstract class BaseReportCommentsPeer {
 		}
 
 		ReportCommentsPeer::addSelectColumns($criteria);
-		$startcol2 = (ReportCommentsPeer::NUM_COLUMNS - ReportCommentsPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ReportCommentsPeer::NUM_HYDRATE_COLUMNS;
 
 		ReportPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ReportPeer::NUM_COLUMNS - ReportPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ReportPeer::NUM_HYDRATE_COLUMNS;
 
 		VolunteerPeer::addSelectColumns($criteria);
-		$startcol4 = $startcol3 + (VolunteerPeer::NUM_COLUMNS - VolunteerPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol4 = $startcol3 + VolunteerPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ReportCommentsPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
 
@@ -947,10 +953,10 @@ abstract class BaseReportCommentsPeer {
 		}
 
 		ReportCommentsPeer::addSelectColumns($criteria);
-		$startcol2 = (ReportCommentsPeer::NUM_COLUMNS - ReportCommentsPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ReportCommentsPeer::NUM_HYDRATE_COLUMNS;
 
 		VolunteerPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (VolunteerPeer::NUM_COLUMNS - VolunteerPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + VolunteerPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ReportCommentsPeer::VOLUNTEER_ID, VolunteerPeer::ID, $join_behavior);
 
@@ -1020,10 +1026,10 @@ abstract class BaseReportCommentsPeer {
 		}
 
 		ReportCommentsPeer::addSelectColumns($criteria);
-		$startcol2 = (ReportCommentsPeer::NUM_COLUMNS - ReportCommentsPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol2 = ReportCommentsPeer::NUM_HYDRATE_COLUMNS;
 
 		ReportPeer::addSelectColumns($criteria);
-		$startcol3 = $startcol2 + (ReportPeer::NUM_COLUMNS - ReportPeer::NUM_LAZY_LOAD_COLUMNS);
+		$startcol3 = $startcol2 + ReportPeer::NUM_HYDRATE_COLUMNS;
 
 		$criteria->addJoin(ReportCommentsPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
 
@@ -1291,7 +1297,7 @@ abstract class BaseReportCommentsPeer {
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(ReportComments $obj, $cols = null)
+	public static function doValidate($obj, $cols = null)
 	{
 		$columns = array();
 

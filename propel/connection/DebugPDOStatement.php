@@ -66,7 +66,7 @@ class DebugPDOStatement extends PDOStatement
 		$matches = array();
 		if (preg_match_all('/(:p[0-9]+\b)/', $sql, $matches)) {
 			$size = count($matches[1]);
-			for ($i = $size-1; $i >= 0; $i--) { 
+			for ($i = $size-1; $i >= 0; $i--) {
 				$pos = $matches[1][$i];
 				$sql = str_replace($pos, $this->boundValues[$pos], $sql);
 			}
@@ -89,7 +89,7 @@ class DebugPDOStatement extends PDOStatement
 		
 		$sql = $this->getExecutedQueryString();
 		$this->pdo->log($sql, null, __METHOD__, $debug);
-		$this->pdo->setLastExecutedQuery($sql); 
+		$this->pdo->setLastExecutedQuery($sql);
 		$this->pdo->incrementQueryCount();
 		
 		return $return;
@@ -106,17 +106,43 @@ class DebugPDOStatement extends PDOStatement
 	 */
 	public function bindValue($pos, $value, $type = PDO::PARAM_STR)
 	{
-		$debug		= $this->pdo->getDebugSnapshot();
-		$typestr	= isset(self::$typeMap[$type]) ? self::$typeMap[$type] : '(default)';
-		$return		= parent::bindValue($pos, $value, $type);
-		$valuestr	= $type == PDO::PARAM_LOB ? '[LOB value]' : var_export($value, true);
-		$msg		= "Binding $valuestr at position $pos w/ PDO type $typestr";
+		$debug    = $this->pdo->getDebugSnapshot();
+		$typestr  = isset(self::$typeMap[$type]) ? self::$typeMap[$type] : '(default)';
+		$return   = parent::bindValue($pos, $value, $type);
+		$valuestr = $type == PDO::PARAM_LOB ? '[LOB value]' : var_export($value, true);
+		$msg      = sprintf('Binding %s at position %s w/ PDO type %s', $valuestr, $pos, $typestr);
 
-    $this->boundValues[$pos] = $valuestr;
+		$this->boundValues[$pos] = $valuestr;
 		
 		$this->pdo->log($msg, null, __METHOD__, $debug);
 		
 		return $return;
 	}
-	
+
+	/**
+	 * Binds a PHP variable to a corresponding named or question mark placeholder in the SQL statement
+	 * that was use to prepare the statement. Unlike PDOStatement::bindValue(), the variable is bound
+	 * as a reference and will only be evaluated at the time that PDOStatement::execute() is called.
+	 * Returns a boolean value indicating success.
+	 *
+	 * @param      int $pos Parameter identifier (for determining what to replace in the query).
+	 * @param      mixed $value The value to bind to the parameter.
+	 * @param      int $type Explicit data type for the parameter using the PDO::PARAM_* constants. Defaults to PDO::PARAM_STR.
+	 * @param      int $length Length of the data type. To indicate that a parameter is an OUT parameter from a stored procedure, you must explicitly set the length.
+	 * @return     boolean
+	 */
+	public function bindParam($pos, &$value, $type = PDO::PARAM_STR, $length = 0, $driver_options = null)
+	{
+		$debug    = $this->pdo->getDebugSnapshot();
+		$typestr  = isset(self::$typeMap[$type]) ? self::$typeMap[$type] : '(default)';
+		$return   = parent::bindParam($pos, $value, $type, $length, $driver_options);
+		$valuestr = $length > 100 ? '[Large value]' : var_export($value, true);
+		$msg      = sprintf('Binding %s at position %s w/ PDO type %s', $valuestr, $pos, $typestr);
+
+		$this->boundValues[$pos] = $valuestr;
+		
+		$this->pdo->log($msg, null, __METHOD__, $debug);
+
+		return $return;
+	}
 }

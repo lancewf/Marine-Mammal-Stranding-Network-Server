@@ -20,9 +20,9 @@
  * @method     AttachmentQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
  * @method     AttachmentQuery innerJoin($relation) Adds a INNER JOIN clause to the query
  *
- * @method     AttachmentQuery leftJoinReport($relationAlias = '') Adds a LEFT JOIN clause to the query using the Report relation
- * @method     AttachmentQuery rightJoinReport($relationAlias = '') Adds a RIGHT JOIN clause to the query using the Report relation
- * @method     AttachmentQuery innerJoinReport($relationAlias = '') Adds a INNER JOIN clause to the query using the Report relation
+ * @method     AttachmentQuery leftJoinReport($relationAlias = null) Adds a LEFT JOIN clause to the query using the Report relation
+ * @method     AttachmentQuery rightJoinReport($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Report relation
+ * @method     AttachmentQuery innerJoinReport($relationAlias = null) Adds a INNER JOIN clause to the query using the Report relation
  *
  * @method     Attachment findOne(PropelPDO $con = null) Return the first Attachment matching the query
  * @method     Attachment findOneOrCreate(PropelPDO $con = null) Return the first Attachment matching the query, or a new Attachment object populated from the query conditions when no match is found
@@ -114,7 +114,7 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	 * @return    PropelObjectCollection|array|mixed the list of results, formatted by the current formatter
 	 */
 	public function findPks($keys, $con = null)
-	{	
+	{
 		$criteria = $this->isKeepQuery() ? clone $this : $this;
 		return $this
 			->filterByPrimaryKeys($keys)
@@ -148,8 +148,17 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	/**
 	 * Filter the query on the id column
 	 * 
-	 * @param     int|array $id The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterById(1234); // WHERE id = 1234
+	 * $query->filterById(array(12, 34)); // WHERE id IN (12, 34)
+	 * $query->filterById(array('min' => 12)); // WHERE id > 12
+	 * </code>
+	 *
+	 * @param     mixed $id The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AttachmentQuery The current query, for fluid interface
@@ -165,8 +174,14 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	/**
 	 * Filter the query on the file_name column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByFileName('fooValue');   // WHERE file_name = 'fooValue'
+	 * $query->filterByFileName('%fooValue%'); // WHERE file_name LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $fileName The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AttachmentQuery The current query, for fluid interface
@@ -187,8 +202,14 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	/**
 	 * Filter the query on the comments column
 	 * 
+	 * Example usage:
+	 * <code>
+	 * $query->filterByComments('fooValue');   // WHERE comments = 'fooValue'
+	 * $query->filterByComments('%fooValue%'); // WHERE comments LIKE '%fooValue%'
+	 * </code>
+	 *
 	 * @param     string $comments The value to use as filter.
-	 *            Accepts wildcards (* and % trigger a LIKE)
+	 *              Accepts wildcards (* and % trigger a LIKE)
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AttachmentQuery The current query, for fluid interface
@@ -209,8 +230,19 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	/**
 	 * Filter the query on the report_id column
 	 * 
-	 * @param     int|array $reportId The value to use as filter.
-	 *            Accepts an associative array('min' => $minValue, 'max' => $maxValue)
+	 * Example usage:
+	 * <code>
+	 * $query->filterByReportId(1234); // WHERE report_id = 1234
+	 * $query->filterByReportId(array(12, 34)); // WHERE report_id IN (12, 34)
+	 * $query->filterByReportId(array('min' => 12)); // WHERE report_id > 12
+	 * </code>
+	 *
+	 * @see       filterByReport()
+	 *
+	 * @param     mixed $reportId The value to use as filter.
+	 *              Use scalar values for equality.
+	 *              Use array values for in_array() equivalent.
+	 *              Use associative array('min' => $minValue, 'max' => $maxValue) for intervals.
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AttachmentQuery The current query, for fluid interface
@@ -240,15 +272,25 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	/**
 	 * Filter the query by a related Report object
 	 *
-	 * @param     Report $report  the related object to use as filter
+	 * @param     Report|PropelCollection $report The related object(s) to use as filter
 	 * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
 	 *
 	 * @return    AttachmentQuery The current query, for fluid interface
 	 */
 	public function filterByReport($report, $comparison = null)
 	{
-		return $this
-			->addUsingAlias(AttachmentPeer::REPORT_ID, $report->getId(), $comparison);
+		if ($report instanceof Report) {
+			return $this
+				->addUsingAlias(AttachmentPeer::REPORT_ID, $report->getId(), $comparison);
+		} elseif ($report instanceof PropelCollection) {
+			if (null === $comparison) {
+				$comparison = Criteria::IN;
+			}
+			return $this
+				->addUsingAlias(AttachmentPeer::REPORT_ID, $report->toKeyValue('PrimaryKey', 'Id'), $comparison);
+		} else {
+			throw new PropelException('filterByReport() only accepts arguments of type Report or PropelCollection');
+		}
 	}
 
 	/**
@@ -259,7 +301,7 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	 *
 	 * @return    AttachmentQuery The current query, for fluid interface
 	 */
-	public function joinReport($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function joinReport($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		$tableMap = $this->getTableMap();
 		$relationMap = $tableMap->getRelation('Report');
@@ -294,7 +336,7 @@ abstract class BaseAttachmentQuery extends ModelCriteria
 	 *
 	 * @return    ReportQuery A secondary query class using the current class as primary query
 	 */
-	public function useReportQuery($relationAlias = '', $joinType = Criteria::INNER_JOIN)
+	public function useReportQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
 	{
 		return $this
 			->joinReport($relationAlias, $joinType)

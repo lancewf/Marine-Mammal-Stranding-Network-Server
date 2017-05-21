@@ -31,6 +31,9 @@ abstract class BaseBlogEntryPeer {
 	/** The number of lazy-loaded columns. */
 	const NUM_LAZY_LOAD_COLUMNS = 0;
 
+	/** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
+	const NUM_HYDRATE_COLUMNS = 4;
+
 	/** the column name for the ID field */
 	const ID = 'blog_entry.ID';
 
@@ -43,6 +46,9 @@ abstract class BaseBlogEntryPeer {
 	/** the column name for the DATE field */
 	const DATE = 'blog_entry.DATE';
 
+	/** The default string format for model objects of the related table **/
+	const DEFAULT_STRING_FORMAT = 'YAML';
+	
 	/**
 	 * An identiy map to hold any loaded instances of BlogEntry objects.
 	 * This must be public so that other peer classes can access this when hydrating from JOIN
@@ -58,7 +64,7 @@ abstract class BaseBlogEntryPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[self::TYPE_PHPNAME][0] = 'Id'
 	 */
-	private static $fieldNames = array (
+	protected static $fieldNames = array (
 		BasePeer::TYPE_PHPNAME => array ('Id', 'Title', 'Message', 'Date', ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'title', 'message', 'date', ),
 		BasePeer::TYPE_COLNAME => array (self::ID, self::TITLE, self::MESSAGE, self::DATE, ),
@@ -73,7 +79,7 @@ abstract class BaseBlogEntryPeer {
 	 * first dimension keys are the type constants
 	 * e.g. self::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
 	 */
-	private static $fieldKeys = array (
+	protected static $fieldKeys = array (
 		BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Title' => 1, 'Message' => 2, 'Date' => 3, ),
 		BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'title' => 1, 'message' => 2, 'date' => 3, ),
 		BasePeer::TYPE_COLNAME => array (self::ID => 0, self::TITLE => 1, self::MESSAGE => 2, self::DATE => 3, ),
@@ -280,7 +286,7 @@ abstract class BaseBlogEntryPeer {
 	 * @param      BlogEntry $value A BlogEntry object.
 	 * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
 	 */
-	public static function addInstanceToPool(BlogEntry $obj, $key = null)
+	public static function addInstanceToPool($obj, $key = null)
 	{
 		if (Propel::isInstancePoolingEnabled()) {
 			if ($key === null) {
@@ -435,7 +441,7 @@ abstract class BaseBlogEntryPeer {
 			// We no longer rehydrate the object, since this can cause data loss.
 			// See http://www.propelorm.org/ticket/509
 			// $obj->hydrate($row, $startcol, true); // rehydrate
-			$col = $startcol + BlogEntryPeer::NUM_COLUMNS;
+			$col = $startcol + BlogEntryPeer::NUM_HYDRATE_COLUMNS;
 		} else {
 			$cls = BlogEntryPeer::OM_CLASS;
 			$obj = new $cls();
@@ -665,7 +671,7 @@ abstract class BaseBlogEntryPeer {
 	 *
 	 * @return     mixed TRUE if all columns are valid or the error message of the first invalid column.
 	 */
-	public static function doValidate(BlogEntry $obj, $cols = null)
+	public static function doValidate($obj, $cols = null)
 	{
 		$columns = array();
 
