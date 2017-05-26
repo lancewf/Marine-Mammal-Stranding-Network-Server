@@ -2,56 +2,65 @@
 
 
 /**
- * Base static class for performing query and update operations on the 'attachment' table.
+ * Base static class for performing query and update operations on the 'report_human_interaction_section' table.
  *
- * attachments to a report
+ * examined human interactions on the animal
  *
  * @package propel.generator.persistence.om
  */
-abstract class BaseAttachmentPeer
+abstract class BaseReportHumanInteractionSectionPeer
 {
 
     /** the default database name for this class */
     const DATABASE_NAME = 'persistence';
 
     /** the table name for this class */
-    const TABLE_NAME = 'attachment';
+    const TABLE_NAME = 'report_human_interaction_section';
 
     /** the related Propel class for this table */
-    const OM_CLASS = 'Attachment';
+    const OM_CLASS = 'ReportHumanInteractionSection';
 
     /** the related TableMap class for this table */
-    const TM_CLASS = 'AttachmentTableMap';
+    const TM_CLASS = 'ReportHumanInteractionSectionTableMap';
 
     /** The total number of columns. */
-    const NUM_COLUMNS = 4;
+    const NUM_COLUMNS = 7;
 
     /** The number of lazy-loaded columns. */
     const NUM_LAZY_LOAD_COLUMNS = 0;
 
     /** The number of columns to hydrate (NUM_COLUMNS - NUM_LAZY_LOAD_COLUMNS) */
-    const NUM_HYDRATE_COLUMNS = 4;
+    const NUM_HYDRATE_COLUMNS = 7;
 
     /** the column name for the id field */
-    const ID = 'attachment.id';
+    const ID = 'report_human_interaction_section.id';
 
-    /** the column name for the file_name field */
-    const FILE_NAME = 'attachment.file_name';
+    /** the column name for the name field */
+    const NAME = 'report_human_interaction_section.name';
 
-    /** the column name for the comments field */
-    const COMMENTS = 'attachment.comments';
+    /** the column name for the is_examined field */
+    const IS_EXAMINED = 'report_human_interaction_section.is_examined';
+
+    /** the column name for the possible_hi_lesion field */
+    const POSSIBLE_HI_LESION = 'report_human_interaction_section.possible_hi_lesion';
+
+    /** the column name for the possible_source field */
+    const POSSIBLE_SOURCE = 'report_human_interaction_section.possible_source';
+
+    /** the column name for the scavenger_damage field */
+    const SCAVENGER_DAMAGE = 'report_human_interaction_section.scavenger_damage';
 
     /** the column name for the report_id field */
-    const REPORT_ID = 'attachment.report_id';
+    const REPORT_ID = 'report_human_interaction_section.report_id';
 
     /** The default string format for model objects of the related table **/
     const DEFAULT_STRING_FORMAT = 'YAML';
 
     /**
-     * An identity map to hold any loaded instances of Attachment objects.
+     * An identity map to hold any loaded instances of ReportHumanInteractionSection objects.
      * This must be public so that other peer classes can access this when hydrating from JOIN
      * queries.
-     * @var        array Attachment[]
+     * @var        array ReportHumanInteractionSection[]
      */
     public static $instances = array();
 
@@ -60,30 +69,30 @@ abstract class BaseAttachmentPeer
      * holds an array of fieldnames
      *
      * first dimension keys are the type constants
-     * e.g. AttachmentPeer::$fieldNames[AttachmentPeer::TYPE_PHPNAME][0] = 'Id'
+     * e.g. ReportHumanInteractionSectionPeer::$fieldNames[ReportHumanInteractionSectionPeer::TYPE_PHPNAME][0] = 'Id'
      */
     protected static $fieldNames = array (
-        BasePeer::TYPE_PHPNAME => array ('Id', 'FileName', 'Comments', 'ReportId', ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'fileName', 'comments', 'reportId', ),
-        BasePeer::TYPE_COLNAME => array (AttachmentPeer::ID, AttachmentPeer::FILE_NAME, AttachmentPeer::COMMENTS, AttachmentPeer::REPORT_ID, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'FILE_NAME', 'COMMENTS', 'REPORT_ID', ),
-        BasePeer::TYPE_FIELDNAME => array ('id', 'file_name', 'comments', 'report_id', ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+        BasePeer::TYPE_PHPNAME => array ('Id', 'Name', 'IsExamined', 'PossibleHiLesion', 'PossibleSource', 'ScavengerDamage', 'ReportId', ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id', 'name', 'isExamined', 'possibleHiLesion', 'possibleSource', 'scavengerDamage', 'reportId', ),
+        BasePeer::TYPE_COLNAME => array (ReportHumanInteractionSectionPeer::ID, ReportHumanInteractionSectionPeer::NAME, ReportHumanInteractionSectionPeer::IS_EXAMINED, ReportHumanInteractionSectionPeer::POSSIBLE_HI_LESION, ReportHumanInteractionSectionPeer::POSSIBLE_SOURCE, ReportHumanInteractionSectionPeer::SCAVENGER_DAMAGE, ReportHumanInteractionSectionPeer::REPORT_ID, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID', 'NAME', 'IS_EXAMINED', 'POSSIBLE_HI_LESION', 'POSSIBLE_SOURCE', 'SCAVENGER_DAMAGE', 'REPORT_ID', ),
+        BasePeer::TYPE_FIELDNAME => array ('id', 'name', 'is_examined', 'possible_hi_lesion', 'possible_source', 'scavenger_damage', 'report_id', ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
      * holds an array of keys for quick access to the fieldnames array
      *
      * first dimension keys are the type constants
-     * e.g. AttachmentPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
+     * e.g. ReportHumanInteractionSectionPeer::$fieldNames[BasePeer::TYPE_PHPNAME]['Id'] = 0
      */
     protected static $fieldKeys = array (
-        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'FileName' => 1, 'Comments' => 2, 'ReportId' => 3, ),
-        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'fileName' => 1, 'comments' => 2, 'reportId' => 3, ),
-        BasePeer::TYPE_COLNAME => array (AttachmentPeer::ID => 0, AttachmentPeer::FILE_NAME => 1, AttachmentPeer::COMMENTS => 2, AttachmentPeer::REPORT_ID => 3, ),
-        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'FILE_NAME' => 1, 'COMMENTS' => 2, 'REPORT_ID' => 3, ),
-        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'file_name' => 1, 'comments' => 2, 'report_id' => 3, ),
-        BasePeer::TYPE_NUM => array (0, 1, 2, 3, )
+        BasePeer::TYPE_PHPNAME => array ('Id' => 0, 'Name' => 1, 'IsExamined' => 2, 'PossibleHiLesion' => 3, 'PossibleSource' => 4, 'ScavengerDamage' => 5, 'ReportId' => 6, ),
+        BasePeer::TYPE_STUDLYPHPNAME => array ('id' => 0, 'name' => 1, 'isExamined' => 2, 'possibleHiLesion' => 3, 'possibleSource' => 4, 'scavengerDamage' => 5, 'reportId' => 6, ),
+        BasePeer::TYPE_COLNAME => array (ReportHumanInteractionSectionPeer::ID => 0, ReportHumanInteractionSectionPeer::NAME => 1, ReportHumanInteractionSectionPeer::IS_EXAMINED => 2, ReportHumanInteractionSectionPeer::POSSIBLE_HI_LESION => 3, ReportHumanInteractionSectionPeer::POSSIBLE_SOURCE => 4, ReportHumanInteractionSectionPeer::SCAVENGER_DAMAGE => 5, ReportHumanInteractionSectionPeer::REPORT_ID => 6, ),
+        BasePeer::TYPE_RAW_COLNAME => array ('ID' => 0, 'NAME' => 1, 'IS_EXAMINED' => 2, 'POSSIBLE_HI_LESION' => 3, 'POSSIBLE_SOURCE' => 4, 'SCAVENGER_DAMAGE' => 5, 'REPORT_ID' => 6, ),
+        BasePeer::TYPE_FIELDNAME => array ('id' => 0, 'name' => 1, 'is_examined' => 2, 'possible_hi_lesion' => 3, 'possible_source' => 4, 'scavenger_damage' => 5, 'report_id' => 6, ),
+        BasePeer::TYPE_NUM => array (0, 1, 2, 3, 4, 5, 6, )
     );
 
     /**
@@ -98,10 +107,10 @@ abstract class BaseAttachmentPeer
      */
     public static function translateFieldName($name, $fromType, $toType)
     {
-        $toNames = AttachmentPeer::getFieldNames($toType);
-        $key = isset(AttachmentPeer::$fieldKeys[$fromType][$name]) ? AttachmentPeer::$fieldKeys[$fromType][$name] : null;
+        $toNames = ReportHumanInteractionSectionPeer::getFieldNames($toType);
+        $key = isset(ReportHumanInteractionSectionPeer::$fieldKeys[$fromType][$name]) ? ReportHumanInteractionSectionPeer::$fieldKeys[$fromType][$name] : null;
         if ($key === null) {
-            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(AttachmentPeer::$fieldKeys[$fromType], true));
+            throw new PropelException("'$name' could not be found in the field names of type '$fromType'. These are: " . print_r(ReportHumanInteractionSectionPeer::$fieldKeys[$fromType], true));
         }
 
         return $toNames[$key];
@@ -118,11 +127,11 @@ abstract class BaseAttachmentPeer
      */
     public static function getFieldNames($type = BasePeer::TYPE_PHPNAME)
     {
-        if (!array_key_exists($type, AttachmentPeer::$fieldNames)) {
+        if (!array_key_exists($type, ReportHumanInteractionSectionPeer::$fieldNames)) {
             throw new PropelException('Method getFieldNames() expects the parameter $type to be one of the class constants BasePeer::TYPE_PHPNAME, BasePeer::TYPE_STUDLYPHPNAME, BasePeer::TYPE_COLNAME, BasePeer::TYPE_FIELDNAME, BasePeer::TYPE_NUM. ' . $type . ' was given.');
         }
 
-        return AttachmentPeer::$fieldNames[$type];
+        return ReportHumanInteractionSectionPeer::$fieldNames[$type];
     }
 
     /**
@@ -134,12 +143,12 @@ abstract class BaseAttachmentPeer
      *		$c->addJoin(TablePeer::alias("alias1", TablePeer::PRIMARY_KEY_COLUMN), TablePeer::PRIMARY_KEY_COLUMN);
      * </code>
      * @param      string $alias The alias for the current table.
-     * @param      string $column The column name for current table. (i.e. AttachmentPeer::COLUMN_NAME).
+     * @param      string $column The column name for current table. (i.e. ReportHumanInteractionSectionPeer::COLUMN_NAME).
      * @return string
      */
     public static function alias($alias, $column)
     {
-        return str_replace(AttachmentPeer::TABLE_NAME.'.', $alias.'.', $column);
+        return str_replace(ReportHumanInteractionSectionPeer::TABLE_NAME.'.', $alias.'.', $column);
     }
 
     /**
@@ -157,14 +166,20 @@ abstract class BaseAttachmentPeer
     public static function addSelectColumns(Criteria $criteria, $alias = null)
     {
         if (null === $alias) {
-            $criteria->addSelectColumn(AttachmentPeer::ID);
-            $criteria->addSelectColumn(AttachmentPeer::FILE_NAME);
-            $criteria->addSelectColumn(AttachmentPeer::COMMENTS);
-            $criteria->addSelectColumn(AttachmentPeer::REPORT_ID);
+            $criteria->addSelectColumn(ReportHumanInteractionSectionPeer::ID);
+            $criteria->addSelectColumn(ReportHumanInteractionSectionPeer::NAME);
+            $criteria->addSelectColumn(ReportHumanInteractionSectionPeer::IS_EXAMINED);
+            $criteria->addSelectColumn(ReportHumanInteractionSectionPeer::POSSIBLE_HI_LESION);
+            $criteria->addSelectColumn(ReportHumanInteractionSectionPeer::POSSIBLE_SOURCE);
+            $criteria->addSelectColumn(ReportHumanInteractionSectionPeer::SCAVENGER_DAMAGE);
+            $criteria->addSelectColumn(ReportHumanInteractionSectionPeer::REPORT_ID);
         } else {
             $criteria->addSelectColumn($alias . '.id');
-            $criteria->addSelectColumn($alias . '.file_name');
-            $criteria->addSelectColumn($alias . '.comments');
+            $criteria->addSelectColumn($alias . '.name');
+            $criteria->addSelectColumn($alias . '.is_examined');
+            $criteria->addSelectColumn($alias . '.possible_hi_lesion');
+            $criteria->addSelectColumn($alias . '.possible_source');
+            $criteria->addSelectColumn($alias . '.scavenger_damage');
             $criteria->addSelectColumn($alias . '.report_id');
         }
     }
@@ -185,21 +200,21 @@ abstract class BaseAttachmentPeer
         // We need to set the primary table name, since in the case that there are no WHERE columns
         // it will be impossible for the BasePeer::createSelectSql() method to determine which
         // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(AttachmentPeer::TABLE_NAME);
+        $criteria->setPrimaryTableName(ReportHumanInteractionSectionPeer::TABLE_NAME);
 
         if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
             $criteria->setDistinct();
         }
 
         if (!$criteria->hasSelectClause()) {
-            AttachmentPeer::addSelectColumns($criteria);
+            ReportHumanInteractionSectionPeer::addSelectColumns($criteria);
         }
 
         $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
-        $criteria->setDbName(AttachmentPeer::DATABASE_NAME); // Set the correct dbName
+        $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME); // Set the correct dbName
 
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
         // BasePeer returns a PDOStatement
         $stmt = BasePeer::doCount($criteria, $con);
@@ -218,7 +233,7 @@ abstract class BaseAttachmentPeer
      *
      * @param      Criteria $criteria object used to create the SELECT statement.
      * @param      PropelPDO $con
-     * @return Attachment
+     * @return ReportHumanInteractionSection
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
@@ -226,7 +241,7 @@ abstract class BaseAttachmentPeer
     {
         $critcopy = clone $criteria;
         $critcopy->setLimit(1);
-        $objects = AttachmentPeer::doSelect($critcopy, $con);
+        $objects = ReportHumanInteractionSectionPeer::doSelect($critcopy, $con);
         if ($objects) {
             return $objects[0];
         }
@@ -244,7 +259,7 @@ abstract class BaseAttachmentPeer
      */
     public static function doSelect(Criteria $criteria, PropelPDO $con = null)
     {
-        return AttachmentPeer::populateObjects(AttachmentPeer::doSelectStmt($criteria, $con));
+        return ReportHumanInteractionSectionPeer::populateObjects(ReportHumanInteractionSectionPeer::doSelectStmt($criteria, $con));
     }
     /**
      * Prepares the Criteria object and uses the parent doSelect() method to execute a PDOStatement.
@@ -262,16 +277,16 @@ abstract class BaseAttachmentPeer
     public static function doSelectStmt(Criteria $criteria, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         if (!$criteria->hasSelectClause()) {
             $criteria = clone $criteria;
-            AttachmentPeer::addSelectColumns($criteria);
+            ReportHumanInteractionSectionPeer::addSelectColumns($criteria);
         }
 
         // Set the correct dbName
-        $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+        $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
         // BasePeer returns a PDOStatement
         return BasePeer::doSelect($criteria, $con);
@@ -285,7 +300,7 @@ abstract class BaseAttachmentPeer
      * to the cache in order to ensure that the same objects are always returned by doSelect*()
      * and retrieveByPK*() calls.
      *
-     * @param Attachment $obj A Attachment object.
+     * @param ReportHumanInteractionSection $obj A ReportHumanInteractionSection object.
      * @param      string $key (optional) key to use for instance map (for performance boost if key was already calculated externally).
      */
     public static function addInstanceToPool($obj, $key = null)
@@ -294,7 +309,7 @@ abstract class BaseAttachmentPeer
             if ($key === null) {
                 $key = (string) $obj->getId();
             } // if key === null
-            AttachmentPeer::$instances[$key] = $obj;
+            ReportHumanInteractionSectionPeer::$instances[$key] = $obj;
         }
     }
 
@@ -306,7 +321,7 @@ abstract class BaseAttachmentPeer
      * methods in your stub classes -- you may need to explicitly remove objects
      * from the cache in order to prevent returning objects that no longer exist.
      *
-     * @param      mixed $value A Attachment object or a primary key value.
+     * @param      mixed $value A ReportHumanInteractionSection object or a primary key value.
      *
      * @return void
      * @throws PropelException - if the value is invalid.
@@ -314,17 +329,17 @@ abstract class BaseAttachmentPeer
     public static function removeInstanceFromPool($value)
     {
         if (Propel::isInstancePoolingEnabled() && $value !== null) {
-            if (is_object($value) && $value instanceof Attachment) {
+            if (is_object($value) && $value instanceof ReportHumanInteractionSection) {
                 $key = (string) $value->getId();
             } elseif (is_scalar($value)) {
                 // assume we've been passed a primary key
                 $key = (string) $value;
             } else {
-                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or Attachment object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
+                $e = new PropelException("Invalid value passed to removeInstanceFromPool().  Expected primary key or ReportHumanInteractionSection object; got " . (is_object($value) ? get_class($value) . ' object.' : var_export($value,true)));
                 throw $e;
             }
 
-            unset(AttachmentPeer::$instances[$key]);
+            unset(ReportHumanInteractionSectionPeer::$instances[$key]);
         }
     } // removeInstanceFromPool()
 
@@ -335,14 +350,14 @@ abstract class BaseAttachmentPeer
      * a multi-column primary key, a serialize()d version of the primary key will be returned.
      *
      * @param      string $key The key (@see getPrimaryKeyHash()) for this instance.
-     * @return Attachment Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
+     * @return ReportHumanInteractionSection Found object or null if 1) no instance exists for specified key or 2) instance pooling has been disabled.
      * @see        getPrimaryKeyHash()
      */
     public static function getInstanceFromPool($key)
     {
         if (Propel::isInstancePoolingEnabled()) {
-            if (isset(AttachmentPeer::$instances[$key])) {
-                return AttachmentPeer::$instances[$key];
+            if (isset(ReportHumanInteractionSectionPeer::$instances[$key])) {
+                return ReportHumanInteractionSectionPeer::$instances[$key];
             }
         }
 
@@ -357,15 +372,15 @@ abstract class BaseAttachmentPeer
     public static function clearInstancePool($and_clear_all_references = false)
     {
       if ($and_clear_all_references) {
-        foreach (AttachmentPeer::$instances as $instance) {
+        foreach (ReportHumanInteractionSectionPeer::$instances as $instance) {
           $instance->clearAllReferences(true);
         }
       }
-        AttachmentPeer::$instances = array();
+        ReportHumanInteractionSectionPeer::$instances = array();
     }
 
     /**
-     * Method to invalidate the instance pool of all tables related to attachment
+     * Method to invalidate the instance pool of all tables related to report_human_interaction_section
      * by a foreign key with ON DELETE CASCADE
      */
     public static function clearRelatedInstancePool()
@@ -419,11 +434,11 @@ abstract class BaseAttachmentPeer
         $results = array();
 
         // set the class once to avoid overhead in the loop
-        $cls = AttachmentPeer::getOMClass();
+        $cls = ReportHumanInteractionSectionPeer::getOMClass();
         // populate the object(s)
         while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key = AttachmentPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj = AttachmentPeer::getInstanceFromPool($key))) {
+            $key = ReportHumanInteractionSectionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj = ReportHumanInteractionSectionPeer::getInstanceFromPool($key))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj->hydrate($row, 0, true); // rehydrate
@@ -432,7 +447,7 @@ abstract class BaseAttachmentPeer
                 $obj = new $cls();
                 $obj->hydrate($row);
                 $results[] = $obj;
-                AttachmentPeer::addInstanceToPool($obj, $key);
+                ReportHumanInteractionSectionPeer::addInstanceToPool($obj, $key);
             } // if key exists
         }
         $stmt->closeCursor();
@@ -446,21 +461,21 @@ abstract class BaseAttachmentPeer
      * @param      int $startcol The 0-based offset for reading from the resultset row.
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
-     * @return array (Attachment object, last column rank)
+     * @return array (ReportHumanInteractionSection object, last column rank)
      */
     public static function populateObject($row, $startcol = 0)
     {
-        $key = AttachmentPeer::getPrimaryKeyHashFromRow($row, $startcol);
-        if (null !== ($obj = AttachmentPeer::getInstanceFromPool($key))) {
+        $key = ReportHumanInteractionSectionPeer::getPrimaryKeyHashFromRow($row, $startcol);
+        if (null !== ($obj = ReportHumanInteractionSectionPeer::getInstanceFromPool($key))) {
             // We no longer rehydrate the object, since this can cause data loss.
             // See http://www.propelorm.org/ticket/509
             // $obj->hydrate($row, $startcol, true); // rehydrate
-            $col = $startcol + AttachmentPeer::NUM_HYDRATE_COLUMNS;
+            $col = $startcol + ReportHumanInteractionSectionPeer::NUM_HYDRATE_COLUMNS;
         } else {
-            $cls = AttachmentPeer::OM_CLASS;
+            $cls = ReportHumanInteractionSectionPeer::OM_CLASS;
             $obj = new $cls();
             $col = $obj->hydrate($row, $startcol);
-            AttachmentPeer::addInstanceToPool($obj, $key);
+            ReportHumanInteractionSectionPeer::addInstanceToPool($obj, $key);
         }
 
         return array($obj, $col);
@@ -484,26 +499,26 @@ abstract class BaseAttachmentPeer
         // We need to set the primary table name, since in the case that there are no WHERE columns
         // it will be impossible for the BasePeer::createSelectSql() method to determine which
         // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(AttachmentPeer::TABLE_NAME);
+        $criteria->setPrimaryTableName(ReportHumanInteractionSectionPeer::TABLE_NAME);
 
         if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
             $criteria->setDistinct();
         }
 
         if (!$criteria->hasSelectClause()) {
-            AttachmentPeer::addSelectColumns($criteria);
+            ReportHumanInteractionSectionPeer::addSelectColumns($criteria);
         }
 
         $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
 
         // Set the correct dbName
-        $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+        $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(AttachmentPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
+        $criteria->addJoin(ReportHumanInteractionSectionPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -519,11 +534,11 @@ abstract class BaseAttachmentPeer
 
 
     /**
-     * Selects a collection of Attachment objects pre-filled with their Report objects.
+     * Selects a collection of ReportHumanInteractionSection objects pre-filled with their Report objects.
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Attachment objects.
+     * @return array           Array of ReportHumanInteractionSection objects.
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
@@ -533,31 +548,31 @@ abstract class BaseAttachmentPeer
 
         // Set the correct dbName if it has not been overridden
         if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+            $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
         }
 
-        AttachmentPeer::addSelectColumns($criteria);
-        $startcol = AttachmentPeer::NUM_HYDRATE_COLUMNS;
+        ReportHumanInteractionSectionPeer::addSelectColumns($criteria);
+        $startcol = ReportHumanInteractionSectionPeer::NUM_HYDRATE_COLUMNS;
         ReportPeer::addSelectColumns($criteria);
 
-        $criteria->addJoin(AttachmentPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
+        $criteria->addJoin(ReportHumanInteractionSectionPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
 
         $stmt = BasePeer::doSelect($criteria, $con);
         $results = array();
 
         while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = AttachmentPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = AttachmentPeer::getInstanceFromPool($key1))) {
+            $key1 = ReportHumanInteractionSectionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = ReportHumanInteractionSectionPeer::getInstanceFromPool($key1))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj1->hydrate($row, 0, true); // rehydrate
             } else {
 
-                $cls = AttachmentPeer::getOMClass();
+                $cls = ReportHumanInteractionSectionPeer::getOMClass();
 
                 $obj1 = new $cls();
                 $obj1->hydrate($row);
-                AttachmentPeer::addInstanceToPool($obj1, $key1);
+                ReportHumanInteractionSectionPeer::addInstanceToPool($obj1, $key1);
             } // if $obj1 already loaded
 
             $key2 = ReportPeer::getPrimaryKeyHashFromRow($row, $startcol);
@@ -572,8 +587,8 @@ abstract class BaseAttachmentPeer
                     ReportPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 already loaded
 
-                // Add the $obj1 (Attachment) to $obj2 (Report)
-                $obj2->addAttachment($obj1);
+                // Add the $obj1 (ReportHumanInteractionSection) to $obj2 (Report)
+                $obj2->addReportHumanInteractionSection($obj1);
 
             } // if joined row was not null
 
@@ -602,26 +617,26 @@ abstract class BaseAttachmentPeer
         // We need to set the primary table name, since in the case that there are no WHERE columns
         // it will be impossible for the BasePeer::createSelectSql() method to determine which
         // tables go into the FROM clause.
-        $criteria->setPrimaryTableName(AttachmentPeer::TABLE_NAME);
+        $criteria->setPrimaryTableName(ReportHumanInteractionSectionPeer::TABLE_NAME);
 
         if ($distinct && !in_array(Criteria::DISTINCT, $criteria->getSelectModifiers())) {
             $criteria->setDistinct();
         }
 
         if (!$criteria->hasSelectClause()) {
-            AttachmentPeer::addSelectColumns($criteria);
+            ReportHumanInteractionSectionPeer::addSelectColumns($criteria);
         }
 
         $criteria->clearOrderByColumns(); // ORDER BY won't ever affect the count
 
         // Set the correct dbName
-        $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+        $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria->addJoin(AttachmentPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
+        $criteria->addJoin(ReportHumanInteractionSectionPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
 
         $stmt = BasePeer::doCount($criteria, $con);
 
@@ -636,12 +651,12 @@ abstract class BaseAttachmentPeer
     }
 
     /**
-     * Selects a collection of Attachment objects pre-filled with all related objects.
+     * Selects a collection of ReportHumanInteractionSection objects pre-filled with all related objects.
      *
      * @param      Criteria  $criteria
      * @param      PropelPDO $con
      * @param      String    $join_behavior the type of joins to use, defaults to Criteria::LEFT_JOIN
-     * @return array           Array of Attachment objects.
+     * @return array           Array of ReportHumanInteractionSection objects.
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
@@ -651,32 +666,32 @@ abstract class BaseAttachmentPeer
 
         // Set the correct dbName if it has not been overridden
         if ($criteria->getDbName() == Propel::getDefaultDB()) {
-            $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+            $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
         }
 
-        AttachmentPeer::addSelectColumns($criteria);
-        $startcol2 = AttachmentPeer::NUM_HYDRATE_COLUMNS;
+        ReportHumanInteractionSectionPeer::addSelectColumns($criteria);
+        $startcol2 = ReportHumanInteractionSectionPeer::NUM_HYDRATE_COLUMNS;
 
         ReportPeer::addSelectColumns($criteria);
         $startcol3 = $startcol2 + ReportPeer::NUM_HYDRATE_COLUMNS;
 
-        $criteria->addJoin(AttachmentPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
+        $criteria->addJoin(ReportHumanInteractionSectionPeer::REPORT_ID, ReportPeer::ID, $join_behavior);
 
         $stmt = BasePeer::doSelect($criteria, $con);
         $results = array();
 
         while ($row = $stmt->fetch(PDO::FETCH_NUM)) {
-            $key1 = AttachmentPeer::getPrimaryKeyHashFromRow($row, 0);
-            if (null !== ($obj1 = AttachmentPeer::getInstanceFromPool($key1))) {
+            $key1 = ReportHumanInteractionSectionPeer::getPrimaryKeyHashFromRow($row, 0);
+            if (null !== ($obj1 = ReportHumanInteractionSectionPeer::getInstanceFromPool($key1))) {
                 // We no longer rehydrate the object, since this can cause data loss.
                 // See http://www.propelorm.org/ticket/509
                 // $obj1->hydrate($row, 0, true); // rehydrate
             } else {
-                $cls = AttachmentPeer::getOMClass();
+                $cls = ReportHumanInteractionSectionPeer::getOMClass();
 
                 $obj1 = new $cls();
                 $obj1->hydrate($row);
-                AttachmentPeer::addInstanceToPool($obj1, $key1);
+                ReportHumanInteractionSectionPeer::addInstanceToPool($obj1, $key1);
             } // if obj1 already loaded
 
             // Add objects for joined Report rows
@@ -693,8 +708,8 @@ abstract class BaseAttachmentPeer
                     ReportPeer::addInstanceToPool($obj2, $key2);
                 } // if obj2 loaded
 
-                // Add the $obj1 (Attachment) to the collection in $obj2 (Report)
-                $obj2->addAttachment($obj1);
+                // Add the $obj1 (ReportHumanInteractionSection) to the collection in $obj2 (Report)
+                $obj2->addReportHumanInteractionSection($obj1);
             } // if joined row not null
 
             $results[] = $obj1;
@@ -713,7 +728,7 @@ abstract class BaseAttachmentPeer
      */
     public static function getTableMap()
     {
-        return Propel::getDatabaseMap(AttachmentPeer::DATABASE_NAME)->getTable(AttachmentPeer::TABLE_NAME);
+        return Propel::getDatabaseMap(ReportHumanInteractionSectionPeer::DATABASE_NAME)->getTable(ReportHumanInteractionSectionPeer::TABLE_NAME);
     }
 
     /**
@@ -721,9 +736,9 @@ abstract class BaseAttachmentPeer
      */
     public static function buildTableMap()
     {
-      $dbMap = Propel::getDatabaseMap(BaseAttachmentPeer::DATABASE_NAME);
-      if (!$dbMap->hasTable(BaseAttachmentPeer::TABLE_NAME)) {
-        $dbMap->addTableObject(new \AttachmentTableMap());
+      $dbMap = Propel::getDatabaseMap(BaseReportHumanInteractionSectionPeer::DATABASE_NAME);
+      if (!$dbMap->hasTable(BaseReportHumanInteractionSectionPeer::TABLE_NAME)) {
+        $dbMap->addTableObject(new \ReportHumanInteractionSectionTableMap());
       }
     }
 
@@ -735,13 +750,13 @@ abstract class BaseAttachmentPeer
      */
     public static function getOMClass($row = 0, $colnum = 0)
     {
-        return AttachmentPeer::OM_CLASS;
+        return ReportHumanInteractionSectionPeer::OM_CLASS;
     }
 
     /**
-     * Performs an INSERT on the database, given a Attachment or Criteria object.
+     * Performs an INSERT on the database, given a ReportHumanInteractionSection or Criteria object.
      *
-     * @param      mixed $values Criteria or Attachment object containing data that is used to create the INSERT statement.
+     * @param      mixed $values Criteria or ReportHumanInteractionSection object containing data that is used to create the INSERT statement.
      * @param      PropelPDO $con the PropelPDO connection to use
      * @return mixed           The new primary key.
      * @throws PropelException Any exceptions caught during processing will be
@@ -750,22 +765,22 @@ abstract class BaseAttachmentPeer
     public static function doInsert($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
         } else {
-            $criteria = $values->buildCriteria(); // build Criteria from Attachment object
+            $criteria = $values->buildCriteria(); // build Criteria from ReportHumanInteractionSection object
         }
 
-        if ($criteria->containsKey(AttachmentPeer::ID) && $criteria->keyContainsValue(AttachmentPeer::ID) ) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key ('.AttachmentPeer::ID.')');
+        if ($criteria->containsKey(ReportHumanInteractionSectionPeer::ID) && $criteria->keyContainsValue(ReportHumanInteractionSectionPeer::ID) ) {
+            throw new PropelException('Cannot insert a value for auto-increment primary key ('.ReportHumanInteractionSectionPeer::ID.')');
         }
 
 
         // Set the correct dbName
-        $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+        $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
         try {
             // use transaction because $criteria could contain info
@@ -782,9 +797,9 @@ abstract class BaseAttachmentPeer
     }
 
     /**
-     * Performs an UPDATE on the database, given a Attachment or Criteria object.
+     * Performs an UPDATE on the database, given a ReportHumanInteractionSection or Criteria object.
      *
-     * @param      mixed $values Criteria or Attachment object containing data that is used to create the UPDATE statement.
+     * @param      mixed $values Criteria or ReportHumanInteractionSection object containing data that is used to create the UPDATE statement.
      * @param      PropelPDO $con The connection to use (specify PropelPDO connection object to exert more control over transactions).
      * @return int             The number of affected rows (if supported by underlying database driver).
      * @throws PropelException Any exceptions caught during processing will be
@@ -793,35 +808,35 @@ abstract class BaseAttachmentPeer
     public static function doUpdate($values, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
-        $selectCriteria = new Criteria(AttachmentPeer::DATABASE_NAME);
+        $selectCriteria = new Criteria(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
         if ($values instanceof Criteria) {
             $criteria = clone $values; // rename for clarity
 
-            $comparison = $criteria->getComparison(AttachmentPeer::ID);
-            $value = $criteria->remove(AttachmentPeer::ID);
+            $comparison = $criteria->getComparison(ReportHumanInteractionSectionPeer::ID);
+            $value = $criteria->remove(ReportHumanInteractionSectionPeer::ID);
             if ($value) {
-                $selectCriteria->add(AttachmentPeer::ID, $value, $comparison);
+                $selectCriteria->add(ReportHumanInteractionSectionPeer::ID, $value, $comparison);
             } else {
-                $selectCriteria->setPrimaryTableName(AttachmentPeer::TABLE_NAME);
+                $selectCriteria->setPrimaryTableName(ReportHumanInteractionSectionPeer::TABLE_NAME);
             }
 
-        } else { // $values is Attachment object
+        } else { // $values is ReportHumanInteractionSection object
             $criteria = $values->buildCriteria(); // gets full criteria
             $selectCriteria = $values->buildPkeyCriteria(); // gets criteria w/ primary key(s)
         }
 
         // set the correct dbName
-        $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+        $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
         return BasePeer::doUpdate($selectCriteria, $criteria, $con);
     }
 
     /**
-     * Deletes all rows from the attachment table.
+     * Deletes all rows from the report_human_interaction_section table.
      *
      * @param      PropelPDO $con the connection to use
      * @return int             The number of affected rows (if supported by underlying database driver).
@@ -830,19 +845,19 @@ abstract class BaseAttachmentPeer
     public static function doDeleteAll(PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
         $affectedRows = 0; // initialize var to track total num of affected rows
         try {
             // use transaction because $criteria could contain info
             // for more than one table or we could emulating ON DELETE CASCADE, etc.
             $con->beginTransaction();
-            $affectedRows += BasePeer::doDeleteAll(AttachmentPeer::TABLE_NAME, $con, AttachmentPeer::DATABASE_NAME);
+            $affectedRows += BasePeer::doDeleteAll(ReportHumanInteractionSectionPeer::TABLE_NAME, $con, ReportHumanInteractionSectionPeer::DATABASE_NAME);
             // Because this db requires some delete cascade/set null emulation, we have to
             // clear the cached instance *after* the emulation has happened (since
             // instances get re-added by the select statement contained therein).
-            AttachmentPeer::clearInstancePool();
-            AttachmentPeer::clearRelatedInstancePool();
+            ReportHumanInteractionSectionPeer::clearInstancePool();
+            ReportHumanInteractionSectionPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -853,9 +868,9 @@ abstract class BaseAttachmentPeer
     }
 
     /**
-     * Performs a DELETE on the database, given a Attachment or Criteria object OR a primary key value.
+     * Performs a DELETE on the database, given a ReportHumanInteractionSection or Criteria object OR a primary key value.
      *
-     * @param      mixed $values Criteria or Attachment object or primary key or array of primary keys
+     * @param      mixed $values Criteria or ReportHumanInteractionSection object or primary key or array of primary keys
      *              which is used to create the DELETE statement
      * @param      PropelPDO $con the connection to use
      * @return int The number of affected rows (if supported by underlying database driver).  This includes CASCADE-related rows
@@ -866,32 +881,32 @@ abstract class BaseAttachmentPeer
      public static function doDelete($values, PropelPDO $con = null)
      {
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         if ($values instanceof Criteria) {
             // invalidate the cache for all objects of this type, since we have no
             // way of knowing (without running a query) what objects should be invalidated
             // from the cache based on this Criteria.
-            AttachmentPeer::clearInstancePool();
+            ReportHumanInteractionSectionPeer::clearInstancePool();
             // rename for clarity
             $criteria = clone $values;
-        } elseif ($values instanceof Attachment) { // it's a model object
+        } elseif ($values instanceof ReportHumanInteractionSection) { // it's a model object
             // invalidate the cache for this single object
-            AttachmentPeer::removeInstanceFromPool($values);
+            ReportHumanInteractionSectionPeer::removeInstanceFromPool($values);
             // create criteria based on pk values
             $criteria = $values->buildPkeyCriteria();
         } else { // it's a primary key, or an array of pks
-            $criteria = new Criteria(AttachmentPeer::DATABASE_NAME);
-            $criteria->add(AttachmentPeer::ID, (array) $values, Criteria::IN);
+            $criteria = new Criteria(ReportHumanInteractionSectionPeer::DATABASE_NAME);
+            $criteria->add(ReportHumanInteractionSectionPeer::ID, (array) $values, Criteria::IN);
             // invalidate the cache for this object(s)
             foreach ((array) $values as $singleval) {
-                AttachmentPeer::removeInstanceFromPool($singleval);
+                ReportHumanInteractionSectionPeer::removeInstanceFromPool($singleval);
             }
         }
 
         // Set the correct dbName
-        $criteria->setDbName(AttachmentPeer::DATABASE_NAME);
+        $criteria->setDbName(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
         $affectedRows = 0; // initialize var to track total num of affected rows
 
@@ -901,7 +916,7 @@ abstract class BaseAttachmentPeer
             $con->beginTransaction();
 
             $affectedRows += BasePeer::doDelete($criteria, $con);
-            AttachmentPeer::clearRelatedInstancePool();
+            ReportHumanInteractionSectionPeer::clearRelatedInstancePool();
             $con->commit();
 
             return $affectedRows;
@@ -912,13 +927,13 @@ abstract class BaseAttachmentPeer
     }
 
     /**
-     * Validates all modified columns of given Attachment object.
+     * Validates all modified columns of given ReportHumanInteractionSection object.
      * If parameter $columns is either a single column name or an array of column names
      * than only those columns are validated.
      *
      * NOTICE: This does not apply to primary or foreign keys for now.
      *
-     * @param Attachment $obj The object to validate.
+     * @param ReportHumanInteractionSection $obj The object to validate.
      * @param      mixed $cols Column name or array of column names.
      *
      * @return mixed TRUE if all columns are valid or the error message of the first invalid column.
@@ -928,8 +943,8 @@ abstract class BaseAttachmentPeer
         $columns = array();
 
         if ($cols) {
-            $dbMap = Propel::getDatabaseMap(AttachmentPeer::DATABASE_NAME);
-            $tableMap = $dbMap->getTable(AttachmentPeer::TABLE_NAME);
+            $dbMap = Propel::getDatabaseMap(ReportHumanInteractionSectionPeer::DATABASE_NAME);
+            $tableMap = $dbMap->getTable(ReportHumanInteractionSectionPeer::TABLE_NAME);
 
             if (! is_array($cols)) {
                 $cols = array($cols);
@@ -945,7 +960,7 @@ abstract class BaseAttachmentPeer
 
         }
 
-        return BasePeer::doValidate(AttachmentPeer::DATABASE_NAME, AttachmentPeer::TABLE_NAME, $columns);
+        return BasePeer::doValidate(ReportHumanInteractionSectionPeer::DATABASE_NAME, ReportHumanInteractionSectionPeer::TABLE_NAME, $columns);
     }
 
     /**
@@ -953,23 +968,23 @@ abstract class BaseAttachmentPeer
      *
      * @param int $pk the primary key.
      * @param      PropelPDO $con the connection to use
-     * @return Attachment
+     * @return ReportHumanInteractionSection
      */
     public static function retrieveByPK($pk, PropelPDO $con = null)
     {
 
-        if (null !== ($obj = AttachmentPeer::getInstanceFromPool((string) $pk))) {
+        if (null !== ($obj = ReportHumanInteractionSectionPeer::getInstanceFromPool((string) $pk))) {
             return $obj;
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
-        $criteria = new Criteria(AttachmentPeer::DATABASE_NAME);
-        $criteria->add(AttachmentPeer::ID, $pk);
+        $criteria = new Criteria(ReportHumanInteractionSectionPeer::DATABASE_NAME);
+        $criteria->add(ReportHumanInteractionSectionPeer::ID, $pk);
 
-        $v = AttachmentPeer::doSelect($criteria, $con);
+        $v = ReportHumanInteractionSectionPeer::doSelect($criteria, $con);
 
         return !empty($v) > 0 ? $v[0] : null;
     }
@@ -979,31 +994,31 @@ abstract class BaseAttachmentPeer
      *
      * @param      array $pks List of primary keys
      * @param      PropelPDO $con the connection to use
-     * @return Attachment[]
+     * @return ReportHumanInteractionSection[]
      * @throws PropelException Any exceptions caught during processing will be
      *		 rethrown wrapped into a PropelException.
      */
     public static function retrieveByPKs($pks, PropelPDO $con = null)
     {
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         $objs = null;
         if (empty($pks)) {
             $objs = array();
         } else {
-            $criteria = new Criteria(AttachmentPeer::DATABASE_NAME);
-            $criteria->add(AttachmentPeer::ID, $pks, Criteria::IN);
-            $objs = AttachmentPeer::doSelect($criteria, $con);
+            $criteria = new Criteria(ReportHumanInteractionSectionPeer::DATABASE_NAME);
+            $criteria->add(ReportHumanInteractionSectionPeer::ID, $pks, Criteria::IN);
+            $objs = ReportHumanInteractionSectionPeer::doSelect($criteria, $con);
         }
 
         return $objs;
     }
 
-} // BaseAttachmentPeer
+} // BaseReportHumanInteractionSectionPeer
 
 // This is the static code needed to register the TableMap for this table with the main Propel class.
 //
-BaseAttachmentPeer::buildTableMap();
+BaseReportHumanInteractionSectionPeer::buildTableMap();
 

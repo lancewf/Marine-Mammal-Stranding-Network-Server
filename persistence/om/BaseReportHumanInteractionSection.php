@@ -2,24 +2,24 @@
 
 
 /**
- * Base class that represents a row from the 'attachment' table.
+ * Base class that represents a row from the 'report_human_interaction_section' table.
  *
- * attachments to a report
+ * examined human interactions on the animal
  *
  * @package    propel.generator.persistence.om
  */
-abstract class BaseAttachment extends BaseObject implements Persistent
+abstract class BaseReportHumanInteractionSection extends BaseObject implements Persistent
 {
     /**
      * Peer class name
      */
-    const PEER = 'AttachmentPeer';
+    const PEER = 'ReportHumanInteractionSectionPeer';
 
     /**
      * The Peer class.
      * Instance provides a convenient way of calling static methods on a class
      * that calling code may not be able to identify.
-     * @var        AttachmentPeer
+     * @var        ReportHumanInteractionSectionPeer
      */
     protected static $peer;
 
@@ -36,16 +36,34 @@ abstract class BaseAttachment extends BaseObject implements Persistent
     protected $id;
 
     /**
-     * The value for the file_name field.
+     * The value for the name field.
      * @var        string
      */
-    protected $file_name;
+    protected $name;
 
     /**
-     * The value for the comments field.
+     * The value for the is_examined field.
+     * @var        boolean
+     */
+    protected $is_examined;
+
+    /**
+     * The value for the possible_hi_lesion field.
      * @var        string
      */
-    protected $comments;
+    protected $possible_hi_lesion;
+
+    /**
+     * The value for the possible_source field.
+     * @var        string
+     */
+    protected $possible_source;
+
+    /**
+     * The value for the scavenger_damage field.
+     * @var        string
+     */
+    protected $scavenger_damage;
 
     /**
      * The value for the report_id field.
@@ -90,30 +108,63 @@ abstract class BaseAttachment extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [file_name] column value.
-     * the name of the file
+     * Get the [name] column value.
+     * The name of the section of the animal examined
      * @return string
      */
-    public function getFileName()
+    public function getName()
     {
 
-        return $this->file_name;
+        return $this->name;
     }
 
     /**
-     * Get the [comments] column value.
-     *
-     * @return string
+     * Get the [is_examined] column value.
+     * Was the section examined
+     * @return boolean
      */
-    public function getComments()
+    public function getIsExamined()
     {
 
-        return $this->comments;
+        return $this->is_examined;
+    }
+
+    /**
+     * Get the [possible_hi_lesion] column value.
+     * was the section lesion caused by human interaction
+     * @return string
+     */
+    public function getPossibleHiLesion()
+    {
+
+        return $this->possible_hi_lesion;
+    }
+
+    /**
+     * Get the [possible_source] column value.
+     * what was the souce of the lesion
+     * @return string
+     */
+    public function getPossibleSource()
+    {
+
+        return $this->possible_source;
+    }
+
+    /**
+     * Get the [scavenger_damage] column value.
+     * does the section of the animal have scavenger damage
+     * @return string
+     */
+    public function getScavengerDamage()
+    {
+
+        return $this->scavenger_damage;
     }
 
     /**
      * Get the [report_id] column value.
-     *
+     * foreign id to the main report
      * @return int
      */
     public function getReportId()
@@ -126,7 +177,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      * Set the value of [id] column.
      * id
      * @param  int $v new value
-     * @return Attachment The current object (for fluent API support)
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
      */
     public function setId($v)
     {
@@ -136,7 +187,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
 
         if ($this->id !== $v) {
             $this->id = $v;
-            $this->modifiedColumns[] = AttachmentPeer::ID;
+            $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::ID;
         }
 
 
@@ -144,52 +195,123 @@ abstract class BaseAttachment extends BaseObject implements Persistent
     } // setId()
 
     /**
-     * Set the value of [file_name] column.
-     * the name of the file
+     * Set the value of [name] column.
+     * The name of the section of the animal examined
      * @param  string $v new value
-     * @return Attachment The current object (for fluent API support)
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
      */
-    public function setFileName($v)
+    public function setName($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->file_name !== $v) {
-            $this->file_name = $v;
-            $this->modifiedColumns[] = AttachmentPeer::FILE_NAME;
+        if ($this->name !== $v) {
+            $this->name = $v;
+            $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::NAME;
         }
 
 
         return $this;
-    } // setFileName()
+    } // setName()
 
     /**
-     * Set the value of [comments] column.
-     *
-     * @param  string $v new value
-     * @return Attachment The current object (for fluent API support)
+     * Sets the value of the [is_examined] column.
+     * Non-boolean arguments are converted using the following rules:
+     *   * 1, '1', 'true',  'on',  and 'yes' are converted to boolean true
+     *   * 0, '0', 'false', 'off', and 'no'  are converted to boolean false
+     * Check on string values is case insensitive (so 'FaLsE' is seen as 'false').
+     * Was the section examined
+     * @param boolean|integer|string $v The new value
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
      */
-    public function setComments($v)
+    public function setIsExamined($v)
+    {
+        if ($v !== null) {
+            if (is_string($v)) {
+                $v = in_array(strtolower($v), array('false', 'off', '-', 'no', 'n', '0', '')) ? false : true;
+            } else {
+                $v = (boolean) $v;
+            }
+        }
+
+        if ($this->is_examined !== $v) {
+            $this->is_examined = $v;
+            $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::IS_EXAMINED;
+        }
+
+
+        return $this;
+    } // setIsExamined()
+
+    /**
+     * Set the value of [possible_hi_lesion] column.
+     * was the section lesion caused by human interaction
+     * @param  string $v new value
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
+     */
+    public function setPossibleHiLesion($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->comments !== $v) {
-            $this->comments = $v;
-            $this->modifiedColumns[] = AttachmentPeer::COMMENTS;
+        if ($this->possible_hi_lesion !== $v) {
+            $this->possible_hi_lesion = $v;
+            $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::POSSIBLE_HI_LESION;
         }
 
 
         return $this;
-    } // setComments()
+    } // setPossibleHiLesion()
+
+    /**
+     * Set the value of [possible_source] column.
+     * what was the souce of the lesion
+     * @param  string $v new value
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
+     */
+    public function setPossibleSource($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->possible_source !== $v) {
+            $this->possible_source = $v;
+            $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::POSSIBLE_SOURCE;
+        }
+
+
+        return $this;
+    } // setPossibleSource()
+
+    /**
+     * Set the value of [scavenger_damage] column.
+     * does the section of the animal have scavenger damage
+     * @param  string $v new value
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
+     */
+    public function setScavengerDamage($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->scavenger_damage !== $v) {
+            $this->scavenger_damage = $v;
+            $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::SCAVENGER_DAMAGE;
+        }
+
+
+        return $this;
+    } // setScavengerDamage()
 
     /**
      * Set the value of [report_id] column.
-     *
+     * foreign id to the main report
      * @param  int $v new value
-     * @return Attachment The current object (for fluent API support)
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
      */
     public function setReportId($v)
     {
@@ -199,7 +321,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
 
         if ($this->report_id !== $v) {
             $this->report_id = $v;
-            $this->modifiedColumns[] = AttachmentPeer::REPORT_ID;
+            $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::REPORT_ID;
         }
 
         if ($this->aReport !== null && $this->aReport->getId() !== $v) {
@@ -243,9 +365,12 @@ abstract class BaseAttachment extends BaseObject implements Persistent
         try {
 
             $this->id = ($row[$startcol + 0] !== null) ? (int) $row[$startcol + 0] : null;
-            $this->file_name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
-            $this->comments = ($row[$startcol + 2] !== null) ? (string) $row[$startcol + 2] : null;
-            $this->report_id = ($row[$startcol + 3] !== null) ? (int) $row[$startcol + 3] : null;
+            $this->name = ($row[$startcol + 1] !== null) ? (string) $row[$startcol + 1] : null;
+            $this->is_examined = ($row[$startcol + 2] !== null) ? (boolean) $row[$startcol + 2] : null;
+            $this->possible_hi_lesion = ($row[$startcol + 3] !== null) ? (string) $row[$startcol + 3] : null;
+            $this->possible_source = ($row[$startcol + 4] !== null) ? (string) $row[$startcol + 4] : null;
+            $this->scavenger_damage = ($row[$startcol + 5] !== null) ? (string) $row[$startcol + 5] : null;
+            $this->report_id = ($row[$startcol + 6] !== null) ? (int) $row[$startcol + 6] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -255,10 +380,10 @@ abstract class BaseAttachment extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 4; // 4 = AttachmentPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 7; // 7 = ReportHumanInteractionSectionPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
-            throw new PropelException("Error populating Attachment object", $e);
+            throw new PropelException("Error populating ReportHumanInteractionSection object", $e);
         }
     }
 
@@ -304,13 +429,13 @@ abstract class BaseAttachment extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_READ);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_READ);
         }
 
         // We don't need to alter the object instance pool; we're just modifying this instance
         // already in the pool.
 
-        $stmt = AttachmentPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
+        $stmt = ReportHumanInteractionSectionPeer::doSelectStmt($this->buildPkeyCriteria(), $con);
         $row = $stmt->fetch(PDO::FETCH_NUM);
         $stmt->closeCursor();
         if (!$row) {
@@ -341,12 +466,12 @@ abstract class BaseAttachment extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
         try {
-            $deleteQuery = AttachmentQuery::create()
+            $deleteQuery = ReportHumanInteractionSectionQuery::create()
                 ->filterByPrimaryKey($this->getPrimaryKey());
             $ret = $this->preDelete($con);
             if ($ret) {
@@ -384,7 +509,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
         }
 
         if ($con === null) {
-            $con = Propel::getConnection(AttachmentPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
+            $con = Propel::getConnection(ReportHumanInteractionSectionPeer::DATABASE_NAME, Propel::CONNECTION_WRITE);
         }
 
         $con->beginTransaction();
@@ -404,7 +529,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
                     $this->postUpdate($con);
                 }
                 $this->postSave($con);
-                AttachmentPeer::addInstanceToPool($this);
+                ReportHumanInteractionSectionPeer::addInstanceToPool($this);
             } else {
                 $affectedRows = 0;
             }
@@ -477,27 +602,36 @@ abstract class BaseAttachment extends BaseObject implements Persistent
         $modifiedColumns = array();
         $index = 0;
 
-        $this->modifiedColumns[] = AttachmentPeer::ID;
+        $this->modifiedColumns[] = ReportHumanInteractionSectionPeer::ID;
         if (null !== $this->id) {
-            throw new PropelException('Cannot insert a value for auto-increment primary key (' . AttachmentPeer::ID . ')');
+            throw new PropelException('Cannot insert a value for auto-increment primary key (' . ReportHumanInteractionSectionPeer::ID . ')');
         }
 
          // check the columns in natural order for more readable SQL queries
-        if ($this->isColumnModified(AttachmentPeer::ID)) {
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::ID)) {
             $modifiedColumns[':p' . $index++]  = '`id`';
         }
-        if ($this->isColumnModified(AttachmentPeer::FILE_NAME)) {
-            $modifiedColumns[':p' . $index++]  = '`file_name`';
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::NAME)) {
+            $modifiedColumns[':p' . $index++]  = '`name`';
         }
-        if ($this->isColumnModified(AttachmentPeer::COMMENTS)) {
-            $modifiedColumns[':p' . $index++]  = '`comments`';
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::IS_EXAMINED)) {
+            $modifiedColumns[':p' . $index++]  = '`is_examined`';
         }
-        if ($this->isColumnModified(AttachmentPeer::REPORT_ID)) {
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::POSSIBLE_HI_LESION)) {
+            $modifiedColumns[':p' . $index++]  = '`possible_hi_lesion`';
+        }
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::POSSIBLE_SOURCE)) {
+            $modifiedColumns[':p' . $index++]  = '`possible_source`';
+        }
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::SCAVENGER_DAMAGE)) {
+            $modifiedColumns[':p' . $index++]  = '`scavenger_damage`';
+        }
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::REPORT_ID)) {
             $modifiedColumns[':p' . $index++]  = '`report_id`';
         }
 
         $sql = sprintf(
-            'INSERT INTO `attachment` (%s) VALUES (%s)',
+            'INSERT INTO `report_human_interaction_section` (%s) VALUES (%s)',
             implode(', ', $modifiedColumns),
             implode(', ', array_keys($modifiedColumns))
         );
@@ -509,11 +643,20 @@ abstract class BaseAttachment extends BaseObject implements Persistent
                     case '`id`':
                         $stmt->bindValue($identifier, $this->id, PDO::PARAM_INT);
                         break;
-                    case '`file_name`':
-                        $stmt->bindValue($identifier, $this->file_name, PDO::PARAM_STR);
+                    case '`name`':
+                        $stmt->bindValue($identifier, $this->name, PDO::PARAM_STR);
                         break;
-                    case '`comments`':
-                        $stmt->bindValue($identifier, $this->comments, PDO::PARAM_STR);
+                    case '`is_examined`':
+                        $stmt->bindValue($identifier, (int) $this->is_examined, PDO::PARAM_INT);
+                        break;
+                    case '`possible_hi_lesion`':
+                        $stmt->bindValue($identifier, $this->possible_hi_lesion, PDO::PARAM_STR);
+                        break;
+                    case '`possible_source`':
+                        $stmt->bindValue($identifier, $this->possible_source, PDO::PARAM_STR);
+                        break;
+                    case '`scavenger_damage`':
+                        $stmt->bindValue($identifier, $this->scavenger_damage, PDO::PARAM_STR);
                         break;
                     case '`report_id`':
                         $stmt->bindValue($identifier, $this->report_id, PDO::PARAM_INT);
@@ -624,7 +767,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
             }
 
 
-            if (($retval = AttachmentPeer::doValidate($this, $columns)) !== true) {
+            if (($retval = ReportHumanInteractionSectionPeer::doValidate($this, $columns)) !== true) {
                 $failureMap = array_merge($failureMap, $retval);
             }
 
@@ -648,7 +791,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      */
     public function getByName($name, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AttachmentPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ReportHumanInteractionSectionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
         $field = $this->getByPosition($pos);
 
         return $field;
@@ -668,12 +811,21 @@ abstract class BaseAttachment extends BaseObject implements Persistent
                 return $this->getId();
                 break;
             case 1:
-                return $this->getFileName();
+                return $this->getName();
                 break;
             case 2:
-                return $this->getComments();
+                return $this->getIsExamined();
                 break;
             case 3:
+                return $this->getPossibleHiLesion();
+                break;
+            case 4:
+                return $this->getPossibleSource();
+                break;
+            case 5:
+                return $this->getScavengerDamage();
+                break;
+            case 6:
                 return $this->getReportId();
                 break;
             default:
@@ -699,16 +851,19 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      */
     public function toArray($keyType = BasePeer::TYPE_PHPNAME, $includeLazyLoadColumns = true, $alreadyDumpedObjects = array(), $includeForeignObjects = false)
     {
-        if (isset($alreadyDumpedObjects['Attachment'][$this->getPrimaryKey()])) {
+        if (isset($alreadyDumpedObjects['ReportHumanInteractionSection'][$this->getPrimaryKey()])) {
             return '*RECURSION*';
         }
-        $alreadyDumpedObjects['Attachment'][$this->getPrimaryKey()] = true;
-        $keys = AttachmentPeer::getFieldNames($keyType);
+        $alreadyDumpedObjects['ReportHumanInteractionSection'][$this->getPrimaryKey()] = true;
+        $keys = ReportHumanInteractionSectionPeer::getFieldNames($keyType);
         $result = array(
             $keys[0] => $this->getId(),
-            $keys[1] => $this->getFileName(),
-            $keys[2] => $this->getComments(),
-            $keys[3] => $this->getReportId(),
+            $keys[1] => $this->getName(),
+            $keys[2] => $this->getIsExamined(),
+            $keys[3] => $this->getPossibleHiLesion(),
+            $keys[4] => $this->getPossibleSource(),
+            $keys[5] => $this->getScavengerDamage(),
+            $keys[6] => $this->getReportId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -737,7 +892,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      */
     public function setByName($name, $value, $type = BasePeer::TYPE_PHPNAME)
     {
-        $pos = AttachmentPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
+        $pos = ReportHumanInteractionSectionPeer::translateFieldName($name, $type, BasePeer::TYPE_NUM);
 
         $this->setByPosition($pos, $value);
     }
@@ -757,12 +912,21 @@ abstract class BaseAttachment extends BaseObject implements Persistent
                 $this->setId($value);
                 break;
             case 1:
-                $this->setFileName($value);
+                $this->setName($value);
                 break;
             case 2:
-                $this->setComments($value);
+                $this->setIsExamined($value);
                 break;
             case 3:
+                $this->setPossibleHiLesion($value);
+                break;
+            case 4:
+                $this->setPossibleSource($value);
+                break;
+            case 5:
+                $this->setScavengerDamage($value);
+                break;
+            case 6:
                 $this->setReportId($value);
                 break;
         } // switch()
@@ -787,12 +951,15 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      */
     public function fromArray($arr, $keyType = BasePeer::TYPE_PHPNAME)
     {
-        $keys = AttachmentPeer::getFieldNames($keyType);
+        $keys = ReportHumanInteractionSectionPeer::getFieldNames($keyType);
 
         if (array_key_exists($keys[0], $arr)) $this->setId($arr[$keys[0]]);
-        if (array_key_exists($keys[1], $arr)) $this->setFileName($arr[$keys[1]]);
-        if (array_key_exists($keys[2], $arr)) $this->setComments($arr[$keys[2]]);
-        if (array_key_exists($keys[3], $arr)) $this->setReportId($arr[$keys[3]]);
+        if (array_key_exists($keys[1], $arr)) $this->setName($arr[$keys[1]]);
+        if (array_key_exists($keys[2], $arr)) $this->setIsExamined($arr[$keys[2]]);
+        if (array_key_exists($keys[3], $arr)) $this->setPossibleHiLesion($arr[$keys[3]]);
+        if (array_key_exists($keys[4], $arr)) $this->setPossibleSource($arr[$keys[4]]);
+        if (array_key_exists($keys[5], $arr)) $this->setScavengerDamage($arr[$keys[5]]);
+        if (array_key_exists($keys[6], $arr)) $this->setReportId($arr[$keys[6]]);
     }
 
     /**
@@ -802,12 +969,15 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      */
     public function buildCriteria()
     {
-        $criteria = new Criteria(AttachmentPeer::DATABASE_NAME);
+        $criteria = new Criteria(ReportHumanInteractionSectionPeer::DATABASE_NAME);
 
-        if ($this->isColumnModified(AttachmentPeer::ID)) $criteria->add(AttachmentPeer::ID, $this->id);
-        if ($this->isColumnModified(AttachmentPeer::FILE_NAME)) $criteria->add(AttachmentPeer::FILE_NAME, $this->file_name);
-        if ($this->isColumnModified(AttachmentPeer::COMMENTS)) $criteria->add(AttachmentPeer::COMMENTS, $this->comments);
-        if ($this->isColumnModified(AttachmentPeer::REPORT_ID)) $criteria->add(AttachmentPeer::REPORT_ID, $this->report_id);
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::ID)) $criteria->add(ReportHumanInteractionSectionPeer::ID, $this->id);
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::NAME)) $criteria->add(ReportHumanInteractionSectionPeer::NAME, $this->name);
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::IS_EXAMINED)) $criteria->add(ReportHumanInteractionSectionPeer::IS_EXAMINED, $this->is_examined);
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::POSSIBLE_HI_LESION)) $criteria->add(ReportHumanInteractionSectionPeer::POSSIBLE_HI_LESION, $this->possible_hi_lesion);
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::POSSIBLE_SOURCE)) $criteria->add(ReportHumanInteractionSectionPeer::POSSIBLE_SOURCE, $this->possible_source);
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::SCAVENGER_DAMAGE)) $criteria->add(ReportHumanInteractionSectionPeer::SCAVENGER_DAMAGE, $this->scavenger_damage);
+        if ($this->isColumnModified(ReportHumanInteractionSectionPeer::REPORT_ID)) $criteria->add(ReportHumanInteractionSectionPeer::REPORT_ID, $this->report_id);
 
         return $criteria;
     }
@@ -822,8 +992,8 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      */
     public function buildPkeyCriteria()
     {
-        $criteria = new Criteria(AttachmentPeer::DATABASE_NAME);
-        $criteria->add(AttachmentPeer::ID, $this->id);
+        $criteria = new Criteria(ReportHumanInteractionSectionPeer::DATABASE_NAME);
+        $criteria->add(ReportHumanInteractionSectionPeer::ID, $this->id);
 
         return $criteria;
     }
@@ -864,15 +1034,18 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      * If desired, this method can also make copies of all associated (fkey referrers)
      * objects.
      *
-     * @param object $copyObj An object of Attachment (or compatible) type.
+     * @param object $copyObj An object of ReportHumanInteractionSection (or compatible) type.
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
      * @param boolean $makeNew Whether to reset autoincrement PKs and make the object new.
      * @throws PropelException
      */
     public function copyInto($copyObj, $deepCopy = false, $makeNew = true)
     {
-        $copyObj->setFileName($this->getFileName());
-        $copyObj->setComments($this->getComments());
+        $copyObj->setName($this->getName());
+        $copyObj->setIsExamined($this->getIsExamined());
+        $copyObj->setPossibleHiLesion($this->getPossibleHiLesion());
+        $copyObj->setPossibleSource($this->getPossibleSource());
+        $copyObj->setScavengerDamage($this->getScavengerDamage());
         $copyObj->setReportId($this->getReportId());
 
         if ($deepCopy && !$this->startCopy) {
@@ -901,7 +1074,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      * objects.
      *
      * @param boolean $deepCopy Whether to also copy all rows that refer (by fkey) to the current row.
-     * @return Attachment Clone of current object.
+     * @return ReportHumanInteractionSection Clone of current object.
      * @throws PropelException
      */
     public function copy($deepCopy = false)
@@ -921,12 +1094,12 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      * same instance for all member of this class. The method could therefore
      * be static, but this would prevent one from overriding the behavior.
      *
-     * @return AttachmentPeer
+     * @return ReportHumanInteractionSectionPeer
      */
     public function getPeer()
     {
         if (self::$peer === null) {
-            self::$peer = new AttachmentPeer();
+            self::$peer = new ReportHumanInteractionSectionPeer();
         }
 
         return self::$peer;
@@ -936,7 +1109,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      * Declares an association between this object and a Report object.
      *
      * @param                  Report $v
-     * @return Attachment The current object (for fluent API support)
+     * @return ReportHumanInteractionSection The current object (for fluent API support)
      * @throws PropelException
      */
     public function setReport(Report $v = null)
@@ -952,7 +1125,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
         // Add binding for other direction of this n:n relationship.
         // If this object has already been added to the Report object, it will not be re-added.
         if ($v !== null) {
-            $v->addAttachment($this);
+            $v->addReportHumanInteractionSection($this);
         }
 
 
@@ -977,7 +1150,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
                 to this object.  This level of coupling may, however, be
                 undesirable since it could result in an only partially populated collection
                 in the referenced object.
-                $this->aReport->addAttachments($this);
+                $this->aReport->addReportHumanInteractionSections($this);
              */
         }
 
@@ -990,8 +1163,11 @@ abstract class BaseAttachment extends BaseObject implements Persistent
     public function clear()
     {
         $this->id = null;
-        $this->file_name = null;
-        $this->comments = null;
+        $this->name = null;
+        $this->is_examined = null;
+        $this->possible_hi_lesion = null;
+        $this->possible_source = null;
+        $this->scavenger_damage = null;
         $this->report_id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
@@ -1032,7 +1208,7 @@ abstract class BaseAttachment extends BaseObject implements Persistent
      */
     public function __toString()
     {
-        return (string) $this->exportTo(AttachmentPeer::DEFAULT_STRING_FORMAT);
+        return (string) $this->exportTo(ReportHumanInteractionSectionPeer::DEFAULT_STRING_FORMAT);
     }
 
     /**

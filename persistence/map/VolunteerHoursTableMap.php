@@ -14,46 +14,47 @@
  *
  * @package    propel.generator.persistence.map
  */
-class VolunteerHoursTableMap extends TableMap {
+class VolunteerHoursTableMap extends TableMap
+{
 
-	/**
-	 * The (dot-path) name of this class
-	 */
-	const CLASS_NAME = 'persistence.map.VolunteerHoursTableMap';
+    /**
+     * The (dot-path) name of this class
+     */
+    const CLASS_NAME = 'persistence.map.VolunteerHoursTableMap';
 
-	/**
-	 * Initialize the table attributes, columns and validators
-	 * Relations are not initialized by this method since they are lazy loaded
-	 *
-	 * @return     void
-	 * @throws     PropelException
-	 */
-	public function initialize()
-	{
-	  // attributes
-		$this->setName('volunteer_hours');
-		$this->setPhpName('VolunteerHours');
-		$this->setClassname('VolunteerHours');
-		$this->setPackage('persistence');
-		$this->setUseIdGenerator(true);
-		// columns
-		$this->addPrimaryKey('ID', 'Id', 'INTEGER', true, null, null);
-		$this->addColumn('TOTAL_HOURS', 'TotalHours', 'DOUBLE', false, null, null);
-		$this->addColumn('MILEAGE', 'Mileage', 'INTEGER', false, null, null);
-		$this->addColumn('COMMENTS', 'Comments', 'LONGVARCHAR', false, null, null);
-		$this->addColumn('DAY_OF_MONTH', 'DayOfMonth', 'INTEGER', false, null, null);
-		$this->addColumn('MONTH', 'Month', 'INTEGER', false, null, null);
-		$this->addColumn('YEAR', 'Year', 'INTEGER', false, null, null);
-		$this->addForeignKey('VOLUNTEER_ID', 'VolunteerId', 'INTEGER', 'volunteer', 'ID', true, null, null);
-		// validators
-	} // initialize()
+    /**
+     * Initialize the table attributes, columns and validators
+     * Relations are not initialized by this method since they are lazy loaded
+     *
+     * @return void
+     * @throws PropelException
+     */
+    public function initialize()
+    {
+        // attributes
+        $this->setName('volunteer_hours');
+        $this->setPhpName('VolunteerHours');
+        $this->setClassname('VolunteerHours');
+        $this->setPackage('persistence');
+        $this->setUseIdGenerator(true);
+        // columns
+        $this->addPrimaryKey('id', 'Id', 'INTEGER', true, null, null);
+        $this->addColumn('total_hours', 'TotalHours', 'DOUBLE', false, null, null);
+        $this->addColumn('mileage', 'Mileage', 'INTEGER', false, null, null);
+        $this->addColumn('comments', 'Comments', 'LONGVARCHAR', false, null, null);
+        $this->addColumn('day_of_month', 'DayOfMonth', 'INTEGER', false, null, null);
+        $this->addColumn('month', 'Month', 'INTEGER', false, null, null);
+        $this->addColumn('year', 'Year', 'INTEGER', false, null, null);
+        $this->addForeignKey('volunteer_id', 'VolunteerId', 'INTEGER', 'volunteer', 'id', true, null, null);
+        // validators
+    } // initialize()
 
-	/**
-	 * Build the RelationMap objects for this table relationships
-	 */
-	public function buildRelations()
-	{
-    $this->addRelation('Volunteer', 'Volunteer', RelationMap::MANY_TO_ONE, array('volunteer_id' => 'id', ), null, null);
-	} // buildRelations()
+    /**
+     * Build the RelationMap objects for this table relationships
+     */
+    public function buildRelations()
+    {
+        $this->addRelation('Volunteer', 'Volunteer', RelationMap::MANY_TO_ONE, array('volunteer_id' => 'id', ), null, null);
+    } // buildRelations()
 
 } // VolunteerHoursTableMap
