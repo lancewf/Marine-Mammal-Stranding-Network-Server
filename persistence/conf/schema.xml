@@ -51,8 +51,6 @@
         <column name="is_action_euthanized_during_transport" type="boolean" description=""/>
         <column name="is_action_transferred_to_rehab" type="boolean" description=""/>
         <column name="is_action_other" type="boolean" description=""/>
-
-
         <column name="volunteer_id" type="integer" required="true" description=""/> 
         <foreign-key foreignTable="volunteer">
             <reference local="volunteer_id" foreign="id"/>
@@ -70,6 +68,20 @@
         <column name="volunteer_id" type="integer" required="true" description=""/> 
         <foreign-key foreignTable="volunteer">
             <reference local="volunteer_id" foreign="id"/>
+        </foreign-key>
+    </table>
+
+    <table name="report_human_interaction_section" description="examined human interactions on the animal">
+        <column name="id" type="integer" primaryKey="true" autoIncrement="true" required="true" description="id"/>
+        <column name="name" type="varchar" size="100" description="The name of the section of the animal examined"/>
+        <column name="is_examined" type="boolean" description="Was the section examined"/>
+        <column name="possible_hi_lesion" type="varchar" size="100" description="was the section lesion caused by human interaction"/>
+        <column name="possible_source" type="varchar" size="100" description="what was the souce of the lesion"/>
+        <column name="scavenger_damage" type="varchar" size="100" description="does the section of the animal have scavenger damage"/>
+
+        <column name="report_id" type="integer" required="true" description="foreign id to the main report"/> 
+        <foreign-key foreignTable="report">
+            <reference local="report_id" foreign="id"/>
         </foreign-key>
     </table>
     

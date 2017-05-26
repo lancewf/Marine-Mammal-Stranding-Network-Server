@@ -335,6 +335,12 @@ abstract class BaseReport extends BaseObject implements Persistent
     protected $collReportCommentssPartial;
 
     /**
+     * @var        PropelObjectCollection|ReportHumanInteractionSection[] Collection to store aggregation of ReportHumanInteractionSection objects.
+     */
+    protected $collReportHumanInteractionSections;
+    protected $collReportHumanInteractionSectionsPartial;
+
+    /**
      * @var        PropelObjectCollection|Attachment[] Collection to store aggregation of Attachment objects.
      */
     protected $collAttachments;
@@ -365,6 +371,12 @@ abstract class BaseReport extends BaseObject implements Persistent
      * @var		PropelObjectCollection
      */
     protected $reportCommentssScheduledForDeletion = null;
+
+    /**
+     * An array of objects scheduled for deletion.
+     * @var		PropelObjectCollection
+     */
+    protected $reportHumanInteractionSectionsScheduledForDeletion = null;
 
     /**
      * An array of objects scheduled for deletion.
@@ -2332,6 +2344,8 @@ abstract class BaseReport extends BaseObject implements Persistent
             $this->aVolunteer = null;
             $this->collReportCommentss = null;
 
+            $this->collReportHumanInteractionSections = null;
+
             $this->collAttachments = null;
 
         } // if (deep)
@@ -2481,6 +2495,23 @@ abstract class BaseReport extends BaseObject implements Persistent
 
             if ($this->collReportCommentss !== null) {
                 foreach ($this->collReportCommentss as $referrerFK) {
+                    if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
+                        $affectedRows += $referrerFK->save($con);
+                    }
+                }
+            }
+
+            if ($this->reportHumanInteractionSectionsScheduledForDeletion !== null) {
+                if (!$this->reportHumanInteractionSectionsScheduledForDeletion->isEmpty()) {
+                    ReportHumanInteractionSectionQuery::create()
+                        ->filterByPrimaryKeys($this->reportHumanInteractionSectionsScheduledForDeletion->getPrimaryKeys(false))
+                        ->delete($con);
+                    $this->reportHumanInteractionSectionsScheduledForDeletion = null;
+                }
+            }
+
+            if ($this->collReportHumanInteractionSections !== null) {
+                foreach ($this->collReportHumanInteractionSections as $referrerFK) {
                     if (!$referrerFK->isDeleted() && ($referrerFK->isNew() || $referrerFK->isModified())) {
                         $affectedRows += $referrerFK->save($con);
                     }
@@ -2954,6 +2985,14 @@ abstract class BaseReport extends BaseObject implements Persistent
                     }
                 }
 
+                if ($this->collReportHumanInteractionSections !== null) {
+                    foreach ($this->collReportHumanInteractionSections as $referrerFK) {
+                        if (!$referrerFK->validate($columns)) {
+                            $failureMap = array_merge($failureMap, $referrerFK->getValidationFailures());
+                        }
+                    }
+                }
+
                 if ($this->collAttachments !== null) {
                     foreach ($this->collAttachments as $referrerFK) {
                         if (!$referrerFK->validate($columns)) {
@@ -3234,6 +3273,9 @@ abstract class BaseReport extends BaseObject implements Persistent
             }
             if (null !== $this->collReportCommentss) {
                 $result['ReportCommentss'] = $this->collReportCommentss->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
+            }
+            if (null !== $this->collReportHumanInteractionSections) {
+                $result['ReportHumanInteractionSections'] = $this->collReportHumanInteractionSections->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
             }
             if (null !== $this->collAttachments) {
                 $result['Attachments'] = $this->collAttachments->toArray(null, true, $keyType, $includeLazyLoadColumns, $alreadyDumpedObjects);
@@ -3677,6 +3719,12 @@ abstract class BaseReport extends BaseObject implements Persistent
                 }
             }
 
+            foreach ($this->getReportHumanInteractionSections() as $relObj) {
+                if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
+                    $copyObj->addReportHumanInteractionSection($relObj->copy($deepCopy));
+                }
+            }
+
             foreach ($this->getAttachments() as $relObj) {
                 if ($relObj !== $this) {  // ensure that we don't try to copy a reference to ourselves
                     $copyObj->addAttachment($relObj->copy($deepCopy));
@@ -3798,6 +3846,9 @@ abstract class BaseReport extends BaseObject implements Persistent
     {
         if ('ReportComments' == $relationName) {
             $this->initReportCommentss();
+        }
+        if ('ReportHumanInteractionSection' == $relationName) {
+            $this->initReportHumanInteractionSections();
         }
         if ('Attachment' == $relationName) {
             $this->initAttachments();
@@ -4052,6 +4103,231 @@ abstract class BaseReport extends BaseObject implements Persistent
         $query->joinWith('Volunteer', $join_behavior);
 
         return $this->getReportCommentss($query, $con);
+    }
+
+    /**
+     * Clears out the collReportHumanInteractionSections collection
+     *
+     * This does not modify the database; however, it will remove any associated objects, causing
+     * them to be refetched by subsequent calls to accessor method.
+     *
+     * @return Report The current object (for fluent API support)
+     * @see        addReportHumanInteractionSections()
+     */
+    public function clearReportHumanInteractionSections()
+    {
+        $this->collReportHumanInteractionSections = null; // important to set this to null since that means it is uninitialized
+        $this->collReportHumanInteractionSectionsPartial = null;
+
+        return $this;
+    }
+
+    /**
+     * reset is the collReportHumanInteractionSections collection loaded partially
+     *
+     * @return void
+     */
+    public function resetPartialReportHumanInteractionSections($v = true)
+    {
+        $this->collReportHumanInteractionSectionsPartial = $v;
+    }
+
+    /**
+     * Initializes the collReportHumanInteractionSections collection.
+     *
+     * By default this just sets the collReportHumanInteractionSections collection to an empty array (like clearcollReportHumanInteractionSections());
+     * however, you may wish to override this method in your stub class to provide setting appropriate
+     * to your application -- for example, setting the initial array to the values stored in database.
+     *
+     * @param boolean $overrideExisting If set to true, the method call initializes
+     *                                        the collection even if it is not empty
+     *
+     * @return void
+     */
+    public function initReportHumanInteractionSections($overrideExisting = true)
+    {
+        if (null !== $this->collReportHumanInteractionSections && !$overrideExisting) {
+            return;
+        }
+        $this->collReportHumanInteractionSections = new PropelObjectCollection();
+        $this->collReportHumanInteractionSections->setModel('ReportHumanInteractionSection');
+    }
+
+    /**
+     * Gets an array of ReportHumanInteractionSection objects which contain a foreign key that references this object.
+     *
+     * If the $criteria is not null, it is used to always fetch the results from the database.
+     * Otherwise the results are fetched from the database the first time, then cached.
+     * Next time the same method is called without $criteria, the cached collection is returned.
+     * If this Report is new, it will return
+     * an empty collection or the current collection; the criteria is ignored on a new object.
+     *
+     * @param Criteria $criteria optional Criteria object to narrow the query
+     * @param PropelPDO $con optional connection object
+     * @return PropelObjectCollection|ReportHumanInteractionSection[] List of ReportHumanInteractionSection objects
+     * @throws PropelException
+     */
+    public function getReportHumanInteractionSections($criteria = null, PropelPDO $con = null)
+    {
+        $partial = $this->collReportHumanInteractionSectionsPartial && !$this->isNew();
+        if (null === $this->collReportHumanInteractionSections || null !== $criteria  || $partial) {
+            if ($this->isNew() && null === $this->collReportHumanInteractionSections) {
+                // return empty collection
+                $this->initReportHumanInteractionSections();
+            } else {
+                $collReportHumanInteractionSections = ReportHumanInteractionSectionQuery::create(null, $criteria)
+                    ->filterByReport($this)
+                    ->find($con);
+                if (null !== $criteria) {
+                    if (false !== $this->collReportHumanInteractionSectionsPartial && count($collReportHumanInteractionSections)) {
+                      $this->initReportHumanInteractionSections(false);
+
+                      foreach ($collReportHumanInteractionSections as $obj) {
+                        if (false == $this->collReportHumanInteractionSections->contains($obj)) {
+                          $this->collReportHumanInteractionSections->append($obj);
+                        }
+                      }
+
+                      $this->collReportHumanInteractionSectionsPartial = true;
+                    }
+
+                    $collReportHumanInteractionSections->getInternalIterator()->rewind();
+
+                    return $collReportHumanInteractionSections;
+                }
+
+                if ($partial && $this->collReportHumanInteractionSections) {
+                    foreach ($this->collReportHumanInteractionSections as $obj) {
+                        if ($obj->isNew()) {
+                            $collReportHumanInteractionSections[] = $obj;
+                        }
+                    }
+                }
+
+                $this->collReportHumanInteractionSections = $collReportHumanInteractionSections;
+                $this->collReportHumanInteractionSectionsPartial = false;
+            }
+        }
+
+        return $this->collReportHumanInteractionSections;
+    }
+
+    /**
+     * Sets a collection of ReportHumanInteractionSection objects related by a one-to-many relationship
+     * to the current object.
+     * It will also schedule objects for deletion based on a diff between old objects (aka persisted)
+     * and new objects from the given Propel collection.
+     *
+     * @param PropelCollection $reportHumanInteractionSections A Propel collection.
+     * @param PropelPDO $con Optional connection object
+     * @return Report The current object (for fluent API support)
+     */
+    public function setReportHumanInteractionSections(PropelCollection $reportHumanInteractionSections, PropelPDO $con = null)
+    {
+        $reportHumanInteractionSectionsToDelete = $this->getReportHumanInteractionSections(new Criteria(), $con)->diff($reportHumanInteractionSections);
+
+
+        $this->reportHumanInteractionSectionsScheduledForDeletion = $reportHumanInteractionSectionsToDelete;
+
+        foreach ($reportHumanInteractionSectionsToDelete as $reportHumanInteractionSectionRemoved) {
+            $reportHumanInteractionSectionRemoved->setReport(null);
+        }
+
+        $this->collReportHumanInteractionSections = null;
+        foreach ($reportHumanInteractionSections as $reportHumanInteractionSection) {
+            $this->addReportHumanInteractionSection($reportHumanInteractionSection);
+        }
+
+        $this->collReportHumanInteractionSections = $reportHumanInteractionSections;
+        $this->collReportHumanInteractionSectionsPartial = false;
+
+        return $this;
+    }
+
+    /**
+     * Returns the number of related ReportHumanInteractionSection objects.
+     *
+     * @param Criteria $criteria
+     * @param boolean $distinct
+     * @param PropelPDO $con
+     * @return int             Count of related ReportHumanInteractionSection objects.
+     * @throws PropelException
+     */
+    public function countReportHumanInteractionSections(Criteria $criteria = null, $distinct = false, PropelPDO $con = null)
+    {
+        $partial = $this->collReportHumanInteractionSectionsPartial && !$this->isNew();
+        if (null === $this->collReportHumanInteractionSections || null !== $criteria || $partial) {
+            if ($this->isNew() && null === $this->collReportHumanInteractionSections) {
+                return 0;
+            }
+
+            if ($partial && !$criteria) {
+                return count($this->getReportHumanInteractionSections());
+            }
+            $query = ReportHumanInteractionSectionQuery::create(null, $criteria);
+            if ($distinct) {
+                $query->distinct();
+            }
+
+            return $query
+                ->filterByReport($this)
+                ->count($con);
+        }
+
+        return count($this->collReportHumanInteractionSections);
+    }
+
+    /**
+     * Method called to associate a ReportHumanInteractionSection object to this object
+     * through the ReportHumanInteractionSection foreign key attribute.
+     *
+     * @param    ReportHumanInteractionSection $l ReportHumanInteractionSection
+     * @return Report The current object (for fluent API support)
+     */
+    public function addReportHumanInteractionSection(ReportHumanInteractionSection $l)
+    {
+        if ($this->collReportHumanInteractionSections === null) {
+            $this->initReportHumanInteractionSections();
+            $this->collReportHumanInteractionSectionsPartial = true;
+        }
+
+        if (!in_array($l, $this->collReportHumanInteractionSections->getArrayCopy(), true)) { // only add it if the **same** object is not already associated
+            $this->doAddReportHumanInteractionSection($l);
+
+            if ($this->reportHumanInteractionSectionsScheduledForDeletion and $this->reportHumanInteractionSectionsScheduledForDeletion->contains($l)) {
+                $this->reportHumanInteractionSectionsScheduledForDeletion->remove($this->reportHumanInteractionSectionsScheduledForDeletion->search($l));
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param	ReportHumanInteractionSection $reportHumanInteractionSection The reportHumanInteractionSection object to add.
+     */
+    protected function doAddReportHumanInteractionSection($reportHumanInteractionSection)
+    {
+        $this->collReportHumanInteractionSections[]= $reportHumanInteractionSection;
+        $reportHumanInteractionSection->setReport($this);
+    }
+
+    /**
+     * @param	ReportHumanInteractionSection $reportHumanInteractionSection The reportHumanInteractionSection object to remove.
+     * @return Report The current object (for fluent API support)
+     */
+    public function removeReportHumanInteractionSection($reportHumanInteractionSection)
+    {
+        if ($this->getReportHumanInteractionSections()->contains($reportHumanInteractionSection)) {
+            $this->collReportHumanInteractionSections->remove($this->collReportHumanInteractionSections->search($reportHumanInteractionSection));
+            if (null === $this->reportHumanInteractionSectionsScheduledForDeletion) {
+                $this->reportHumanInteractionSectionsScheduledForDeletion = clone $this->collReportHumanInteractionSections;
+                $this->reportHumanInteractionSectionsScheduledForDeletion->clear();
+            }
+            $this->reportHumanInteractionSectionsScheduledForDeletion[]= clone $reportHumanInteractionSection;
+            $reportHumanInteractionSection->setReport(null);
+        }
+
+        return $this;
     }
 
     /**
@@ -4360,6 +4636,11 @@ abstract class BaseReport extends BaseObject implements Persistent
                     $o->clearAllReferences($deep);
                 }
             }
+            if ($this->collReportHumanInteractionSections) {
+                foreach ($this->collReportHumanInteractionSections as $o) {
+                    $o->clearAllReferences($deep);
+                }
+            }
             if ($this->collAttachments) {
                 foreach ($this->collAttachments as $o) {
                     $o->clearAllReferences($deep);
@@ -4376,6 +4657,10 @@ abstract class BaseReport extends BaseObject implements Persistent
             $this->collReportCommentss->clearIterator();
         }
         $this->collReportCommentss = null;
+        if ($this->collReportHumanInteractionSections instanceof PropelCollection) {
+            $this->collReportHumanInteractionSections->clearIterator();
+        }
+        $this->collReportHumanInteractionSections = null;
         if ($this->collAttachments instanceof PropelCollection) {
             $this->collAttachments->clearIterator();
         }

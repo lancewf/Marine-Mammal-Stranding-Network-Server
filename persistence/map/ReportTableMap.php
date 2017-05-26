@@ -97,6 +97,7 @@ class ReportTableMap extends TableMap
     {
         $this->addRelation('Volunteer', 'Volunteer', RelationMap::MANY_TO_ONE, array('volunteer_id' => 'id', ), null, null);
         $this->addRelation('ReportComments', 'ReportComments', RelationMap::ONE_TO_MANY, array('id' => 'report_id', ), null, null, 'ReportCommentss');
+        $this->addRelation('ReportHumanInteractionSection', 'ReportHumanInteractionSection', RelationMap::ONE_TO_MANY, array('id' => 'report_id', ), null, null, 'ReportHumanInteractionSections');
         $this->addRelation('Attachment', 'Attachment', RelationMap::ONE_TO_MANY, array('id' => 'report_id', ), null, null, 'Attachments');
     } // buildRelations()
 

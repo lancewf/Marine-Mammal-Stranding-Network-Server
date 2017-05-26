@@ -118,6 +118,10 @@
  * @method ReportQuery rightJoinReportComments($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ReportComments relation
  * @method ReportQuery innerJoinReportComments($relationAlias = null) Adds a INNER JOIN clause to the query using the ReportComments relation
  *
+ * @method ReportQuery leftJoinReportHumanInteractionSection($relationAlias = null) Adds a LEFT JOIN clause to the query using the ReportHumanInteractionSection relation
+ * @method ReportQuery rightJoinReportHumanInteractionSection($relationAlias = null) Adds a RIGHT JOIN clause to the query using the ReportHumanInteractionSection relation
+ * @method ReportQuery innerJoinReportHumanInteractionSection($relationAlias = null) Adds a INNER JOIN clause to the query using the ReportHumanInteractionSection relation
+ *
  * @method ReportQuery leftJoinAttachment($relationAlias = null) Adds a LEFT JOIN clause to the query using the Attachment relation
  * @method ReportQuery rightJoinAttachment($relationAlias = null) Adds a RIGHT JOIN clause to the query using the Attachment relation
  * @method ReportQuery innerJoinAttachment($relationAlias = null) Adds a INNER JOIN clause to the query using the Attachment relation
@@ -2054,6 +2058,80 @@ abstract class BaseReportQuery extends ModelCriteria
         return $this
             ->joinReportComments($relationAlias, $joinType)
             ->useQuery($relationAlias ? $relationAlias : 'ReportComments', 'ReportCommentsQuery');
+    }
+
+    /**
+     * Filter the query by a related ReportHumanInteractionSection object
+     *
+     * @param   ReportHumanInteractionSection|PropelObjectCollection $reportHumanInteractionSection  the related object to use as filter
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return                 ReportQuery The current query, for fluid interface
+     * @throws PropelException - if the provided filter is invalid.
+     */
+    public function filterByReportHumanInteractionSection($reportHumanInteractionSection, $comparison = null)
+    {
+        if ($reportHumanInteractionSection instanceof ReportHumanInteractionSection) {
+            return $this
+                ->addUsingAlias(ReportPeer::ID, $reportHumanInteractionSection->getReportId(), $comparison);
+        } elseif ($reportHumanInteractionSection instanceof PropelObjectCollection) {
+            return $this
+                ->useReportHumanInteractionSectionQuery()
+                ->filterByPrimaryKeys($reportHumanInteractionSection->getPrimaryKeys())
+                ->endUse();
+        } else {
+            throw new PropelException('filterByReportHumanInteractionSection() only accepts arguments of type ReportHumanInteractionSection or PropelCollection');
+        }
+    }
+
+    /**
+     * Adds a JOIN clause to the query using the ReportHumanInteractionSection relation
+     *
+     * @param     string $relationAlias optional alias for the relation
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return ReportQuery The current query, for fluid interface
+     */
+    public function joinReportHumanInteractionSection($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        $tableMap = $this->getTableMap();
+        $relationMap = $tableMap->getRelation('ReportHumanInteractionSection');
+
+        // create a ModelJoin object for this join
+        $join = new ModelJoin();
+        $join->setJoinType($joinType);
+        $join->setRelationMap($relationMap, $this->useAliasInSQL ? $this->getModelAlias() : null, $relationAlias);
+        if ($previousJoin = $this->getPreviousJoin()) {
+            $join->setPreviousJoin($previousJoin);
+        }
+
+        // add the ModelJoin to the current object
+        if ($relationAlias) {
+            $this->addAlias($relationAlias, $relationMap->getRightTable()->getName());
+            $this->addJoinObject($join, $relationAlias);
+        } else {
+            $this->addJoinObject($join, 'ReportHumanInteractionSection');
+        }
+
+        return $this;
+    }
+
+    /**
+     * Use the ReportHumanInteractionSection relation ReportHumanInteractionSection object
+     *
+     * @see       useQuery()
+     *
+     * @param     string $relationAlias optional alias for the relation,
+     *                                   to be used as main alias in the secondary query
+     * @param     string $joinType Accepted values are null, 'left join', 'right join', 'inner join'
+     *
+     * @return   ReportHumanInteractionSectionQuery A secondary query class using the current class as primary query
+     */
+    public function useReportHumanInteractionSectionQuery($relationAlias = null, $joinType = Criteria::INNER_JOIN)
+    {
+        return $this
+            ->joinReportHumanInteractionSection($relationAlias, $joinType)
+            ->useQuery($relationAlias ? $relationAlias : 'ReportHumanInteractionSection', 'ReportHumanInteractionSectionQuery');
     }
 
     /**
