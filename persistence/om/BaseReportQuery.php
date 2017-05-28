@@ -54,6 +54,7 @@
  * @method ReportQuery orderByIsActionEuthanizedDuringTransport($order = Criteria::ASC) Order by the is_action_euthanized_during_transport column
  * @method ReportQuery orderByIsActionTransferredToRehab($order = Criteria::ASC) Order by the is_action_transferred_to_rehab column
  * @method ReportQuery orderByIsActionOther($order = Criteria::ASC) Order by the is_action_other column
+ * @method ReportQuery orderByRelocatedLocation($order = Criteria::ASC) Order by the relocated_location column
  * @method ReportQuery orderByVolunteerId($order = Criteria::ASC) Order by the volunteer_id column
  *
  * @method ReportQuery groupById() Group by the id column
@@ -104,6 +105,7 @@
  * @method ReportQuery groupByIsActionEuthanizedDuringTransport() Group by the is_action_euthanized_during_transport column
  * @method ReportQuery groupByIsActionTransferredToRehab() Group by the is_action_transferred_to_rehab column
  * @method ReportQuery groupByIsActionOther() Group by the is_action_other column
+ * @method ReportQuery groupByRelocatedLocation() Group by the relocated_location column
  * @method ReportQuery groupByVolunteerId() Group by the volunteer_id column
  *
  * @method ReportQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
@@ -176,6 +178,7 @@
  * @method Report findOneByIsActionEuthanizedDuringTransport(boolean $is_action_euthanized_during_transport) Return the first Report filtered by the is_action_euthanized_during_transport column
  * @method Report findOneByIsActionTransferredToRehab(boolean $is_action_transferred_to_rehab) Return the first Report filtered by the is_action_transferred_to_rehab column
  * @method Report findOneByIsActionOther(boolean $is_action_other) Return the first Report filtered by the is_action_other column
+ * @method Report findOneByRelocatedLocation(string $relocated_location) Return the first Report filtered by the relocated_location column
  * @method Report findOneByVolunteerId(int $volunteer_id) Return the first Report filtered by the volunteer_id column
  *
  * @method array findById(int $id) Return Report objects filtered by the id column
@@ -226,6 +229,7 @@
  * @method array findByIsActionEuthanizedDuringTransport(boolean $is_action_euthanized_during_transport) Return Report objects filtered by the is_action_euthanized_during_transport column
  * @method array findByIsActionTransferredToRehab(boolean $is_action_transferred_to_rehab) Return Report objects filtered by the is_action_transferred_to_rehab column
  * @method array findByIsActionOther(boolean $is_action_other) Return Report objects filtered by the is_action_other column
+ * @method array findByRelocatedLocation(string $relocated_location) Return Report objects filtered by the relocated_location column
  * @method array findByVolunteerId(int $volunteer_id) Return Report objects filtered by the volunteer_id column
  *
  * @package    propel.generator.persistence.om
@@ -334,7 +338,7 @@ abstract class BaseReportQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `responder`, `call_date`, `call_from`, `caller_name`, `caller_phone_number`, `call_location`, `call_species`, `when_first_seen`, `call_comments`, `call_referred_to`, `call_condition`, `investigator_support`, `investigation_date`, `investigation_lat_lon_location`, `investigation_physical_location`, `investigation_species`, `animal_not_found`, `investigation_condition`, `tags`, `disposition`, `seal_pickup`, `sex`, `weight`, `straight_length`, `contour_length`, `girth`, `investigation_comments`, `is_photo_taken`, `is_con_sick`, `is_con_injured`, `is_con_out_of_habitat`, `is_con_deemed_releasable`, `is_con_abandoned`, `is_con_inaccessible`, `is_con_location_hazard_to_animal`, `is_con_location_hazard_to_humans`, `is_con_unknown`, `is_con_other`, `is_action_left_at_site`, `is_action_immediate_release_at_site`, `is_action_relocated`, `is_action_died_at_site`, `is_action_died_during_transport`, `is_action_euthanized_at_site`, `is_action_euthanized_during_transport`, `is_action_transferred_to_rehab`, `is_action_other`, `volunteer_id` FROM `report` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `responder`, `call_date`, `call_from`, `caller_name`, `caller_phone_number`, `call_location`, `call_species`, `when_first_seen`, `call_comments`, `call_referred_to`, `call_condition`, `investigator_support`, `investigation_date`, `investigation_lat_lon_location`, `investigation_physical_location`, `investigation_species`, `animal_not_found`, `investigation_condition`, `tags`, `disposition`, `seal_pickup`, `sex`, `weight`, `straight_length`, `contour_length`, `girth`, `investigation_comments`, `is_photo_taken`, `is_con_sick`, `is_con_injured`, `is_con_out_of_habitat`, `is_con_deemed_releasable`, `is_con_abandoned`, `is_con_inaccessible`, `is_con_location_hazard_to_animal`, `is_con_location_hazard_to_humans`, `is_con_unknown`, `is_con_other`, `is_action_left_at_site`, `is_action_immediate_release_at_site`, `is_action_relocated`, `is_action_died_at_site`, `is_action_died_during_transport`, `is_action_euthanized_at_site`, `is_action_euthanized_during_transport`, `is_action_transferred_to_rehab`, `is_action_other`, `relocated_location`, `volunteer_id` FROM `report` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -1864,6 +1868,35 @@ abstract class BaseReportQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(ReportPeer::IS_ACTION_OTHER, $isActionOther, $comparison);
+    }
+
+    /**
+     * Filter the query on the relocated_location column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByRelocatedLocation('fooValue');   // WHERE relocated_location = 'fooValue'
+     * $query->filterByRelocatedLocation('%fooValue%'); // WHERE relocated_location LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $relocatedLocation The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ReportQuery The current query, for fluid interface
+     */
+    public function filterByRelocatedLocation($relocatedLocation = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($relocatedLocation)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $relocatedLocation)) {
+                $relocatedLocation = str_replace('*', '%', $relocatedLocation);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ReportPeer::RELOCATED_LOCATION, $relocatedLocation, $comparison);
     }
 
     /**

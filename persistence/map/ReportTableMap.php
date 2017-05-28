@@ -86,6 +86,7 @@ class ReportTableMap extends TableMap
         $this->addColumn('is_action_euthanized_during_transport', 'IsActionEuthanizedDuringTransport', 'BOOLEAN', false, 1, null);
         $this->addColumn('is_action_transferred_to_rehab', 'IsActionTransferredToRehab', 'BOOLEAN', false, 1, null);
         $this->addColumn('is_action_other', 'IsActionOther', 'BOOLEAN', false, 1, null);
+        $this->addColumn('relocated_location', 'RelocatedLocation', 'VARCHAR', false, 100, null);
         $this->addForeignKey('volunteer_id', 'VolunteerId', 'INTEGER', 'volunteer', 'id', true, null, null);
         // validators
     } // initialize()
