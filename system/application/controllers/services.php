@@ -5,303 +5,298 @@
  */
 class Services extends Controller
 {
-	// -------------------------------------------------------------------------
-	// Contructor
-	// -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // Contructor
+    // -------------------------------------------------------------------------
 
-	/**
-	 * The contructor for the web services
-	 *
-	 * This loads all the models needed for all the services
-	 */
-        public function __construct()
-	{
-		parent::Controller();
+    /**
+     * The contructor for the web services
+     *
+     * This loads all the models needed for all the services
+     */
+    public function __construct()
+    {
+        parent::Controller();
 
-		$this->load->model('report_model');
-		$this->load->model('volunteer_model');
-		$this->load->model('volunteer_hours_model');
-		$this->load->model('attachment_model');
-		$this->load->model('blog_model');
+        $this->load->model('report_model');
+        $this->load->model('volunteer_model');
+        $this->load->model('volunteer_hours_model');
+        $this->load->model('attachment_model');
+        $this->load->model('blog_model');
 
-		$this->load->helper(array('form', 'url', 'dompdf', 'file'));
-		$this->load->model('report_human_interaction_model');
-	}
-	
-	// -------------------------------------------------------------------------
-	// Public Members
-	// -------------------------------------------------------------------------
+        $this->load->helper(array('form', 'url', 'dompdf', 'file'));
+        $this->load->model('report_human_interaction_model');
+    }
+    
+    // -------------------------------------------------------------------------
+    // Public Members
+    // -------------------------------------------------------------------------
 
-        public function getSection(){
-           $sections = $this->report_human_interaction_model->getSections(427);
+    public function getSection()
+    {
+        $sections = $this->report_human_interaction_model->getSections(427);
 
-           foreach($sections as $section) {
-              echo json_encode($section->toArray(BasePeer::TYPE_FIELDNAME));
-	   }
+        foreach ($sections as $section) {
+            echo json_encode($section->toArray(BasePeer::TYPE_FIELDNAME));
+        }
+    }
+
+    public function getPdfOfReport()
+    {
+        $reports = $this->report_model->getReports();
+        $report = $reports[20];
+
+        $data = array('report' =>$report);
+        $html = $this->load->view('pdf', $data, true);
+        
+        pdf_create($html, 'report');
+    }
+
+    public function photoUpload()
+    {
+        $config['upload_path'] = 'uploads/';
+        $config['allowed_types'] = 'qfx|jpg|xls|txt';
+        $config['max_size']     =  '0';
+        $config['max_width']  = '0';
+        $config['max_height']  = '0';
+        $config['remove_spaces']  = TRUE;
+
+        $this->load->library('upload', $config);
+
+        if (! $this->upload->do_upload()) {
+            $data = $this->upload->data();
+            
+            echo "ERROR";
+            //echo $data["file_type"];
+            //echo $this->upload->display_errors('<p>', '</p>');
+        } else {
+            $data = $this->upload->data();
+
+            $fileName = $data['file_name'];
+            
+            echo $fileName;
+        }
+    }
+
+    public function getIslands()
+    {
+        $output = "";
+
+        //$islands = $this->volunteer_model->getIslands();
+
+        //foreach($islands as $island)
+        //{
+        //	$output .= $island . ";";
+        //}
+        $output .= "Decatur" . ";";
+        $output .= "Lopez" . ";";
+        $output .= "Orcas" . ";";
+        $output .= "San Juan" . ";";
+        $output .= "Shaw" . ";";
+        $output .= "Stuart" . ";";
+        $output .= "Waldron" . ";";
+
+        echo $output;
+    }
+    
+        // -------------------------------------------------------------------------
+    // Public Blog Members
+    // -------------------------------------------------------------------------
+
+    public function deleteBlog()
+    {
+        $blogId = $this->input->get_post('blogId');
+        
+        $this->blog_model->deleteBlog($blogId);
+    }
+    
+    public function addBlog()
+    {
+        $json = $this->input->get_post('json');
+
+        $blogData = json_decode($json, true);
+        
+        $newBlogId =
+            $this->blog_model->addBlog($blogData);
+            
+        echo $newBlogId;
+    }
+    
+    public function modifyBlog()
+    {
+        $json = $this->input->get_post('json');
+
+        $blogData = json_decode($json, true);
+        
+        $this->blog_model->modifyBlog($blogData);
+    }
+    
+    public function getBlogs()
+    {
+        $blogs = $this->blog_model->getBlogs();
+
+        $collection = array ();
+
+        foreach ($blogs as $blog) {
+            $collection[] = $blog->toJsonArray();
         }
 
-	public function getPdfOfReport()
-	{
-		$reports = $this->report_model->getReports();
-		$report = $reports[20];
+        echo json_encode($collection);
+    }
+    
+    // -------------------------------------------------------------------------
+    // Public Attachment Members
+    // -------------------------------------------------------------------------
+        
+    public function deleteAttachment()
+    {
+        $json = $this->input->get_post('json');
 
-		$data = array('report' =>$report);
-		$html = $this->load->view('pdf', $data, true);
-		
-		pdf_create($html, 'report');
-	}
+        $attachmentData = json_decode($json, true);
+        
+        $this->attachment_model->deleteAttachment($attachmentData);
+    }
+    
+    public function addAttachment()
+    {
+        $json = $this->input->get_post('json');
+        $reportId = $this->input->get_post('reportid');
 
-	public function photoUpload()
-	{
-		$config['upload_path'] = 'uploads/';
-		$config['allowed_types'] = 'qfx|jpg|xls|txt';
-		$config['max_size']	=  '0';
-		$config['max_width']  = '0';
-		$config['max_height']  = '0';
-		$config['remove_spaces']  = TRUE;
+        $attachmentData = json_decode($json, true);
+        
+        $newAttachmentId =
+            $this->attachment_model->addAttachment($attachmentData, $reportId);
+            
+        echo $newAttachmentId;
+    }
+    
+    public function modifyAttachment()
+    {
+        $json = $this->input->get_post('json');
 
-		$this->load->library('upload', $config);
+        $attachmentData = json_decode($json, true);
+        
+        $this->attachment_model->modifyAttachment($attachmentData);
+    }
+    
+    // -------------------------------------------------------------------------
+    // Public Volunteer Hours Members
+    // -------------------------------------------------------------------------
 
-		if ( ! $this->upload->do_upload())
-		{
-			$data = $this->upload->data();
-			
-			echo "ERROR";
-			//echo $data["file_type"];
-			//echo $this->upload->display_errors('<p>', '</p>');
-		}
-		else
-		{
-			$data = $this->upload->data();
+    public function getVolunteerHoursAndMilesCalculatorAddress()
+    {
+        $json = $this->input->get_post('json');
 
-			$fileName = $data['file_name'];
-			
-			echo $fileName;
-		}
-	}
+        $data = json_decode($json, true);
+        
+        $fromMonth = $data['from_month'];
+        $fromYear = $data['from_year'];
+        $toMonth = $data['to_month'];
+        $toYear = $data['to_year'];
+        
+        $totalHours = $this->volunteer_hours_model->calculateTotalHours(
+            $fromMonth, $fromYear, $toMonth, $toYear);
+            
+        $totalMiles = $this->volunteer_hours_model->calculateTotalMiles(
+            $fromMonth, $fromYear, $toMonth, $toYear);
+        
+        $array_store = array ();
 
-	public function getIslands()
-	{
-		$output = "";
+        $array_store["total_hours"] = (double)$totalHours;
+        $array_store["total_miles"] = (double)$totalMiles;
+            
+        echo json_encode($array_store);
+    }
+    
+    public function updateVolunteerHours()
+    {
+        $json = $this->input->get_post('json');
 
-		//$islands = $this->volunteer_model->getIslands();
+        $volunteerHoursData = json_decode($json, true);
+        
+        $this->volunteer_hours_model->updateVolunteerHours(
+            $volunteerHoursData);
+    }
+    
+    public function createVolunteerHours()
+    {
+        $json = $this->input->get_post('json');
+        $volunteerId = (int)$this->input->get_post('volunteerId');
+        
+        $volunteerHoursData = json_decode($json, true);
 
-		//foreach($islands as $island)
-		//{
-		//	$output .= $island . ";";
-		//}
-		$output .= "Decatur" . ";";
-		$output .= "Lopez" . ";";
-		$output .= "Orcas" . ";";
-		$output .= "San Juan" . ";";
-		$output .= "Shaw" . ";";
-		$output .= "Stuart" . ";";
-		$output .= "Waldron" . ";";
+        $volunteer = $this->volunteer_model->getVolunteer($volunteerId);
 
-		echo $output;
-	}
-	
-        // -------------------------------------------------------------------------
-	// Public Blog Members
-	// -------------------------------------------------------------------------
+        echo $this->volunteer_hours_model->addVolunteerHours(
+            $volunteerHoursData, $volunteer);
+    }
+    
+    public function getVolunteerMonthlyHoursCollection()
+    {
+        $month = (int)$this->input->get_post('month');
+        $year = (int)$this->input->get_post('year');
+        $volunteerId = (int)$this->input->get_post('volunteerId');
 
-	public function deleteBlog()
-	{
-		$blogId = $this->input->get_post('blogId');
-		
-		$this->blog_model->deleteBlog($blogId);
-	}
-	
-	public function addBlog()
-	{
-		$json = $this->input->get_post('json');
+        $volunteer = $this->volunteer_model->getVolunteer($volunteerId);
+        
+        $volunteerHoursCollection =
+            $this->volunteer_hours_model->getVolunteerHoursCollection(
+            $volunteer, $month, $year);
 
-		$blogData = json_decode($json, true);
-		
-		$newBlogId = 
-			$this->blog_model->addBlog($blogData);
-			
-		echo $newBlogId;
-	}
-	
-	public function modifyBlog()
-	{
-		$json = $this->input->get_post('json');
+        $collection = array ();
+                    
+        foreach ($volunteerHoursCollection as $volunteerHours) {
+            $collection[] = $volunteerHours->toJsonArray();
+        }
 
-		$blogData = json_decode($json, true);
-		
-		$this->blog_model->modifyBlog($blogData);
-	}
-	
-	public function getBlogs()
-	{
-		$blogs = $this->blog_model->getBlogs();
+        echo json_encode($collection);
+    }
 
-		$collection = array ();
+    public function deleteVolunteerHours()
+    {
+        $id = (int)$this->input->get_post('volunteerHoursId');
 
-		foreach($blogs as $blog)
-		{
-			$collection[] = $blog->toJsonArray();
-		}
+        $this->volunteer_hours_model->deleteVolunteerHours($id);
+    }
 
-		echo json_encode($collection);
-	}
-	
-	// -------------------------------------------------------------------------
-	// Public Attachment Members
-	// -------------------------------------------------------------------------
-		
-	public function deleteAttachment()
-	{
-		$json = $this->input->get_post('json');
+    // -------------------------------------------------------------------------
+    // Public Report Members
+    // -------------------------------------------------------------------------
+    
+    public function updateReport()
+    {
+        $json = $this->input->get_post('json');
 
-		$attachmentData = json_decode($json, true);
-		
-		$this->attachment_model->deleteAttachment($attachmentData);
-	}
-	
-	public function addAttachment()
-	{
-		$json = $this->input->get_post('json');
-		$reportId = $this->input->get_post('reportid');
+        $reportData = json_decode($json, true);
+        
+        $this->report_model->updateReport($reportData);
+    }
 
-		$attachmentData = json_decode($json, true);
-		
-		$newAttachmentId = 
-			$this->attachment_model->addAttachment($attachmentData, $reportId);
-			
-		echo $newAttachmentId;
-	}
-	
-	public function modifyAttachment()
-	{
-		$json = $this->input->get_post('json');
+    public function createReport()
+    {
+        $json = $this->input->get_post('json');
 
-		$attachmentData = json_decode($json, true);
-		
-		$this->attachment_model->modifyAttachment($attachmentData);
-	}
-	
-	// -------------------------------------------------------------------------
-	// Public Volunteer Hours Members
-	// -------------------------------------------------------------------------
+        $reportData = json_decode($json, true);
+        
+        echo $this->report_model->addReport($reportData);
+    }
+    
+    public function deleteReport()
+    {
+        $id = (int)$this->input->get_post('reportId');
 
-	public function getVolunteerHoursAndMilesCalculatorAddress()
-	{
-		$json = $this->input->get_post('json');
+        $this->report_model->deleteReport($id);
+    }
 
-		$data = json_decode($json, true);
-		
-		$fromMonth = $data['from_month'];
-		$fromYear = $data['from_year'];
-		$toMonth = $data['to_month'];
-		$toYear = $data['to_year'];
-		
-		$totalHours = $this->volunteer_hours_model->calculateTotalHours(
-			$fromMonth, $fromYear, $toMonth, $toYear);
-			
-		$totalMiles = $this->volunteer_hours_model->calculateTotalMiles(
-			$fromMonth, $fromYear, $toMonth, $toYear);
-		
-		$array_store = array ();
+    public function getReports()
+    {
+        $reports = $this->report_model->getReports();
 
-		$array_store["total_hours"] = (double)$totalHours;
-		$array_store["total_miles"] = (double)$totalMiles;
-			
-		echo json_encode($array_store);
-	}
-	
-	public function updateVolunteerHours()
-	{
-		$json = $this->input->get_post('json');
+        $collection = array ();
 
-		$volunteerHoursData = json_decode($json, true);
-		
-		$this->volunteer_hours_model->updateVolunteerHours(
-			$volunteerHoursData);
-	}
-	
-	public function createVolunteerHours()
-	{
-		$json = $this->input->get_post('json');
-		$volunteerId = (int)$this->input->get_post('volunteerId');
-		
-		$volunteerHoursData = json_decode($json, true);
-
-		$volunteer = $this->volunteer_model->getVolunteer($volunteerId);
-
-		echo $this->volunteer_hours_model->addVolunteerHours(
-			$volunteerHoursData, $volunteer);
-	}
-	
-	public function getVolunteerMonthlyHoursCollection()
-	{
-		$month = (int)$this->input->get_post('month');
-		$year = (int)$this->input->get_post('year');
-		$volunteerId = (int)$this->input->get_post('volunteerId');
-
-		$volunteer = $this->volunteer_model->getVolunteer($volunteerId);
-		
-		$volunteerHoursCollection =
-			$this->volunteer_hours_model->getVolunteerHoursCollection(
-			$volunteer, $month, $year);
-
-		$collection = array ();
-					
-		foreach($volunteerHoursCollection as $volunteerHours)
-		{
-			$collection[] = $volunteerHours->toJsonArray();
-		}
-
-		echo json_encode($collection);
-	}
-
-	public function deleteVolunteerHours()
-	{
-		$id = (int)$this->input->get_post('volunteerHoursId');
-
-		$this->volunteer_hours_model->deleteVolunteerHours($id);
-	}
-
-	// -------------------------------------------------------------------------
-	// Public Report Members
-	// -------------------------------------------------------------------------
-	
-	public function updateReport()
-	{
-		$json = $this->input->get_post('json');
-
-		$reportData = json_decode($json, true);
-		
-		$this->report_model->updateReport($reportData);
-	}
-
-	public function createReport()
-	{
-		$json = $this->input->get_post('json');
-
-		$reportData = json_decode($json, true);
-		
-		echo $this->report_model->addReport($reportData);
-	}
-	
-	public function deleteReport()
-	{
-		$id = (int)$this->input->get_post('reportId');
-
-		$this->report_model->deleteReport($id);
-	}
-
-	public function getReports()
-	{
-		$reports = $this->report_model->getReports();
-
-		$collection = array ();
-
-		foreach($reports as $report)
-		{
-			$collection[] = $report->toJsonArray();
-		}
+        foreach ($reports as $report) {
+            $collection[] = $report->toJsonArray();
+        }
 
                 //$collection = array_slice($collection, 0, 1);
                 /*foreach($collection as $col){
@@ -309,81 +304,75 @@ class Services extends Controller
 		       echo json_encode([$col]);
                    }
                 }*/
-                echo json_encode($collection);
-	}
+        echo json_encode($collection);
+    }
 
-	// -------------------------------------------------------------------------
-	// Public Volunteer Members
-	// -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // Public Volunteer Members
+    // -------------------------------------------------------------------------
 
-	public function sendEmailToVolunteers()
-	{
-		$json = $this->input->get_post('json');
-		
-		$emailData = json_decode($json, true);
-		
-		$subject = $emailData['subject'];
-		$message = $emailData['message'];
-		
-		$this->volunteer_model->sendMessageToAll($subject, $message);
-		
-		echo "Success";
-	}
-	
-	public function getVolunteers()
-	{
-		$volunteers = $this->volunteer_model->getVolunteers();
+    public function sendEmailToVolunteers()
+    {
+        $json = $this->input->get_post('json');
+        
+        $emailData = json_decode($json, true);
+        
+        $subject = $emailData['subject'];
+        $message = $emailData['message'];
+        
+        $this->volunteer_model->sendMessageToAll($subject, $message);
+        
+        echo "Success";
+    }
+    
+    public function getVolunteers()
+    {
+        $volunteers = $this->volunteer_model->getVolunteers();
 
-		$collection = array ();
+        $collection = array ();
 
-		foreach($volunteers as $volunteer)
-		{
-			$collection[] = $volunteer->toJsonArray();
-		}
+        foreach ($volunteers as $volunteer) {
+            $collection[] = $volunteer->toJsonArray();
+        }
 
-		echo json_encode($collection);
-	}
+        echo json_encode($collection);
+    }
 
-	public function deleteVolunteer()
-	{
-		$id = (int)$this->input->get_post('volunteerId');
+    public function deleteVolunteer()
+    {
+        $id = (int)$this->input->get_post('volunteerId');
 
-		$this->volunteer_model->deleteVolunteer($id);
-	}
+        $this->volunteer_model->deleteVolunteer($id);
+    }
 
-	public function updateVolunteer()
-	{
-		$json = $this->input->get_post('json');
-		
-		$volunteerData = json_decode($json, true);
-		
-		$this->volunteer_model->updateVolunteer($volunteerData);
-	}
-	
-	public function createVolunteer()
-	{
-		$json = $this->input->get_post('json');
-		
-		$volunteerData = json_decode($json, true);
-		
-		echo $this->volunteer_model->createVolunteer($volunteerData);
-	}
+    public function updateVolunteer()
+    {
+        $json = $this->input->get_post('json');
+        
+        $volunteerData = json_decode($json, true);
+        
+        $this->volunteer_model->updateVolunteer($volunteerData);
+    }
+    
+    public function createVolunteer()
+    {
+        $json = $this->input->get_post('json');
+        
+        $volunteerData = json_decode($json, true);
+        
+        echo $this->volunteer_model->createVolunteer($volunteerData);
+    }
 
-	// -------------------------------------------------------------------------
-	// Private Members
-	// -------------------------------------------------------------------------
+    // -------------------------------------------------------------------------
+    // Private Members
+    // -------------------------------------------------------------------------
 
-	private function getBoolean($textBoolean)
-	{
-		if($textBoolean == "true")
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+    private function getBoolean($textBoolean)
+    {
+        if ($textBoolean == "true") {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
-
-?>

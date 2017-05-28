@@ -13,7 +13,8 @@
  *
  * @package    propel.generator.persistence
  */
-class Report extends BaseReport {
+class Report extends BaseReport
+{
 // -------------------------------------------------------------------------
 // Public Members
 // -------------------------------------------------------------------------
@@ -81,56 +82,55 @@ class Report extends BaseReport {
         $array_store["is_action_euthanized_during_transport"] = (boolean)$this->getIsActionEuthanizedDuringTransport();
         $array_store["is_action_transferred_to_rehab"] = (boolean)$this->getIsActionTransferredToRehab();
         $array_store["is_action_other"] = (boolean)$this->getIsActionOther();
+        $array_store["relocated_location"] = $this->getRelocatedLocations();
 
 
         $attachments = $this->getAttachments();
 
         $attachemtnsOutput = array ();
 
-        foreach($attachments as $attachment)
-        {
-           $attachemtnsOutput[] = $attachment->toJsonArray();
+        foreach ($attachments as $attachment) {
+            $attachemtnsOutput[] = $attachment->toJsonArray();
         }
 
         $array_store["attachments"] = $attachemtnsOutput;
 
         $sectionsOutput = array ();
-        foreach($this->getReportHumanInteractionSections() as $section)
-        {
-           $sectionsOutput[] = $section->toArray(BasePeer::TYPE_FIELDNAME);
+        foreach ($this->getReportHumanInteractionSections() as $section) {
+            $sectionsOutput[] = $section->toArray(BasePeer::TYPE_FIELDNAME);
         }
 
         $array_store['report_human_interaction_sections'] = $sectionsOutput;
 
         return $array_store;
-       }
+    }
 
 // -------------------------------------------------------------------------
 // Private Members
 // -------------------------------------------------------------------------
 
-        private function getHour($dateObject)
-        {
-          return date("H", $dateObject);
-        }
+    private function getHour($dateObject)
+    {
+        return date("H", $dateObject);
+    }
 
-        private function getMinute($dateObject)
-        {
-           return date("i", $dateObject);
-        }
+    private function getMinute($dateObject)
+    {
+        return date("i", $dateObject);
+    }
     
-        private function getYear($dateObject)
-        {
-           return date("Y", $dateObject);
-        }
+    private function getYear($dateObject)
+    {
+        return date("Y", $dateObject);
+    }
 
-        private function getDayOfMonth($dateObject)
-        {
-           return date("j", $dateObject);
-        }
+    private function getDayOfMonth($dateObject)
+    {
+        return date("j", $dateObject);
+    }
 
-        private function getMonth($dateObject)
-        {
-           return date("n", $dateObject);
-        }
+    private function getMonth($dateObject)
+    {
+        return date("n", $dateObject);
+    }
 }

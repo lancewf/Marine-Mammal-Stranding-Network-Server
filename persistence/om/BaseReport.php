@@ -318,6 +318,12 @@ abstract class BaseReport extends BaseObject implements Persistent
     protected $is_action_other;
 
     /**
+     * The value for the relocated_location field.
+     * @var        string
+     */
+    protected $relocated_location;
+
+    /**
      * The value for the volunteer_id field.
      * @var        int
      */
@@ -968,6 +974,17 @@ abstract class BaseReport extends BaseObject implements Persistent
     {
 
         return $this->is_action_other;
+    }
+
+    /**
+     * Get the [relocated_location] column value.
+     * a description of the relocated location
+     * @return string
+     */
+    public function getRelocatedLocation()
+    {
+
+        return $this->relocated_location;
     }
 
     /**
@@ -2162,6 +2179,27 @@ abstract class BaseReport extends BaseObject implements Persistent
     } // setIsActionOther()
 
     /**
+     * Set the value of [relocated_location] column.
+     * a description of the relocated location
+     * @param  string $v new value
+     * @return Report The current object (for fluent API support)
+     */
+    public function setRelocatedLocation($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->relocated_location !== $v) {
+            $this->relocated_location = $v;
+            $this->modifiedColumns[] = ReportPeer::RELOCATED_LOCATION;
+        }
+
+
+        return $this;
+    } // setRelocatedLocation()
+
+    /**
      * Set the value of [volunteer_id] column.
      *
      * @param  int $v new value
@@ -2266,7 +2304,8 @@ abstract class BaseReport extends BaseObject implements Persistent
             $this->is_action_euthanized_during_transport = ($row[$startcol + 45] !== null) ? (boolean) $row[$startcol + 45] : null;
             $this->is_action_transferred_to_rehab = ($row[$startcol + 46] !== null) ? (boolean) $row[$startcol + 46] : null;
             $this->is_action_other = ($row[$startcol + 47] !== null) ? (boolean) $row[$startcol + 47] : null;
-            $this->volunteer_id = ($row[$startcol + 48] !== null) ? (int) $row[$startcol + 48] : null;
+            $this->relocated_location = ($row[$startcol + 48] !== null) ? (string) $row[$startcol + 48] : null;
+            $this->volunteer_id = ($row[$startcol + 49] !== null) ? (int) $row[$startcol + 49] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -2276,7 +2315,7 @@ abstract class BaseReport extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 49; // 49 = ReportPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 50; // 50 = ReportPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Report object", $e);
@@ -2705,6 +2744,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         if ($this->isColumnModified(ReportPeer::IS_ACTION_OTHER)) {
             $modifiedColumns[':p' . $index++]  = '`is_action_other`';
         }
+        if ($this->isColumnModified(ReportPeer::RELOCATED_LOCATION)) {
+            $modifiedColumns[':p' . $index++]  = '`relocated_location`';
+        }
         if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) {
             $modifiedColumns[':p' . $index++]  = '`volunteer_id`';
         }
@@ -2862,6 +2904,9 @@ abstract class BaseReport extends BaseObject implements Persistent
                         break;
                     case '`is_action_other`':
                         $stmt->bindValue($identifier, (int) $this->is_action_other, PDO::PARAM_INT);
+                        break;
+                    case '`relocated_location`':
+                        $stmt->bindValue($identifier, $this->relocated_location, PDO::PARAM_STR);
                         break;
                     case '`volunteer_id`':
                         $stmt->bindValue($identifier, $this->volunteer_id, PDO::PARAM_INT);
@@ -3181,6 +3226,9 @@ abstract class BaseReport extends BaseObject implements Persistent
                 return $this->getIsActionOther();
                 break;
             case 48:
+                return $this->getRelocatedLocation();
+                break;
+            case 49:
                 return $this->getVolunteerId();
                 break;
             default:
@@ -3260,7 +3308,8 @@ abstract class BaseReport extends BaseObject implements Persistent
             $keys[45] => $this->getIsActionEuthanizedDuringTransport(),
             $keys[46] => $this->getIsActionTransferredToRehab(),
             $keys[47] => $this->getIsActionOther(),
-            $keys[48] => $this->getVolunteerId(),
+            $keys[48] => $this->getRelocatedLocation(),
+            $keys[49] => $this->getVolunteerId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -3459,6 +3508,9 @@ abstract class BaseReport extends BaseObject implements Persistent
                 $this->setIsActionOther($value);
                 break;
             case 48:
+                $this->setRelocatedLocation($value);
+                break;
+            case 49:
                 $this->setVolunteerId($value);
                 break;
         } // switch()
@@ -3533,7 +3585,8 @@ abstract class BaseReport extends BaseObject implements Persistent
         if (array_key_exists($keys[45], $arr)) $this->setIsActionEuthanizedDuringTransport($arr[$keys[45]]);
         if (array_key_exists($keys[46], $arr)) $this->setIsActionTransferredToRehab($arr[$keys[46]]);
         if (array_key_exists($keys[47], $arr)) $this->setIsActionOther($arr[$keys[47]]);
-        if (array_key_exists($keys[48], $arr)) $this->setVolunteerId($arr[$keys[48]]);
+        if (array_key_exists($keys[48], $arr)) $this->setRelocatedLocation($arr[$keys[48]]);
+        if (array_key_exists($keys[49], $arr)) $this->setVolunteerId($arr[$keys[49]]);
     }
 
     /**
@@ -3593,6 +3646,7 @@ abstract class BaseReport extends BaseObject implements Persistent
         if ($this->isColumnModified(ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT)) $criteria->add(ReportPeer::IS_ACTION_EUTHANIZED_DURING_TRANSPORT, $this->is_action_euthanized_during_transport);
         if ($this->isColumnModified(ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB)) $criteria->add(ReportPeer::IS_ACTION_TRANSFERRED_TO_REHAB, $this->is_action_transferred_to_rehab);
         if ($this->isColumnModified(ReportPeer::IS_ACTION_OTHER)) $criteria->add(ReportPeer::IS_ACTION_OTHER, $this->is_action_other);
+        if ($this->isColumnModified(ReportPeer::RELOCATED_LOCATION)) $criteria->add(ReportPeer::RELOCATED_LOCATION, $this->relocated_location);
         if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) $criteria->add(ReportPeer::VOLUNTEER_ID, $this->volunteer_id);
 
         return $criteria;
@@ -3704,6 +3758,7 @@ abstract class BaseReport extends BaseObject implements Persistent
         $copyObj->setIsActionEuthanizedDuringTransport($this->getIsActionEuthanizedDuringTransport());
         $copyObj->setIsActionTransferredToRehab($this->getIsActionTransferredToRehab());
         $copyObj->setIsActionOther($this->getIsActionOther());
+        $copyObj->setRelocatedLocation($this->getRelocatedLocation());
         $copyObj->setVolunteerId($this->getVolunteerId());
 
         if ($deepCopy && !$this->startCopy) {
@@ -4608,6 +4663,7 @@ abstract class BaseReport extends BaseObject implements Persistent
         $this->is_action_euthanized_during_transport = null;
         $this->is_action_transferred_to_rehab = null;
         $this->is_action_other = null;
+        $this->relocated_location = null;
         $this->volunteer_id = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;

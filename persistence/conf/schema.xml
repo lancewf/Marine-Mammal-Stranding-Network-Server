@@ -51,6 +51,7 @@
         <column name="is_action_euthanized_during_transport" type="boolean" description=""/>
         <column name="is_action_transferred_to_rehab" type="boolean" description=""/>
         <column name="is_action_other" type="boolean" description=""/>
+        <column name="relocated_location" type="varchar" size="100" description="a description of the relocated location"/>
         <column name="volunteer_id" type="integer" required="true" description=""/> 
         <foreign-key foreignTable="volunteer">
             <reference local="volunteer_id" foreign="id"/>
