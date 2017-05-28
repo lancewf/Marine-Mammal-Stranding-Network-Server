@@ -15,7 +15,7 @@
  */
 class BlogEntry extends BaseBlogEntry {
 	
-	public function toArray()
+	public function toJsonArray()
 	{
 		$array_store = array ();
 

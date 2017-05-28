@@ -14,7 +14,7 @@ class Services extends Controller
 	 *
 	 * This loads all the models needed for all the services
 	 */
-	function Services()
+        public function __construct()
 	{
 		parent::Controller();
 
@@ -25,11 +25,20 @@ class Services extends Controller
 		$this->load->model('blog_model');
 
 		$this->load->helper(array('form', 'url', 'dompdf', 'file'));
+		$this->load->model('report_human_interaction_model');
 	}
 	
 	// -------------------------------------------------------------------------
 	// Public Members
 	// -------------------------------------------------------------------------
+
+        public function getSection(){
+           $sections = $this->report_human_interaction_model->getSections(427);
+
+           foreach($sections as $section) {
+              echo json_encode($section->toArray(BasePeer::TYPE_FIELDNAME));
+	   }
+        }
 
 	public function getPdfOfReport()
 	{
@@ -132,7 +141,7 @@ class Services extends Controller
 
 		foreach($blogs as $blog)
 		{
-			$collection[] = $blog->toArray();
+			$collection[] = $blog->toJsonArray();
 		}
 
 		echo json_encode($collection);
@@ -241,7 +250,7 @@ class Services extends Controller
 					
 		foreach($volunteerHoursCollection as $volunteerHours)
 		{
-			$collection[] = $volunteerHours->toArray();
+			$collection[] = $volunteerHours->toJsonArray();
 		}
 
 		echo json_encode($collection);
@@ -291,10 +300,16 @@ class Services extends Controller
 
 		foreach($reports as $report)
 		{
-			$collection[] = $report->toArray();
+			$collection[] = $report->toJsonArray();
 		}
 
-		echo json_encode($collection);
+                //$collection = array_slice($collection, 0, 1);
+                /*foreach($collection as $col){
+                   if($col['id'] == 429){
+		       echo json_encode([$col]);
+                   }
+                }*/
+                echo json_encode($collection);
 	}
 
 	// -------------------------------------------------------------------------
@@ -323,7 +338,7 @@ class Services extends Controller
 
 		foreach($volunteers as $volunteer)
 		{
-			$collection[] = $volunteer->toArray();
+			$collection[] = $volunteer->toJsonArray();
 		}
 
 		echo json_encode($collection);

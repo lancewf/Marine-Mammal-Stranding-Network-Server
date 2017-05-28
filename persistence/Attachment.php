@@ -15,7 +15,7 @@
  */
 class Attachment extends BaseAttachment {
 
-	public function toArray()
+	public function toJsonArray()
 	{
 		$array_store = array ();
 

@@ -5,20 +5,21 @@ class Report_model extends Model
 	// Constructor
 	// -------------------------------------------------------------------------
 	
-	public function Report_model()
-	{
-		parent::Model();
+  public function Report_model()
+  {
+    parent::Model();
 
-		require_once('persistence/Report.php');
-	        require_once('persistence/ReportQuery.php');
-                $this->load->helper(array('dompdf', 'file'));
-	}
-	
-	// -------------------------------------------------------------------------
-	// Public Members
-	// -------------------------------------------------------------------------
-		
-	public function getReports()
+    require_once('persistence/Report.php');
+    require_once('persistence/ReportQuery.php');
+    $this->load->helper(array('dompdf', 'file'));
+    $this->load->model('report_human_interaction_model');
+ }
+
+  // -------------------------------------------------------------------------
+  // Public Members
+  // -------------------------------------------------------------------------
+
+  public function getReports()
 	{
 		$reports = ReportQuery::create()->find();
 
@@ -38,7 +39,7 @@ class Report_model extends Model
 	public function updateReport($reportData)
 	{
 
-		if($this->goodReportData($reportData)) 
+		if($this->goodReportData($reportData))// && $this->report_human_interaction_model->goodReportData($reportData)) 
 		{
 			$id = $reportData['id'];
 		
@@ -47,8 +48,8 @@ class Report_model extends Model
 			$this->fillReport($report, $reportData);
 		
 			$report->save();
-
-			$this->sendUpdatedReportAlert($report, $reportData);
+                        $this->report_human_interaction_model->updateReport($reportData, $report);
+			//$this->sendUpdatedReportAlert($report, $reportData);
 			
 			echo "Success";
 		}
@@ -59,26 +60,29 @@ class Report_model extends Model
 			echo "Failure";
 		}
 	}
-	
-	public function addReport($reportData)
-	{	
-		if($this->goodReportData($reportData)) {
 
-			$report = new Report();
-			$this->fillReport($report, $reportData);
-		
-			$report->save();
+  public function addReport($reportData)
+  {
+   if($this->goodReportData($reportData) ) {
+      $report = new Report();
+      $this->fillReport($report, $reportData);
 
-			echo $report->getId();
-		
-			$this->sendNewReportAlert($report, $reportData);
-		}
-		else{
-			$this->sendErrorAlert("Error in adding a report");
-			echo -1;
-		}
-	}
-	
+      $report->save();
+
+      $report_id = $report->getId();
+
+      $this->report_human_interaction_model->addReport($reportData, $report);
+
+      //$this->sendNewReportAlert($report, $reportData);
+
+      echo $report_id;
+    }
+    else{
+      $this->sendErrorAlert("Error in adding a report");
+      echo -1;
+    }
+  }
+
 	// -------------------------------------------------------------------------
 	// Private Members
 	// -------------------------------------------------------------------------
@@ -184,74 +188,71 @@ class Report_model extends Model
 		return $writtenBy;
 	}
 	
-        private function goodReportData($reportData)
-	{
-
-		if(array_key_exists('volunteer_id', $reportData) and 
-                   array_key_exists('responder', $reportData) and			
-                   array_key_exists('call_date_hour', $reportData) and			
-                   array_key_exists('call_date_minute', $reportData) and			
-                   array_key_exists('call_date_month', $reportData) and			
-                   array_key_exists('call_date_dayofmonth', $reportData) and			
-                   array_key_exists('call_date_year', $reportData) and			
-                   array_key_exists('call_from', $reportData) and			
-                   array_key_exists('caller_name', $reportData) and			
-                   array_key_exists('caller_phone_number', $reportData) and			
-                   array_key_exists('call_location', $reportData) and			
-                   array_key_exists('call_species', $reportData) and			
-                   array_key_exists('when_first_seen', $reportData) and			
-                   array_key_exists('call_comments', $reportData) and			
-                   array_key_exists('call_referred_to', $reportData) and			
-                   array_key_exists('call_condition', $reportData) and			
-                   array_key_exists('investigation_date_hour', $reportData) and			
-                   array_key_exists('investigation_date_minute', $reportData) and			
-                   array_key_exists('investigation_date_month', $reportData) and			
-                   array_key_exists('investigation_date_dayofmonth', $reportData) and			
-                   array_key_exists('investigation_date_year', $reportData) and			
-                   array_key_exists('investigator_support', $reportData) and			
-                   array_key_exists('investigation_lat_lon_location', $reportData) and			
-                   array_key_exists('investigation_physical_location', $reportData) and			
-                   array_key_exists('investigation_species', $reportData) and			
-                   array_key_exists('animal_not_found', $reportData) and			
-                   array_key_exists('investigation_condition', $reportData) and			
-                   array_key_exists('tags', $reportData) and			
-                   array_key_exists('disposition', $reportData) and			
-                   array_key_exists('seal_pickup', $reportData) and			
-                   array_key_exists('sex', $reportData) and			
-                   array_key_exists('weight', $reportData) and			
-                   array_key_exists('straight_length', $reportData) and			
-                   array_key_exists('girth', $reportData) and			
-                   array_key_exists('investigation_comments', $reportData) and			
+        private function goodReportData($reportData) {
+                if(array_key_exists('volunteer_id', $reportData) and 
+                   array_key_exists('responder', $reportData) and
+                   array_key_exists('call_date_hour', $reportData) and
+                   array_key_exists('call_date_minute', $reportData) and
+                   array_key_exists('call_date_month', $reportData) and
+                   array_key_exists('call_date_dayofmonth', $reportData) and
+                   array_key_exists('call_date_year', $reportData) and
+                   array_key_exists('call_from', $reportData) and
+                   array_key_exists('caller_name', $reportData) and
+                   array_key_exists('caller_phone_number', $reportData) and
+                   array_key_exists('call_location', $reportData) and
+                   array_key_exists('call_species', $reportData) and
+                   array_key_exists('when_first_seen', $reportData) and
+                   array_key_exists('call_comments', $reportData) and
+                   array_key_exists('call_referred_to', $reportData) and
+                   array_key_exists('call_condition', $reportData) and
+                   array_key_exists('investigation_date_hour', $reportData) and
+                   array_key_exists('investigation_date_minute', $reportData) and
+                   array_key_exists('investigation_date_month', $reportData) and
+                   array_key_exists('investigation_date_dayofmonth', $reportData) and
+                   array_key_exists('investigation_date_year', $reportData) and
+                   array_key_exists('investigator_support', $reportData) and
+                   array_key_exists('investigation_lat_lon_location', $reportData) and
+                   array_key_exists('investigation_physical_location', $reportData) and
+                   array_key_exists('investigation_species', $reportData) and
+                   array_key_exists('animal_not_found', $reportData) and
+                   array_key_exists('investigation_condition', $reportData) and
+                   array_key_exists('tags', $reportData) and
+                   array_key_exists('disposition', $reportData) and
+                   array_key_exists('seal_pickup', $reportData) and
+                   array_key_exists('sex', $reportData) and
+                   array_key_exists('weight', $reportData) and
+                   array_key_exists('straight_length', $reportData) and
+                   array_key_exists('girth', $reportData) and
+                   array_key_exists('investigation_comments', $reportData) and
                    array_key_exists('is_photo_taken', $reportData) and
-				   array_key_exists('is_con_sick', $reportData) and
-				   array_key_exists('is_con_injured', $reportData) and
-				   array_key_exists('is_con_out_of_habitat', $reportData) and
-				   array_key_exists('is_con_deemed_releasable', $reportData) and
-				   array_key_exists('is_con_abandoned', $reportData) and
-				   array_key_exists('is_con_inaccessible', $reportData) and
-				   array_key_exists('is_con_location_hazard_to_animal', $reportData) and
-				   array_key_exists('is_con_location_hazard_to_humans', $reportData) and
-				   array_key_exists('is_con_unknown', $reportData) and
-				   array_key_exists('is_con_other', $reportData) and
-				   array_key_exists('is_action_left_at_site', $reportData) and
-				   array_key_exists('is_action_immediate_release_at_site', $reportData) and
-				   array_key_exists('is_action_relocated', $reportData) and
-				   array_key_exists('is_action_died_at_site', $reportData) and
-				   array_key_exists('is_action_died_during_transport', $reportData) and
-				   array_key_exists('is_action_euthanized_at_site', $reportData) and
-				   array_key_exists('is_action_euthanized_during_transport', $reportData) and
-				   array_key_exists('is_action_transferred_to_rehab', $reportData) and
-				   array_key_exists('is_action_other', $reportData))	
-		{
+                   array_key_exists('is_con_sick', $reportData) and
+                   array_key_exists('is_con_injured', $reportData) and
+                   array_key_exists('is_con_out_of_habitat', $reportData) and
+                   array_key_exists('is_con_deemed_releasable', $reportData) and
+                   array_key_exists('is_con_abandoned', $reportData) and
+                   array_key_exists('is_con_inaccessible', $reportData) and
+                   array_key_exists('is_con_location_hazard_to_animal', $reportData) and
+                   array_key_exists('is_con_location_hazard_to_humans', $reportData) and
+                   array_key_exists('is_con_unknown', $reportData) and
+                   array_key_exists('is_con_other', $reportData) and
+                   array_key_exists('is_action_left_at_site', $reportData) and
+                   array_key_exists('is_action_immediate_release_at_site', $reportData) and
+                   array_key_exists('is_action_relocated', $reportData) and
+                   array_key_exists('is_action_died_at_site', $reportData) and
+                   array_key_exists('is_action_died_during_transport', $reportData) and
+                   array_key_exists('is_action_euthanized_at_site', $reportData) and
+                   array_key_exists('is_action_euthanized_during_transport', $reportData) and
+                   array_key_exists('is_action_transferred_to_rehab', $reportData) and
+                   array_key_exists('is_action_other', $reportData))
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
 
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-
-	}
+  }
 
 	private function fillReport($report, $reportData)
 	{
