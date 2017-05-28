@@ -18,8 +18,7 @@ class Report extends BaseReport {
 // Public Members
 // -------------------------------------------------------------------------
 
-    // TODO update to use the BaseReports toArray
-    public function toArray()
+    public function toJsonArray()
     {
         $array_store = array ();
 
@@ -90,10 +89,18 @@ class Report extends BaseReport {
 
         foreach($attachments as $attachment)
         {
-           $attachemtnsOutput[] = $attachment->toArray();
+           $attachemtnsOutput[] = $attachment->toJsonArray();
         }
 
         $array_store["attachments"] = $attachemtnsOutput;
+
+        $sectionsOutput = array ();
+        foreach($this->getReportHumanInteractionSections() as $section)
+        {
+           $sectionsOutput[] = $section->toArray(BasePeer::TYPE_FIELDNAME);
+        }
+
+        $array_store['report_human_interaction_sections'] = $sectionsOutput;
 
         return $array_store;
        }
@@ -126,5 +133,4 @@ class Report extends BaseReport {
         {
            return date("n", $dateObject);
         }
-
 }

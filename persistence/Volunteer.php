@@ -18,7 +18,7 @@ class Volunteer extends BaseVolunteer {
 	// Public Members
 	// -------------------------------------------------------------------------
 	
-	public function toArray()
+	public function toJsonArray()
 	{
 		$array_store = array ();
 

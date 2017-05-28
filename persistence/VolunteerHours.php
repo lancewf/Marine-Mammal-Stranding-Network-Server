@@ -16,7 +16,7 @@
 class VolunteerHours extends BaseVolunteerHours 
 {
 	
-	public function toArray()
+	public function toJsonArray()
 	{
 		$array_store = array ();
 
