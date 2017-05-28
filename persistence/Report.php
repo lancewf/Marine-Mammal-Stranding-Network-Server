@@ -82,7 +82,7 @@ class Report extends BaseReport
         $array_store["is_action_euthanized_during_transport"] = (boolean)$this->getIsActionEuthanizedDuringTransport();
         $array_store["is_action_transferred_to_rehab"] = (boolean)$this->getIsActionTransferredToRehab();
         $array_store["is_action_other"] = (boolean)$this->getIsActionOther();
-        $array_store["relocated_location"] = $this->getRelocatedLocations();
+        $array_store["relocated_location"] = $this->getRelocatedLocation();
 
 
         $attachments = $this->getAttachments();
