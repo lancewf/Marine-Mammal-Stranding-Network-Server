@@ -204,7 +204,9 @@ class Report_model extends Model
            array_key_exists('investigation_date_dayofmonth', $reportData) and
            array_key_exists('investigation_date_year', $reportData) and
            array_key_exists('investigator_support', $reportData) and
-           array_key_exists('investigation_lat_lon_location', $reportData) and
+           array_key_exists('investigation_lat_location', $reportData) and
+           array_key_exists('investigation_lon_location', $reportData) and
+           array_key_exists('investigation_location_accuracy', $reportData) and
            array_key_exists('investigation_physical_location', $reportData) and
            array_key_exists('investigation_species', $reportData) and
            array_key_exists('animal_not_found', $reportData) and
@@ -279,7 +281,9 @@ class Report_model extends Model
         $report->setInvestigatorSupport($reportData['investigator_support']);
         $report->setInvestigationDate($investigationDate);
 
-        $report->setInvestigationLatLonLocation($reportData['investigation_lat_lon_location']);
+        $report->setInvestigationLatLocation($reportData['investigation_lat_location']);
+        $report->setInvestigationLonLocation($reportData['investigation_lon_location']);
+        $report->setInvestigationLocationAccuracy($reportData['investigation_location_accuracy']);
         $report->setInvestigationPhysicalLocation($reportData['investigation_physical_location']);
         
         $report->setInvestigationSpecies($reportData['investigation_species']);

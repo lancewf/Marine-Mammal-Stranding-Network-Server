@@ -47,7 +47,9 @@ class Report extends BaseReport
         $array_store["investigation_date_dayofmonth"] = (int)$this->getDayOfMonth(strtotime($this->getInvestigationDate()));
         $array_store["investigation_date_month"] = (int)$this->getMonth(strtotime($this->getInvestigationDate()));
         $array_store["investigation_date_year"] = (int)$this->getYear(strtotime($this->getInvestigationDate()));
-        $array_store["investigation_lat_lon_location"] = $this->getInvestigationLatLonLocation();
+        $array_store["investigation_lat_location"] = $this->getInvestigationLatLocation();
+        $array_store["investigation_lon_location"] = $this->getInvestigationLonLocation();
+        $array_store["investigation_location_accuracy"] = $this->getInvestigationLocationAccuracy();
         $array_store["investigation_physical_location"] = $this->getInvestigationPhysicalLocation();
         $array_store["investigation_species"] = $this->getInvestigationSpecies();
         $array_store["animal_not_found"] = (boolean)$this->getAnimalNotFound();

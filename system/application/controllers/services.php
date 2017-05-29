@@ -298,12 +298,6 @@ class Services extends Controller
             $collection[] = $report->toJsonArray();
         }
 
-                //$collection = array_slice($collection, 0, 1);
-                /*foreach($collection as $col){
-                   if($col['id'] == 429){
-		       echo json_encode([$col]);
-                   }
-                }*/
         echo json_encode($collection);
     }
 

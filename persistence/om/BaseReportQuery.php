@@ -20,7 +20,9 @@
  * @method ReportQuery orderByCallCondition($order = Criteria::ASC) Order by the call_condition column
  * @method ReportQuery orderByInvestigatorSupport($order = Criteria::ASC) Order by the investigator_support column
  * @method ReportQuery orderByInvestigationDate($order = Criteria::ASC) Order by the investigation_date column
- * @method ReportQuery orderByInvestigationLatLonLocation($order = Criteria::ASC) Order by the investigation_lat_lon_location column
+ * @method ReportQuery orderByInvestigationLatLocation($order = Criteria::ASC) Order by the investigation_lat_location column
+ * @method ReportQuery orderByInvestigationLonLocation($order = Criteria::ASC) Order by the investigation_lon_location column
+ * @method ReportQuery orderByInvestigationLocationAccuracy($order = Criteria::ASC) Order by the investigation_location_accuracy column
  * @method ReportQuery orderByInvestigationPhysicalLocation($order = Criteria::ASC) Order by the investigation_physical_location column
  * @method ReportQuery orderByInvestigationSpecies($order = Criteria::ASC) Order by the investigation_species column
  * @method ReportQuery orderByAnimalNotFound($order = Criteria::ASC) Order by the animal_not_found column
@@ -71,7 +73,9 @@
  * @method ReportQuery groupByCallCondition() Group by the call_condition column
  * @method ReportQuery groupByInvestigatorSupport() Group by the investigator_support column
  * @method ReportQuery groupByInvestigationDate() Group by the investigation_date column
- * @method ReportQuery groupByInvestigationLatLonLocation() Group by the investigation_lat_lon_location column
+ * @method ReportQuery groupByInvestigationLatLocation() Group by the investigation_lat_location column
+ * @method ReportQuery groupByInvestigationLonLocation() Group by the investigation_lon_location column
+ * @method ReportQuery groupByInvestigationLocationAccuracy() Group by the investigation_location_accuracy column
  * @method ReportQuery groupByInvestigationPhysicalLocation() Group by the investigation_physical_location column
  * @method ReportQuery groupByInvestigationSpecies() Group by the investigation_species column
  * @method ReportQuery groupByAnimalNotFound() Group by the animal_not_found column
@@ -144,7 +148,9 @@
  * @method Report findOneByCallCondition(string $call_condition) Return the first Report filtered by the call_condition column
  * @method Report findOneByInvestigatorSupport(string $investigator_support) Return the first Report filtered by the investigator_support column
  * @method Report findOneByInvestigationDate(string $investigation_date) Return the first Report filtered by the investigation_date column
- * @method Report findOneByInvestigationLatLonLocation(string $investigation_lat_lon_location) Return the first Report filtered by the investigation_lat_lon_location column
+ * @method Report findOneByInvestigationLatLocation(string $investigation_lat_location) Return the first Report filtered by the investigation_lat_location column
+ * @method Report findOneByInvestigationLonLocation(string $investigation_lon_location) Return the first Report filtered by the investigation_lon_location column
+ * @method Report findOneByInvestigationLocationAccuracy(string $investigation_location_accuracy) Return the first Report filtered by the investigation_location_accuracy column
  * @method Report findOneByInvestigationPhysicalLocation(string $investigation_physical_location) Return the first Report filtered by the investigation_physical_location column
  * @method Report findOneByInvestigationSpecies(string $investigation_species) Return the first Report filtered by the investigation_species column
  * @method Report findOneByAnimalNotFound(boolean $animal_not_found) Return the first Report filtered by the animal_not_found column
@@ -195,7 +201,9 @@
  * @method array findByCallCondition(string $call_condition) Return Report objects filtered by the call_condition column
  * @method array findByInvestigatorSupport(string $investigator_support) Return Report objects filtered by the investigator_support column
  * @method array findByInvestigationDate(string $investigation_date) Return Report objects filtered by the investigation_date column
- * @method array findByInvestigationLatLonLocation(string $investigation_lat_lon_location) Return Report objects filtered by the investigation_lat_lon_location column
+ * @method array findByInvestigationLatLocation(string $investigation_lat_location) Return Report objects filtered by the investigation_lat_location column
+ * @method array findByInvestigationLonLocation(string $investigation_lon_location) Return Report objects filtered by the investigation_lon_location column
+ * @method array findByInvestigationLocationAccuracy(string $investigation_location_accuracy) Return Report objects filtered by the investigation_location_accuracy column
  * @method array findByInvestigationPhysicalLocation(string $investigation_physical_location) Return Report objects filtered by the investigation_physical_location column
  * @method array findByInvestigationSpecies(string $investigation_species) Return Report objects filtered by the investigation_species column
  * @method array findByAnimalNotFound(boolean $animal_not_found) Return Report objects filtered by the animal_not_found column
@@ -338,7 +346,7 @@ abstract class BaseReportQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `responder`, `call_date`, `call_from`, `caller_name`, `caller_phone_number`, `call_location`, `call_species`, `when_first_seen`, `call_comments`, `call_referred_to`, `call_condition`, `investigator_support`, `investigation_date`, `investigation_lat_lon_location`, `investigation_physical_location`, `investigation_species`, `animal_not_found`, `investigation_condition`, `tags`, `disposition`, `seal_pickup`, `sex`, `weight`, `straight_length`, `contour_length`, `girth`, `investigation_comments`, `is_photo_taken`, `is_con_sick`, `is_con_injured`, `is_con_out_of_habitat`, `is_con_deemed_releasable`, `is_con_abandoned`, `is_con_inaccessible`, `is_con_location_hazard_to_animal`, `is_con_location_hazard_to_humans`, `is_con_unknown`, `is_con_other`, `is_action_left_at_site`, `is_action_immediate_release_at_site`, `is_action_relocated`, `is_action_died_at_site`, `is_action_died_during_transport`, `is_action_euthanized_at_site`, `is_action_euthanized_during_transport`, `is_action_transferred_to_rehab`, `is_action_other`, `relocated_location`, `volunteer_id` FROM `report` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `responder`, `call_date`, `call_from`, `caller_name`, `caller_phone_number`, `call_location`, `call_species`, `when_first_seen`, `call_comments`, `call_referred_to`, `call_condition`, `investigator_support`, `investigation_date`, `investigation_lat_location`, `investigation_lon_location`, `investigation_location_accuracy`, `investigation_physical_location`, `investigation_species`, `animal_not_found`, `investigation_condition`, `tags`, `disposition`, `seal_pickup`, `sex`, `weight`, `straight_length`, `contour_length`, `girth`, `investigation_comments`, `is_photo_taken`, `is_con_sick`, `is_con_injured`, `is_con_out_of_habitat`, `is_con_deemed_releasable`, `is_con_abandoned`, `is_con_inaccessible`, `is_con_location_hazard_to_animal`, `is_con_location_hazard_to_humans`, `is_con_unknown`, `is_con_other`, `is_action_left_at_site`, `is_action_immediate_release_at_site`, `is_action_relocated`, `is_action_died_at_site`, `is_action_died_during_transport`, `is_action_euthanized_at_site`, `is_action_euthanized_during_transport`, `is_action_transferred_to_rehab`, `is_action_other`, `relocated_location`, `volunteer_id` FROM `report` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -875,32 +883,90 @@ abstract class BaseReportQuery extends ModelCriteria
     }
 
     /**
-     * Filter the query on the investigation_lat_lon_location column
+     * Filter the query on the investigation_lat_location column
      *
      * Example usage:
      * <code>
-     * $query->filterByInvestigationLatLonLocation('fooValue');   // WHERE investigation_lat_lon_location = 'fooValue'
-     * $query->filterByInvestigationLatLonLocation('%fooValue%'); // WHERE investigation_lat_lon_location LIKE '%fooValue%'
+     * $query->filterByInvestigationLatLocation('fooValue');   // WHERE investigation_lat_location = 'fooValue'
+     * $query->filterByInvestigationLatLocation('%fooValue%'); // WHERE investigation_lat_location LIKE '%fooValue%'
      * </code>
      *
-     * @param     string $investigationLatLonLocation The value to use as filter.
+     * @param     string $investigationLatLocation The value to use as filter.
      *              Accepts wildcards (* and % trigger a LIKE)
      * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
      *
      * @return ReportQuery The current query, for fluid interface
      */
-    public function filterByInvestigationLatLonLocation($investigationLatLonLocation = null, $comparison = null)
+    public function filterByInvestigationLatLocation($investigationLatLocation = null, $comparison = null)
     {
         if (null === $comparison) {
-            if (is_array($investigationLatLonLocation)) {
+            if (is_array($investigationLatLocation)) {
                 $comparison = Criteria::IN;
-            } elseif (preg_match('/[\%\*]/', $investigationLatLonLocation)) {
-                $investigationLatLonLocation = str_replace('*', '%', $investigationLatLonLocation);
+            } elseif (preg_match('/[\%\*]/', $investigationLatLocation)) {
+                $investigationLatLocation = str_replace('*', '%', $investigationLatLocation);
                 $comparison = Criteria::LIKE;
             }
         }
 
-        return $this->addUsingAlias(ReportPeer::INVESTIGATION_LAT_LON_LOCATION, $investigationLatLonLocation, $comparison);
+        return $this->addUsingAlias(ReportPeer::INVESTIGATION_LAT_LOCATION, $investigationLatLocation, $comparison);
+    }
+
+    /**
+     * Filter the query on the investigation_lon_location column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByInvestigationLonLocation('fooValue');   // WHERE investigation_lon_location = 'fooValue'
+     * $query->filterByInvestigationLonLocation('%fooValue%'); // WHERE investigation_lon_location LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $investigationLonLocation The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ReportQuery The current query, for fluid interface
+     */
+    public function filterByInvestigationLonLocation($investigationLonLocation = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($investigationLonLocation)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $investigationLonLocation)) {
+                $investigationLonLocation = str_replace('*', '%', $investigationLonLocation);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ReportPeer::INVESTIGATION_LON_LOCATION, $investigationLonLocation, $comparison);
+    }
+
+    /**
+     * Filter the query on the investigation_location_accuracy column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByInvestigationLocationAccuracy('fooValue');   // WHERE investigation_location_accuracy = 'fooValue'
+     * $query->filterByInvestigationLocationAccuracy('%fooValue%'); // WHERE investigation_location_accuracy LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $investigationLocationAccuracy The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ReportQuery The current query, for fluid interface
+     */
+    public function filterByInvestigationLocationAccuracy($investigationLocationAccuracy = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($investigationLocationAccuracy)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $investigationLocationAccuracy)) {
+                $investigationLocationAccuracy = str_replace('*', '%', $investigationLocationAccuracy);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ReportPeer::INVESTIGATION_LOCATION_ACCURACY, $investigationLocationAccuracy, $comparison);
     }
 
     /**

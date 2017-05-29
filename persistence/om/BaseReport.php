@@ -114,10 +114,22 @@ abstract class BaseReport extends BaseObject implements Persistent
     protected $investigation_date;
 
     /**
-     * The value for the investigation_lat_lon_location field.
+     * The value for the investigation_lat_location field.
      * @var        string
      */
-    protected $investigation_lat_lon_location;
+    protected $investigation_lat_location;
+
+    /**
+     * The value for the investigation_lon_location field.
+     * @var        string
+     */
+    protected $investigation_lon_location;
+
+    /**
+     * The value for the investigation_location_accuracy field.
+     * @var        string
+     */
+    protected $investigation_location_accuracy;
 
     /**
      * The value for the investigation_physical_location field.
@@ -603,14 +615,36 @@ abstract class BaseReport extends BaseObject implements Persistent
     }
 
     /**
-     * Get the [investigation_lat_lon_location] column value.
+     * Get the [investigation_lat_location] column value.
      *
      * @return string
      */
-    public function getInvestigationLatLonLocation()
+    public function getInvestigationLatLocation()
     {
 
-        return $this->investigation_lat_lon_location;
+        return $this->investigation_lat_location;
+    }
+
+    /**
+     * Get the [investigation_lon_location] column value.
+     *
+     * @return string
+     */
+    public function getInvestigationLonLocation()
+    {
+
+        return $this->investigation_lon_location;
+    }
+
+    /**
+     * Get the [investigation_location_accuracy] column value.
+     *
+     * @return string
+     */
+    public function getInvestigationLocationAccuracy()
+    {
+
+        return $this->investigation_location_accuracy;
     }
 
     /**
@@ -1297,25 +1331,67 @@ abstract class BaseReport extends BaseObject implements Persistent
     } // setInvestigationDate()
 
     /**
-     * Set the value of [investigation_lat_lon_location] column.
+     * Set the value of [investigation_lat_location] column.
      *
      * @param  string $v new value
      * @return Report The current object (for fluent API support)
      */
-    public function setInvestigationLatLonLocation($v)
+    public function setInvestigationLatLocation($v)
     {
         if ($v !== null) {
             $v = (string) $v;
         }
 
-        if ($this->investigation_lat_lon_location !== $v) {
-            $this->investigation_lat_lon_location = $v;
-            $this->modifiedColumns[] = ReportPeer::INVESTIGATION_LAT_LON_LOCATION;
+        if ($this->investigation_lat_location !== $v) {
+            $this->investigation_lat_location = $v;
+            $this->modifiedColumns[] = ReportPeer::INVESTIGATION_LAT_LOCATION;
         }
 
 
         return $this;
-    } // setInvestigationLatLonLocation()
+    } // setInvestigationLatLocation()
+
+    /**
+     * Set the value of [investigation_lon_location] column.
+     *
+     * @param  string $v new value
+     * @return Report The current object (for fluent API support)
+     */
+    public function setInvestigationLonLocation($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->investigation_lon_location !== $v) {
+            $this->investigation_lon_location = $v;
+            $this->modifiedColumns[] = ReportPeer::INVESTIGATION_LON_LOCATION;
+        }
+
+
+        return $this;
+    } // setInvestigationLonLocation()
+
+    /**
+     * Set the value of [investigation_location_accuracy] column.
+     *
+     * @param  string $v new value
+     * @return Report The current object (for fluent API support)
+     */
+    public function setInvestigationLocationAccuracy($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->investigation_location_accuracy !== $v) {
+            $this->investigation_location_accuracy = $v;
+            $this->modifiedColumns[] = ReportPeer::INVESTIGATION_LOCATION_ACCURACY;
+        }
+
+
+        return $this;
+    } // setInvestigationLocationAccuracy()
 
     /**
      * Set the value of [investigation_physical_location] column.
@@ -2270,42 +2346,44 @@ abstract class BaseReport extends BaseObject implements Persistent
             $this->call_condition = ($row[$startcol + 11] !== null) ? (string) $row[$startcol + 11] : null;
             $this->investigator_support = ($row[$startcol + 12] !== null) ? (string) $row[$startcol + 12] : null;
             $this->investigation_date = ($row[$startcol + 13] !== null) ? (string) $row[$startcol + 13] : null;
-            $this->investigation_lat_lon_location = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
-            $this->investigation_physical_location = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
-            $this->investigation_species = ($row[$startcol + 16] !== null) ? (string) $row[$startcol + 16] : null;
-            $this->animal_not_found = ($row[$startcol + 17] !== null) ? (boolean) $row[$startcol + 17] : null;
-            $this->investigation_condition = ($row[$startcol + 18] !== null) ? (string) $row[$startcol + 18] : null;
-            $this->tags = ($row[$startcol + 19] !== null) ? (string) $row[$startcol + 19] : null;
-            $this->disposition = ($row[$startcol + 20] !== null) ? (string) $row[$startcol + 20] : null;
-            $this->seal_pickup = ($row[$startcol + 21] !== null) ? (string) $row[$startcol + 21] : null;
-            $this->sex = ($row[$startcol + 22] !== null) ? (string) $row[$startcol + 22] : null;
-            $this->weight = ($row[$startcol + 23] !== null) ? (double) $row[$startcol + 23] : null;
-            $this->straight_length = ($row[$startcol + 24] !== null) ? (double) $row[$startcol + 24] : null;
-            $this->contour_length = ($row[$startcol + 25] !== null) ? (double) $row[$startcol + 25] : null;
-            $this->girth = ($row[$startcol + 26] !== null) ? (double) $row[$startcol + 26] : null;
-            $this->investigation_comments = ($row[$startcol + 27] !== null) ? (string) $row[$startcol + 27] : null;
-            $this->is_photo_taken = ($row[$startcol + 28] !== null) ? (boolean) $row[$startcol + 28] : null;
-            $this->is_con_sick = ($row[$startcol + 29] !== null) ? (boolean) $row[$startcol + 29] : null;
-            $this->is_con_injured = ($row[$startcol + 30] !== null) ? (boolean) $row[$startcol + 30] : null;
-            $this->is_con_out_of_habitat = ($row[$startcol + 31] !== null) ? (boolean) $row[$startcol + 31] : null;
-            $this->is_con_deemed_releasable = ($row[$startcol + 32] !== null) ? (boolean) $row[$startcol + 32] : null;
-            $this->is_con_abandoned = ($row[$startcol + 33] !== null) ? (boolean) $row[$startcol + 33] : null;
-            $this->is_con_inaccessible = ($row[$startcol + 34] !== null) ? (boolean) $row[$startcol + 34] : null;
-            $this->is_con_location_hazard_to_animal = ($row[$startcol + 35] !== null) ? (boolean) $row[$startcol + 35] : null;
-            $this->is_con_location_hazard_to_humans = ($row[$startcol + 36] !== null) ? (boolean) $row[$startcol + 36] : null;
-            $this->is_con_unknown = ($row[$startcol + 37] !== null) ? (boolean) $row[$startcol + 37] : null;
-            $this->is_con_other = ($row[$startcol + 38] !== null) ? (boolean) $row[$startcol + 38] : null;
-            $this->is_action_left_at_site = ($row[$startcol + 39] !== null) ? (boolean) $row[$startcol + 39] : null;
-            $this->is_action_immediate_release_at_site = ($row[$startcol + 40] !== null) ? (boolean) $row[$startcol + 40] : null;
-            $this->is_action_relocated = ($row[$startcol + 41] !== null) ? (boolean) $row[$startcol + 41] : null;
-            $this->is_action_died_at_site = ($row[$startcol + 42] !== null) ? (boolean) $row[$startcol + 42] : null;
-            $this->is_action_died_during_transport = ($row[$startcol + 43] !== null) ? (boolean) $row[$startcol + 43] : null;
-            $this->is_action_euthanized_at_site = ($row[$startcol + 44] !== null) ? (boolean) $row[$startcol + 44] : null;
-            $this->is_action_euthanized_during_transport = ($row[$startcol + 45] !== null) ? (boolean) $row[$startcol + 45] : null;
-            $this->is_action_transferred_to_rehab = ($row[$startcol + 46] !== null) ? (boolean) $row[$startcol + 46] : null;
-            $this->is_action_other = ($row[$startcol + 47] !== null) ? (boolean) $row[$startcol + 47] : null;
-            $this->relocated_location = ($row[$startcol + 48] !== null) ? (string) $row[$startcol + 48] : null;
-            $this->volunteer_id = ($row[$startcol + 49] !== null) ? (int) $row[$startcol + 49] : null;
+            $this->investigation_lat_location = ($row[$startcol + 14] !== null) ? (string) $row[$startcol + 14] : null;
+            $this->investigation_lon_location = ($row[$startcol + 15] !== null) ? (string) $row[$startcol + 15] : null;
+            $this->investigation_location_accuracy = ($row[$startcol + 16] !== null) ? (string) $row[$startcol + 16] : null;
+            $this->investigation_physical_location = ($row[$startcol + 17] !== null) ? (string) $row[$startcol + 17] : null;
+            $this->investigation_species = ($row[$startcol + 18] !== null) ? (string) $row[$startcol + 18] : null;
+            $this->animal_not_found = ($row[$startcol + 19] !== null) ? (boolean) $row[$startcol + 19] : null;
+            $this->investigation_condition = ($row[$startcol + 20] !== null) ? (string) $row[$startcol + 20] : null;
+            $this->tags = ($row[$startcol + 21] !== null) ? (string) $row[$startcol + 21] : null;
+            $this->disposition = ($row[$startcol + 22] !== null) ? (string) $row[$startcol + 22] : null;
+            $this->seal_pickup = ($row[$startcol + 23] !== null) ? (string) $row[$startcol + 23] : null;
+            $this->sex = ($row[$startcol + 24] !== null) ? (string) $row[$startcol + 24] : null;
+            $this->weight = ($row[$startcol + 25] !== null) ? (double) $row[$startcol + 25] : null;
+            $this->straight_length = ($row[$startcol + 26] !== null) ? (double) $row[$startcol + 26] : null;
+            $this->contour_length = ($row[$startcol + 27] !== null) ? (double) $row[$startcol + 27] : null;
+            $this->girth = ($row[$startcol + 28] !== null) ? (double) $row[$startcol + 28] : null;
+            $this->investigation_comments = ($row[$startcol + 29] !== null) ? (string) $row[$startcol + 29] : null;
+            $this->is_photo_taken = ($row[$startcol + 30] !== null) ? (boolean) $row[$startcol + 30] : null;
+            $this->is_con_sick = ($row[$startcol + 31] !== null) ? (boolean) $row[$startcol + 31] : null;
+            $this->is_con_injured = ($row[$startcol + 32] !== null) ? (boolean) $row[$startcol + 32] : null;
+            $this->is_con_out_of_habitat = ($row[$startcol + 33] !== null) ? (boolean) $row[$startcol + 33] : null;
+            $this->is_con_deemed_releasable = ($row[$startcol + 34] !== null) ? (boolean) $row[$startcol + 34] : null;
+            $this->is_con_abandoned = ($row[$startcol + 35] !== null) ? (boolean) $row[$startcol + 35] : null;
+            $this->is_con_inaccessible = ($row[$startcol + 36] !== null) ? (boolean) $row[$startcol + 36] : null;
+            $this->is_con_location_hazard_to_animal = ($row[$startcol + 37] !== null) ? (boolean) $row[$startcol + 37] : null;
+            $this->is_con_location_hazard_to_humans = ($row[$startcol + 38] !== null) ? (boolean) $row[$startcol + 38] : null;
+            $this->is_con_unknown = ($row[$startcol + 39] !== null) ? (boolean) $row[$startcol + 39] : null;
+            $this->is_con_other = ($row[$startcol + 40] !== null) ? (boolean) $row[$startcol + 40] : null;
+            $this->is_action_left_at_site = ($row[$startcol + 41] !== null) ? (boolean) $row[$startcol + 41] : null;
+            $this->is_action_immediate_release_at_site = ($row[$startcol + 42] !== null) ? (boolean) $row[$startcol + 42] : null;
+            $this->is_action_relocated = ($row[$startcol + 43] !== null) ? (boolean) $row[$startcol + 43] : null;
+            $this->is_action_died_at_site = ($row[$startcol + 44] !== null) ? (boolean) $row[$startcol + 44] : null;
+            $this->is_action_died_during_transport = ($row[$startcol + 45] !== null) ? (boolean) $row[$startcol + 45] : null;
+            $this->is_action_euthanized_at_site = ($row[$startcol + 46] !== null) ? (boolean) $row[$startcol + 46] : null;
+            $this->is_action_euthanized_during_transport = ($row[$startcol + 47] !== null) ? (boolean) $row[$startcol + 47] : null;
+            $this->is_action_transferred_to_rehab = ($row[$startcol + 48] !== null) ? (boolean) $row[$startcol + 48] : null;
+            $this->is_action_other = ($row[$startcol + 49] !== null) ? (boolean) $row[$startcol + 49] : null;
+            $this->relocated_location = ($row[$startcol + 50] !== null) ? (string) $row[$startcol + 50] : null;
+            $this->volunteer_id = ($row[$startcol + 51] !== null) ? (int) $row[$startcol + 51] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -2315,7 +2393,7 @@ abstract class BaseReport extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 50; // 50 = ReportPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 52; // 52 = ReportPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Report object", $e);
@@ -2642,8 +2720,14 @@ abstract class BaseReport extends BaseObject implements Persistent
         if ($this->isColumnModified(ReportPeer::INVESTIGATION_DATE)) {
             $modifiedColumns[':p' . $index++]  = '`investigation_date`';
         }
-        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LAT_LON_LOCATION)) {
-            $modifiedColumns[':p' . $index++]  = '`investigation_lat_lon_location`';
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LAT_LOCATION)) {
+            $modifiedColumns[':p' . $index++]  = '`investigation_lat_location`';
+        }
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LON_LOCATION)) {
+            $modifiedColumns[':p' . $index++]  = '`investigation_lon_location`';
+        }
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LOCATION_ACCURACY)) {
+            $modifiedColumns[':p' . $index++]  = '`investigation_location_accuracy`';
         }
         if ($this->isColumnModified(ReportPeer::INVESTIGATION_PHYSICAL_LOCATION)) {
             $modifiedColumns[':p' . $index++]  = '`investigation_physical_location`';
@@ -2803,8 +2887,14 @@ abstract class BaseReport extends BaseObject implements Persistent
                     case '`investigation_date`':
                         $stmt->bindValue($identifier, $this->investigation_date, PDO::PARAM_STR);
                         break;
-                    case '`investigation_lat_lon_location`':
-                        $stmt->bindValue($identifier, $this->investigation_lat_lon_location, PDO::PARAM_STR);
+                    case '`investigation_lat_location`':
+                        $stmt->bindValue($identifier, $this->investigation_lat_location, PDO::PARAM_STR);
+                        break;
+                    case '`investigation_lon_location`':
+                        $stmt->bindValue($identifier, $this->investigation_lon_location, PDO::PARAM_STR);
+                        break;
+                    case '`investigation_location_accuracy`':
+                        $stmt->bindValue($identifier, $this->investigation_location_accuracy, PDO::PARAM_STR);
                         break;
                     case '`investigation_physical_location`':
                         $stmt->bindValue($identifier, $this->investigation_physical_location, PDO::PARAM_STR);
@@ -3124,111 +3214,117 @@ abstract class BaseReport extends BaseObject implements Persistent
                 return $this->getInvestigationDate();
                 break;
             case 14:
-                return $this->getInvestigationLatLonLocation();
+                return $this->getInvestigationLatLocation();
                 break;
             case 15:
-                return $this->getInvestigationPhysicalLocation();
+                return $this->getInvestigationLonLocation();
                 break;
             case 16:
-                return $this->getInvestigationSpecies();
+                return $this->getInvestigationLocationAccuracy();
                 break;
             case 17:
-                return $this->getAnimalNotFound();
+                return $this->getInvestigationPhysicalLocation();
                 break;
             case 18:
-                return $this->getInvestigationCondition();
+                return $this->getInvestigationSpecies();
                 break;
             case 19:
-                return $this->getTags();
+                return $this->getAnimalNotFound();
                 break;
             case 20:
-                return $this->getDisposition();
+                return $this->getInvestigationCondition();
                 break;
             case 21:
-                return $this->getSealPickup();
+                return $this->getTags();
                 break;
             case 22:
-                return $this->getSex();
+                return $this->getDisposition();
                 break;
             case 23:
-                return $this->getWeight();
+                return $this->getSealPickup();
                 break;
             case 24:
-                return $this->getStraightLength();
+                return $this->getSex();
                 break;
             case 25:
-                return $this->getContourLength();
+                return $this->getWeight();
                 break;
             case 26:
-                return $this->getGirth();
+                return $this->getStraightLength();
                 break;
             case 27:
-                return $this->getInvestigationComments();
+                return $this->getContourLength();
                 break;
             case 28:
-                return $this->getIsPhotoTaken();
+                return $this->getGirth();
                 break;
             case 29:
-                return $this->getIsConSick();
+                return $this->getInvestigationComments();
                 break;
             case 30:
-                return $this->getIsConInjured();
+                return $this->getIsPhotoTaken();
                 break;
             case 31:
-                return $this->getIsConOutOfHabitat();
+                return $this->getIsConSick();
                 break;
             case 32:
-                return $this->getIsConDeemedReleasable();
+                return $this->getIsConInjured();
                 break;
             case 33:
-                return $this->getIsConAbandoned();
+                return $this->getIsConOutOfHabitat();
                 break;
             case 34:
-                return $this->getIsConInaccessible();
+                return $this->getIsConDeemedReleasable();
                 break;
             case 35:
-                return $this->getIsConLocationHazardToAnimal();
+                return $this->getIsConAbandoned();
                 break;
             case 36:
-                return $this->getIsConLocationHazardToHumans();
+                return $this->getIsConInaccessible();
                 break;
             case 37:
-                return $this->getIsConUnknown();
+                return $this->getIsConLocationHazardToAnimal();
                 break;
             case 38:
-                return $this->getIsConOther();
+                return $this->getIsConLocationHazardToHumans();
                 break;
             case 39:
-                return $this->getIsActionLeftAtSite();
+                return $this->getIsConUnknown();
                 break;
             case 40:
-                return $this->getIsActionImmediateReleaseAtSite();
+                return $this->getIsConOther();
                 break;
             case 41:
-                return $this->getIsActionRelocated();
+                return $this->getIsActionLeftAtSite();
                 break;
             case 42:
-                return $this->getIsActionDiedAtSite();
+                return $this->getIsActionImmediateReleaseAtSite();
                 break;
             case 43:
-                return $this->getIsActionDiedDuringTransport();
+                return $this->getIsActionRelocated();
                 break;
             case 44:
-                return $this->getIsActionEuthanizedAtSite();
+                return $this->getIsActionDiedAtSite();
                 break;
             case 45:
-                return $this->getIsActionEuthanizedDuringTransport();
+                return $this->getIsActionDiedDuringTransport();
                 break;
             case 46:
-                return $this->getIsActionTransferredToRehab();
+                return $this->getIsActionEuthanizedAtSite();
                 break;
             case 47:
-                return $this->getIsActionOther();
+                return $this->getIsActionEuthanizedDuringTransport();
                 break;
             case 48:
-                return $this->getRelocatedLocation();
+                return $this->getIsActionTransferredToRehab();
                 break;
             case 49:
+                return $this->getIsActionOther();
+                break;
+            case 50:
+                return $this->getRelocatedLocation();
+                break;
+            case 51:
                 return $this->getVolunteerId();
                 break;
             default:
@@ -3274,42 +3370,44 @@ abstract class BaseReport extends BaseObject implements Persistent
             $keys[11] => $this->getCallCondition(),
             $keys[12] => $this->getInvestigatorSupport(),
             $keys[13] => $this->getInvestigationDate(),
-            $keys[14] => $this->getInvestigationLatLonLocation(),
-            $keys[15] => $this->getInvestigationPhysicalLocation(),
-            $keys[16] => $this->getInvestigationSpecies(),
-            $keys[17] => $this->getAnimalNotFound(),
-            $keys[18] => $this->getInvestigationCondition(),
-            $keys[19] => $this->getTags(),
-            $keys[20] => $this->getDisposition(),
-            $keys[21] => $this->getSealPickup(),
-            $keys[22] => $this->getSex(),
-            $keys[23] => $this->getWeight(),
-            $keys[24] => $this->getStraightLength(),
-            $keys[25] => $this->getContourLength(),
-            $keys[26] => $this->getGirth(),
-            $keys[27] => $this->getInvestigationComments(),
-            $keys[28] => $this->getIsPhotoTaken(),
-            $keys[29] => $this->getIsConSick(),
-            $keys[30] => $this->getIsConInjured(),
-            $keys[31] => $this->getIsConOutOfHabitat(),
-            $keys[32] => $this->getIsConDeemedReleasable(),
-            $keys[33] => $this->getIsConAbandoned(),
-            $keys[34] => $this->getIsConInaccessible(),
-            $keys[35] => $this->getIsConLocationHazardToAnimal(),
-            $keys[36] => $this->getIsConLocationHazardToHumans(),
-            $keys[37] => $this->getIsConUnknown(),
-            $keys[38] => $this->getIsConOther(),
-            $keys[39] => $this->getIsActionLeftAtSite(),
-            $keys[40] => $this->getIsActionImmediateReleaseAtSite(),
-            $keys[41] => $this->getIsActionRelocated(),
-            $keys[42] => $this->getIsActionDiedAtSite(),
-            $keys[43] => $this->getIsActionDiedDuringTransport(),
-            $keys[44] => $this->getIsActionEuthanizedAtSite(),
-            $keys[45] => $this->getIsActionEuthanizedDuringTransport(),
-            $keys[46] => $this->getIsActionTransferredToRehab(),
-            $keys[47] => $this->getIsActionOther(),
-            $keys[48] => $this->getRelocatedLocation(),
-            $keys[49] => $this->getVolunteerId(),
+            $keys[14] => $this->getInvestigationLatLocation(),
+            $keys[15] => $this->getInvestigationLonLocation(),
+            $keys[16] => $this->getInvestigationLocationAccuracy(),
+            $keys[17] => $this->getInvestigationPhysicalLocation(),
+            $keys[18] => $this->getInvestigationSpecies(),
+            $keys[19] => $this->getAnimalNotFound(),
+            $keys[20] => $this->getInvestigationCondition(),
+            $keys[21] => $this->getTags(),
+            $keys[22] => $this->getDisposition(),
+            $keys[23] => $this->getSealPickup(),
+            $keys[24] => $this->getSex(),
+            $keys[25] => $this->getWeight(),
+            $keys[26] => $this->getStraightLength(),
+            $keys[27] => $this->getContourLength(),
+            $keys[28] => $this->getGirth(),
+            $keys[29] => $this->getInvestigationComments(),
+            $keys[30] => $this->getIsPhotoTaken(),
+            $keys[31] => $this->getIsConSick(),
+            $keys[32] => $this->getIsConInjured(),
+            $keys[33] => $this->getIsConOutOfHabitat(),
+            $keys[34] => $this->getIsConDeemedReleasable(),
+            $keys[35] => $this->getIsConAbandoned(),
+            $keys[36] => $this->getIsConInaccessible(),
+            $keys[37] => $this->getIsConLocationHazardToAnimal(),
+            $keys[38] => $this->getIsConLocationHazardToHumans(),
+            $keys[39] => $this->getIsConUnknown(),
+            $keys[40] => $this->getIsConOther(),
+            $keys[41] => $this->getIsActionLeftAtSite(),
+            $keys[42] => $this->getIsActionImmediateReleaseAtSite(),
+            $keys[43] => $this->getIsActionRelocated(),
+            $keys[44] => $this->getIsActionDiedAtSite(),
+            $keys[45] => $this->getIsActionDiedDuringTransport(),
+            $keys[46] => $this->getIsActionEuthanizedAtSite(),
+            $keys[47] => $this->getIsActionEuthanizedDuringTransport(),
+            $keys[48] => $this->getIsActionTransferredToRehab(),
+            $keys[49] => $this->getIsActionOther(),
+            $keys[50] => $this->getRelocatedLocation(),
+            $keys[51] => $this->getVolunteerId(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -3406,111 +3504,117 @@ abstract class BaseReport extends BaseObject implements Persistent
                 $this->setInvestigationDate($value);
                 break;
             case 14:
-                $this->setInvestigationLatLonLocation($value);
+                $this->setInvestigationLatLocation($value);
                 break;
             case 15:
-                $this->setInvestigationPhysicalLocation($value);
+                $this->setInvestigationLonLocation($value);
                 break;
             case 16:
-                $this->setInvestigationSpecies($value);
+                $this->setInvestigationLocationAccuracy($value);
                 break;
             case 17:
-                $this->setAnimalNotFound($value);
+                $this->setInvestigationPhysicalLocation($value);
                 break;
             case 18:
-                $this->setInvestigationCondition($value);
+                $this->setInvestigationSpecies($value);
                 break;
             case 19:
-                $this->setTags($value);
+                $this->setAnimalNotFound($value);
                 break;
             case 20:
-                $this->setDisposition($value);
+                $this->setInvestigationCondition($value);
                 break;
             case 21:
-                $this->setSealPickup($value);
+                $this->setTags($value);
                 break;
             case 22:
-                $this->setSex($value);
+                $this->setDisposition($value);
                 break;
             case 23:
-                $this->setWeight($value);
+                $this->setSealPickup($value);
                 break;
             case 24:
-                $this->setStraightLength($value);
+                $this->setSex($value);
                 break;
             case 25:
-                $this->setContourLength($value);
+                $this->setWeight($value);
                 break;
             case 26:
-                $this->setGirth($value);
+                $this->setStraightLength($value);
                 break;
             case 27:
-                $this->setInvestigationComments($value);
+                $this->setContourLength($value);
                 break;
             case 28:
-                $this->setIsPhotoTaken($value);
+                $this->setGirth($value);
                 break;
             case 29:
-                $this->setIsConSick($value);
+                $this->setInvestigationComments($value);
                 break;
             case 30:
-                $this->setIsConInjured($value);
+                $this->setIsPhotoTaken($value);
                 break;
             case 31:
-                $this->setIsConOutOfHabitat($value);
+                $this->setIsConSick($value);
                 break;
             case 32:
-                $this->setIsConDeemedReleasable($value);
+                $this->setIsConInjured($value);
                 break;
             case 33:
-                $this->setIsConAbandoned($value);
+                $this->setIsConOutOfHabitat($value);
                 break;
             case 34:
-                $this->setIsConInaccessible($value);
+                $this->setIsConDeemedReleasable($value);
                 break;
             case 35:
-                $this->setIsConLocationHazardToAnimal($value);
+                $this->setIsConAbandoned($value);
                 break;
             case 36:
-                $this->setIsConLocationHazardToHumans($value);
+                $this->setIsConInaccessible($value);
                 break;
             case 37:
-                $this->setIsConUnknown($value);
+                $this->setIsConLocationHazardToAnimal($value);
                 break;
             case 38:
-                $this->setIsConOther($value);
+                $this->setIsConLocationHazardToHumans($value);
                 break;
             case 39:
-                $this->setIsActionLeftAtSite($value);
+                $this->setIsConUnknown($value);
                 break;
             case 40:
-                $this->setIsActionImmediateReleaseAtSite($value);
+                $this->setIsConOther($value);
                 break;
             case 41:
-                $this->setIsActionRelocated($value);
+                $this->setIsActionLeftAtSite($value);
                 break;
             case 42:
-                $this->setIsActionDiedAtSite($value);
+                $this->setIsActionImmediateReleaseAtSite($value);
                 break;
             case 43:
-                $this->setIsActionDiedDuringTransport($value);
+                $this->setIsActionRelocated($value);
                 break;
             case 44:
-                $this->setIsActionEuthanizedAtSite($value);
+                $this->setIsActionDiedAtSite($value);
                 break;
             case 45:
-                $this->setIsActionEuthanizedDuringTransport($value);
+                $this->setIsActionDiedDuringTransport($value);
                 break;
             case 46:
-                $this->setIsActionTransferredToRehab($value);
+                $this->setIsActionEuthanizedAtSite($value);
                 break;
             case 47:
-                $this->setIsActionOther($value);
+                $this->setIsActionEuthanizedDuringTransport($value);
                 break;
             case 48:
-                $this->setRelocatedLocation($value);
+                $this->setIsActionTransferredToRehab($value);
                 break;
             case 49:
+                $this->setIsActionOther($value);
+                break;
+            case 50:
+                $this->setRelocatedLocation($value);
+                break;
+            case 51:
                 $this->setVolunteerId($value);
                 break;
         } // switch()
@@ -3551,42 +3655,44 @@ abstract class BaseReport extends BaseObject implements Persistent
         if (array_key_exists($keys[11], $arr)) $this->setCallCondition($arr[$keys[11]]);
         if (array_key_exists($keys[12], $arr)) $this->setInvestigatorSupport($arr[$keys[12]]);
         if (array_key_exists($keys[13], $arr)) $this->setInvestigationDate($arr[$keys[13]]);
-        if (array_key_exists($keys[14], $arr)) $this->setInvestigationLatLonLocation($arr[$keys[14]]);
-        if (array_key_exists($keys[15], $arr)) $this->setInvestigationPhysicalLocation($arr[$keys[15]]);
-        if (array_key_exists($keys[16], $arr)) $this->setInvestigationSpecies($arr[$keys[16]]);
-        if (array_key_exists($keys[17], $arr)) $this->setAnimalNotFound($arr[$keys[17]]);
-        if (array_key_exists($keys[18], $arr)) $this->setInvestigationCondition($arr[$keys[18]]);
-        if (array_key_exists($keys[19], $arr)) $this->setTags($arr[$keys[19]]);
-        if (array_key_exists($keys[20], $arr)) $this->setDisposition($arr[$keys[20]]);
-        if (array_key_exists($keys[21], $arr)) $this->setSealPickup($arr[$keys[21]]);
-        if (array_key_exists($keys[22], $arr)) $this->setSex($arr[$keys[22]]);
-        if (array_key_exists($keys[23], $arr)) $this->setWeight($arr[$keys[23]]);
-        if (array_key_exists($keys[24], $arr)) $this->setStraightLength($arr[$keys[24]]);
-        if (array_key_exists($keys[25], $arr)) $this->setContourLength($arr[$keys[25]]);
-        if (array_key_exists($keys[26], $arr)) $this->setGirth($arr[$keys[26]]);
-        if (array_key_exists($keys[27], $arr)) $this->setInvestigationComments($arr[$keys[27]]);
-        if (array_key_exists($keys[28], $arr)) $this->setIsPhotoTaken($arr[$keys[28]]);
-        if (array_key_exists($keys[29], $arr)) $this->setIsConSick($arr[$keys[29]]);
-        if (array_key_exists($keys[30], $arr)) $this->setIsConInjured($arr[$keys[30]]);
-        if (array_key_exists($keys[31], $arr)) $this->setIsConOutOfHabitat($arr[$keys[31]]);
-        if (array_key_exists($keys[32], $arr)) $this->setIsConDeemedReleasable($arr[$keys[32]]);
-        if (array_key_exists($keys[33], $arr)) $this->setIsConAbandoned($arr[$keys[33]]);
-        if (array_key_exists($keys[34], $arr)) $this->setIsConInaccessible($arr[$keys[34]]);
-        if (array_key_exists($keys[35], $arr)) $this->setIsConLocationHazardToAnimal($arr[$keys[35]]);
-        if (array_key_exists($keys[36], $arr)) $this->setIsConLocationHazardToHumans($arr[$keys[36]]);
-        if (array_key_exists($keys[37], $arr)) $this->setIsConUnknown($arr[$keys[37]]);
-        if (array_key_exists($keys[38], $arr)) $this->setIsConOther($arr[$keys[38]]);
-        if (array_key_exists($keys[39], $arr)) $this->setIsActionLeftAtSite($arr[$keys[39]]);
-        if (array_key_exists($keys[40], $arr)) $this->setIsActionImmediateReleaseAtSite($arr[$keys[40]]);
-        if (array_key_exists($keys[41], $arr)) $this->setIsActionRelocated($arr[$keys[41]]);
-        if (array_key_exists($keys[42], $arr)) $this->setIsActionDiedAtSite($arr[$keys[42]]);
-        if (array_key_exists($keys[43], $arr)) $this->setIsActionDiedDuringTransport($arr[$keys[43]]);
-        if (array_key_exists($keys[44], $arr)) $this->setIsActionEuthanizedAtSite($arr[$keys[44]]);
-        if (array_key_exists($keys[45], $arr)) $this->setIsActionEuthanizedDuringTransport($arr[$keys[45]]);
-        if (array_key_exists($keys[46], $arr)) $this->setIsActionTransferredToRehab($arr[$keys[46]]);
-        if (array_key_exists($keys[47], $arr)) $this->setIsActionOther($arr[$keys[47]]);
-        if (array_key_exists($keys[48], $arr)) $this->setRelocatedLocation($arr[$keys[48]]);
-        if (array_key_exists($keys[49], $arr)) $this->setVolunteerId($arr[$keys[49]]);
+        if (array_key_exists($keys[14], $arr)) $this->setInvestigationLatLocation($arr[$keys[14]]);
+        if (array_key_exists($keys[15], $arr)) $this->setInvestigationLonLocation($arr[$keys[15]]);
+        if (array_key_exists($keys[16], $arr)) $this->setInvestigationLocationAccuracy($arr[$keys[16]]);
+        if (array_key_exists($keys[17], $arr)) $this->setInvestigationPhysicalLocation($arr[$keys[17]]);
+        if (array_key_exists($keys[18], $arr)) $this->setInvestigationSpecies($arr[$keys[18]]);
+        if (array_key_exists($keys[19], $arr)) $this->setAnimalNotFound($arr[$keys[19]]);
+        if (array_key_exists($keys[20], $arr)) $this->setInvestigationCondition($arr[$keys[20]]);
+        if (array_key_exists($keys[21], $arr)) $this->setTags($arr[$keys[21]]);
+        if (array_key_exists($keys[22], $arr)) $this->setDisposition($arr[$keys[22]]);
+        if (array_key_exists($keys[23], $arr)) $this->setSealPickup($arr[$keys[23]]);
+        if (array_key_exists($keys[24], $arr)) $this->setSex($arr[$keys[24]]);
+        if (array_key_exists($keys[25], $arr)) $this->setWeight($arr[$keys[25]]);
+        if (array_key_exists($keys[26], $arr)) $this->setStraightLength($arr[$keys[26]]);
+        if (array_key_exists($keys[27], $arr)) $this->setContourLength($arr[$keys[27]]);
+        if (array_key_exists($keys[28], $arr)) $this->setGirth($arr[$keys[28]]);
+        if (array_key_exists($keys[29], $arr)) $this->setInvestigationComments($arr[$keys[29]]);
+        if (array_key_exists($keys[30], $arr)) $this->setIsPhotoTaken($arr[$keys[30]]);
+        if (array_key_exists($keys[31], $arr)) $this->setIsConSick($arr[$keys[31]]);
+        if (array_key_exists($keys[32], $arr)) $this->setIsConInjured($arr[$keys[32]]);
+        if (array_key_exists($keys[33], $arr)) $this->setIsConOutOfHabitat($arr[$keys[33]]);
+        if (array_key_exists($keys[34], $arr)) $this->setIsConDeemedReleasable($arr[$keys[34]]);
+        if (array_key_exists($keys[35], $arr)) $this->setIsConAbandoned($arr[$keys[35]]);
+        if (array_key_exists($keys[36], $arr)) $this->setIsConInaccessible($arr[$keys[36]]);
+        if (array_key_exists($keys[37], $arr)) $this->setIsConLocationHazardToAnimal($arr[$keys[37]]);
+        if (array_key_exists($keys[38], $arr)) $this->setIsConLocationHazardToHumans($arr[$keys[38]]);
+        if (array_key_exists($keys[39], $arr)) $this->setIsConUnknown($arr[$keys[39]]);
+        if (array_key_exists($keys[40], $arr)) $this->setIsConOther($arr[$keys[40]]);
+        if (array_key_exists($keys[41], $arr)) $this->setIsActionLeftAtSite($arr[$keys[41]]);
+        if (array_key_exists($keys[42], $arr)) $this->setIsActionImmediateReleaseAtSite($arr[$keys[42]]);
+        if (array_key_exists($keys[43], $arr)) $this->setIsActionRelocated($arr[$keys[43]]);
+        if (array_key_exists($keys[44], $arr)) $this->setIsActionDiedAtSite($arr[$keys[44]]);
+        if (array_key_exists($keys[45], $arr)) $this->setIsActionDiedDuringTransport($arr[$keys[45]]);
+        if (array_key_exists($keys[46], $arr)) $this->setIsActionEuthanizedAtSite($arr[$keys[46]]);
+        if (array_key_exists($keys[47], $arr)) $this->setIsActionEuthanizedDuringTransport($arr[$keys[47]]);
+        if (array_key_exists($keys[48], $arr)) $this->setIsActionTransferredToRehab($arr[$keys[48]]);
+        if (array_key_exists($keys[49], $arr)) $this->setIsActionOther($arr[$keys[49]]);
+        if (array_key_exists($keys[50], $arr)) $this->setRelocatedLocation($arr[$keys[50]]);
+        if (array_key_exists($keys[51], $arr)) $this->setVolunteerId($arr[$keys[51]]);
     }
 
     /**
@@ -3612,7 +3718,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         if ($this->isColumnModified(ReportPeer::CALL_CONDITION)) $criteria->add(ReportPeer::CALL_CONDITION, $this->call_condition);
         if ($this->isColumnModified(ReportPeer::INVESTIGATOR_SUPPORT)) $criteria->add(ReportPeer::INVESTIGATOR_SUPPORT, $this->investigator_support);
         if ($this->isColumnModified(ReportPeer::INVESTIGATION_DATE)) $criteria->add(ReportPeer::INVESTIGATION_DATE, $this->investigation_date);
-        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LAT_LON_LOCATION)) $criteria->add(ReportPeer::INVESTIGATION_LAT_LON_LOCATION, $this->investigation_lat_lon_location);
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LAT_LOCATION)) $criteria->add(ReportPeer::INVESTIGATION_LAT_LOCATION, $this->investigation_lat_location);
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LON_LOCATION)) $criteria->add(ReportPeer::INVESTIGATION_LON_LOCATION, $this->investigation_lon_location);
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_LOCATION_ACCURACY)) $criteria->add(ReportPeer::INVESTIGATION_LOCATION_ACCURACY, $this->investigation_location_accuracy);
         if ($this->isColumnModified(ReportPeer::INVESTIGATION_PHYSICAL_LOCATION)) $criteria->add(ReportPeer::INVESTIGATION_PHYSICAL_LOCATION, $this->investigation_physical_location);
         if ($this->isColumnModified(ReportPeer::INVESTIGATION_SPECIES)) $criteria->add(ReportPeer::INVESTIGATION_SPECIES, $this->investigation_species);
         if ($this->isColumnModified(ReportPeer::ANIMAL_NOT_FOUND)) $criteria->add(ReportPeer::ANIMAL_NOT_FOUND, $this->animal_not_found);
@@ -3724,7 +3832,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         $copyObj->setCallCondition($this->getCallCondition());
         $copyObj->setInvestigatorSupport($this->getInvestigatorSupport());
         $copyObj->setInvestigationDate($this->getInvestigationDate());
-        $copyObj->setInvestigationLatLonLocation($this->getInvestigationLatLonLocation());
+        $copyObj->setInvestigationLatLocation($this->getInvestigationLatLocation());
+        $copyObj->setInvestigationLonLocation($this->getInvestigationLonLocation());
+        $copyObj->setInvestigationLocationAccuracy($this->getInvestigationLocationAccuracy());
         $copyObj->setInvestigationPhysicalLocation($this->getInvestigationPhysicalLocation());
         $copyObj->setInvestigationSpecies($this->getInvestigationSpecies());
         $copyObj->setAnimalNotFound($this->getAnimalNotFound());
@@ -4629,7 +4739,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         $this->call_condition = null;
         $this->investigator_support = null;
         $this->investigation_date = null;
-        $this->investigation_lat_lon_location = null;
+        $this->investigation_lat_location = null;
+        $this->investigation_lon_location = null;
+        $this->investigation_location_accuracy = null;
         $this->investigation_physical_location = null;
         $this->investigation_species = null;
         $this->animal_not_found = null;

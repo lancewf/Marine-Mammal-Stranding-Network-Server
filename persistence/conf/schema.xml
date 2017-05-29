@@ -17,7 +17,9 @@
         <column name="call_condition" type="varchar" size="100" description=""/>
         <column name="investigator_support" type="varchar" size="100" description=""/>
         <column name="investigation_date" type="timestamp" description=""/>
-        <column name="investigation_lat_lon_location" type="varchar" size="100" description=""/>
+        <column name="investigation_lat_location" type="varchar" size="100" description=""/>
+        <column name="investigation_lon_location" type="varchar" size="100" description=""/>
+        <column name="investigation_location_accuracy" type="varchar" size="100" description=""/>
         <column name="investigation_physical_location" type="varchar" size="100" description=""/>
         <column name="investigation_species" type="varchar" size="100" description=""/>
         <column name="animal_not_found" type="boolean" description=""/> 
