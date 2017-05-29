@@ -18,6 +18,9 @@ ALTER TABLE report ADD COLUMN is_action_euthanized_during_transport BOOLEAN DEFA
 ALTER TABLE report ADD COLUMN is_action_transferred_to_rehab BOOLEAN DEFAULT FALSE;
 ALTER TABLE report ADD COLUMN is_action_other BOOLEAN DEFAULT FALSE;
 ALTER TABLE report ADD COLUMN relocated_location VARCHAR(100) DEFAULT '';
+ALTER TABLE report ADD COLUMN investigation_lat_location VARCHAR(100) DEFAULT '';
+ALTER TABLE report ADD COLUMN investigation_lon_location VARCHAR(100) DEFAULT '';
+ALTER TABLE report ADD COLUMN investigation_location_accuracy VARCHAR(100) DEFAULT '';
 
 
 CREATE TABLE `report_human_interaction_section`

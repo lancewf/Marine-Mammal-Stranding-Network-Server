@@ -52,7 +52,9 @@ class ReportTableMap extends TableMap
         $this->addColumn('call_condition', 'CallCondition', 'VARCHAR', false, 100, null);
         $this->addColumn('investigator_support', 'InvestigatorSupport', 'VARCHAR', false, 100, null);
         $this->addColumn('investigation_date', 'InvestigationDate', 'TIMESTAMP', false, null, null);
-        $this->addColumn('investigation_lat_lon_location', 'InvestigationLatLonLocation', 'VARCHAR', false, 100, null);
+        $this->addColumn('investigation_lat_location', 'InvestigationLatLocation', 'VARCHAR', false, 100, null);
+        $this->addColumn('investigation_lon_location', 'InvestigationLonLocation', 'VARCHAR', false, 100, null);
+        $this->addColumn('investigation_location_accuracy', 'InvestigationLocationAccuracy', 'VARCHAR', false, 100, null);
         $this->addColumn('investigation_physical_location', 'InvestigationPhysicalLocation', 'VARCHAR', false, 100, null);
         $this->addColumn('investigation_species', 'InvestigationSpecies', 'VARCHAR', false, 100, null);
         $this->addColumn('animal_not_found', 'AnimalNotFound', 'BOOLEAN', false, 1, null);
