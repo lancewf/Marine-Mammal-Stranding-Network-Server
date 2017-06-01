@@ -14,9 +14,30 @@ body {
 
 p {
   text-align: justify;
-  font-size: 1em;
+  font-size: 75%;
   margin: 0.5em;
   padding: 10px;
+}
+
+.human_interaction {
+  width: 99%;
+  padding: 3px;
+  margin-bottom: 10px;
+}
+
+.human_interaction tr.r0 {
+  font-size: 75%;
+  background-color: #D1D0D1;
+}
+
+.human_interaction tr.r1 {
+  font-size: 75%;
+  background-color: #A1A0A1;
+}
+
+.human_interaction th {
+  font-size: 75%;
+  background-color: #D2F5D1;
 }
 
 .detail {
@@ -30,11 +51,25 @@ p {
 
 .detail td.label {
   width: 16%;
+  font-size: 75%;
   background-color: #D1D0D1;
 }
 
 .detail td.field {
   width: 33%;
+  font-size: 75%;
+  text-align: center;
+  background-color: #D2F5D1;
+}
+
+.detail td.label2 {
+  width: 16%;
+  font-size: 75%;
+  background-color: #D1D0D1;
+}
+.detail td.field2 {
+  width: 10px;
+  font-size: 50%;
   text-align: center;
   background-color: #D2F5D1;
 }
@@ -47,7 +82,7 @@ p {
 <h1>San Juan County Marine Mammal Stranding Network</h1>
 <h2>Stranding Response Report</h2>
 </center>
-<h3>CALL</h3>
+<h3>Initial Report</h3>
 <table class="detail" style="margin: 0px; border-top: none;">
 
 <tr>
@@ -92,10 +127,10 @@ p {
 </tr>
 </table>
 
-<h4>Comments:</h4>
+<h5>General Comments:</h5>
 <p><?= $report->getCallComments();?></p>
 
-<h3>INVESTIGATION</h3>
+<h3>Investigation</h3>
 
 <table class="detail" style="margin: 0px; border-top: none;">
 
@@ -119,6 +154,8 @@ p {
 <tr>
 <td class="label">Lat\Lon:</td>
 <td class="field"><?= $report->getInvestigationLatLocation();?>N <?= $report->getInvestigationLonLocation();?>W</td>
+<td class="label">Accuracy:</td>
+<td class="field"><?= $report->getInvestigationLocationAccuracy();?></td>
 </tr>
 
 <tr>
@@ -150,10 +187,21 @@ else{
 }
 ?>
 
-<h4>Comments:</h4>
+<h5>General Comments:</h5>
 <p><?= $report->getInvestigationComments();?></p>
 
-<h3>ATTACHMENTS</h3>
+<?php
+  $data = array('report' =>$report);
+  echo $this->load->view('pdf_live_animal', $data);
+?>
+
+<?php
+  $data = array('sections' => $report->getReportHumanInteractionSections());
+  echo $this->load->view('pdf_human_interaction', $data);
+?>
+<br />
+
+<h3>Attachments</h3>
 
 <table class="detail" style="margin: 0px; border-top: none;">
 

@@ -22,12 +22,8 @@
 <tr>
 <td class="label">Straight Lenght:</td>
 <td class="field"><?= $report->getStraightLength();?></td>
-<td class="label">Contour Length:</td>
-<td class="field"><?= $report->getContourLength();?></td>
-</tr>
-
-<tr>
 <td class="label">Girth:</td>
 <td class="field"><?= $report->getGirth();?></td>
 </tr>
+
 </table>
