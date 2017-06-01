@@ -5,7 +5,7 @@ class Report_model extends Model
     // Constructor
     // -------------------------------------------------------------------------
     
-    public function Report_model()
+    public function __construct()
     {
         parent::Model();
 
@@ -47,7 +47,7 @@ class Report_model extends Model
         
             $report->save();
                         $this->report_human_interaction_model->updateReport($reportData, $report);
-            //$this->sendUpdatedReportAlert($report, $reportData);
+            $this->sendUpdatedReportAlert($report, $reportData);
             
             echo "Success";
         } else {
@@ -69,7 +69,7 @@ class Report_model extends Model
 
              $this->report_human_interaction_model->addReport($reportData, $report);
 
-             //$this->sendNewReportAlert($report, $reportData);
+             $this->sendNewReportAlert($report, $reportData);
 
              echo $report_id;
         } else {
@@ -94,30 +94,46 @@ class Report_model extends Model
         $message = 'There has been an update made to the report submitted by ' . $writtenBy
             . ' to the MMSN website with an investigation date of ' . $investigationDate;
         
-        $this->load->library('email');
+        $this->setUpEmail(); 
 
-        $this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
-          
-        //$this->email->to('jennifer@whalemuseum.org');
-        $this->email->to('lancewf@gmail.com');
-        //$this->email->bcc('lancewf@gmail.com');
-        
         $this->email->subject('Notice of Update to MMSN Report');
         $this->email->message($message);
 
-                $filePath = $this->createAttachment($report);
-                $this->email->attach($filePath);
+        $filePath = $this->createAttachment($report);
+        $this->email->attach($filePath);
 
         $this->email->send();
     }
 
-    private function sendErrorAlert($message)
+    private function setUpEmail()
     {
         $this->load->library('email');
 
-        $this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
-          
+        $config = Array(
+             'protocol' => 'smtp',
+             'smtp_host'    => 'ssl://smtp.gmail.com',
+             'smtp_port'    => '465',
+             'smtp_timeout' => '7',
+             'smtp_user'    => '',
+             'smtp_pass'    => '',
+             'charset'    => 'utf-8',
+             'newline'    => "\r\n",
+             'mailtype' => 'text', // or html
+             'validation' => TRUE // bool whether to validate email or not      
+        );
+
+        $this->email->initialize($config);
+
+        $this->email->from('sjcmmsn@gmail.com', 'sjcmmsn');
+
+        //$this->email->to('jennifer@whalemuseum.org');
         $this->email->to('lancewf@gmail.com');
+        //$this->email->bcc('lancewf@gmail.com');
+    }
+
+    private function sendErrorAlert($message)
+    {
+        $this->setUpEmail(); 
         
         $this->email->subject('Notice of Error to MMSN Report');
         $this->email->message($message);
@@ -149,19 +165,13 @@ class Report_model extends Model
         $message = 'There has been a new report submitted by ' . $writtenBy
             .', with an investigation date of ' . $investigationDate . ' to the MMSN website';
         
-        $this->load->library('email');
-
-        $this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
-        
-        //$this->email->to('jennifer@whalemuseum.org');
-        $this->email->to('lancewf@gmail.com');
-        //$this->email->bcc('lancewf@gmail.com');
+        $this->setUpEmail(); 
     
         $this->email->subject('New MMSN Report created');
         $this->email->message($message);
 
-                $filePath = $this->createAttachment($report);
-                $this->email->attach($filePath);
+        $filePath = $this->createAttachment($report);
+        $this->email->attach($filePath);
 
         $this->email->send();
     }

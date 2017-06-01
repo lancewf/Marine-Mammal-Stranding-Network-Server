@@ -118,7 +118,7 @@ p {
 
 <tr>
 <td class="label">Lat\Lon:</td>
-<td class="field"><?= $report->getInvestigationLatLonLocation();?></td>
+<td class="field"><?= $report->getInvestigationLatLocation();?>N <?= $report->getInvestigationLonLocation();?>W</td>
 </tr>
 
 <tr>

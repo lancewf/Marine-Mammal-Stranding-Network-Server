@@ -82,7 +82,7 @@ class CI_Email {
 	 *
 	 * The constructor can be passed an array of config values
 	 */
-	function CI_Email($config = array())
+	function __construct($config = array())
 	{
 		if (count($config) > 0)
 		{
@@ -376,7 +376,10 @@ class CI_Email {
 	function attach($filename, $disposition = 'attachment')
 	{
 		$this->_attach_name[] = $filename;
-		$this->_attach_type[] = $this->_mime_types(next(explode('.', basename($filename))));
+                $basename = basename($filename);
+                $ex = explode('.', $basename);
+                $next = next($ex);
+		$this->_attach_type[] = $this->_mime_types($next);
 		$this->_attach_disp[] = $disposition; // Can also be 'inline'  Not sure if it matters
 	}
 
