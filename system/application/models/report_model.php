@@ -38,7 +38,7 @@ class Report_model extends Model
     public function updateReport($reportData)
     {
 
-        if ($this->goodReportData($reportData)) {// && $this->report_human_interaction_model->goodReportData($reportData))
+        if ($this->goodReportData($reportData) && $this->report_human_interaction_model->goodReportData($reportData)) {
             $id = $reportData['id'];
         
             $report = ReportQuery::create()->findPk($id);
@@ -51,7 +51,7 @@ class Report_model extends Model
             
             echo "Success";
         } else {
-                        $id = $reportData['id'];
+            $id = $reportData['id'];
             $this->sendErrorAlert("Error in updating a report. id: " . $id);
             echo "Failure";
         }
@@ -59,7 +59,7 @@ class Report_model extends Model
 
     public function addReport($reportData)
     {
-        if ($this->goodReportData($reportData)) {
+        if ($this->goodReportData($reportData) && $this->report_human_interaction_model->goodReportData($reportData)) {
              $report = new Report();
              $this->fillReport($report, $reportData);
 
@@ -114,8 +114,6 @@ class Report_model extends Model
              'smtp_host'    => 'ssl://smtp.gmail.com',
              'smtp_port'    => '465',
              'smtp_timeout' => '7',
-             'smtp_user'    => '',
-             'smtp_pass'    => '',
              'charset'    => 'utf-8',
              'newline'    => "\r\n",
              'mailtype' => 'text', // or html

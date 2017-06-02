@@ -9,13 +9,6 @@ class Report_human_interaction_model extends Model
         require_once('persistence/ReportHumanInteractionSectionQuery.php');
     }
 
-    public function getSections($report_id)
-    {
-        $sections = ReportHumanInteractionSectionQuery::create()->filterByReportId($report_id)->find();
-
-        return $sections;
-    }
-
     public function updateReport($reportData, $report)
     {
         $current_sections = $this->getSections($report->getId());
@@ -33,16 +26,6 @@ class Report_human_interaction_model extends Model
         }
     }
 
-    private function findSection($name, $current_sections)
-    {
-        foreach ($current_sections as $section) {
-            if (strcmp($section->getName(), $name) == 0) {
-                return $section;
-            }
-        }
-        return null;
-    }
-
     public function addReport($reportData, $report)
     {
         foreach ($reportData['human_interactions'] as $section) {
@@ -51,5 +34,36 @@ class Report_human_interaction_model extends Model
             $reportHumanInteractionSection->setReportId($report->getId());
             $reportHumanInteractionSection->save();
         }
+    }
+
+    public function goodReportData($reportData){
+        foreach ($reportData['human_interactions'] as $section) {
+		if (array_key_exists('name', $section) and
+		   array_key_exists('is_examined', $section) and
+		   array_key_exists('possible_hi_lesion', $section) and
+		   array_key_exists('possible_source', $section) and
+		   array_key_exists('scavenger_damage', $section)) {
+		} else {
+		    return false;
+		}
+        }
+        return true;
+    }
+
+    private function getSections($report_id)
+    {
+        $sections = ReportHumanInteractionSectionQuery::create()->filterByReportId($report_id)->find();
+
+        return $sections;
+    }
+
+    private function findSection($name, $current_sections)
+    {
+        foreach ($current_sections as $section) {
+            if (strcmp($section->getName(), $name) == 0) {
+                return $section;
+            }
+        }
+        return null;
     }
 }

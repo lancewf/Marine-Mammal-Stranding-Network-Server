@@ -32,15 +32,6 @@ class Services extends Controller
     // Public Members
     // -------------------------------------------------------------------------
 
-    public function getSection()
-    {
-        $sections = $this->report_human_interaction_model->getSections(427);
-
-        foreach ($sections as $section) {
-            echo json_encode($section->toArray(BasePeer::TYPE_FIELDNAME));
-        }
-    }
-
     public function getPdfOfReport()
     {
         $reports = $this->report_model->getReports();
