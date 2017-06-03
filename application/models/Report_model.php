@@ -103,6 +103,8 @@ class Report_model extends CI_Model
         $this->email->attach($filePath);
 
         $this->email->send();
+
+	unlink($filePath);
     }
 
     private function setUpEmail()
@@ -175,6 +177,8 @@ class Report_model extends CI_Model
         $this->email->attach($filePath);
 
         $this->email->send();
+
+	unlink($filePath);
     }
     
     private function getWrittenBy($report)
