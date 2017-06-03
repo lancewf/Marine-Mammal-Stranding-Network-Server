@@ -23,3 +23,4 @@ Then install propel download https://github.com/propelorm/Propel/archive/1.6.zip
 To generate the database files run `propel-gen om` in the same directory as the build.properties and schema.xml file. 
 Then merge the file in the the existing files. 
 
+CodeIgniter 3.1.4
