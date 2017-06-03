@@ -1,26 +1,16 @@
 # Marine-Mammal-Stranding-Network-Server
 
-
 ## Database ORM
 
-The database ORM is generated with (propel 1.6)[https://github.com/propelorm/Propel/releases/tag/1.6]. 
+To generate new ORM files with Propel use vagrant.
+1. From the root directory run `vagrant up`
+1. ssh into the newly created vagrant vm with `vagrant ssh`
+1. cd /vagrant/persistence/conf/
+1. modify the schema.xml file with database changes. 
+1. Then run `propel-gen`
+1. The generated file will be in the `build` folder.
+1. Copy the needed files to the correct location. 
 
-Install php-pear. 
-
-```
-sudo apt-get install php-pear
-```
-
-Then install phing/phing through pear.
-```
-pear channel-discover pear.phing.info
-pear install phing/phing
-pear install Log
-```
-
-Then install propel download https://github.com/propelorm/Propel/archive/1.6.zip. 
-
-To generate the database files run `propel-gen om` in the same directory as the build.properties and schema.xml file. 
-Then merge the file in the the existing files. 
-
+## Dependencies
 CodeIgniter 3.1.4
+Propel 1.7.1
