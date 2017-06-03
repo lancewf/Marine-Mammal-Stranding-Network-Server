@@ -108,12 +108,15 @@ class Report_model extends CI_Model
     private function setUpEmail()
     {
         $this->load->library('email');
+        $this->config->load('email');
 
         $config = Array(
              'protocol' => 'smtp',
              'smtp_host'    => 'ssl://smtp.gmail.com',
              'smtp_port'    => '465',
              'smtp_timeout' => '7',
+             'smtp_user'    => $this->config->item('email_address'),
+             'smtp_pass'    => $this->config->item('email_password'),
              'charset'    => 'utf-8',
              'newline'    => "\r\n",
              'mailtype' => 'text', // or html

@@ -2,3 +2,4 @@ client/
 pdf/
 persistence/conf/persistence-conf.php
 uploads/
+application/config/email.php
