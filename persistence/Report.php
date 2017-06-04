@@ -19,6 +19,32 @@ class Report extends BaseReport
 // Public Members
 // -------------------------------------------------------------------------
 
+    public function toJsonHeaderArray()
+    {
+        $array_store = array ();
+  
+        $array_store["id"] = $this->getId();
+	$array_store["volunteer_id"] = (int)$this->getVolunteerId();
+        $array_store["investigation_species"] = $this->getInvestigationSpecies();
+        $array_store["call_species"] = $this->getCallSpecies();
+        $array_store["call_location"] = $this->getCallLocation();
+
+        $array_store["investigation_physical_location"] = $this->getInvestigationPhysicalLocation();
+
+        $array_store["investigation_date_minute"] = (int)$this->getMinute(strtotime($this->getInvestigationDate()));
+        $array_store["investigation_date_hour"] = (int)$this->getHour(strtotime($this->getInvestigationDate()));
+        $array_store["investigation_date_dayofmonth"] = (int)$this->getDayOfMonth(strtotime($this->getInvestigationDate()));
+        $array_store["investigation_date_month"] = (int)$this->getMonth(strtotime($this->getInvestigationDate()));
+        $array_store["investigation_date_year"] = (int)$this->getYear(strtotime($this->getInvestigationDate()));
+
+        $array_store["call_date_minute"] = (int)$this->getMinute(strtotime($this->getCallDate()));
+        $array_store["call_date_hour"] = (int)$this->getHour(strtotime($this->getCallDate()));
+        $array_store["call_date_dayofmonth"] = (int)$this->getDayOfMonth(strtotime($this->getCallDate()));
+        $array_store["call_date_month"] = (int)$this->getMonth(strtotime($this->getCallDate()));
+        $array_store["call_date_year"] = (int)$this->getYear(strtotime($this->getCallDate()));
+        return $array_store;
+    }
+
     public function toJsonArray()
     {
         $array_store = $this->toArray(BasePeer::TYPE_FIELDNAME);

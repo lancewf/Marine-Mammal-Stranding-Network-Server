@@ -19,7 +19,7 @@ class Report_model extends CI_Model
   // Public Members
   // -------------------------------------------------------------------------
 
-    public function getReports()
+    public function getAllReports()
     {
         $reports = ReportQuery::create()->find();
 
@@ -28,20 +28,46 @@ class Report_model extends CI_Model
 
     public function deleteReport($id)
     {
-        $report = ReportQuery::create()->findPk($id);
+        $report = $this->getReport($id);
 
         if ($report) {
             $report->delete();
         }
     }
 
+    public function getReport($id){
+        return ReportQuery::create()->findPk($id);
+    }
+
+    public function getReports($startMonth, $startDayOfMonth, $startYear,
+	$endMonth, $endDayOfMonth, $endYear, $volunteerId = NULL) {
+
+	$startTime = mktime(0, 0, 0, $startMonth, $startDayOfMonth, $startYear);
+	$endOfTime = mktime(0, 0, 0, $endMonth, $endDayOfMonth, $endYear);
+
+	$c = new Criteria();
+	$c->add(ReportPeer::CALL_DATE, $startTime,
+		Criteria::GREATER_EQUAL);
+	$c->addAnd(ReportPeer::CALL_DATE, $endOfTime,
+		Criteria::LESS_THAN);
+
+        if(!is_null($volunteerId))
+        {
+            $c->addAnd(ReportPeer::VOLUNTEER_ID, $volunteerId, 
+                Criteria::EQUAL);
+        }
+
+	$c->addAscendingOrderByColumn(ReportPeer::CALL_DATE);
+
+	return ReportPeer::doSelect($c);
+    }
+
     public function updateReport($reportData)
     {
-
         if ($this->goodReportData($reportData) && $this->report_human_interaction_model->goodReportData($reportData)) {
             $id = $reportData['id'];
 
-            $report = ReportQuery::create()->findPk($id);
+            $report = $this->getReport($id);
 
             $this->fillReport($report, $reportData);
 

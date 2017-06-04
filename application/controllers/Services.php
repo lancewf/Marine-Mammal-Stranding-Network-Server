@@ -33,17 +33,6 @@ class Services extends CI_Controller
     // Public Members
     // -------------------------------------------------------------------------
 
-    public function getPdfOfReport()
-    {
-        $reports = $this->report_model->getReports();
-        $report = $reports[20];
-
-        $data = array('report' =>$report);
-        $html = $this->load->view('pdf', $data, true);
-        
-        pdf_create($html, 'report');
-    }
-
     public function photoUpload()
     {
         $config['upload_path'] = 'uploads/';
@@ -274,10 +263,59 @@ class Services extends CI_Controller
         $this->report_model->deleteReport($id);
     }
 
+    public function getAllReportHeaders()
+    {
+        $reports = $this->report_model->getAllReports();
+
+        $collection = array ();
+
+        foreach ($reports as $report) {
+            $collection[] = $report->toJsonHeaderArray();
+        }
+
+        echo json_encode($collection);
+    }
+
+    public function getRangeOfReportHeaders()
+    {
+            $startmonth = (int)$this->input->post('startmonth');
+            $startdaymonth = (int)$this->input->post('startdaymonth');
+            $startyear = (int)$this->input->post('startyear');
+
+            $endmonth = (int)$this->input->post('endmonth');
+            $enddaymonth = (int)$this->input->post('enddaymonth');
+            $endyear = (int)$this->input->post('endyear');
+
+            $volunteerId = (int)$this->input->post('volunteer_id');
+
+        if($volunteerId == 0){
+           $volunteerId = NULL;
+        }
+
+        $reports = $this->report_model->getReports($startmonth, $startdaymonth, $startyear,
+		$endmonth, $enddaymonth, $endyear, $volunteerId);
+
+        $collection = array ();
+
+        foreach ($reports as $report) {
+            $collection[] = $report->toJsonHeaderArray();
+        }
+
+        echo json_encode($collection);
+    }
+
+    public function getFullReport(){
+
+        $id = (int)$this->input->get_post('reportId');
+
+        $report = $this->report_model->getReport($id);
+
+        echo json_encode($report->toJsonArray());
+    }
+
     public function getReports()
     {
-
-        $reports = $this->report_model->getReports();
+        $reports = $this->report_model->getAllReports();
 
         $collection = array ();
 
