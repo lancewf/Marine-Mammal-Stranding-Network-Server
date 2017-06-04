@@ -18,15 +18,9 @@ class VolunteerHours extends BaseVolunteerHours
 	
 	public function toJsonArray()
 	{
-		$array_store = array ();
+        	$array_store = $this->toArray(BasePeer::TYPE_FIELDNAME);
 
-		$array_store["id"] = (int)$this->getId();
-		$array_store["total_hours"] = (double)$this->getTotalHours();
-		$array_store["mileage"] = (int)$this->getMileage();
-		$array_store["comments"] = $this->getComments();
 		$array_store["dayofmonth"] = (int)$this->getDayOfMonth();
-		$array_store["month"] = (int)$this->getMonth();
-		$array_store["year"] = (int)$this->getYear();
 
 		return $array_store;
 	}

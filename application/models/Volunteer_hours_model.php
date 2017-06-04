@@ -208,7 +208,7 @@ class Volunteer_hours_model extends CI_Model
 			VolunteerHoursPeer::MONTH . " <= " . $toMonth;
 
 		$stmt = $con->prepare($sql);
-    	$stmt->execute();
+    	        $stmt->execute();
 
 		$obj = $stmt->fetchColumn();
 		
@@ -224,12 +224,9 @@ class Volunteer_hours_model extends CI_Model
 	
 	private function fillVolunteerHours($volunteerHours, $volunteerHoursData)
 	{
-		$volunteerHours->setTotalHours($volunteerHoursData['total_hours']);
-		$volunteerHours->setMileage($volunteerHoursData['mileage']);
-		$volunteerHours->setComments($volunteerHoursData['comments']);
-		$volunteerHours->setDayOfMonth($volunteerHoursData['dayofmonth']);
-		$volunteerHours->setMonth($volunteerHoursData['month']);
-		$volunteerHours->setYear($volunteerHoursData['year']);
+		$volunteerHoursData['day_of_month'] = $volunteerHoursData['dayofmonth'];
+
+                $volunteerHours->fromArray($volunteerHoursData, BasePeer::TYPE_FIELDNAME);
 	}
 }
 ?>

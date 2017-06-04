@@ -25,30 +25,31 @@ class Report_model extends CI_Model
 
         return $reports;
     }
-    
+
     public function deleteReport($id)
     {
         $report = ReportQuery::create()->findPk($id);
-        
+
         if ($report) {
             $report->delete();
         }
     }
-    
+
     public function updateReport($reportData)
     {
 
         if ($this->goodReportData($reportData) && $this->report_human_interaction_model->goodReportData($reportData)) {
             $id = $reportData['id'];
-        
+
             $report = ReportQuery::create()->findPk($id);
-        
+
             $this->fillReport($report, $reportData);
-        
+
             $report->save();
-                        $this->report_human_interaction_model->updateReport($reportData, $report);
+
+            $this->report_human_interaction_model->updateReport($reportData, $report);
             $this->sendUpdatedReportAlert($report, $reportData);
-            
+
             echo "Success";
         } else {
             $id = $reportData['id'];
@@ -90,11 +91,11 @@ class Report_model extends CI_Model
             $reportData['investigation_date_month'] . '-' .
             $reportData['investigation_date_dayofmonth'] . '-' .
             $reportData['investigation_date_year'];
-        
+
         $message = 'There has been an update made to the report submitted by ' . $writtenBy
             . ' to the MMSN website with an investigation date of ' . $investigationDate;
-        
-        $this->setUpEmail(); 
+
+        $this->setUpEmail();
 
         $this->email->subject('Notice of Update to MMSN Report');
         $this->email->message($message);
@@ -104,7 +105,7 @@ class Report_model extends CI_Model
 
         $this->email->send();
 
-	unlink($filePath);
+        unlink($filePath);
     }
 
     private function setUpEmail()
@@ -117,8 +118,8 @@ class Report_model extends CI_Model
              'smtp_host'    => 'ssl://smtp.gmail.com',
              'smtp_port'    => '465',
              'smtp_timeout' => '7',
-             'smtp_user'    => $this->config->item('email_address'),
-             'smtp_pass'    => $this->config->item('email_password'),
+             'smtp_user'    => $this->config->item('email_from_address'),
+             'smtp_pass'    => $this->config->item('email_from_password'),
              'charset'    => 'utf-8',
              'newline'    => "\r\n",
              'mailtype' => 'text', // or html
@@ -127,17 +128,15 @@ class Report_model extends CI_Model
 
         $this->email->initialize($config);
 
-        $this->email->from('sjcmmsn@gmail.com', 'sjcmmsn');
-
-        //$this->email->to('jennifer@whalemuseum.org');
-        $this->email->to('lancewf@gmail.com');
-        //$this->email->bcc('lancewf@gmail.com');
+        $this->email->from($this->config->item('email_from_address'), 'sjcmmsn');
+        $this->email->to($this->config->item('email_to_address'));
+        $this->email->bcc($this->config->item('email_bcc_address'));
     }
 
     private function sendErrorAlert($message)
     {
-        $this->setUpEmail(); 
-        
+        $this->setUpEmail();
+
         $this->email->subject('Notice of Error to MMSN Report');
         $this->email->message($message);
 
@@ -148,7 +147,7 @@ class Report_model extends CI_Model
     {
         $data = array('report' =>$report);
         $html = $this->load->view('pdf', $data, true);
-        
+
         $data = pdf_create($html, '', false);
         $name = uniqid();
         write_file("pdf/" . $name . ".pdf", $data);
@@ -164,12 +163,12 @@ class Report_model extends CI_Model
             $reportData['investigation_date_month'] . '-' .
             $reportData['investigation_date_dayofmonth'] . '-' .
             $reportData['investigation_date_year'];
-        
+
         $message = 'There has been a new report submitted by ' . $writtenBy
             .', with an investigation date of ' . $investigationDate . ' to the MMSN website';
-        
+
         $this->setUpEmail(); 
-    
+
         $this->email->subject('New MMSN Report created');
         $this->email->message($message);
 
@@ -178,7 +177,7 @@ class Report_model extends CI_Model
 
         $this->email->send();
 
-	unlink($filePath);
+        unlink($filePath);
     }
     
     private function getWrittenBy($report)
@@ -263,88 +262,20 @@ class Report_model extends CI_Model
 
     private function fillReport($report, $reportData)
     {
-        $report->setVolunteerId($reportData['volunteer_id']);
-        $report->setResponder($reportData['responder']);
-        
-        $callDate = mktime(
+        $reportData['call_date'] = mktime(
             $reportData['call_date_hour'],
             $reportData['call_date_minute'], 0,
             $reportData['call_date_month'],
             $reportData['call_date_dayofmonth'],
             $reportData['call_date_year']);
-        
-        $report->setCallDate($callDate);
-        $report->setCallFrom($reportData['call_from']);
-        $report->setCallerName($reportData['caller_name']);
-        $report->setCallerPhoneNumber($reportData['caller_phone_number']);
-        $report->setCallLocation($reportData['call_location']);
-        $report->setCallSpecies($reportData['call_species']);
-        $report->setWhenFirstSeen($reportData['when_first_seen']);
-        $report->setCallComments($reportData['call_comments']);
-        $report->setCallReferredTo($reportData['call_referred_to']);
-        $report->setCallCondition($reportData['call_condition']);
-        
-        //Investigator
-        
-        $investigationDate = mktime(
+
+        $reportData['investigation_date'] = mktime(
             $reportData['investigation_date_hour'],
             $reportData['investigation_date_minute'], 0,
             $reportData['investigation_date_month'],
             $reportData['investigation_date_dayofmonth'],
             $reportData['investigation_date_year']);
-        
-        $report->setInvestigatorSupport($reportData['investigator_support']);
-        $report->setInvestigationDate($investigationDate);
 
-        $report->setInvestigationLatLocation($reportData['investigation_lat_location']);
-        $report->setInvestigationLonLocation($reportData['investigation_lon_location']);
-        $report->setInvestigationLocationAccuracy($reportData['investigation_location_accuracy']);
-        $report->setInvestigationPhysicalLocation($reportData['investigation_physical_location']);
-        
-        $report->setInvestigationSpecies($reportData['investigation_species']);
-        
-        $animalNotFound = $this->getBoolean($reportData['animal_not_found']);
-        
-        $report->setAnimalNotFound($animalNotFound);
-        $report->setInvestigationCondition($reportData['investigation_condition']);
-        $report->setTags($reportData['tags']);
-        $report->setDisposition($reportData['disposition']);
-        $report->setSealPickup($reportData['seal_pickup']);
-        $report->setSex($reportData['sex']);
-        $report->setWeight($reportData['weight']);
-        $report->setStraightLength($reportData['straight_length']);
-        $report->setGirth($reportData['girth']);
-        $report->setInvestigationComments($reportData['investigation_comments']);
-        $report->setIsPhotoTaken($reportData['is_photo_taken']);
-
-        $report->setIsConSick($reportData['is_con_sick']);
-        $report->setIsConInjured($reportData['is_con_injured']);
-        $report->setIsConOutOfHabitat($reportData['is_con_out_of_habitat']);
-        $report->setIsConDeemedReleasable($reportData['is_con_deemed_releasable']);
-        $report->setIsConAbandoned($reportData['is_con_abandoned']);
-        $report->setIsConInaccessible($reportData['is_con_inaccessible']);
-        $report->setIsConLocationHazardToAnimal($reportData['is_con_location_hazard_to_animal']);
-        $report->setIsConLocationHazardToHumans($reportData['is_con_location_hazard_to_humans']);
-        $report->setIsConUnknown($reportData['is_con_unknown']);
-        $report->setIsConOther($reportData['is_con_other']);
-        $report->setIsActionLeftAtSite($reportData['is_action_left_at_site']);
-        $report->setIsActionImmediateReleaseAtSite($reportData['is_action_immediate_release_at_site']);
-        $report->setIsActionRelocated($reportData['is_action_relocated']);
-        $report->setIsActionDiedAtSite($reportData['is_action_died_at_site']);
-        $report->setIsActionDiedDuringTransport($reportData['is_action_died_during_transport']);
-        $report->setIsActionEuthanizedAtSite($reportData['is_action_euthanized_at_site']);
-        $report->setIsActionEuthanizedDuringTransport($reportData['is_action_euthanized_during_transport']);
-        $report->setIsActionTransferredToRehab($reportData['is_action_transferred_to_rehab']);
-        $report->setIsActionOther($reportData['is_action_other']);
-        $report->setRelocatedLocation($reportData['relocated_location']);
-    }
-    
-    private function getBoolean($textBoolean)
-    {
-        if ($textBoolean == "true") {
-            return true;
-        } else {
-            return false;
-        }
+        $report->fromArray($reportData, BasePeer::TYPE_FIELDNAME);
     }
 }

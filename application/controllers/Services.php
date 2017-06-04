@@ -282,7 +282,9 @@ class Services extends CI_Controller
         $collection = array ();
 
         foreach ($reports as $report) {
-            $collection[] = $report->toJsonArray();
+            //if($report->getId() == 435){
+              $collection[] = $report->toJsonArray();
+            //}
         }
 
         echo json_encode($collection);

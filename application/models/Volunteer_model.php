@@ -1,34 +1,34 @@
 <?php
 class Volunteer_model extends CI_Model
 {
-	// -------------------------------------------------------------------------
-	// Constructor
-	// -------------------------------------------------------------------------
-	
-	public function __construct()
-	{
-		parent::__construct();
+// -------------------------------------------------------------------------
+// Constructor
+// -------------------------------------------------------------------------
 
-		require_once('persistence/Volunteer.php');
-		require_once('persistence/VolunteerQuery.php');
-	}
+  public function __construct()
+  {
+     parent::__construct();
 
-	// -------------------------------------------------------------------------
-	// Public Members
-	// -------------------------------------------------------------------------
-	
-	public function getVolunteer($id)
-	{
-		return VolunteerQuery::create()->findPk($id);
-	}
-	
-	public function getVolunteers()
-	{
-		$volunteers = VolunteerQuery::create()->find();
-		
-		return $volunteers;
-	}
-	
+     require_once('persistence/Volunteer.php');
+     require_once('persistence/VolunteerQuery.php');
+  }
+
+  // -------------------------------------------------------------------------
+  // Public Members
+  // -------------------------------------------------------------------------
+
+  public function getVolunteer($id)
+  {
+      return VolunteerQuery::create()->findPk($id);
+  }
+
+  public function getVolunteers()
+  {
+      $volunteers = VolunteerQuery::create()->find();
+
+      return $volunteers;
+  }
+
 	public function deleteVolunteer($id)
 	{
 		$volunteer = $this->getVolunteer($id);
@@ -42,7 +42,7 @@ class Volunteer_model extends CI_Model
 	public function getIslands()
 	{
 		$islands = VolunteerPeer::getIslands();
-			
+
  	    return $islands;
 	}
 	
@@ -60,7 +60,9 @@ class Volunteer_model extends CI_Model
 	public function createVolunteer($volunteerData)
 	{
 		$volunteer = new Volunteer();
-		
+
+                unset($volunteerData['id']);
+
 		$this->fillVolunteer($volunteer, $volunteerData);
 		
 		$volunteer->save();
@@ -68,22 +70,36 @@ class Volunteer_model extends CI_Model
 		echo $volunteer->getId();
 	}
 	
-	public function sendMessageToAll($subject, $message)
-	{		
-		$this->load->library('email');
-		
-		$this->email->from('admin@sjcmmsn.com', 'San Juan County MMSN');
-		
-		$this->email->to('jennifer@whalemuseum.org'); 
-		//$this->email->to('coasterq@gmail.com'); 
+  public function sendMessageToAll($subject, $message)
+  {
+        $this->load->library('email');
+        $this->config->load('email');
 
-		$this->email->bcc($this->getListOfEmailAddresses());
+        $config = Array(
+             'protocol' => 'smtp',
+             'smtp_host'    => 'ssl://smtp.gmail.com',
+             'smtp_port'    => '465',
+             'smtp_timeout' => '7',
+             'smtp_user'    => $this->config->item('email_from_address'),
+             'smtp_pass'    => $this->config->item('email_from_password'),
+             'charset'    => 'utf-8',
+             'newline'    => "\r\n",
+             'mailtype' => 'text', // or html
+             'validation' => TRUE // bool whether to validate email or not      
+        );
 
-		$this->email->subject($subject);
-		$this->email->message($message);	
+        $this->email->initialize($config);
 
-		$this->email->send();
-	}
+        $this->email->from($this->config->item('email_from_address'), 'sjcmmsn');
+        $this->email->to($this->config->item('email_to_address')); 
+
+        $this->email->bcc($this->getListOfEmailAddresses());
+
+        $this->email->subject($subject);
+        $this->email->message($message);	
+
+        $this->email->send();
+  }
 	
 	// -------------------------------------------------------------------------
 	// Private Members
@@ -93,11 +109,6 @@ class Volunteer_model extends CI_Model
 	{
 		$collection = array ();
 
-//		$collection[] = "lancewf@yahoo.com";
-//		$collection[] = "lancewf@gmail.com";
-//		$collection[] = "mauixtrm@yahoo.com";
-//		$collection[] = "coasterq@coasterq.com";
-		
 		foreach($this->getVolunteers() as $volunteer)
 		{
 			$collection[] = $volunteer->getEmail();
@@ -108,62 +119,10 @@ class Volunteer_model extends CI_Model
 	
 	private function fillVolunteer($volunteer, $volunteerData)
 	{
-		$volunteer->setFirstName($volunteerData['first_name']);
-		$volunteer->setLastName($volunteerData['last_name']);
-		$volunteer->setCity($volunteerData['city']);
-		$volunteer->setState($volunteerData['state']);
-		$volunteer->setZip($volunteerData['zip']);
-		$volunteer->setStreetaddress($volunteerData['streetaddress']);
-		$volunteer->setVehicle($volunteerData['vehicle']);
-		$volunteer->setIsland($volunteerData['island']);
-		$volunteer->setComments($volunteerData['comments']);
-		$volunteer->setPhonenumber($volunteerData['phonenumber']);
-		$volunteer->setEmail($volunteerData['email']);
-		$volunteer->setTraining($volunteerData['training']);
-		
-		$volunteer->setSundayFromHour($volunteerData['sunday_from_hour']);
-		$volunteer->setMondayFromHour($volunteerData['monday_from_hour']);
-		$volunteer->setTuesdayFromHour($volunteerData['tuesday_from_hour']);
-		$volunteer->setWednesdayFromHour($volunteerData['wednesday_from_hour']);
-		$volunteer->setThursdayFromHour($volunteerData['thursday_from_hour']);
-		$volunteer->setFridayFromHour($volunteerData['friday_from_hour']);
-		$volunteer->setSaturdayFromHour($volunteerData['saturday_from_hour']);
-		
-		$volunteer->setSundayToHour($volunteerData['sunday_to_hour']);
-		$volunteer->setMondayToHour($volunteerData['monday_to_hour']);
-		$volunteer->setTuesdayToHour($volunteerData['tuesday_to_hour']);
-		$volunteer->setWednesdayToHour($volunteerData['wednesday_to_hour']);
-		$volunteer->setThursdayToHour($volunteerData['thursday_to_hour']);
-		$volunteer->setFridayToHour($volunteerData['friday_to_hour']);
-		$volunteer->setSaturdayToHour($volunteerData['saturday_to_hour']);
-		
-		$volunteer->setSundayAnyTime($this->getBoolean($volunteerData['sunday_any_time']));
-		$volunteer->setMondayAnyTime($this->getBoolean($volunteerData['monday_any_time']));
-		$volunteer->setTuesdayAnyTime($this->getBoolean($volunteerData['tuesday_any_time']));
-		$volunteer->setWednesdayAnyTime($this->getBoolean($volunteerData['wednesday_any_time']));
-		$volunteer->setThursdayAnyTime($this->getBoolean($volunteerData['thursday_any_time']));
-		$volunteer->setFridayAnyTime($this->getBoolean($volunteerData['friday_any_time']));
-		$volunteer->setSaturdayAnyTime($this->getBoolean($volunteerData['saturday_any_time']));
-		
-		$volunteer->setSundayNoTime($this->getBoolean($volunteerData['sunday_no_time']));
-		$volunteer->setMondayNoTime($this->getBoolean($volunteerData['monday_no_time']));
-		$volunteer->setTuesdayNoTime($this->getBoolean($volunteerData['tuesday_no_time']));
-		$volunteer->setWednesdayNoTime($this->getBoolean($volunteerData['wednesday_no_time']));
-		$volunteer->setThursdayNoTime($this->getBoolean($volunteerData['thursday_no_time']));
-		$volunteer->setFridayNoTime($this->getBoolean($volunteerData['friday_no_time']));
-		$volunteer->setSaturdayNoTime($this->getBoolean($volunteerData['saturday_no_time']));
-	}
-	
-	private function getBoolean($textBoolean)
-	{
-		if($textBoolean == "true")
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		$volunteerData['streetAddress'] = $volunteerData['streetaddress'];
+		$volunteerData['phoneNumber'] = $volunteerData['phonenumber'];
+
+                $volunteer->fromArray($volunteerData, BasePeer::TYPE_FIELDNAME);
 	}
 }
 ?>

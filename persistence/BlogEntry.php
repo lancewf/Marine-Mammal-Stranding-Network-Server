@@ -17,11 +17,8 @@ class BlogEntry extends BaseBlogEntry {
 	
 	public function toJsonArray()
 	{
-		$array_store = array ();
+        	$array_store = $this->toArray(BasePeer::TYPE_FIELDNAME);
 
-		$array_store["id"] = (int)$this->getId();
-		$array_store["title"] = $this->getTitle();
-		$array_store["message"] = $this->getMessage();
 		$array_store["dayofmonth"] = (int)$this->getDayOfMonth();
 		$array_store["month"] = (int)$this->getMonth();
 		$array_store["year"] = (int)$this->getYear();

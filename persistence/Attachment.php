@@ -17,12 +17,8 @@ class Attachment extends BaseAttachment {
 
 	public function toJsonArray()
 	{
-		$array_store = array ();
+                $array_store = $this->toArray(BasePeer::TYPE_FIELDNAME);
 
-		$array_store["id"] = (int)$this->getId();
-		$array_store["file_name"] = $this->getFileName();
-		$array_store["comments"] = $this->getComments();
-		
 		return $array_store;
 	}
 } // Attachment
