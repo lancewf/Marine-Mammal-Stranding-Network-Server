@@ -88,6 +88,7 @@ class Report_model extends CI_Model
     {
         if ($this->goodReportData($reportData) && $this->report_human_interaction_model->goodReportData($reportData)) {
              $report = new Report();
+             unset($reportData['id']);
              $this->fillReport($report, $reportData);
 
              $report->save();
