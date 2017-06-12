@@ -5,3 +5,4 @@ uploads/
 application/config/email.php
 .vagrant/
 persistence/conf/build/
+results/
