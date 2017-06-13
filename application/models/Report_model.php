@@ -122,23 +122,27 @@ class Report_model extends CI_Model
         $message = 'There has been an update made to the report submitted by ' . $writtenBy
             . ' to the MMSN website with an investigation date of ' . $investigationDate;
 
-        $this->setUpEmail();
+        if ( $this->setUpEmail()){
+            $this->email->subject('Notice of Update to MMSN Report');
+            $this->email->message($message);
 
-        $this->email->subject('Notice of Update to MMSN Report');
-        $this->email->message($message);
+            $filePath = $this->createAttachment($report);
+            $this->email->attach($filePath);
 
-        $filePath = $this->createAttachment($report);
-        $this->email->attach($filePath);
+            $this->email->send();
 
-        $this->email->send();
-
-        unlink($filePath);
+            unlink($filePath);
+        }
     }
 
     private function setUpEmail()
     {
         $this->load->library('email');
         $this->config->load('email');
+
+        if(!$this->config->item('should_send_email')){
+            return FALSE;
+        }
 
         $config = Array(
              'protocol' => 'smtp',
@@ -158,16 +162,18 @@ class Report_model extends CI_Model
         $this->email->from($this->config->item('email_from_address'), 'sjcmmsn');
         $this->email->to($this->config->item('email_to_address'));
         $this->email->bcc($this->config->item('email_bcc_address'));
+
+        return TRUE;
     }
 
     private function sendErrorAlert($message)
     {
-        $this->setUpEmail();
+        if ( $this->setUpEmail()){
+            $this->email->subject('Notice of Error to MMSN Report');
+            $this->email->message($message);
 
-        $this->email->subject('Notice of Error to MMSN Report');
-        $this->email->message($message);
-
-        $this->email->send();
+            $this->email->send();
+        }
     }
 
     private function createAttachment($report)
@@ -194,17 +200,17 @@ class Report_model extends CI_Model
         $message = 'There has been a new report submitted by ' . $writtenBy
             .', with an investigation date of ' . $investigationDate . ' to the MMSN website';
 
-        $this->setUpEmail(); 
+        if ( $this->setUpEmail()){
+            $this->email->subject('New MMSN Report created');
+            $this->email->message($message);
 
-        $this->email->subject('New MMSN Report created');
-        $this->email->message($message);
+            $filePath = $this->createAttachment($report);
+            $this->email->attach($filePath);
 
-        $filePath = $this->createAttachment($report);
-        $this->email->attach($filePath);
+            $this->email->send();
 
-        $this->email->send();
-
-        unlink($filePath);
+            unlink($filePath);
+        }
     }
     
     private function getWrittenBy($report)
