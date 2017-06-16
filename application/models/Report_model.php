@@ -40,26 +40,26 @@ class Report_model extends CI_Model
     }
 
     public function getReports($startMonth, $startDayOfMonth, $startYear,
-	$endMonth, $endDayOfMonth, $endYear, $volunteerId = NULL) {
+	    $endMonth, $endDayOfMonth, $endYear, $volunteerId = NULL) {
 
-	$startTime = mktime(0, 0, 0, $startMonth, $startDayOfMonth, $startYear);
-	$endOfTime = mktime(0, 0, 0, $endMonth, $endDayOfMonth, $endYear);
+        $startTime = mktime(0, 0, 0, $startMonth, $startDayOfMonth, $startYear);
+        $endOfTime = mktime(0, 0, 0, $endMonth, $endDayOfMonth, $endYear);
 
-	$c = new Criteria();
-	$c->add(ReportPeer::CALL_DATE, $startTime,
-		Criteria::GREATER_EQUAL);
-	$c->addAnd(ReportPeer::CALL_DATE, $endOfTime,
-		Criteria::LESS_THAN);
+        $c = new Criteria();
+        $c->add(ReportPeer::CALL_DATE, $startTime,
+            Criteria::GREATER_EQUAL);
+        $c->addAnd(ReportPeer::CALL_DATE, $endOfTime,
+            Criteria::LESS_THAN);
 
-        if(!is_null($volunteerId))
-        {
-            $c->addAnd(ReportPeer::VOLUNTEER_ID, $volunteerId, 
-                Criteria::EQUAL);
-        }
+            if(!is_null($volunteerId))
+            {
+                $c->addAnd(ReportPeer::VOLUNTEER_ID, $volunteerId, 
+                    Criteria::EQUAL);
+            }
 
-	$c->addAscendingOrderByColumn(ReportPeer::CALL_DATE);
+        $c->addAscendingOrderByColumn(ReportPeer::CALL_DATE);
 
-	return ReportPeer::doSelect($c);
+        return ReportPeer::doSelect($c);
     }
 
     public function updateReport($reportData)
@@ -102,6 +102,7 @@ class Report_model extends CI_Model
              echo $report_id;
         } else {
             $this->sendErrorAlert("Error in adding a report");
+            echo "not good report";
             echo -1;
         }
     }
@@ -260,7 +261,6 @@ class Report_model extends CI_Model
            array_key_exists('investigation_condition', $reportData) and
            array_key_exists('tags', $reportData) and
            array_key_exists('disposition', $reportData) and
-           array_key_exists('seal_pickup', $reportData) and
            array_key_exists('sex', $reportData) and
            array_key_exists('weight', $reportData) and
            array_key_exists('straight_length', $reportData) and
