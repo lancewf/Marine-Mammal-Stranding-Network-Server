@@ -140,3 +140,6 @@ if($report->getIsActionRelocated()){
 echo "<h5>Location (if relocated): " . $report->getRelocatedLocation() . "</h5>";
 }
 ?>
+<h5>General Comments:</h5>
+<p><?= $report->getLiveAnimalsComments();?></p>
+

@@ -3,9 +3,6 @@
 <tr>
 <td class="label">Tag:</td>
 <td class="field"><?= $report->getTags();?></td>
-</tr>
-
-<tr>
 <td class="label">Disposition:</td>
 <td class="field"><?= $report->getDisposition();?></td>
 </tr>
@@ -24,4 +21,10 @@
 <td class="field"><?= $report->getGirth();?></td>
 </tr>
 
+<tr>
+<td class="label">Nutritional Condition:</td>
+<td class="field"><?= $report->getInvestigationNutritionalCondition();?></td>
+<td class="label">Age Class:</td>
+<td class="field"><?= $report->getInvestigationAgeClass();?></td>
+</tr>
 </table>
