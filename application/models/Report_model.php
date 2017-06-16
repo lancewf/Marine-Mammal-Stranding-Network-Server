@@ -102,7 +102,6 @@ class Report_model extends CI_Model
              echo $report_id;
         } else {
             $this->sendErrorAlert("Error in adding a report");
-            echo "not good report";
             echo -1;
         }
     }
@@ -286,6 +285,9 @@ class Report_model extends CI_Model
            array_key_exists('is_action_euthanized_during_transport', $reportData) and
            array_key_exists('is_action_transferred_to_rehab', $reportData) and
            array_key_exists('is_action_other', $reportData) and
+           array_key_exists('investigation_nutritional_condition', $reportData) and
+           array_key_exists('investigation_age_class', $reportData) and
+           array_key_exists('live_animals_comments', $reportData) and
            array_key_exists('relocated_location', $reportData)) {
             return true;
         } else {

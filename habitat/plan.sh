@@ -48,6 +48,6 @@ do_install() {
   #mkdir $pkg_prefix/source_files
   #cp -r * $pkg_prefix/source_files/.
   mkdir $pkg_prefix/database
-  cp -r habitat/database/* $pkg_prefix/database/.
+  cp persistence/conf/schema.sql $pkg_prefix/database/.
   return 0
 }

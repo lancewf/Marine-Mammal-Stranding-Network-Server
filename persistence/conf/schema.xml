@@ -55,6 +55,9 @@
         <column name="is_action_other" type="boolean" description=""/>
         <column name="relocated_location" type="varchar" size="100" description="a description of the relocated location"/>
         <column name="volunteer_id" type="integer" required="true" description=""/> 
+        <column name="investigation_nutritional_condition" type="varchar" size="100" description=""/>
+        <column name="investigation_age_class" type="varchar" size="100" description=""/>
+        <column name="live_animals_comments" type="varchar" size="100" description=""/>
         <foreign-key foreignTable="volunteer">
             <reference local="volunteer_id" foreign="id"/>
         </foreign-key>

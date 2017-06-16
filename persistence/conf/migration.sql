@@ -21,6 +21,9 @@ ALTER TABLE report ADD COLUMN relocated_location VARCHAR(100) DEFAULT '';
 ALTER TABLE report ADD COLUMN investigation_lat_location VARCHAR(100) DEFAULT '';
 ALTER TABLE report ADD COLUMN investigation_lon_location VARCHAR(100) DEFAULT '';
 ALTER TABLE report ADD COLUMN investigation_location_accuracy VARCHAR(100) DEFAULT '';
+ALTER TABLE report ADD COLUMN investigation_nutritional_condition VARCHAR(100) DEFAULT '';
+ALTER TABLE report ADD COLUMN investigation_age_class VARCHAR(100) DEFAULT '';
+ALTER TABLE report ADD COLUMN live_animals_comments VARCHAR(100) DEFAULT '';
 
 
 CREATE TABLE `report_human_interaction_section`

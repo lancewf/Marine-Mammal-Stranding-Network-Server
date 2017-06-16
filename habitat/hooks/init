@@ -14,7 +14,7 @@ fi
 
 mysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} -e "create database IF NOT EXISTS {{bind.database.first.cfg.username}}"
 
-mysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}}  -D {{bind.database.first.cfg.username}} < {{pkg.path}}/database/create-tables.sql
+mysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}}  -D {{bind.database.first.cfg.username}} < {{pkg.path}}/database/schema.sql
 
 # create mysql entry
 printf "#! /bin/bash\n mysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}}" >> /mysql.sh

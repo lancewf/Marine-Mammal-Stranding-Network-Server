@@ -58,6 +58,9 @@
  * @method ReportQuery orderByIsActionOther($order = Criteria::ASC) Order by the is_action_other column
  * @method ReportQuery orderByRelocatedLocation($order = Criteria::ASC) Order by the relocated_location column
  * @method ReportQuery orderByVolunteerId($order = Criteria::ASC) Order by the volunteer_id column
+ * @method ReportQuery orderByInvestigationNutritionalCondition($order = Criteria::ASC) Order by the investigation_nutritional_condition column
+ * @method ReportQuery orderByInvestigationAgeClass($order = Criteria::ASC) Order by the investigation_age_class column
+ * @method ReportQuery orderByLiveAnimalsComments($order = Criteria::ASC) Order by the live_animals_comments column
  *
  * @method ReportQuery groupById() Group by the id column
  * @method ReportQuery groupByResponder() Group by the responder column
@@ -111,6 +114,9 @@
  * @method ReportQuery groupByIsActionOther() Group by the is_action_other column
  * @method ReportQuery groupByRelocatedLocation() Group by the relocated_location column
  * @method ReportQuery groupByVolunteerId() Group by the volunteer_id column
+ * @method ReportQuery groupByInvestigationNutritionalCondition() Group by the investigation_nutritional_condition column
+ * @method ReportQuery groupByInvestigationAgeClass() Group by the investigation_age_class column
+ * @method ReportQuery groupByLiveAnimalsComments() Group by the live_animals_comments column
  *
  * @method ReportQuery leftJoin($relation) Adds a LEFT JOIN clause to the query
  * @method ReportQuery rightJoin($relation) Adds a RIGHT JOIN clause to the query
@@ -186,6 +192,9 @@
  * @method Report findOneByIsActionOther(boolean $is_action_other) Return the first Report filtered by the is_action_other column
  * @method Report findOneByRelocatedLocation(string $relocated_location) Return the first Report filtered by the relocated_location column
  * @method Report findOneByVolunteerId(int $volunteer_id) Return the first Report filtered by the volunteer_id column
+ * @method Report findOneByInvestigationNutritionalCondition(string $investigation_nutritional_condition) Return the first Report filtered by the investigation_nutritional_condition column
+ * @method Report findOneByInvestigationAgeClass(string $investigation_age_class) Return the first Report filtered by the investigation_age_class column
+ * @method Report findOneByLiveAnimalsComments(string $live_animals_comments) Return the first Report filtered by the live_animals_comments column
  *
  * @method array findById(int $id) Return Report objects filtered by the id column
  * @method array findByResponder(string $responder) Return Report objects filtered by the responder column
@@ -239,6 +248,9 @@
  * @method array findByIsActionOther(boolean $is_action_other) Return Report objects filtered by the is_action_other column
  * @method array findByRelocatedLocation(string $relocated_location) Return Report objects filtered by the relocated_location column
  * @method array findByVolunteerId(int $volunteer_id) Return Report objects filtered by the volunteer_id column
+ * @method array findByInvestigationNutritionalCondition(string $investigation_nutritional_condition) Return Report objects filtered by the investigation_nutritional_condition column
+ * @method array findByInvestigationAgeClass(string $investigation_age_class) Return Report objects filtered by the investigation_age_class column
+ * @method array findByLiveAnimalsComments(string $live_animals_comments) Return Report objects filtered by the live_animals_comments column
  *
  * @package    propel.generator.persistence.om
  */
@@ -346,7 +358,7 @@ abstract class BaseReportQuery extends ModelCriteria
      */
     protected function findPkSimple($key, $con)
     {
-        $sql = 'SELECT `id`, `responder`, `call_date`, `call_from`, `caller_name`, `caller_phone_number`, `call_location`, `call_species`, `when_first_seen`, `call_comments`, `call_referred_to`, `call_condition`, `investigator_support`, `investigation_date`, `investigation_lat_location`, `investigation_lon_location`, `investigation_location_accuracy`, `investigation_physical_location`, `investigation_species`, `animal_not_found`, `investigation_condition`, `tags`, `disposition`, `seal_pickup`, `sex`, `weight`, `straight_length`, `contour_length`, `girth`, `investigation_comments`, `is_photo_taken`, `is_con_sick`, `is_con_injured`, `is_con_out_of_habitat`, `is_con_deemed_releasable`, `is_con_abandoned`, `is_con_inaccessible`, `is_con_location_hazard_to_animal`, `is_con_location_hazard_to_humans`, `is_con_unknown`, `is_con_other`, `is_action_left_at_site`, `is_action_immediate_release_at_site`, `is_action_relocated`, `is_action_died_at_site`, `is_action_died_during_transport`, `is_action_euthanized_at_site`, `is_action_euthanized_during_transport`, `is_action_transferred_to_rehab`, `is_action_other`, `relocated_location`, `volunteer_id` FROM `report` WHERE `id` = :p0';
+        $sql = 'SELECT `id`, `responder`, `call_date`, `call_from`, `caller_name`, `caller_phone_number`, `call_location`, `call_species`, `when_first_seen`, `call_comments`, `call_referred_to`, `call_condition`, `investigator_support`, `investigation_date`, `investigation_lat_location`, `investigation_lon_location`, `investigation_location_accuracy`, `investigation_physical_location`, `investigation_species`, `animal_not_found`, `investigation_condition`, `tags`, `disposition`, `seal_pickup`, `sex`, `weight`, `straight_length`, `contour_length`, `girth`, `investigation_comments`, `is_photo_taken`, `is_con_sick`, `is_con_injured`, `is_con_out_of_habitat`, `is_con_deemed_releasable`, `is_con_abandoned`, `is_con_inaccessible`, `is_con_location_hazard_to_animal`, `is_con_location_hazard_to_humans`, `is_con_unknown`, `is_con_other`, `is_action_left_at_site`, `is_action_immediate_release_at_site`, `is_action_relocated`, `is_action_died_at_site`, `is_action_died_during_transport`, `is_action_euthanized_at_site`, `is_action_euthanized_during_transport`, `is_action_transferred_to_rehab`, `is_action_other`, `relocated_location`, `volunteer_id`, `investigation_nutritional_condition`, `investigation_age_class`, `live_animals_comments` FROM `report` WHERE `id` = :p0';
         try {
             $stmt = $con->prepare($sql);
             $stmt->bindValue(':p0', $key, PDO::PARAM_INT);
@@ -2007,6 +2019,93 @@ abstract class BaseReportQuery extends ModelCriteria
         }
 
         return $this->addUsingAlias(ReportPeer::VOLUNTEER_ID, $volunteerId, $comparison);
+    }
+
+    /**
+     * Filter the query on the investigation_nutritional_condition column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByInvestigationNutritionalCondition('fooValue');   // WHERE investigation_nutritional_condition = 'fooValue'
+     * $query->filterByInvestigationNutritionalCondition('%fooValue%'); // WHERE investigation_nutritional_condition LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $investigationNutritionalCondition The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ReportQuery The current query, for fluid interface
+     */
+    public function filterByInvestigationNutritionalCondition($investigationNutritionalCondition = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($investigationNutritionalCondition)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $investigationNutritionalCondition)) {
+                $investigationNutritionalCondition = str_replace('*', '%', $investigationNutritionalCondition);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ReportPeer::INVESTIGATION_NUTRITIONAL_CONDITION, $investigationNutritionalCondition, $comparison);
+    }
+
+    /**
+     * Filter the query on the investigation_age_class column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByInvestigationAgeClass('fooValue');   // WHERE investigation_age_class = 'fooValue'
+     * $query->filterByInvestigationAgeClass('%fooValue%'); // WHERE investigation_age_class LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $investigationAgeClass The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ReportQuery The current query, for fluid interface
+     */
+    public function filterByInvestigationAgeClass($investigationAgeClass = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($investigationAgeClass)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $investigationAgeClass)) {
+                $investigationAgeClass = str_replace('*', '%', $investigationAgeClass);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ReportPeer::INVESTIGATION_AGE_CLASS, $investigationAgeClass, $comparison);
+    }
+
+    /**
+     * Filter the query on the live_animals_comments column
+     *
+     * Example usage:
+     * <code>
+     * $query->filterByLiveAnimalsComments('fooValue');   // WHERE live_animals_comments = 'fooValue'
+     * $query->filterByLiveAnimalsComments('%fooValue%'); // WHERE live_animals_comments LIKE '%fooValue%'
+     * </code>
+     *
+     * @param     string $liveAnimalsComments The value to use as filter.
+     *              Accepts wildcards (* and % trigger a LIKE)
+     * @param     string $comparison Operator to use for the column comparison, defaults to Criteria::EQUAL
+     *
+     * @return ReportQuery The current query, for fluid interface
+     */
+    public function filterByLiveAnimalsComments($liveAnimalsComments = null, $comparison = null)
+    {
+        if (null === $comparison) {
+            if (is_array($liveAnimalsComments)) {
+                $comparison = Criteria::IN;
+            } elseif (preg_match('/[\%\*]/', $liveAnimalsComments)) {
+                $liveAnimalsComments = str_replace('*', '%', $liveAnimalsComments);
+                $comparison = Criteria::LIKE;
+            }
+        }
+
+        return $this->addUsingAlias(ReportPeer::LIVE_ANIMALS_COMMENTS, $liveAnimalsComments, $comparison);
     }
 
     /**

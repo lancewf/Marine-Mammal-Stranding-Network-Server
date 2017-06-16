@@ -342,6 +342,24 @@ abstract class BaseReport extends BaseObject implements Persistent
     protected $volunteer_id;
 
     /**
+     * The value for the investigation_nutritional_condition field.
+     * @var        string
+     */
+    protected $investigation_nutritional_condition;
+
+    /**
+     * The value for the investigation_age_class field.
+     * @var        string
+     */
+    protected $investigation_age_class;
+
+    /**
+     * The value for the live_animals_comments field.
+     * @var        string
+     */
+    protected $live_animals_comments;
+
+    /**
      * @var        Volunteer
      */
     protected $aVolunteer;
@@ -1030,6 +1048,39 @@ abstract class BaseReport extends BaseObject implements Persistent
     {
 
         return $this->volunteer_id;
+    }
+
+    /**
+     * Get the [investigation_nutritional_condition] column value.
+     *
+     * @return string
+     */
+    public function getInvestigationNutritionalCondition()
+    {
+
+        return $this->investigation_nutritional_condition;
+    }
+
+    /**
+     * Get the [investigation_age_class] column value.
+     *
+     * @return string
+     */
+    public function getInvestigationAgeClass()
+    {
+
+        return $this->investigation_age_class;
+    }
+
+    /**
+     * Get the [live_animals_comments] column value.
+     *
+     * @return string
+     */
+    public function getLiveAnimalsComments()
+    {
+
+        return $this->live_animals_comments;
     }
 
     /**
@@ -2301,6 +2352,69 @@ abstract class BaseReport extends BaseObject implements Persistent
     } // setVolunteerId()
 
     /**
+     * Set the value of [investigation_nutritional_condition] column.
+     *
+     * @param  string $v new value
+     * @return Report The current object (for fluent API support)
+     */
+    public function setInvestigationNutritionalCondition($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->investigation_nutritional_condition !== $v) {
+            $this->investigation_nutritional_condition = $v;
+            $this->modifiedColumns[] = ReportPeer::INVESTIGATION_NUTRITIONAL_CONDITION;
+        }
+
+
+        return $this;
+    } // setInvestigationNutritionalCondition()
+
+    /**
+     * Set the value of [investigation_age_class] column.
+     *
+     * @param  string $v new value
+     * @return Report The current object (for fluent API support)
+     */
+    public function setInvestigationAgeClass($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->investigation_age_class !== $v) {
+            $this->investigation_age_class = $v;
+            $this->modifiedColumns[] = ReportPeer::INVESTIGATION_AGE_CLASS;
+        }
+
+
+        return $this;
+    } // setInvestigationAgeClass()
+
+    /**
+     * Set the value of [live_animals_comments] column.
+     *
+     * @param  string $v new value
+     * @return Report The current object (for fluent API support)
+     */
+    public function setLiveAnimalsComments($v)
+    {
+        if ($v !== null) {
+            $v = (string) $v;
+        }
+
+        if ($this->live_animals_comments !== $v) {
+            $this->live_animals_comments = $v;
+            $this->modifiedColumns[] = ReportPeer::LIVE_ANIMALS_COMMENTS;
+        }
+
+
+        return $this;
+    } // setLiveAnimalsComments()
+
+    /**
      * Indicates whether the columns in this object are only set to default values.
      *
      * This method can be used in conjunction with isModified() to indicate whether an object is both
@@ -2384,6 +2498,9 @@ abstract class BaseReport extends BaseObject implements Persistent
             $this->is_action_other = ($row[$startcol + 49] !== null) ? (boolean) $row[$startcol + 49] : null;
             $this->relocated_location = ($row[$startcol + 50] !== null) ? (string) $row[$startcol + 50] : null;
             $this->volunteer_id = ($row[$startcol + 51] !== null) ? (int) $row[$startcol + 51] : null;
+            $this->investigation_nutritional_condition = ($row[$startcol + 52] !== null) ? (string) $row[$startcol + 52] : null;
+            $this->investigation_age_class = ($row[$startcol + 53] !== null) ? (string) $row[$startcol + 53] : null;
+            $this->live_animals_comments = ($row[$startcol + 54] !== null) ? (string) $row[$startcol + 54] : null;
             $this->resetModified();
 
             $this->setNew(false);
@@ -2393,7 +2510,7 @@ abstract class BaseReport extends BaseObject implements Persistent
             }
             $this->postHydrate($row, $startcol, $rehydrate);
 
-            return $startcol + 52; // 52 = ReportPeer::NUM_HYDRATE_COLUMNS.
+            return $startcol + 55; // 55 = ReportPeer::NUM_HYDRATE_COLUMNS.
 
         } catch (Exception $e) {
             throw new PropelException("Error populating Report object", $e);
@@ -2834,6 +2951,15 @@ abstract class BaseReport extends BaseObject implements Persistent
         if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) {
             $modifiedColumns[':p' . $index++]  = '`volunteer_id`';
         }
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_NUTRITIONAL_CONDITION)) {
+            $modifiedColumns[':p' . $index++]  = '`investigation_nutritional_condition`';
+        }
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_AGE_CLASS)) {
+            $modifiedColumns[':p' . $index++]  = '`investigation_age_class`';
+        }
+        if ($this->isColumnModified(ReportPeer::LIVE_ANIMALS_COMMENTS)) {
+            $modifiedColumns[':p' . $index++]  = '`live_animals_comments`';
+        }
 
         $sql = sprintf(
             'INSERT INTO `report` (%s) VALUES (%s)',
@@ -3000,6 +3126,15 @@ abstract class BaseReport extends BaseObject implements Persistent
                         break;
                     case '`volunteer_id`':
                         $stmt->bindValue($identifier, $this->volunteer_id, PDO::PARAM_INT);
+                        break;
+                    case '`investigation_nutritional_condition`':
+                        $stmt->bindValue($identifier, $this->investigation_nutritional_condition, PDO::PARAM_STR);
+                        break;
+                    case '`investigation_age_class`':
+                        $stmt->bindValue($identifier, $this->investigation_age_class, PDO::PARAM_STR);
+                        break;
+                    case '`live_animals_comments`':
+                        $stmt->bindValue($identifier, $this->live_animals_comments, PDO::PARAM_STR);
                         break;
                 }
             }
@@ -3327,6 +3462,15 @@ abstract class BaseReport extends BaseObject implements Persistent
             case 51:
                 return $this->getVolunteerId();
                 break;
+            case 52:
+                return $this->getInvestigationNutritionalCondition();
+                break;
+            case 53:
+                return $this->getInvestigationAgeClass();
+                break;
+            case 54:
+                return $this->getLiveAnimalsComments();
+                break;
             default:
                 return null;
                 break;
@@ -3408,6 +3552,9 @@ abstract class BaseReport extends BaseObject implements Persistent
             $keys[49] => $this->getIsActionOther(),
             $keys[50] => $this->getRelocatedLocation(),
             $keys[51] => $this->getVolunteerId(),
+            $keys[52] => $this->getInvestigationNutritionalCondition(),
+            $keys[53] => $this->getInvestigationAgeClass(),
+            $keys[54] => $this->getLiveAnimalsComments(),
         );
         $virtualColumns = $this->virtualColumns;
         foreach ($virtualColumns as $key => $virtualColumn) {
@@ -3617,6 +3764,15 @@ abstract class BaseReport extends BaseObject implements Persistent
             case 51:
                 $this->setVolunteerId($value);
                 break;
+            case 52:
+                $this->setInvestigationNutritionalCondition($value);
+                break;
+            case 53:
+                $this->setInvestigationAgeClass($value);
+                break;
+            case 54:
+                $this->setLiveAnimalsComments($value);
+                break;
         } // switch()
     }
 
@@ -3693,6 +3849,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         if (array_key_exists($keys[49], $arr)) $this->setIsActionOther($arr[$keys[49]]);
         if (array_key_exists($keys[50], $arr)) $this->setRelocatedLocation($arr[$keys[50]]);
         if (array_key_exists($keys[51], $arr)) $this->setVolunteerId($arr[$keys[51]]);
+        if (array_key_exists($keys[52], $arr)) $this->setInvestigationNutritionalCondition($arr[$keys[52]]);
+        if (array_key_exists($keys[53], $arr)) $this->setInvestigationAgeClass($arr[$keys[53]]);
+        if (array_key_exists($keys[54], $arr)) $this->setLiveAnimalsComments($arr[$keys[54]]);
     }
 
     /**
@@ -3756,6 +3915,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         if ($this->isColumnModified(ReportPeer::IS_ACTION_OTHER)) $criteria->add(ReportPeer::IS_ACTION_OTHER, $this->is_action_other);
         if ($this->isColumnModified(ReportPeer::RELOCATED_LOCATION)) $criteria->add(ReportPeer::RELOCATED_LOCATION, $this->relocated_location);
         if ($this->isColumnModified(ReportPeer::VOLUNTEER_ID)) $criteria->add(ReportPeer::VOLUNTEER_ID, $this->volunteer_id);
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_NUTRITIONAL_CONDITION)) $criteria->add(ReportPeer::INVESTIGATION_NUTRITIONAL_CONDITION, $this->investigation_nutritional_condition);
+        if ($this->isColumnModified(ReportPeer::INVESTIGATION_AGE_CLASS)) $criteria->add(ReportPeer::INVESTIGATION_AGE_CLASS, $this->investigation_age_class);
+        if ($this->isColumnModified(ReportPeer::LIVE_ANIMALS_COMMENTS)) $criteria->add(ReportPeer::LIVE_ANIMALS_COMMENTS, $this->live_animals_comments);
 
         return $criteria;
     }
@@ -3870,6 +4032,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         $copyObj->setIsActionOther($this->getIsActionOther());
         $copyObj->setRelocatedLocation($this->getRelocatedLocation());
         $copyObj->setVolunteerId($this->getVolunteerId());
+        $copyObj->setInvestigationNutritionalCondition($this->getInvestigationNutritionalCondition());
+        $copyObj->setInvestigationAgeClass($this->getInvestigationAgeClass());
+        $copyObj->setLiveAnimalsComments($this->getLiveAnimalsComments());
 
         if ($deepCopy && !$this->startCopy) {
             // important: temporarily setNew(false) because this affects the behavior of
@@ -4777,6 +4942,9 @@ abstract class BaseReport extends BaseObject implements Persistent
         $this->is_action_other = null;
         $this->relocated_location = null;
         $this->volunteer_id = null;
+        $this->investigation_nutritional_condition = null;
+        $this->investigation_age_class = null;
+        $this->live_animals_comments = null;
         $this->alreadyInSave = false;
         $this->alreadyInValidation = false;
         $this->alreadyInClearAllReferencesDeep = false;

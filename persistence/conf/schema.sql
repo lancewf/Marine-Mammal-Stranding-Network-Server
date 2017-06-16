@@ -63,6 +63,9 @@ CREATE TABLE `report`
     `is_action_other` TINYINT(1),
     `relocated_location` VARCHAR(100) COMMENT 'a description of the relocated location',
     `volunteer_id` INTEGER NOT NULL,
+    `investigation_nutritional_condition` VARCHAR(100),
+    `investigation_age_class` VARCHAR(100),
+    `live_animals_comments` VARCHAR(100),
     PRIMARY KEY (`id`),
     INDEX `report_FI_1` (`volunteer_id`)
 ) ENGINE=MyISAM COMMENT='a report';

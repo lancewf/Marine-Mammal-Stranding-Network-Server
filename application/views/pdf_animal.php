@@ -8,8 +8,6 @@
 <tr>
 <td class="label">Disposition:</td>
 <td class="field"><?= $report->getDisposition();?></td>
-<td class="label">Seal Pickup:</td>
-<td class="field"><?= $report->getSealPickup();?></td>
 </tr>
 
 <tr>

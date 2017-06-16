@@ -90,6 +90,9 @@ class ReportTableMap extends TableMap
         $this->addColumn('is_action_other', 'IsActionOther', 'BOOLEAN', false, 1, null);
         $this->addColumn('relocated_location', 'RelocatedLocation', 'VARCHAR', false, 100, null);
         $this->addForeignKey('volunteer_id', 'VolunteerId', 'INTEGER', 'volunteer', 'id', true, null, null);
+        $this->addColumn('investigation_nutritional_condition', 'InvestigationNutritionalCondition', 'VARCHAR', false, 100, null);
+        $this->addColumn('investigation_age_class', 'InvestigationAgeClass', 'VARCHAR', false, 100, null);
+        $this->addColumn('live_animals_comments', 'LiveAnimalsComments', 'VARCHAR', false, 100, null);
         // validators
     } // initialize()
 
