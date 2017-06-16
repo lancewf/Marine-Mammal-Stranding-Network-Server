@@ -111,6 +111,7 @@ class Volunteer_hours_model extends CI_Model
 	{
 		$volunteerHours = new VolunteerHours();
 		
+        unset($volunteerHoursData['id']);
 		$this->fillVolunteerHours($volunteerHours, $volunteerHoursData);
 		
 		$volunteerHours->setVolunteer($volunteer);

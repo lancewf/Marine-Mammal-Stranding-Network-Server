@@ -4,7 +4,7 @@ var $gwt_version = "2.4.0";
 var $wnd = parent;
 var $doc = $wnd.document;
 var $moduleName, $moduleBase;
-var $strongName = '852C0D7E71D86B32C4F50DA1A176D404';
+var $strongName = '7FD51B85D60EA98EFC99101D1D2C6A8F';
 var $stats = $wnd.__gwtStatsEvent ? function(a) {return $wnd.__gwtStatsEvent(a);} : null,
 $sessionId = $wnd.__gwtStatsSessionId ? $wnd.__gwtStatsSessionId : null;
 $stats && $stats({moduleName:'client',sessionId:$sessionId,subSystem:'startup',evtGroup:'moduleStartup',millis:(new Date()).getTime(),type:'moduleEvalStart'});
@@ -28765,7 +28765,6 @@ function $buildReport(this$static, reportData){
   $setCondition_0(reportInvestigation, reportData.investigation_condition);
   $setTags(reportInvestigation, reportData.tags);
   $setDisposition(reportInvestigation, reportData.disposition);
-  $setSealPickup(reportInvestigation, reportData.seal_pickup);
   $setSex(reportInvestigation, reportData.sex);
   $setWeight(reportInvestigation, reportData.weight);
   $setStraightLength(reportInvestigation, reportData.straight_length);
@@ -28958,6 +28957,10 @@ function $setVolunteer(this$static, volunteer){
   this$static.volunteer = volunteer;
 }
 
+function $setVolunteerManager(this$static, volunteerManager){
+  this$static.volunteerManager = volunteerManager;
+}
+
 function VolunteerAddedSender_0(){
   SenderAndReceiver_0.call(this, $wnd.base_services_url + 'createVolunteer');
 }
@@ -28975,10 +28978,15 @@ _.getData = function getData_11(){
 }
 ;
 _.reponse_0 = function reponse_6(reponse){
-  this.volunteer.id_0 < 0 && $setId_5(this.volunteer, __parseAndValidateInt(reponse, 10, -2147483648, 2147483647));
+  var newId;
+  if (this.volunteer.id_0 < 0) {
+    newId = __parseAndValidateInt(reponse, 10, -2147483648, 2147483647);
+    $setVolunteerId(this.volunteerManager, this.volunteer, newId);
+  }
 }
 ;
 _.volunteer = null;
+_.volunteerManager = null;
 function $setVolunteer_0(this$static, volunteer){
   this$static.volunteer = volunteer;
 }
@@ -29030,7 +29038,7 @@ function $parseText_2(rawText){
   volunteers = new ArrayList_0;
   for (index = 0; index < volunteerDatas.length; ++index) {
     volunteerData = volunteerDatas[index];
-    volunteer = (volunteer_0 = new Volunteer_0 , $setId_5(volunteer_0, volunteerData.id) , $setFirstName(volunteer_0, volunteerData.first_name) , $setLastName(volunteer_0, volunteerData.last_name) , $setCity(volunteer_0, volunteerData.city) , $setState_1(volunteer_0, volunteerData.state) , $setZip(volunteer_0, volunteerData.zip) , $setStreetAddress(volunteer_0, volunteerData.streetaddress) , $setVehicle(volunteer_0, volunteerData.vehicle) , $setIsland(volunteer_0, volunteerData.island) , $setComments_2(volunteer_0, volunteerData.comments) , $setPhoneNumber(volunteer_0, volunteerData.phonenumber) , $setEmail(volunteer_0, volunteerData.email) , $setTraining(volunteer_0, volunteerData.training) , availablity = new Availablity_0 , $setSundayAnyTime(availablity, volunteerData.sunday_any_time) , $setMondayAnyTime(availablity, volunteerData.monday_any_time) , $setTuesdayAnyTime(availablity, volunteerData.tuesday_any_time) , $setWednesdayAnyTime(availablity, volunteerData.wednesday_any_time) , $setThursdayAnyTime(availablity, volunteerData.thursday_any_time) , $setFridayAnyTime(availablity, volunteerData.friday_any_time) , $setSaturdayAnyTime(availablity, volunteerData.saturday_any_time) , $setSundayNoTime(availablity, volunteerData.sunday_no_time) , $setMondayNoTime(availablity, volunteerData.monday_no_time) , $setTuesdayNoTime(availablity, volunteerData.tuesday_no_time) , $setWednesdayNoTime(availablity, volunteerData.wednesday_no_time) , $setThursdayNoTime(availablity, volunteerData.thursday_no_time) , $setFridayNoTime(availablity, volunteerData.friday_no_time) , $setSaturdayNoTime(availablity, volunteerData.saturday_no_time) , $setSundayFromHour(availablity, volunteerData.sunday_from_hour) , $setMondayFromHour(availablity, volunteerData.monday_from_hour) , $setTuesdayFromHour(availablity, volunteerData.tuesday_from_hour) , $setWednesdayFromHour(availablity, volunteerData.wednesday_from_hour) , $setThursdayFromHour(availablity, volunteerData.thursday_from_hour) , $setFridayFromHour(availablity, volunteerData.friday_from_hour) , $setSaturdayFromHour(availablity, volunteerData.saturday_from_hour) , $setSundayToHour(availablity, volunteerData.sunday_to_hour) , $setMondayToHour(availablity, volunteerData.monday_to_hour) , $setTuesdayToHour(availablity, volunteerData.tuesday_to_hour) , $setWednesdayToHour(availablity, volunteerData.wednesday_to_hour) , $setThursdayToHour(availablity, volunteerData.thursday_to_hour) , $setFridayToHour(availablity, volunteerData.friday_to_hour) , $setSaturdayToHour(availablity, volunteerData.saturday_to_hour) , volunteer_0.availablity = availablity , volunteer_0);
+    volunteer = (volunteer_0 = new Volunteer_0 , $setId_5(volunteer_0, volunteerData.id) , $setFirstName(volunteer_0, volunteerData.first_name) , $setLastName(volunteer_0, volunteerData.last_name) , $setCity(volunteer_0, volunteerData.city) , $setState_1(volunteer_0, volunteerData.state) , $setZip(volunteer_0, volunteerData.zip) , $setStreetAddress(volunteer_0, volunteerData.streetaddress) , $setVehicle(volunteer_0, volunteerData.vehicle) , $setIsland(volunteer_0, volunteerData.island) , $setComments_3(volunteer_0, volunteerData.comments) , $setPhoneNumber(volunteer_0, volunteerData.phonenumber) , $setEmail(volunteer_0, volunteerData.email) , $setTraining(volunteer_0, volunteerData.training) , availablity = new Availablity_0 , $setSundayAnyTime(availablity, volunteerData.sunday_any_time) , $setMondayAnyTime(availablity, volunteerData.monday_any_time) , $setTuesdayAnyTime(availablity, volunteerData.tuesday_any_time) , $setWednesdayAnyTime(availablity, volunteerData.wednesday_any_time) , $setThursdayAnyTime(availablity, volunteerData.thursday_any_time) , $setFridayAnyTime(availablity, volunteerData.friday_any_time) , $setSaturdayAnyTime(availablity, volunteerData.saturday_any_time) , $setSundayNoTime(availablity, volunteerData.sunday_no_time) , $setMondayNoTime(availablity, volunteerData.monday_no_time) , $setTuesdayNoTime(availablity, volunteerData.tuesday_no_time) , $setWednesdayNoTime(availablity, volunteerData.wednesday_no_time) , $setThursdayNoTime(availablity, volunteerData.thursday_no_time) , $setFridayNoTime(availablity, volunteerData.friday_no_time) , $setSaturdayNoTime(availablity, volunteerData.saturday_no_time) , $setSundayFromHour(availablity, volunteerData.sunday_from_hour) , $setMondayFromHour(availablity, volunteerData.monday_from_hour) , $setTuesdayFromHour(availablity, volunteerData.tuesday_from_hour) , $setWednesdayFromHour(availablity, volunteerData.wednesday_from_hour) , $setThursdayFromHour(availablity, volunteerData.thursday_from_hour) , $setFridayFromHour(availablity, volunteerData.friday_from_hour) , $setSaturdayFromHour(availablity, volunteerData.saturday_from_hour) , $setSundayToHour(availablity, volunteerData.sunday_to_hour) , $setMondayToHour(availablity, volunteerData.monday_to_hour) , $setTuesdayToHour(availablity, volunteerData.tuesday_to_hour) , $setWednesdayToHour(availablity, volunteerData.wednesday_to_hour) , $setThursdayToHour(availablity, volunteerData.thursday_to_hour) , $setFridayToHour(availablity, volunteerData.friday_to_hour) , $setSaturdayToHour(availablity, volunteerData.saturday_to_hour) , volunteer_0.availablity = availablity , volunteer_0);
     setCheck(volunteers.array, volunteers.size++, volunteer);
   }
   return volunteers;
@@ -29141,7 +29149,7 @@ function $parseText_3(rawText){
   volunteerHoursCollection = new ArrayList_0;
   for (index = 0; index < volunteerHoursDatas.length; ++index) {
     volunteerHoursData = volunteerHoursDatas[index];
-    volunteerHours = (volunteerHours_0 = new VolunteerHours_0 , $setId_6(volunteerHours_0, volunteerHoursData.id) , $setDayOfMonth_0(volunteerHours_0, volunteerHoursData.dayofmonth) , $setMonth_2(volunteerHours_0, volunteerHoursData.month) , $setYear_1(volunteerHours_0, volunteerHoursData.year) , $setMileage(volunteerHours_0, volunteerHoursData.mileage) , $setComments_3(volunteerHours_0, volunteerHoursData.comments) , $setTotalHours(volunteerHours_0, volunteerHoursData.total_hours) , volunteerHours_0);
+    volunteerHours = (volunteerHours_0 = new VolunteerHours_0 , $setId_6(volunteerHours_0, volunteerHoursData.id) , $setDayOfMonth_0(volunteerHours_0, volunteerHoursData.dayofmonth) , $setMonth_2(volunteerHours_0, volunteerHoursData.month) , $setYear_1(volunteerHours_0, volunteerHoursData.year) , $setMileage(volunteerHours_0, volunteerHoursData.mileage) , $setComments_4(volunteerHours_0, volunteerHoursData.comments) , $setTotalHours(volunteerHours_0, volunteerHoursData.total_hours) , volunteerHours_0);
     setCheck(volunteerHoursCollection.array, volunteerHoursCollection.size++, volunteerHours);
   }
   return volunteerHoursCollection;
@@ -29159,6 +29167,8 @@ function $setYear(this$static, year){
   this$static.year_0 = year;
 }
 
+--></script>
+<script><!--
 function VolunteerMonthlyHoursRetriever_0(){
   Retriever_0.call(this, $wnd.base_services_url + 'getVolunteerMonthlyHoursCollection');
 }
@@ -29167,8 +29177,6 @@ function VolunteerMonthlyHoursRetriever(){
 }
 
 _ = VolunteerMonthlyHoursRetriever_0.prototype = VolunteerMonthlyHoursRetriever.prototype = new Retriever;
---></script>
-<script><!--
 _.getClass$ = function getClass_487(){
   return Lcom_mmsn_reportgen_client_connection_volunteerhours_VolunteerMonthlyHoursRetriever_2_classLit;
 }
@@ -29512,9 +29520,10 @@ function $getJson_1(this$static){
   $put_3(request, 'investigation_species', new JSONString_0(reportInvestigation.species));
   $put_3(request, 'animal_not_found', ($clinit_JSONBoolean() , reportInvestigation.animalNotFound?TRUE:FALSE));
   $put_3(request, 'investigation_condition', new JSONString_0(reportInvestigation.condition));
+  $put_3(request, 'investigation_nutritional_condition', new JSONString_0(reportInvestigation.ageClass));
+  $put_3(request, 'investigation_age_class', new JSONString_0(reportInvestigation.nutritionalCondition));
   $put_3(request, 'tags', new JSONString_0(reportInvestigation.tags_0));
   $put_3(request, 'disposition', new JSONString_0(reportInvestigation.disposition_0));
-  $put_3(request, 'seal_pickup', new JSONString_0(reportInvestigation.sealPickup));
   $put_3(request, 'sex', new JSONString_0(reportInvestigation.sex_0));
   $put_3(request, 'weight', new JSONNumber_0(reportInvestigation.weight_0));
   $put_3(request, 'straight_length', new JSONNumber_0(reportInvestigation.straightLength));
@@ -29542,6 +29551,7 @@ function $getJson_1(this$static){
   $put_3(request, 'is_action_transferred_to_rehab', reportLiveAnimals.isActionTransferredToRehab?TRUE:FALSE);
   $put_3(request, 'is_action_other', reportLiveAnimals.isActionOther?TRUE:FALSE);
   $put_3(request, 'relocated_location', new JSONString_0(reportLiveAnimals.relocatedLocation));
+  $put_3(request, 'live_animals_comments', new JSONString_0(reportLiveAnimals.comments_0));
   $put_3(request, 'human_interactions', $getJson_2(this$static.reportHumanInteraction));
   attachementArray = new JSONArray_0;
   attachments = $getAttachments_0(this$static.attachmentList);
@@ -29682,15 +29692,15 @@ function $setSections(this$static, sections){
 
 function ReportHumanInteraction_0(){
   this.sections = new ArrayList_0;
-  $addSection(this, new ReportHumanInteractionSection_0('Rostrum/snout'));
-  $addSection(this, new ReportHumanInteractionSection_0('Mandible'));
+  $addSection(this, new ReportHumanInteractionSection_0('Nose'));
+  $addSection(this, new ReportHumanInteractionSection_0('Jaw'));
   $addSection(this, new ReportHumanInteractionSection_0('Head'));
   $addSection(this, new ReportHumanInteractionSection_0('L Front appendage'));
   $addSection(this, new ReportHumanInteractionSection_0('R Front appendage'));
   $addSection(this, new ReportHumanInteractionSection_0('Body R L'));
-  $addSection(this, new ReportHumanInteractionSection_0('Dorsum/dorsal fin'));
-  $addSection(this, new ReportHumanInteractionSection_0('Ventrum'));
-  $addSection(this, new ReportHumanInteractionSection_0('Peduncle'));
+  $addSection(this, new ReportHumanInteractionSection_0('Back'));
+  $addSection(this, new ReportHumanInteractionSection_0('Belly'));
+  $addSection(this, new ReportHumanInteractionSection_0('Peduncle/tail stock'));
   $addSection(this, new ReportHumanInteractionSection_0('L Rear appendage'));
   $addSection(this, new ReportHumanInteractionSection_0('R Rear appendage'));
   $addSection(this, new ReportHumanInteractionSection_0('Flukes/tail'));
@@ -29753,6 +29763,10 @@ _.name_0 = null;
 _.possibleHiLesion = null;
 _.possibleSource = null;
 _.scavengerDamage = null;
+function $setAgeClass(this$static, ageClass){
+  this$static.ageClass = ageClass;
+}
+
 function $setAnimalNotFound(this$static, animalNotFound){
   this$static.animalNotFound = animalNotFound;
 }
@@ -29793,12 +29807,12 @@ function $setLonLocation(this$static, lonLocation){
   this$static.lonLocation = lonLocation;
 }
 
-function $setPhysicalLocation(this$static, physicalLocation){
-  this$static.physicalLocation = physicalLocation;
+function $setNutritionalCondition(this$static, nutritionalCondition){
+  this$static.nutritionalCondition = nutritionalCondition;
 }
 
-function $setSealPickup(this$static, sealPickup){
-  this$static.sealPickup = sealPickup;
+function $setPhysicalLocation(this$static, physicalLocation){
+  this$static.physicalLocation = physicalLocation;
 }
 
 function $setSex(this$static, sex){
@@ -29832,6 +29846,7 @@ _.getClass$ = function getClass_500(){
   return Lcom_mmsn_reportgen_client_data_report_ReportInvestigation_2_classLit;
 }
 ;
+_.ageClass = null;
 _.animalNotFound = false;
 _.comments_0 = null;
 _.condition = null;
@@ -29842,8 +29857,8 @@ _.investigatorSupport = null;
 _.latLocation = null;
 _.locationAccuracy = null;
 _.lonLocation = null;
+_.nutritionalCondition = null;
 _.physicalLocation = null;
-_.sealPickup = null;
 _.sex_0 = null;
 _.species = null;
 _.straightLength = 0;
@@ -29883,6 +29898,10 @@ function $setActionRelocated(this$static, isActionRelocated){
 
 function $setActionTransferredToRehab(this$static, isActionTransferredToRehab){
   this$static.isActionTransferredToRehab = isActionTransferredToRehab;
+}
+
+function $setComments_2(this$static, comments){
+  this$static.comments_0 = comments;
 }
 
 function $setConAbandoned(this$static, isConAbandoned){
@@ -29940,6 +29959,7 @@ _.getClass$ = function getClass_501(){
   return Lcom_mmsn_reportgen_client_data_report_ReportLiveAnimals_2_classLit;
 }
 ;
+_.comments_0 = null;
 _.isActionDiedAtSite = false;
 _.isActionDiedDuringTransport = false;
 _.isActionEuthanizedAtSite = false;
@@ -30511,7 +30531,7 @@ function $setCity(this$static, city){
   this$static.city_0 = city;
 }
 
-function $setComments_2(this$static, comments){
+function $setComments_3(this$static, comments){
   this$static.comments_0 = comments;
 }
 
@@ -30617,12 +30637,18 @@ function $saveVolunteer(this$static, volunteer){
   if (volunteer.id_0 < 0) {
     $add_25(this$static.volunteers, volunteer);
     $setVolunteer(this$static.volunteerAddedSender, volunteer);
+    $setVolunteerManager(this$static.volunteerAddedSender, this$static);
     $send(this$static.volunteerAddedSender);
   }
    else {
     $setVolunteer_1(this$static.volunteerModifiedSender, volunteer);
     $send(this$static.volunteerModifiedSender);
   }
+  $dataChange_1(this$static);
+}
+
+function $setVolunteerId(this$static, volunteer, newId){
+  volunteer.id_0 = newId;
   $dataChange_1(this$static);
 }
 
@@ -30762,13 +30788,13 @@ _.removeVolunteer = function removeVolunteer_0(volunteer){
 ;
 _.availabilitySelection = 'All';
 _.islandSelection = 'All';
+--></script>
+<script><!--
 _.volunteerManager = null;
 function $addDataChangeListener_3(this$static, dataChangeListener){
   $add_25(this$static.dataChangeListeners, dataChangeListener);
 }
 
---></script>
-<script><!--
 function $dataChanged_2(this$static){
   var dataChangeListener, dataChangeListener$iterator;
   for (dataChangeListener$iterator = new AbstractList$IteratorImpl_0(this$static.dataChangeListeners); dataChangeListener$iterator.i < dataChangeListener$iterator.this$0_0.size_0();) {
@@ -30947,7 +30973,7 @@ function $getJson_5(this$static){
   return request;
 }
 
-function $setComments_3(this$static, comments){
+function $setComments_4(this$static, comments){
   this$static.comments_0 = comments;
 }
 
@@ -31050,13 +31076,15 @@ function $save_0(this$static, volunteerHours){
     $send(this$static.volunteerHoursAddedSender);
     $add_25(this$static.collectionOfVolunteerHours, volunteerHours);
   }
-  $setVolunteerHours_1(this$static.volunteerHoursModifiedSender, volunteerHours);
-  $send(this$static.volunteerHoursModifiedSender);
+   else {
+    $setVolunteerHours_1(this$static.volunteerHoursModifiedSender, volunteerHours);
+    $send(this$static.volunteerHoursModifiedSender);
+  }
   $dataChange_2(this$static);
 }
 
 function $updateMonth(this$static, month, year){
-  if (!(this$static.currentMonth == month && this$static.currentYear == year)) {
+  if (this$static.volunteer.id_0 > 0 && !(this$static.currentMonth == month && this$static.currentYear == year)) {
     this$static.currentMonth = month;
     this$static.currentYear = year;
     $setMonth_0(this$static.volunteerMonthlyHoursRetriever, month);
@@ -33763,7 +33791,7 @@ function $setCallerPhone(this$static, callerPhone){
   $setValue_4(this$static.phoneNumberField, callerPhone);
 }
 
-function $setComments_4(this$static, comments){
+function $setComments_5(this$static, comments){
   $setValue_4(this$static.commentsField, comments);
 }
 
@@ -33789,7 +33817,7 @@ function $setReportCall(this$static, reportCall){
   $setLocation_0(this$static, reportCall.location_0);
   $setWhenFirstSeen_0(this$static, reportCall.whenFirstSeen);
   $setCallReferredTo_0(this$static, reportCall.callReferredTo);
-  $setComments_4(this$static, reportCall.comments_0);
+  $setComments_5(this$static, reportCall.comments_0);
   $setDateTime(this$static, reportCall.date);
   $setSpecies_1(this$static, reportCall.species);
   $setCondition_1(this$static, reportCall.condition);
@@ -34174,7 +34202,7 @@ function $setToWritable(this$static){
 
 function ReportHumanInteractionControl_0(){
   VerticalPanel_0.call(this);
-  this.sectionOrder = initValues(_3Ljava_lang_String_2_classLit, makeCastMap([Q$Serializable, Q$Object_$1]), Q$String, ['Rostrum/snout', 'Mandible', 'Head', 'L Front appendage', 'R Front appendage', 'Body R L', 'Dorsum/dorsal fin', 'Ventrum', 'Peduncle', 'L Rear appendage', 'R Rear appendage', 'Flukes/tail']);
+  this.sectionOrder = initValues(_3Ljava_lang_String_2_classLit, makeCastMap([Q$Serializable, Q$Object_$1]), Q$String, ['Nose', 'Jaw', 'Head', 'L Front appendage', 'R Front appendage', 'Body R L', 'Back', 'Belly', 'Peduncle/tail stock', 'L Rear appendage', 'R Rear appendage', 'Flukes/tail']);
   this.sectionControls = new ArrayList_0;
   $initialize_1(this);
 }
@@ -34232,7 +34260,7 @@ function $setReportHumanInteraction_2(this$static, reportHumanInteraction){
 
 function ReportHumanInteractionPrintView_0(){
   VerticalPanel_0.call(this);
-  this.sectionOrder = initValues(_3Ljava_lang_String_2_classLit, makeCastMap([Q$Serializable, Q$Object_$1]), Q$String, ['Rostrum/snout', 'Mandible', 'Head', 'L Front appendage', 'R Front appendage', 'Body R L', 'Dorsum/dorsal fin', 'Ventrum', 'Peduncle', 'L Rear appendage', 'R Rear appendage', 'Flukes/tail']);
+  this.sectionOrder = initValues(_3Ljava_lang_String_2_classLit, makeCastMap([Q$Serializable, Q$Object_$1]), Q$String, ['Nose', 'Jaw', 'Head', 'L Front appendage', 'R Front appendage', 'Body R L', 'Back', 'Belly', 'Peduncle/tail stock', 'L Rear appendage', 'R Rear appendage', 'Flukes/tail']);
   this.isExaminedControls = new HashMap_0;
   this.possibleHiLesionControls = new HashMap_0;
   this.possibleSouceControls = new HashMap_0;
@@ -34288,10 +34316,11 @@ function $fillReportInvestigation(this$static, reportInvestigation){
   $setSpecies_0(reportInvestigation, $getRawValue(this$static.speciesField.speciesField));
   $setAnimalNotFound(reportInvestigation, $getValue_1(this$static.animalNotFoundField).value_0);
   $setCondition_0(reportInvestigation, $getRawValue(this$static.conditionComboBox));
+  $setAgeClass(reportInvestigation, $getRawValue(this$static.ageClassComboBox));
+  $setNutritionalCondition(reportInvestigation, $getRawValue(this$static.nutritionalConditionComboBox));
   $setLocationAccuracy(reportInvestigation, $getRawValue(this$static.locationAccuracyComboBox));
   $setTags(reportInvestigation, $getRawValue(this$static.tagsField));
   $setDisposition(reportInvestigation, $getRawValue(this$static.dispositionComboBox));
-  $setSealPickup(reportInvestigation, $getRawValue(this$static.sealPickupComboBox));
   $setSex(reportInvestigation, $getRawValue(this$static.sexComboBox));
   $setWeight(reportInvestigation, (value = dynamicCast($getValue_0(this$static.weightField), Q$Number) , value?value.doubleValue():0));
   $setStraightLength(reportInvestigation, (value_0 = dynamicCast($getValue_0(this$static.straightLengthField), Q$Number) , value_0?value_0.doubleValue():0));
@@ -34311,7 +34340,7 @@ function $getDate_0(this$static){
 }
 
 function $initialize_3(this$static){
-  var flexTable, panel1, rowIndex, title, listStore, listStore_0, listStore_1, listStore_2, listStore_3;
+  var flexTable, panel1, rowIndex, title, listStore, listStore_0, listStore_1, listStore_2, listStore_3, listStore_4;
   title = new Label_3('Investigation');
   setStyleName(title.element, 'sectionTile', true);
   $add_21(this$static, title);
@@ -34390,14 +34419,9 @@ function $initialize_3(this$static){
   $setWidget_0(flexTable, rowIndex, 1, (listStore_1 = new ListStore_0 , $add_10(listStore_1, new StringModel_0('Left at site')) , $add_10(listStore_1, new StringModel_0('Moved')) , $add_10(listStore_1, new StringModel_0('Transport to Rehab')) , $add_10(listStore_1, new StringModel_0('Collected')) , this$static.dispositionComboBox = new ComboBox_0 , $setFieldLabel(this$static.dispositionComboBox, 'Disposition') , dynamicCast(this$static.dispositionComboBox.propertyEditor, Q$ListModelPropertyEditor).displayProperty = 'name' , this$static.dispositionComboBox.triggerAction = 0 , $setStore_0(this$static.dispositionComboBox, listStore_1) , this$static.dispositionComboBox.forceSelection = true , this$static.dispositionComboBox));
   $setColSpan(dynamicCast(flexTable.cellFormatter, Q$FlexTable$FlexCellFormatter), rowIndex, 1, 4);
   ++rowIndex;
-  this$static.sealPickupLabel = new Label_3('Seal Pickup:');
-  $setWidget_0(flexTable, rowIndex, 0, this$static.sealPickupLabel);
-  $setWidget_0(flexTable, rowIndex, 1, (listStore_2 = new ListStore_0 , $add_10(listStore_2, new StringModel_0('None')) , $add_10(listStore_2, new StringModel_0('Injured')) , $add_10(listStore_2, new StringModel_0('Harassment')) , $add_10(listStore_2, new StringModel_0('Public Agent')) , $add_10(listStore_2, new StringModel_0('Dog(s)')) , $add_10(listStore_2, new StringModel_0('Sick')) , this$static.sealPickupComboBox = new ComboBox_0 , $setFieldLabel(this$static.sealPickupComboBox, 'Seal Pickup') , dynamicCast(this$static.sealPickupComboBox.propertyEditor, Q$ListModelPropertyEditor).displayProperty = 'name' , this$static.sealPickupComboBox.triggerAction = 0 , $setStore_0(this$static.sealPickupComboBox, listStore_2) , this$static.sealPickupComboBox.forceSelection = true , this$static.sealPickupComboBox));
-  $setColSpan(dynamicCast(flexTable.cellFormatter, Q$FlexTable$FlexCellFormatter), rowIndex, 1, 4);
-  ++rowIndex;
   this$static.sexLabel = new Label_3('Sex:');
   $setWidget_0(flexTable, rowIndex, 0, this$static.sexLabel);
-  $setWidget_0(flexTable, rowIndex, 1, (listStore_3 = new ListStore_0 , $add_10(listStore_3, new StringModel_0('Not Determined')) , $add_10(listStore_3, new StringModel_0('Unable to determine')) , $add_10(listStore_3, new StringModel_0('Male')) , $add_10(listStore_3, new StringModel_0('Female')) , this$static.sexComboBox = new ComboBox_0 , $setFieldLabel(this$static.sexComboBox, 'Sex') , dynamicCast(this$static.sexComboBox.propertyEditor, Q$ListModelPropertyEditor).displayProperty = 'name' , this$static.sexComboBox.triggerAction = 0 , $setStore_0(this$static.sexComboBox, listStore_3) , this$static.sexComboBox.forceSelection = true , $setValue_5(this$static.sexComboBox, new StringModel_0('Not Determined')) , this$static.sexComboBox));
+  $setWidget_0(flexTable, rowIndex, 1, (listStore_2 = new ListStore_0 , $add_10(listStore_2, new StringModel_0('Not Determined')) , $add_10(listStore_2, new StringModel_0('Unable to determine')) , $add_10(listStore_2, new StringModel_0('Male')) , $add_10(listStore_2, new StringModel_0('Female')) , this$static.sexComboBox = new ComboBox_0 , $setFieldLabel(this$static.sexComboBox, 'Sex') , dynamicCast(this$static.sexComboBox.propertyEditor, Q$ListModelPropertyEditor).displayProperty = 'name' , this$static.sexComboBox.triggerAction = 0 , $setStore_0(this$static.sexComboBox, listStore_2) , this$static.sexComboBox.forceSelection = true , $setValue_5(this$static.sexComboBox, new StringModel_0('Not Determined')) , this$static.sexComboBox));
   $setColSpan(dynamicCast(flexTable.cellFormatter, Q$FlexTable$FlexCellFormatter), rowIndex, 1, 4);
   ++rowIndex;
   this$static.weightField = new NumberField_0;
@@ -34421,6 +34445,13 @@ function $initialize_3(this$static){
   $setWidget_0(flexTable, rowIndex, 0, this$static.girthLabel);
   $setWidget_0(flexTable, rowIndex, 1, this$static.girthField);
   ++rowIndex;
+  this$static.ageClassLabel = new Label_3('Age Class:');
+  this$static.nutritionConditionLabel = new Label_3('Nutritional Condition:');
+  $setWidget_0(flexTable, rowIndex, 0, this$static.nutritionConditionLabel);
+  $setWidget_0(flexTable, rowIndex, 1, (listStore_3 = new ListStore_0 , $add_10(listStore_3, new StringModel_0('Excellent')) , $add_10(listStore_3, new StringModel_0('Good')) , $add_10(listStore_3, new StringModel_0('Fair')) , $add_10(listStore_3, new StringModel_0('Poor')) , $add_10(listStore_3, new StringModel_0('Not Determined')) , $add_10(listStore_3, new StringModel_0('Unable To Determine')) , this$static.nutritionalConditionComboBox = new ComboBox_0 , $setFieldLabel(this$static.nutritionalConditionComboBox, 'Nutritional Condition') , dynamicCast(this$static.nutritionalConditionComboBox.propertyEditor, Q$ListModelPropertyEditor).displayProperty = 'name' , this$static.nutritionalConditionComboBox.triggerAction = 0 , $setStore_0(this$static.nutritionalConditionComboBox, listStore_3) , this$static.nutritionalConditionComboBox.forceSelection = true , this$static.nutritionalConditionComboBox));
+  $setWidget_0(flexTable, rowIndex, 2, this$static.ageClassLabel);
+  $setWidget_0(flexTable, rowIndex, 3, (listStore_4 = new ListStore_0 , $add_10(listStore_4, new StringModel_0('Pup/Calf')) , $add_10(listStore_4, new StringModel_0('Weaned Pup/Calf')) , $add_10(listStore_4, new StringModel_0('Juvenile')) , $add_10(listStore_4, new StringModel_0('Adult')) , this$static.ageClassComboBox = new ComboBox_0 , $setFieldLabel(this$static.ageClassComboBox, 'Age Class') , dynamicCast(this$static.ageClassComboBox.propertyEditor, Q$ListModelPropertyEditor).displayProperty = 'name' , this$static.ageClassComboBox.triggerAction = 0 , $setStore_0(this$static.ageClassComboBox, listStore_4) , this$static.ageClassComboBox.forceSelection = true , this$static.ageClassComboBox));
+  ++rowIndex;
   this$static.commentsField = new TextArea_1;
   $setFieldLabel(this$static.commentsField, 'General Comments');
   $setValue_4(this$static.commentsField, '');
@@ -34438,8 +34469,6 @@ function $isAnimalCheckBoxChanged(this$static, value){
   $setVisible_0(this$static.tagsField, !value);
   $setVisible(this$static.dispositionLabel, !value);
   $setVisible_0(this$static.dispositionComboBox, !value);
-  $setVisible(this$static.sealPickupLabel, !value);
-  $setVisible_0(this$static.sealPickupComboBox, !value);
   $setVisible(this$static.sexLabel, !value);
   $setVisible_0(this$static.sexComboBox, !value);
   $setVisible(this$static.weightLabel, !value);
@@ -34448,6 +34477,10 @@ function $isAnimalCheckBoxChanged(this$static, value){
   $setVisible_0(this$static.straightLengthField, !value);
   $setVisible(this$static.girthLabel, !value);
   $setVisible_0(this$static.girthField, !value);
+  $setVisible_0(this$static.ageClassComboBox, !value);
+  $setVisible_0(this$static.nutritionalConditionComboBox, !value);
+  $setVisible(this$static.ageClassLabel, !value);
+  $setVisible(this$static.nutritionConditionLabel, !value);
   for (animalStatusListener$iterator = new AbstractList$IteratorImpl_0(this$static.animalStatusListeners); animalStatusListener$iterator.i < animalStatusListener$iterator.this$0_0.size_0();) {
     animalStatusListener = dynamicCast($next_3(animalStatusListener$iterator), Q$AnimalStatusListener);
     value?animalStatusListener.statusChange('NOT_FOUND'):animalStatusListener.statusChange('FOUND');
@@ -34458,12 +34491,16 @@ function $registerForAnimalStatus(this$static, animalStatusListener){
   $add_25(this$static.animalStatusListeners, animalStatusListener);
 }
 
+function $setAgeClass_0(this$static, ageClass){
+  $setValue_5(this$static.ageClassComboBox, new StringModel_0(ageClass));
+}
+
 function $setAnimalNotFound_0(this$static, animalNotFound){
   $setValue_3(this$static.animalNotFoundField, ($clinit_Boolean() , animalNotFound?TRUE_0:FALSE_0));
   $isAnimalCheckBoxChanged(this$static, animalNotFound);
 }
 
-function $setComments_5(this$static, comments){
+function $setComments_6(this$static, comments){
   $setValue_4(this$static.commentsField, comments);
 }
 
@@ -34500,12 +34537,16 @@ function $setLonLocation_0(this$static, latLon){
   this$static.lonlocationField.setValue_0(latLon);
 }
 
+function $setNutritionalCondition_0(this$static, nutritionalCondition){
+  $setValue_5(this$static.nutritionalConditionComboBox, new StringModel_0(nutritionalCondition));
+}
+
 function $setPhysicalLocation_0(this$static, physicalLocation){
   this$static.physicalLocationField.setValue_0(physicalLocation);
 }
 
 function $setReadOnly_11(this$static, readOnly){
-  readOnly?(this$static.investigatorSupportField.setReadOnly(true) , $setReadOnly_0(this$static.timeField, true) , $setEnabled_0(this$static.datePicker, false) , this$static.latlocationField.setReadOnly(true) , this$static.lonlocationField.setReadOnly(true) , this$static.physicalLocationField.setReadOnly(true) , $setReadOnly_13(this$static.speciesField, true) , $setReadOnly(this$static.animalNotFoundField, true) , $setReadOnly_0(this$static.conditionComboBox, true) , $setReadOnly_0(this$static.locationAccuracyComboBox, true) , this$static.tagsField.setReadOnly(true) , $setReadOnly_0(this$static.dispositionComboBox, true) , $setReadOnly_0(this$static.sealPickupComboBox, true) , $setReadOnly_0(this$static.sexComboBox, true) , $setReadOnly_0(this$static.weightField, true) , $setReadOnly_0(this$static.straightLengthField, true) , $setReadOnly_0(this$static.girthField, true) , $setReadOnly(this$static.commentsField, true) , undefined):(this$static.investigatorSupportField.setReadOnly(false) , $setReadOnly_0(this$static.timeField, false) , $setEnabled_0(this$static.datePicker, true) , this$static.latlocationField.setReadOnly(false) , this$static.lonlocationField.setReadOnly(false) , this$static.physicalLocationField.setReadOnly(false) , $setReadOnly_13(this$static.speciesField, false) , $setReadOnly(this$static.animalNotFoundField, false) , $setReadOnly_0(this$static.conditionComboBox, false) , $setReadOnly_0(this$static.locationAccuracyComboBox, false) , this$static.tagsField.setReadOnly(false) , $setReadOnly_0(this$static.dispositionComboBox, false) , $setReadOnly_0(this$static.sealPickupComboBox, false) , $setReadOnly_0(this$static.sexComboBox, false) , $setReadOnly_0(this$static.weightField, false) , $setReadOnly_0(this$static.straightLengthField, false) , $setReadOnly_0(this$static.girthField, false) , $setReadOnly(this$static.commentsField, false) , undefined);
+  readOnly?(this$static.investigatorSupportField.setReadOnly(true) , $setReadOnly_0(this$static.timeField, true) , $setEnabled_0(this$static.datePicker, false) , this$static.latlocationField.setReadOnly(true) , this$static.lonlocationField.setReadOnly(true) , this$static.physicalLocationField.setReadOnly(true) , $setReadOnly_13(this$static.speciesField, true) , $setReadOnly(this$static.animalNotFoundField, true) , $setReadOnly_0(this$static.conditionComboBox, true) , $setReadOnly_0(this$static.ageClassComboBox, true) , $setReadOnly_0(this$static.nutritionalConditionComboBox, true) , $setReadOnly_0(this$static.locationAccuracyComboBox, true) , this$static.tagsField.setReadOnly(true) , $setReadOnly_0(this$static.dispositionComboBox, true) , $setReadOnly_0(this$static.sexComboBox, true) , $setReadOnly_0(this$static.weightField, true) , $setReadOnly_0(this$static.straightLengthField, true) , $setReadOnly_0(this$static.girthField, true) , $setReadOnly(this$static.commentsField, true) , undefined):(this$static.investigatorSupportField.setReadOnly(false) , $setReadOnly_0(this$static.timeField, false) , $setEnabled_0(this$static.datePicker, true) , this$static.latlocationField.setReadOnly(false) , this$static.lonlocationField.setReadOnly(false) , this$static.physicalLocationField.setReadOnly(false) , $setReadOnly_13(this$static.speciesField, false) , $setReadOnly(this$static.animalNotFoundField, false) , $setReadOnly_0(this$static.conditionComboBox, false) , $setReadOnly_0(this$static.ageClassComboBox, false) , $setReadOnly_0(this$static.nutritionalConditionComboBox, false) , $setReadOnly_0(this$static.locationAccuracyComboBox, false) , this$static.tagsField.setReadOnly(false) , $setReadOnly_0(this$static.dispositionComboBox, false) , $setReadOnly_0(this$static.sexComboBox, false) , $setReadOnly_0(this$static.weightField, false) , $setReadOnly_0(this$static.straightLengthField, false) , $setReadOnly_0(this$static.girthField, false) , $setReadOnly(this$static.commentsField, false) , undefined);
 }
 
 function $setReportInvestigation_0(this$static, reportInvestigation){
@@ -34518,18 +34559,15 @@ function $setReportInvestigation_0(this$static, reportInvestigation){
   $setAnimalNotFound_0(this$static, reportInvestigation.animalNotFound);
   $setLocationAccuracy_0(this$static, reportInvestigation.locationAccuracy);
   $setCondition_2(this$static, reportInvestigation.condition);
+  $setNutritionalCondition_0(this$static, reportInvestigation.nutritionalCondition);
+  $setAgeClass_0(this$static, reportInvestigation.ageClass);
   $setTags_0(this$static, reportInvestigation.tags_0);
   $setDisposition_0(this$static, reportInvestigation.disposition_0);
-  $setSealPickup_0(this$static, reportInvestigation.sealPickup);
   $setSex_0(this$static, reportInvestigation.sex_0);
   $setWeight_0(this$static, reportInvestigation.weight_0);
   $setStraightLength_0(this$static, reportInvestigation.straightLength);
   $setGirth_0(this$static, reportInvestigation.girth_0);
-  $setComments_5(this$static, reportInvestigation.comments_0);
-}
-
-function $setSealPickup_0(this$static, sealPickup){
-  $setValue_5(this$static.sealPickupComboBox, new StringModel_0(sealPickup));
+  $setComments_6(this$static, reportInvestigation.comments_0);
 }
 
 function $setSex_0(this$static, sex){
@@ -34567,6 +34605,8 @@ _.getClass$ = function getClass_608(){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$ComplexPanel, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$Panel, Q$UIObject, Q$Widget]);
+_.ageClassComboBox = null;
+_.ageClassLabel = null;
 _.animalNotFoundField = null;
 _.commentsField = null;
 _.conditionComboBox = null;
@@ -34579,9 +34619,9 @@ _.investigatorSupportField = null;
 _.latlocationField = null;
 _.locationAccuracyComboBox = null;
 _.lonlocationField = null;
+_.nutritionConditionLabel = null;
+_.nutritionalConditionComboBox = null;
 _.physicalLocationField = null;
-_.sealPickupComboBox = null;
-_.sealPickupLabel = null;
 _.sexComboBox = null;
 _.sexLabel = null;
 _.speciesField = null;
@@ -34651,10 +34691,11 @@ function $clinit_ReportInvestigationPrintView(){
 }
 
 function $setReportInvestigation_1(this$static, reportInvestigation){
-  $setText_7(this$static.sealPickupField, reportInvestigation.sealPickup);
   $setText_7(this$static.dispositionField, reportInvestigation.disposition_0);
   $setText_7(this$static.tagsField, reportInvestigation.tags_0);
   $setText_7(this$static.conditionField, reportInvestigation.condition);
+  $setText_7(this$static.nutritionalConditionField, reportInvestigation.nutritionalCondition);
+  $setText_7(this$static.ageClassField, reportInvestigation.ageClass);
   $setText_7(this$static.speciesField, reportInvestigation.species);
   $setText_7(this$static.latLonLocationField, reportInvestigation.latLocation + 'N' + reportInvestigation.lonLocation + 'W  ' + reportInvestigation.locationAccuracy);
   $setText_7(this$static.physicalLocationField, reportInvestigation.physicalLocation);
@@ -34669,12 +34710,14 @@ function $setReportInvestigation_1(this$static, reportInvestigation){
     $setVisible(this$static.weightLabel, false);
     $setVisible(this$static.sexField, false);
     $setVisible(this$static.sexlabel, false);
-    $setVisible(this$static.sealPickupField, false);
-    $setVisible(this$static.sealPickupLabel, false);
     $setVisible(this$static.dispositionField, false);
     $setVisible(this$static.dispositionLabel, false);
     $setVisible(this$static.tagsField, false);
     $setVisible(this$static.tagsLabel, false);
+    $setVisible(this$static.nutritionalConditionLabel, false);
+    $setVisible(this$static.nutritionalConditionField, false);
+    $setVisible(this$static.ageClassLabel, false);
+    $setVisible(this$static.ageClassField, false);
   }
    else {
     $setText_7(this$static.animalNotFoundField, '[_]');
@@ -34686,12 +34729,14 @@ function $setReportInvestigation_1(this$static, reportInvestigation){
     $setVisible(this$static.weightLabel, true);
     $setVisible(this$static.sexField, true);
     $setVisible(this$static.sexlabel, true);
-    $setVisible(this$static.sealPickupField, true);
-    $setVisible(this$static.sealPickupLabel, true);
     $setVisible(this$static.dispositionField, true);
     $setVisible(this$static.dispositionLabel, true);
     $setVisible(this$static.tagsField, true);
     $setVisible(this$static.tagsLabel, true);
+    $setVisible(this$static.nutritionalConditionLabel, true);
+    $setVisible(this$static.nutritionalConditionField, true);
+    $setVisible(this$static.ageClassLabel, true);
+    $setVisible(this$static.ageClassField, true);
   }
   $setText_7(this$static.girthField, reportInvestigation.girth_0 + ' cm');
   $setText_7(this$static.straightLengthField, reportInvestigation.straightLength + ' cm');
@@ -34705,7 +34750,7 @@ function $setReportInvestigation_1(this$static, reportInvestigation){
 --></script>
 <script><!--
 function ReportInvestigationPrintView_0(){
-  var flexTable, index, label1, panel, label1_0, panel_0, label2, panel_1, label1_1, panel_2, label1_2, panel_3, label1_3, panel_4, label2_0, panel_5, label2_1, panel_6, panel_7, panel_8, panel_9, panel_10, panel_11, panel_12, panel_13, label2_2, panel_14;
+  var flexTable, index, label1, panel, label1_0, panel_0, label2, panel_1, label1_1, panel_2, label1_2, panel_3, label1_3, panel_4, label2_0, panel_5, label2_1, panel_6, panel_7, panel_8, panel_9, panel_10, panel_11, panel_12, panel_13, panel_14, label2_2, panel_15;
   $clinit_ReportInvestigationPrintView();
   VerticalPanel_0.call(this);
   setStyleName(this.element, 'printPage', true);
@@ -34732,15 +34777,17 @@ function ReportInvestigationPrintView_0(){
   $setColSpan(dynamicCast(flexTable.cellFormatter, Q$FlexTable$FlexCellFormatter), index, 0, 2);
   ++index;
   $setWidget_0(flexTable, index, 0, (panel_8 = new HorizontalPanel_0 , this.dispositionLabel = new Label_3('Disposition:') , $addStyleName_0(this.dispositionLabel, 'printLabel') , this.dispositionField = new Label_3('') , $addStyleName_0(this.dispositionField, 'printField') , $add_14(panel_8, this.dispositionLabel) , $add_14(panel_8, this.dispositionField) , panel_8));
-  $setWidget_0(flexTable, index, 1, (panel_9 = new HorizontalPanel_0 , this.sealPickupLabel = new Label_3('Seal pickup:') , $addStyleName_0(this.sealPickupLabel, 'printLabel') , this.sealPickupField = new Label_3('') , $addStyleName_0(this.sealPickupField, 'printField') , $add_14(panel_9, this.sealPickupLabel) , $add_14(panel_9, this.sealPickupField) , panel_9));
   ++index;
-  $setWidget_0(flexTable, index, 0, (panel_10 = new HorizontalPanel_0 , this.sexlabel = new Label_3('Sex:') , $addStyleName_0(this.sexlabel, 'printLabel') , this.sexField = new Label_3('') , $addStyleName_0(this.sexField, 'printField') , $add_14(panel_10, this.sexlabel) , $add_14(panel_10, this.sexField) , panel_10));
-  $setWidget_0(flexTable, index, 1, (panel_11 = new HorizontalPanel_0 , this.weightLabel = new Label_3('Weight:') , $addStyleName_0(this.weightLabel, 'printLabel') , this.weightField = new Label_3('') , $addStyleName_0(this.weightField, 'printField') , $add_14(panel_11, this.weightLabel) , $add_14(panel_11, this.weightField) , panel_11));
+  $setWidget_0(flexTable, index, 0, (panel_9 = new HorizontalPanel_0 , this.sexlabel = new Label_3('Sex:') , $addStyleName_0(this.sexlabel, 'printLabel') , this.sexField = new Label_3('') , $addStyleName_0(this.sexField, 'printField') , $add_14(panel_9, this.sexlabel) , $add_14(panel_9, this.sexField) , panel_9));
+  $setWidget_0(flexTable, index, 1, (panel_10 = new HorizontalPanel_0 , this.weightLabel = new Label_3('Weight:') , $addStyleName_0(this.weightLabel, 'printLabel') , this.weightField = new Label_3('') , $addStyleName_0(this.weightField, 'printField') , $add_14(panel_10, this.weightLabel) , $add_14(panel_10, this.weightField) , panel_10));
   ++index;
-  $setWidget_0(flexTable, index, 0, (panel_12 = new HorizontalPanel_0 , this.straightLengthLabel = new Label_3('Straight Length:') , $addStyleName_0(this.straightLengthLabel, 'printLabel') , this.straightLengthField = new Label_3('') , $addStyleName_0(this.straightLengthField, 'printField') , $add_14(panel_12, this.straightLengthLabel) , $add_14(panel_12, this.straightLengthField) , panel_12));
-  $setWidget_0(flexTable, index, 0, (panel_13 = new HorizontalPanel_0 , this.girthlabel = new Label_3('Girth:') , $addStyleName_0(this.girthlabel, 'printLabel') , this.girthField = new Label_3('') , $addStyleName_0(this.girthField, 'printField') , $add_14(panel_13, this.girthlabel) , $add_14(panel_13, this.girthField) , panel_13));
+  $setWidget_0(flexTable, index, 0, (panel_11 = new HorizontalPanel_0 , this.straightLengthLabel = new Label_3('Straight Length:') , $addStyleName_0(this.straightLengthLabel, 'printLabel') , this.straightLengthField = new Label_3('') , $addStyleName_0(this.straightLengthField, 'printField') , $add_14(panel_11, this.straightLengthLabel) , $add_14(panel_11, this.straightLengthField) , panel_11));
+  $setWidget_0(flexTable, index, 0, (panel_12 = new HorizontalPanel_0 , this.girthlabel = new Label_3('Girth:') , $addStyleName_0(this.girthlabel, 'printLabel') , this.girthField = new Label_3('') , $addStyleName_0(this.girthField, 'printField') , $add_14(panel_12, this.girthlabel) , $add_14(panel_12, this.girthField) , panel_12));
   ++index;
-  $setWidget_0(flexTable, index, 0, (panel_14 = new HorizontalPanel_0 , label2_2 = new Label_3('General Comments:') , setStyleName(label2_2.element, 'printLabel', true) , this.commentsField = new Label_3('') , $addStyleName_0(this.commentsField, 'printField') , $insert_5(panel_14, label2_2, panel_14.items.size) , $add_14(panel_14, this.commentsField) , panel_14));
+  $setWidget_0(flexTable, index, 0, (panel_13 = new HorizontalPanel_0 , this.nutritionalConditionLabel = new Label_3('Nutritional Condition:') , $addStyleName_0(this.nutritionalConditionLabel, 'printLabel') , this.nutritionalConditionField = new Label_3('') , $addStyleName_0(this.nutritionalConditionField, 'printField') , $add_14(panel_13, this.nutritionalConditionLabel) , $add_14(panel_13, this.nutritionalConditionField) , panel_13));
+  $setWidget_0(flexTable, index, 1, (panel_14 = new HorizontalPanel_0 , this.ageClassLabel = new Label_3('Age Class:') , $addStyleName_0(this.ageClassLabel, 'printLabel') , this.ageClassField = new Label_3('') , $addStyleName_0(this.ageClassField, 'printField') , $add_14(panel_14, this.ageClassLabel) , $add_14(panel_14, this.ageClassField) , panel_14));
+  ++index;
+  $setWidget_0(flexTable, index, 0, (panel_15 = new HorizontalPanel_0 , label2_2 = new Label_3('General Comments:') , setStyleName(label2_2.element, 'printLabel', true) , this.commentsField = new Label_3('') , $addStyleName_0(this.commentsField, 'printField') , $insert_5(panel_15, label2_2, panel_15.items.size) , $add_14(panel_15, this.commentsField) , panel_15));
   $setColSpan(dynamicCast(flexTable.cellFormatter, Q$FlexTable$FlexCellFormatter), index, 0, 2);
   $add_21(this, flexTable);
 }
@@ -34754,6 +34801,8 @@ _.getClass$ = function getClass_611(){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$ComplexPanel, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$Panel, Q$UIObject, Q$Widget]);
+_.ageClassField = null;
+_.ageClassLabel = null;
 _.animalNotFoundField = null;
 _.commentsField = null;
 _.conditionField = null;
@@ -34764,9 +34813,9 @@ _.girthField = null;
 _.girthlabel = null;
 _.investigatorSupportField = null;
 _.latLonLocationField = null;
+_.nutritionalConditionField = null;
+_.nutritionalConditionLabel = null;
 _.physicalLocationField = null;
-_.sealPickupField = null;
-_.sealPickupLabel = null;
 _.sexField = null;
 _.sexlabel = null;
 _.speciesField = null;
@@ -34798,6 +34847,7 @@ function $fillReportLiveAnimals(this$static, reportLiveAnimals){
   $setActionEuthanizedDuringTransport(reportLiveAnimals, $getValue_1(this$static.isActionEuthanizedDuringTransportField).value_0);
   $setActionTransferredToRehab(reportLiveAnimals, $getValue_1(this$static.isActionTransferredToRehabField).value_0);
   $setActionOther(reportLiveAnimals, $getValue_1(this$static.isActionOtherField).value_0);
+  $setComments_2(reportLiveAnimals, $getRawValue(this$static.commentsField));
   $setRelocatedLocation(reportLiveAnimals, $getRawValue(this$static.locationField));
 }
 
@@ -34848,6 +34898,10 @@ function $setActionTransferredToRehab_0(this$static, isActionTransferredToRehab)
   $setValue_3(this$static.isActionTransferredToRehabField, ($clinit_Boolean() , isActionTransferredToRehab?TRUE_0:FALSE_0));
 }
 
+function $setComments_7(this$static, comments){
+  $setValue_4(this$static.commentsField, comments);
+}
+
 function $setConAbandoned_0(this$static, isConAbandoned){
   $setValue_3(this$static.isConAbandonedField, ($clinit_Boolean() , isConAbandoned?TRUE_0:FALSE_0));
 }
@@ -34893,7 +34947,7 @@ function $setLocation_1(this$static, location_0){
 }
 
 function $setReadOnly_12(this$static, readOnly){
-  readOnly?($setReadOnly(this$static.isConSickField, true) , $setReadOnly(this$static.isConInjuredField, true) , $setReadOnly(this$static.isConOutOfHabitatField, true) , $setReadOnly(this$static.isConDeemedReleasableField, true) , $setReadOnly(this$static.isConAbandonedField, true) , $setReadOnly(this$static.isConInaccessibleField, true) , $setReadOnly(this$static.isConLocationHazardToAnimalField, true) , $setReadOnly(this$static.isConLocationHazardToHumansField, true) , $setReadOnly(this$static.isConUnknownField, true) , $setReadOnly(this$static.isConOtherField, true) , $setReadOnly(this$static.isActionLeftAtSiteField, true) , $setReadOnly(this$static.isActionImmediateReleaseAtSiteField, true) , $setReadOnly(this$static.isActionRelocatedField, true) , $setReadOnly(this$static.isActionDiedAtSiteField, true) , $setReadOnly(this$static.isActionDiedDuringTransportField, true) , $setReadOnly(this$static.isActionEuthanizedAtSiteField, true) , $setReadOnly(this$static.isActionEuthanizedDuringTransportField, true) , $setReadOnly(this$static.isActionTransferredToRehabField, true) , $setReadOnly(this$static.isActionOtherField, true) , this$static.locationField.setReadOnly(true) , undefined):($setReadOnly(this$static.isConSickField, false) , $setReadOnly(this$static.isConInjuredField, false) , $setReadOnly(this$static.isConOutOfHabitatField, false) , $setReadOnly(this$static.isConDeemedReleasableField, false) , $setReadOnly(this$static.isConAbandonedField, false) , $setReadOnly(this$static.isConInaccessibleField, false) , $setReadOnly(this$static.isConLocationHazardToAnimalField, false) , $setReadOnly(this$static.isConLocationHazardToHumansField, false) , $setReadOnly(this$static.isConUnknownField, false) , $setReadOnly(this$static.isConOtherField, false) , $setReadOnly(this$static.isActionLeftAtSiteField, false) , $setReadOnly(this$static.isActionImmediateReleaseAtSiteField, false) , $setReadOnly(this$static.isActionRelocatedField, false) , $setReadOnly(this$static.isActionDiedAtSiteField, false) , $setReadOnly(this$static.isActionDiedDuringTransportField, false) , $setReadOnly(this$static.isActionEuthanizedAtSiteField, false) , $setReadOnly(this$static.isActionEuthanizedDuringTransportField, false) , $setReadOnly(this$static.isActionTransferredToRehabField, false) , $setReadOnly(this$static.isActionOtherField, false) , this$static.locationField.setReadOnly(false) , undefined);
+  readOnly?($setReadOnly(this$static.isConSickField, true) , $setReadOnly(this$static.isConInjuredField, true) , $setReadOnly(this$static.isConOutOfHabitatField, true) , $setReadOnly(this$static.isConDeemedReleasableField, true) , $setReadOnly(this$static.isConAbandonedField, true) , $setReadOnly(this$static.isConInaccessibleField, true) , $setReadOnly(this$static.isConLocationHazardToAnimalField, true) , $setReadOnly(this$static.isConLocationHazardToHumansField, true) , $setReadOnly(this$static.isConUnknownField, true) , $setReadOnly(this$static.isConOtherField, true) , $setReadOnly(this$static.isActionLeftAtSiteField, true) , $setReadOnly(this$static.isActionImmediateReleaseAtSiteField, true) , $setReadOnly(this$static.isActionRelocatedField, true) , $setReadOnly(this$static.isActionDiedAtSiteField, true) , $setReadOnly(this$static.isActionDiedDuringTransportField, true) , $setReadOnly(this$static.isActionEuthanizedAtSiteField, true) , $setReadOnly(this$static.isActionEuthanizedDuringTransportField, true) , $setReadOnly(this$static.isActionTransferredToRehabField, true) , $setReadOnly(this$static.isActionOtherField, true) , this$static.locationField.setReadOnly(true) , $setReadOnly(this$static.commentsField, true) , undefined):($setReadOnly(this$static.isConSickField, false) , $setReadOnly(this$static.isConInjuredField, false) , $setReadOnly(this$static.isConOutOfHabitatField, false) , $setReadOnly(this$static.isConDeemedReleasableField, false) , $setReadOnly(this$static.isConAbandonedField, false) , $setReadOnly(this$static.isConInaccessibleField, false) , $setReadOnly(this$static.isConLocationHazardToAnimalField, false) , $setReadOnly(this$static.isConLocationHazardToHumansField, false) , $setReadOnly(this$static.isConUnknownField, false) , $setReadOnly(this$static.isConOtherField, false) , $setReadOnly(this$static.isActionLeftAtSiteField, false) , $setReadOnly(this$static.isActionImmediateReleaseAtSiteField, false) , $setReadOnly(this$static.isActionRelocatedField, false) , $setReadOnly(this$static.isActionDiedAtSiteField, false) , $setReadOnly(this$static.isActionDiedDuringTransportField, false) , $setReadOnly(this$static.isActionEuthanizedAtSiteField, false) , $setReadOnly(this$static.isActionEuthanizedDuringTransportField, false) , $setReadOnly(this$static.isActionTransferredToRehabField, false) , $setReadOnly(this$static.isActionOtherField, false) , this$static.locationField.setReadOnly(false) , $setReadOnly(this$static.commentsField, false) , undefined);
 }
 
 function $setReportLiveAnimals_0(this$static, reportLiveAnimals){
@@ -34916,6 +34970,7 @@ function $setReportLiveAnimals_0(this$static, reportLiveAnimals){
   $setActionEuthanizedDuringTransport_0(this$static, reportLiveAnimals.isActionEuthanizedDuringTransport);
   $setActionTransferredToRehab_0(this$static, reportLiveAnimals.isActionTransferredToRehab);
   $setActionOther_0(this$static, reportLiveAnimals.isActionOther);
+  $setComments_7(this$static, reportLiveAnimals.comments_0);
   $setLocation_1(this$static, reportLiveAnimals.relocatedLocation);
   $relocatedChange(this$static, reportLiveAnimals.isActionRelocated);
 }
@@ -34944,6 +34999,14 @@ function ReportLiveAnimalsControl_0(){
   $setWidget_0(flexTable, 1, 0, this.locationLabel);
   $setWidget_0(flexTable, 1, 1, this.locationField);
   $setColSpan(dynamicCast(flexTable.cellFormatter, Q$FlexTable$FlexCellFormatter), 1, 1, 6);
+  this.commentsField = new TextArea_1;
+  $setFieldLabel(this.commentsField, 'General Comments');
+  $setValue_4(this.commentsField, '');
+  $setSize_1(this.commentsField, 450, -1);
+  $setSize_1(this.commentsField, -1, 80);
+  $setText_5(flexTable, 2, 0, 'General Comments:');
+  $setWidget_0(flexTable, 2, 1, this.commentsField);
+  $setColSpan(dynamicCast(flexTable.cellFormatter, Q$FlexTable$FlexCellFormatter), 2, 1, 4);
   $add_21(this, flexTable);
 }
 
@@ -34960,6 +35023,7 @@ _.statusChange = function statusChange_0(state){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$ComplexPanel, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$Panel, Q$UIObject, Q$Widget, Q$AnimalStatusListener]);
+_.commentsField = null;
 _.isActionDiedAtSiteField = null;
 _.isActionDiedDuringTransportField = null;
 _.isActionEuthanizedAtSiteField = null;
@@ -35003,6 +35067,8 @@ function ReportLiveAnimalsControl$1(){
 }
 
 _ = ReportLiveAnimalsControl$1_0.prototype = ReportLiveAnimalsControl$1.prototype = new Object_0;
+--></script>
+<script><!--
 _.getClass$ = function getClass_613(){
   return Lcom_mmsn_reportgen_client_view_report_ReportLiveAnimalsControl$1_2_classLit;
 }
@@ -35024,8 +35090,6 @@ function $createField(label, tag){
   return panel;
 }
 
---></script>
-<script><!--
 function $setReportLiveAnimals_1(this$static, reportLiveAnimals){
   $setText_12(this$static.isConSickField, reportLiveAnimals.isConSick);
   $setText_12(this$static.isConInjuredField, reportLiveAnimals.isConInjured);
@@ -35046,6 +35110,7 @@ function $setReportLiveAnimals_1(this$static, reportLiveAnimals){
   $setText_12(this$static.isActionEuthanizedDuringTransportField, reportLiveAnimals.isActionEuthanizedDuringTransport);
   $setText_12(this$static.isActionTransferredToRehabField, reportLiveAnimals.isActionTransferredToRehab);
   $setText_12(this$static.isActionOtherField, reportLiveAnimals.isActionOther);
+  $setText_7(this$static.commentsField, reportLiveAnimals.comments_0);
   if (reportLiveAnimals.isActionRelocated) {
     $setVisible(this$static.relocatedLocationField, true);
     $setVisible(this$static.relocatedLocationTag, true);
@@ -35092,6 +35157,9 @@ function ReportLiveAnimalsPrintView_0(){
   $add_21(this, (flexTable_1 = new FlexTable_0 , column_1 = 0 , $setWidget_0(flexTable_1, 0, 0, $createField(this.isActionLeftAtSiteField, 'Left at Site')) , ++column_1 , $setWidget_0(flexTable_1, 0, column_1, $createField(this.isActionImmediateReleaseAtSiteField, 'Immediate Release at Site')) , ++column_1 , $setWidget_0(flexTable_1, 0, column_1, $createField(this.isActionRelocatedField, 'Relocated')) , ++column_1 , $setWidget_0(flexTable_1, 0, column_1, $createField(this.isActionDiedAtSiteField, 'Died at Site')) , ++column_1 , $setWidget_0(flexTable_1, 0, column_1, $createField(this.isActionDiedDuringTransportField, 'Died During Transport')) , flexTable_1));
   $add_21(this, (flexTable_2 = new FlexTable_0 , column_2 = 0 , $setWidget_0(flexTable_2, 0, 0, $createField(this.isActionEuthanizedAtSiteField, 'Euthanized at Site')) , ++column_2 , $setWidget_0(flexTable_2, 0, column_2, $createField(this.isActionEuthanizedDuringTransportField, 'Euthanized During Transport')) , ++column_2 , $setWidget_0(flexTable_2, 0, column_2, $createField(this.isActionTransferredToRehabField, 'Transferred to Rehab')) , ++column_2 , $setWidget_0(flexTable_2, 0, column_2, $createField(this.isActionOtherField, 'Other')) , flexTable_2));
   $add_21(this, (panel = new HorizontalPanel_0 , this.relocatedLocationTag = new Label_3('Relocated Location:') , $addStyleName_0(this.relocatedLocationTag, 'printLabel') , this.relocatedLocationField = new Label_3('') , $addStyleName_0(this.relocatedLocationField, 'printField') , $add_14(panel, this.relocatedLocationTag) , $add_14(panel, this.relocatedLocationField) , panel));
+  this.commentsField = new Label_3('');
+  $addStyleName_0(this.commentsField, 'printField');
+  $add_21(this, this.commentsField);
   $add_21(this, new HTML_1('<br><\/br>'));
 }
 
@@ -35104,6 +35172,7 @@ _.getClass$ = function getClass_614(){
 }
 ;
 _.castableTypeMap$ = makeCastMap([Q$HasAttachHandlers, Q$HasHandlers, Q$EventListener, Q$ComplexPanel, Q$HasVisibility, Q$HasWidgets, Q$IsWidget, Q$Panel, Q$UIObject, Q$Widget]);
+_.commentsField = null;
 _.relocatedLocationField = null;
 _.relocatedLocationTag = null;
 function ReportPrintView_0(){
@@ -35644,6 +35713,8 @@ function $setVolunteer_7(this$static, volunteer){
   this$static.volunteer = volunteer;
 }
 
+--></script>
+<script><!--
 function ReportsViewPanel_0(widgetFactory, reportManager, user){
   var titleLabel;
   VerticalPanel_0.call(this);
@@ -35670,8 +35741,6 @@ _.getPanelName = function getPanelName_5(){
   return 'View Reports';
 }
 ;
---></script>
-<script><!--
 _.getToolbar = function getToolbar_5(){
   var naviationToolbar;
   !this.toolbar_0 && (this.toolbar_0 = (naviationToolbar = new NavigationToolbar_0(this.widgetFactory.viewPanel, this.widgetFactory) , $addButton_0(naviationToolbar, 'Create New Report', new ReportsViewPanel$1_0(this)) , naviationToolbar));
@@ -36932,7 +37001,7 @@ function $fillVolunteer(this$static, volunteer){
   $setState_1(volunteer, $getRawValue(this$static.stateField));
   $setZip(volunteer, $getRawValue(this$static.zipField));
   $setVehicle(volunteer, $getRawValue(this$static.vehicleField));
-  $setComments_2(volunteer, $getRawValue(this$static.commentsField));
+  $setComments_3(volunteer, $getRawValue(this$static.commentsField));
   $setPhoneNumber(volunteer, $getRawValue(this$static.phoneNumberField));
   $setAvailablity(volunteer, $getAvailablity(this$static.hoursAvailableControl));
   return volunteer;
@@ -36946,7 +37015,7 @@ function $setCity_0(this$static, city){
   this$static.cityField.setValue_0(city);
 }
 
-function $setComments_6(this$static, comments){
+function $setComments_8(this$static, comments){
   $setValue_4(this$static.commentsField, comments);
 }
 
@@ -37001,7 +37070,7 @@ function $setVolunteer_8(this$static, volunteer){
   $setState_2(this$static, volunteer.state_0);
   $setZip_0(this$static, volunteer.zip_0);
   $setVehicle_0(this$static, volunteer.vehicle_0);
-  $setComments_6(this$static, volunteer.comments_0);
+  $setComments_8(this$static, volunteer.comments_0);
   $setPhoneNumber_0(this$static, volunteer.phoneNumber);
   $setAvailablity_1(this$static, volunteer.availablity);
 }
@@ -38179,11 +38248,11 @@ function $fillVolunteerHours(this$static, volunteerHours){
   $setYear_1(volunteerHours, this$static.year_0);
   $setTotalHours(volunteerHours, (number = dynamicCast($getValue_0(this$static.totalTimeField), Q$Number) , number?number.doubleValue():0));
   $setMileage(volunteerHours, (number_0 = dynamicCast($getValue_0(this$static.mileageField), Q$Number) , number_0?number_0.intValue():0));
-  $setComments_3(volunteerHours, $getRawValue(this$static.commentsField));
+  $setComments_4(volunteerHours, $getRawValue(this$static.commentsField));
   return volunteerHours;
 }
 
-function $setComments_7(this$static, comments){
+function $setComments_9(this$static, comments){
   $setValue_4(this$static.commentsField, comments);
 }
 
@@ -38211,7 +38280,7 @@ function $setVolunteer_9(this$static, volunteer){
 function $setVolunteerHours_2(this$static, volunteerHours){
   $setTotalTime(this$static, volunteerHours.totalHours);
   $setMileageTime(this$static, volunteerHours.mileage_0);
-  $setComments_7(this$static, volunteerHours.comments_0);
+  $setComments_9(this$static, volunteerHours.comments_0);
 }
 
 --></script>
