@@ -15,20 +15,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	    </noscript>
 	    
      	<table width="100%" border="0" cellspacing="0" cellpadding="0" height="100%"> 
-	    	<tr valign="top"> 
-      			<td> 
-			    	<center>
-						<div id="title"> </div>
-					</center>
-				</td>
-			</tr>
-			<tr> 
-      			<td> 
-					    <div id='main' > </div>
-				</td>
-			</tr>
-			<tr valign="bottom"> 
-      			<td> 
+         <tr valign="top"> 
+           <td> 
+             <center>
+               <div id="title"> </div>
+             </center>
+           </td>
+         </tr>
+         <tr> 
+            <td > 
+              <div id='main' > </div>
+            </td>
+         </tr>
+         <tr valign="bottom"> 
+           <td> 
 					<!-- OPTIONAL: include this if you want history support -->
 			    	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1' style="position:absolute;width:0;height:0;border:0"></iframe>
 			        <br /><br />
