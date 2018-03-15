@@ -22,7 +22,7 @@ app_password='lancewf'
 bind='0.0.0.0'
 
 "
-  export HAB_MARINE_MAMMAL_STRANDING_NETWORK="
+  export HAB_MMSN="
 [http.listen]
 port = $MMSN_PORT
 
@@ -51,14 +51,19 @@ function start() {
 
   start_sup
 
-  hab start $HAB_ORIGIN/marine-mammal-stranding-network --bind database:mysql.default --bind php-fpm:php-fpm.default
+  hab start $HAB_ORIGIN/mmsn --bind database:mysql.default --bind php-fpm:php-fpm.default
 
   wait_or_fail_for_port_to_listen $MMSN_PORT
 }
 
+function mysql_load_data() {
+  install_if_missing core/mysql mysql;
+  $(hab pkg path $HAB_ORIGIN/mmsn)/bin/mysql_load.sh $1
+}
+
 function mysql_shell() {
   install_if_missing core/mysql mysql;
-  $(hab pkg path $HAB_ORIGIN/lemp)/bin/mysql.sh
+  $(hab pkg path $HAB_ORIGIN/mmsn)/bin/mysql.sh
 }
 
 function start_php_fpm() {

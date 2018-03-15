@@ -1,7 +1,7 @@
 # This file is the heart of your application's habitat.
 # See full docs at https://www.habitat.sh/docs/reference/plan-syntax/
 
-pkg_name=marine-mammal-stranding-network
+pkg_name=mmsn
 pkg_origin=lancewf
 pkg_version="0.2.0"
 pkg_maintainer="Lance Finfrock <lfinfrock@chef.io>"
@@ -32,7 +32,7 @@ do_install() {
   cp -r src/* $pkg_prefix/static/.
   
   mkdir $pkg_prefix/database
-  cp src/persistence/conf/schema.sql $pkg_prefix/database/.
+  cp habitat/database/* $pkg_prefix/database/.
 
   return 0
 }
