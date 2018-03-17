@@ -1,21 +1,17 @@
 # This file is the heart of your application's habitat.
 # See full docs at https://www.habitat.sh/docs/reference/plan-syntax/
 
-pkg_name=lemp
+pkg_name=mmsn
 pkg_origin=lancewf
 pkg_version="0.2.0"
 pkg_maintainer="Lance Finfrock <lfinfrock@chef.io>"
 pkg_license=('Apache-2.0')
 pkg_source=""
-pkg_shasum="c11ce7580f21dfbca70dd6f817d3376385be6d34cf4d86f233eae3acb5fd87fd"
-
-source_dir=$HAB_CACHE_SRC_PATH/${pkg_name}
 
 pkg_svc_user=root
 pkg_svc_group=$pkg_svc_user
-pkg_svc_run="php-fpm --nodaemonize"
 
-pkg_deps=(core/php core/nginx core/mysql-client)
+pkg_deps=(core/nginx core/mysql-client)
 
 pkg_exports=(
    [port]=http.listen.port
@@ -24,30 +20,19 @@ pkg_exposes=(port)
 
 pkg_binds=(
   [database]="port username password"
+  [php-fpm]="port bind"
 )
-
-do_download(){
-    return 0
-}
-
-do_verify() {
-  return 0
-}
-
-do_unpack() {
-  return 0
-}
 
 do_build(){
   return 0
 }
 
 do_install() {
-  # Copy the source to deploy
-  #GLOBIGNORE='results:habitat:docker-compose.yml'
-  #mkdir $pkg_prefix/source_files
-  #cp -r * $pkg_prefix/source_files/.
+  mkdir $pkg_prefix/static
+  cp -r src/* $pkg_prefix/static/.
+  
   mkdir $pkg_prefix/database
-  cp persistence/conf/schema.sql $pkg_prefix/database/.
+  cp habitat/database/* $pkg_prefix/database/.
+
   return 0
 }

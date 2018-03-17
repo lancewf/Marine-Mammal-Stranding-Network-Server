@@ -5,3 +5,4 @@ application/config/email.php
 .vagrant/
 persistence/conf/build/
 results/
+.bash_history
