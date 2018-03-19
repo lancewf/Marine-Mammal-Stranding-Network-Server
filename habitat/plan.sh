@@ -19,7 +19,7 @@ pkg_exports=(
 pkg_exposes=(port)
 
 pkg_binds=(
-  [database]="port username password"
+  [database]="port username password bind"
   [php-fpm]="port bind"
 )
 

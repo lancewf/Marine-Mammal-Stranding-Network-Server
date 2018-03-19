@@ -25,3 +25,4 @@ keepalive_timeout = 60
 
 [http.listen]
   port = 8080
+  bind = "127.0.0.1"

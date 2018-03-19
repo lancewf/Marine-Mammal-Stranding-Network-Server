@@ -3,7 +3,7 @@
 exec 2>&1
 ############# Connect to Database #############################
 mysql_ready() {
-    mysqladmin ping -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} > /dev/null 2>&1
+    mysqladmin ping -h {{bind.database.first.cfg.bind}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} > /dev/null 2>&1
 }
 
 if !(mysql_ready) then
@@ -11,14 +11,14 @@ if !(mysql_ready) then
      exit 1
 fi
 
-mysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} -e "create database IF NOT EXISTS {{bind.database.first.cfg.username}}"
+mysql -h {{bind.database.first.cfg.bind}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} -e "create database IF NOT EXISTS {{bind.database.first.cfg.username}}"
 
-mysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} -D {{bind.database.first.cfg.username}} < {{pkg.path}}/database/schema.sql
+mysql -h {{bind.database.first.cfg.bind}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} -D {{bind.database.first.cfg.username}} < {{pkg.path}}/database/schema.sql
 
 # create mysql entry
 mkdir {{pkg.path}}/bin
-printf "#!/bin/bash\nmysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} \$@" >> {{pkg.path}}/bin/mysql.sh
-printf "#!/bin/bash\nmysql -h {{bind.database.first.sys.ip}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} -D {{bind.database.first.cfg.username}} < \$1" >> {{pkg.path}}/bin/mysql_load.sh
+printf "#!/bin/bash\nmysql -h {{bind.database.first.cfg.bind}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} \$@" >> {{pkg.path}}/bin/mysql.sh
+printf "#!/bin/bash\nmysql -h {{bind.database.first.cfg.bind}} -u {{bind.database.first.cfg.username}} -p{{bind.database.first.cfg.password}} -D {{bind.database.first.cfg.username}} < \$1" >> {{pkg.path}}/bin/mysql_load.sh
 
 chmod +x {{pkg.path}}/bin/mysql.sh
 chown hab:hab {{pkg.path}}/bin/mysql.sh

@@ -19,18 +19,19 @@ function load_dev_config() {
   export HAB_MYSQL="
 app_username='lancewf'
 app_password='lancewf'
-bind='0.0.0.0'
+bind='127.0.0.1'
 
 "
   export HAB_MMSN="
 [http.listen]
 port = $MMSN_PORT
+bind = '127.0.0.1'
 
 "
 
   export HAB_PHP_FPM="
 port = $PHP_FPM_PORT
-bind ='0.0.0.0'
+bind ='127.0.0.1'
 
 "
 }
@@ -91,7 +92,7 @@ function start_mysql() {
 
   start_sup
 
-  hab start core/mysql
+  hab start lancewf/mysql
 
   wait_or_fail_for_port_to_listen $MYSQL_PORT
 }
