@@ -25,7 +25,7 @@ bind='127.0.0.1'
   export HAB_MMSN="
 [http.listen]
 port = $MMSN_PORT
-bind = '127.0.0.1'
+bind = '0.0.0.0'
 
 "
 
