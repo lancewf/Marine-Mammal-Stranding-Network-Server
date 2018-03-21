@@ -20,7 +20,7 @@ pkg_exposes=(port)
 
 pkg_binds=(
   [database]="port username password bind"
-  [php-fpm]="port bind"
+  [php]="port"
 )
 
 do_build(){
