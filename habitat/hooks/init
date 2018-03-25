@@ -37,6 +37,7 @@ echo "Copying source files"
 cp -r {{pkg.path}}/static/* {{pkg.svc_data_path}}/.
 
 mkdir -p {{pkg.svc_data_path}}/uploads
+chown hab:hab {{pkg.svc_data_path}}/uploads
 
 cp {{pkg.svc_config_path}}/database.conf {{pkg.svc_data_path}}/persistence/conf/persistence-conf.php
 
