@@ -20,18 +20,21 @@ function load_dev_config() {
 app_username='lancewf'
 app_password='lancewf'
 bind='127.0.0.1'
+local_only=true
 
 "
   export HAB_MMSN="
 [http.listen]
 port = $MMSN_PORT
 bind = '0.0.0.0'
+local_only=true
 
 "
 
   export HAB_PHP="
 port = $PHP_PORT
-listen ='0.0.0.0'
+listen ='127.0.0.1'
+local_only=true
 
 "
 }

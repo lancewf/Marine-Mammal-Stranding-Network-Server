@@ -15,12 +15,12 @@ pkg_deps=(core/nginx core/mysql-client)
 
 pkg_exports=(
    [port]=http.listen.port
+   [local_only]=http.listen.local_only
 )
-pkg_exposes=(port)
 
 pkg_binds=(
-  [database]="port username password bind"
-  [php]="port"
+  [database]="port username password local_only"
+  [php]="port local_only"
 )
 
 do_build(){
