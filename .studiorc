@@ -61,12 +61,12 @@ function start() {
 }
 
 function mysql_load_data() {
-  install_if_missing core/mysql mysql;
+  install_if_missing lancewf/mysql mysql;
   $(hab pkg path $HAB_ORIGIN/mmsn)/bin/mysql_load.sh $1
 }
 
 function mysql_shell() {
-  install_if_missing core/mysql mysql;
+  install_if_missing lancewf/mysql mysql;
   $(hab pkg path $HAB_ORIGIN/mmsn)/bin/mysql.sh
 }
 

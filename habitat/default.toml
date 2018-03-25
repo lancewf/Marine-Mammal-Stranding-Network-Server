@@ -3,6 +3,8 @@
 worker_processes = "auto"
 worker_rlimit_nofile = 8192
 
+database_name = "mmsn"
+
 #### Events Context Configuration
 [events]
 # worker_connections: Connections per Worker Process.  Default = 1024
