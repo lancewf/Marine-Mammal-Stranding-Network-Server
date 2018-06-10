@@ -126,12 +126,37 @@ class Report_model extends CI_Model
             $this->email->subject('Notice of Update to MMSN Report');
             $this->email->message($message);
 
-            $filePath = $this->createAttachment($report);
-            $this->email->attach($filePath);
+            //$filePath = $this->createAttachment($report);
+            //$this->email->attach($filePath);
 
             $this->email->send();
 
-            unlink($filePath);
+            //unlink($filePath);
+        }
+    }
+
+    private function sendNewReportAlert($report, $reportData)
+    {
+        $writtenBy = $this->getWrittenBy($report);
+
+        $investigationDate =
+            $reportData['investigation_date_month'] . '-' .
+            $reportData['investigation_date_dayofmonth'] . '-' .
+            $reportData['investigation_date_year'];
+
+        $message = 'There has been a new report submitted by ' . $writtenBy
+            .', with an investigation date of ' . $investigationDate . ' to the MMSN website';
+
+        if ( $this->setUpEmail()){
+            $this->email->subject('New MMSN Report created');
+            $this->email->message($message);
+
+            //$filePath = $this->createAttachment($report);
+            //$this->email->attach($filePath);
+
+            $this->email->send();
+
+            //unlink($filePath);
         }
     }
 
@@ -186,31 +211,6 @@ class Report_model extends CI_Model
         write_file("pdf/" . $name . ".pdf", $data);
 
         return "pdf/" . $name . ".pdf";
-    }
-
-    private function sendNewReportAlert($report, $reportData)
-    {
-        $writtenBy = $this->getWrittenBy($report);
-
-        $investigationDate =
-            $reportData['investigation_date_month'] . '-' .
-            $reportData['investigation_date_dayofmonth'] . '-' .
-            $reportData['investigation_date_year'];
-
-        $message = 'There has been a new report submitted by ' . $writtenBy
-            .', with an investigation date of ' . $investigationDate . ' to the MMSN website';
-
-        if ( $this->setUpEmail()){
-            $this->email->subject('New MMSN Report created');
-            $this->email->message($message);
-
-            $filePath = $this->createAttachment($report);
-            $this->email->attach($filePath);
-
-            $this->email->send();
-
-            unlink($filePath);
-        }
     }
     
     private function getWrittenBy($report)

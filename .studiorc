@@ -8,37 +8,6 @@ export MYSQL_PORT=3306
 export MMSN_PORT=8080
 export PHP_PORT=9000
 
-function htop() {
-  install_if_missing core/which which;
-  install_if_missing core/htop htop
-  TOOL_BIN=$(which htop 2>/dev/null);
-  eval $TOOL_BIN $@
-}
-
-function load_dev_config() {
-  export HAB_MYSQL="
-app_username='lancewf'
-app_password='lancewf'
-bind='127.0.0.1'
-local_only=true
-
-"
-  export HAB_MMSN="
-[http.listen]
-port = $MMSN_PORT
-bind = '0.0.0.0'
-local_only=true
-
-"
-
-  export HAB_PHP="
-port = $PHP_PORT
-listen ='127.0.0.1'
-local_only=true
-
-"
-}
-
 function start() {
   install_if_missing core/busybox-static netstat;
   netstat -an | grep $MMSN_PORT | grep LISTEN >/dev/null 2>/dev/null
@@ -55,26 +24,22 @@ function start() {
 
   start_sup
 
+  mkdir -p /hab/user/mmsn/config/
+  printf "[http.listen]\n" > /hab/user/mmsn/config/user.toml
+  printf "port = $MMSN_PORT\n" >> /hab/user/mmsn/config/user.toml
+  printf "bind = '0.0.0.0'\n" >> /hab/user/mmsn/config/user.toml
+  printf "local_only=true\n" >> /hab/user/mmsn/config/user.toml
+
+  printf "[email]\n" >> /hab/user/mmsn/config/user.toml
+  printf "should_send = true\n" >> /hab/user/mmsn/config/user.toml
+  printf "from_address='sjcmmsn@gmail.com'\n" >> /hab/user/mmsn/config/user.toml
+  printf "from_password='29L8PG67qdcVAdA8'\n" >> /hab/user/mmsn/config/user.toml
+  printf "to_address='lancewf@gmail.com'\n" >> /hab/user/mmsn/config/user.toml
+  printf "bcc_address='lancewf@gmail.com'\n" >> /hab/user/mmsn/config/user.toml
+
   hab start $HAB_ORIGIN/mmsn --bind database:mysql.default --bind php:php.default
 
   wait_or_fail_for_port_to_listen $MMSN_PORT
-
-  mysql_load_data_init
-}
-
-function mysql_load_data() {
-  install_if_missing lancewf/mysql mysql;
-  $(hab pkg path $HAB_ORIGIN/mmsn)/bin/mysql_load.sh $1
-}
-
-function mysql_load_data_init() {
-  install_if_missing lancewf/mysql mysql;
-  $(hab pkg path $HAB_ORIGIN/mmsn)/bin/mysql_load.sh $(hab pkg path $HAB_ORIGIN/mmsn)/database/schema.sql
-}
-
-function mysql_shell() {
-  install_if_missing lancewf/mysql mysql;
-  $(hab pkg path $HAB_ORIGIN/mmsn)/bin/mysql.sh
 }
 
 function start_php() {
@@ -89,6 +54,11 @@ function start_php() {
 
   hab start lancewf/php
 
+  mkdir -p /hab/user/php/config/
+  printf "port = $PHP_PORT\n" > /hab/user/php/config/user.toml
+  printf "listen ='127.0.0.1'\n" >> /hab/user/php/config/user.toml
+  printf "local_only=true\n" >> /hab/user/php/config/user.toml
+
   wait_or_fail_for_port_to_listen $PHP_PORT
 }
 
@@ -102,13 +72,18 @@ function start_mysql() {
 
   start_sup
 
+  mkdir -p /hab/user/mysql/config/
+  printf "app_username='lancewf'\n" > /hab/user/mysql/config/user.toml
+  printf "app_password='lancewf'\n" >> /hab/user/mysql/config/user.toml
+  printf "bind='127.0.0.1'\n" >> /hab/user/mysql/config/user.toml
+  printf "local_only=true\n" >> /hab/user/mysql/config/user.toml
+
   hab start lancewf/mysql
 
   wait_or_fail_for_port_to_listen $MYSQL_PORT
 }
 
 function start_sup() {
-  load_dev_config
   hab sup status 2>/dev/null 1>&2
   [[ $? == 0 ]] && return
   mkdir -p /hab/sup/default

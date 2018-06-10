@@ -29,6 +29,8 @@ chown hab:hab {{pkg.svc_data_path}}/uploads
 
 cp {{pkg.svc_config_path}}/database.conf {{pkg.svc_data_path}}/persistence/conf/persistence-conf.php
 
+cp {{pkg.svc_config_path}}/email.php {{pkg.svc_data_path}}/application/config/email.php
+
 chmod +x {{pkg.svc_data_path}}
 chown -RL hab:hab {{pkg.svc_data_path}}
 

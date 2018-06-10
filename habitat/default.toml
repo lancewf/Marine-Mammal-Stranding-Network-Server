@@ -29,3 +29,10 @@ keepalive_timeout = 60
   port = 8080
   bind = "127.0.0.1"
   local_only = true
+
+[email]
+  should_send = false
+  from_address = ''
+  from_password = ''
+  to_address = ''
+  bcc_address = ''
