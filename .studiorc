@@ -1,45 +1,48 @@
-hab pkg install chef/ci-studio-common >/dev/null
-source "$(hab pkg path chef/ci-studio-common)/bin/studio-common"
+#!/bin/bash
 
-# This removes the visual mode when select text with the mouse in vim. 
-echo "set mouse-=a" >> ~/.vimrc
+hab pkg install chef/studio-common >/dev/null
+source "$(hab pkg path chef/studio-common)/bin/studio-common"
+
+install_if_missing core/curl curl
+
+eval "$(curl -s -L https://gist.githubusercontent.com/lancewf/3117853c8c5a04c7b01bac737887a30c/raw/375644621d44f2d638a4e3ab9cc2cbfb1b3d41d5/hab_helpers.sh)"
+source <(curl -s https://gist.githubusercontent.com/lancewf/3117853c8c5a04c7b01bac737887a30c/raw/375644621d44f2d638a4e3ab9cc2cbfb1b3d41d5/hab_helpers.sh)
+
+eval "$(curl -s -L https://gist.githubusercontent.com/lancewf/584ca17c7b50cfc859e7cf544c1a67e8/raw/5efe2206e31849b1d64295b9176e5db4dd6b0df0/hab_service_helper.sh)"
+source <(curl -s https://gist.githubusercontent.com/lancewf/584ca17c7b50cfc859e7cf544c1a67e8/raw/5efe2206e31849b1d64295b9176e5db4dd6b0df0/hab_service_helper.sh)
 
 export MYSQL_PORT=3306
-export MMSN_PORT=8080
 export PHP_PORT=9000
 
-function start() {
-  install_if_missing core/busybox-static netstat;
-  netstat -an | grep $MMSN_PORT | grep LISTEN >/dev/null 2>/dev/null
-  if [ $? == 0 ]; then
-    echo "mmsn is already running";
-    return;
-  fi
+export PORT=8080
+export SERVICE_NAME="mmsn"
 
+echo "Run 'start' to start the service"
+
+function start_binds() {
   start_mysql
 
   start_php
+}
 
-  build
+function get_binds() {
+  echo "--bind database:mysql.default --bind php:php.default"
+}
 
-  start_sup
+function create_config() {
+  create_config_folders
 
-  mkdir -p /hab/user/mmsn/config/
-  printf "[http.listen]\n" > /hab/user/mmsn/config/user.toml
-  printf "port = $MMSN_PORT\n" >> /hab/user/mmsn/config/user.toml
-  printf "bind = '0.0.0.0'\n" >> /hab/user/mmsn/config/user.toml
-  printf "local_only=true\n" >> /hab/user/mmsn/config/user.toml
+  write_config_file "[http.listen]\n"
+  append_config_file " port = $PORT\n"
+  append_config_file " bind = '0.0.0.0'\n"
+  append_config_file " local_only = false\n\n"
 
-  printf "[email]\n" >> /hab/user/mmsn/config/user.toml
-  printf "should_send = true\n" >> /hab/user/mmsn/config/user.toml
-  printf "from_address='sjcmmsn@gmail.com'\n" >> /hab/user/mmsn/config/user.toml
-  printf "from_password='29L8PG67qdcVAdA8'\n" >> /hab/user/mmsn/config/user.toml
-  printf "to_address='lancewf@gmail.com'\n" >> /hab/user/mmsn/config/user.toml
-  printf "bcc_address='lancewf@gmail.com'\n" >> /hab/user/mmsn/config/user.toml
-
-  hab start $HAB_ORIGIN/mmsn --bind database:mysql.default --bind php:php.default
-
-  wait_or_fail_for_port_to_listen $MMSN_PORT
+  append_config_file "[email]\n"
+  append_config_file " should_send = true\n"
+  append_config_file " from_address = 'sjcmmsn@gmail.com'\n"
+  append_config_file " from_password = '29L8PG67qdcVAdA8'\n"
+  append_config_file " to_address = 'lancewf@gmail.com'\n"
+  append_config_file " bcc_address = 'lancewf@gmail.com'\n"
 }
 
 function start_php() {
@@ -50,9 +53,7 @@ function start_php() {
     return;
   fi
 
-  start_sup
-
-  hab start lancewf/php
+  hab svc load lancewf/php
 
   mkdir -p /hab/user/php/config/
   printf "port = $PHP_PORT\n" > /hab/user/php/config/user.toml
@@ -70,50 +71,25 @@ function start_mysql() {
     return;
   fi
 
-  start_sup
-
   mkdir -p /hab/user/mysql/config/
-  printf "app_username='lancewf'\n" > /hab/user/mysql/config/user.toml
-  printf "app_password='lancewf'\n" >> /hab/user/mysql/config/user.toml
+  printf "app_username='bob'\n" > /hab/user/mysql/config/user.toml
+  printf "app_password='password123'\n" >> /hab/user/mysql/config/user.toml
   printf "bind='127.0.0.1'\n" >> /hab/user/mysql/config/user.toml
   printf "local_only=true\n" >> /hab/user/mysql/config/user.toml
 
-  hab start lancewf/mysql
+  hab svc load lancewf/mysql
 
   wait_or_fail_for_port_to_listen $MYSQL_PORT
 }
 
-function start_sup() {
-  hab sup status 2>/dev/null 1>&2
-  [[ $? == 0 ]] && return
-  mkdir -p /hab/sup/default
-  echo "=> Launching the Habitat Supervisor in the background..."
-  hab sup run $* > /hab/sup/default/sup.log &
-  while : ; do
-    hab sup status >/dev/null
-    [[ $? -eq 0 ]] && break || sleep 1
-  done
+function load_mysql() 
+{
+  install_if_missing core/mysql mysql
+  mysql -h 127.0.0.1 -u bob -ppassword123 -D mmsn < $1
 }
 
-function status() {
- hab sup status;
+function dump()
+{
+  install_if_missing core/mysql mysqldump
+  mysqldump -h 127.0.0.1 -u bob -ppassword123 mmsn > $1
 }
-
-# Saves the in memory bash history to a file
-function save_history() {
-  history -a /src/.bash_history
-}
-
-# if .studiorc is being sourced from an already running studio, don't reset bash
-# history -- this is achieved by saving the current history before it is re-read
-save_history
-
-# Load the bash history from a file
-history -r /src/.bash_history
-
-function cleanup() {
-    save_history
-}
-
-# When exiting the studio save the bash history to a file
-trap cleanup EXIT
